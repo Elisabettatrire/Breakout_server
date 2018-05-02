@@ -1,4 +1,4 @@
-drop table "APP"."AULE"
+drop table "APP"."AULE";
 drop table "APP"."TOKEN";
 drop table "APP"."UTENTE";
 drop table "APP"."TRONCO";
