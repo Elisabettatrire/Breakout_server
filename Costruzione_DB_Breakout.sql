@@ -64,3 +64,11 @@ create table "APP"."TOKEN"
 	token varchar(256) unique not null,
 	ID_utente int references "APP"."UTENTE"(ID_utente) on delete cascade
 );
+
+create table "APP"."AULE"
+(
+	ID_nodo int references "APP"."NODI"(ID_nodo) on delete cascade,
+	ID_aula int primary key not null generated always as identity (start with 1, increment by 1),
+        nome varchar(20) not null,
+        ID_piano int references "APP"."PIANO"(ID_piano) on delete cascade
+);
