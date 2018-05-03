@@ -55,7 +55,8 @@ create table "APP"."UTENTE"
 	nome varchar(25) not null,
 	cognome varchar(35) not null,
 	is_autenticato boolean not null,
-	ID_beacon int references "APP"."BEACON"(ID_beacon) on delete set null
+	ID_beacon int references "APP"."BEACON"(ID_beacon) on delete set null,
+        tipologia boolean not null default false
 );
 
 create table "APP"."TOKEN"
