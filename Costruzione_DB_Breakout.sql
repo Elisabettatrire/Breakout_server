@@ -40,6 +40,7 @@ create table "APP"."TRONCO"
 (
 	ID_tronco int primary key not null generated always as identity (start with 1, increment by 1),
 	larghezza float not null,
+        lunghezza float not null,
 	ID_mappa int references "APP"."MAPPA"(ID_mappa) on delete cascade,
         ID_nodo1 int references "APP"."NODI"(ID_nodo) on delete cascade,
         ID_nodo2 int references "APP"."NODI"(ID_nodo) on delete cascade,
