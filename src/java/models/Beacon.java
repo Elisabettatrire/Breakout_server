@@ -11,4 +11,16 @@ package models;
  */
 public class Beacon {
     
+    private long ID_beacon;
+    private float coord_X;
+    private float coord_Y;
+    private float ind_fuoco;
+    private float ind_fumi;
+    private float ind_LOS;
+    private float ind_rischio;
+    private boolean is_pdi;
+
+    public Beacon() {
+    }
+    
 }

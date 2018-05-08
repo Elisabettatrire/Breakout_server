@@ -12,7 +12,8 @@ create table "APP"."BEACON"
         fuoco float not null,
         fumi float not null,
         LOS float not null,
-        rischio float not null
+        rischio float not null,
+        is_pdi boolean not null default false
 );
 
 create table "APP"."MAPPA"
@@ -30,10 +31,12 @@ create table "APP"."NODI"
 	ID_mappa int references "APP"."MAPPA"(ID_mappa) on delete cascade
 );
 
-create table "APP"."PDR"
+create table "APP"."PDI"
 (
 	ID_nodo int references "APP"."NODI"(ID_nodo) on delete cascade,
-	ID_punto_di_raccolta int primary key not null generated always as identity (start with 1, increment by 1)
+        tipo varchar(20) not null,
+        nome varchar(20) not null,
+	ID_pdi int primary key not null generated always as identity (start with 1, increment by 1)
 );
 
 create table "APP"."TRONCO"
@@ -65,12 +68,4 @@ create table "APP"."TOKEN"
 	ID_token int primary key not null generated always as identity (start with 1, increment by 1),
 	token varchar(256) unique not null,
 	ID_utente int references "APP"."UTENTE"(ID_utente) on delete cascade
-);
-
-create table "APP"."AULE"
-(
-	ID_nodo int references "APP"."NODI"(ID_nodo) on delete cascade,
-	ID_aula int primary key not null generated always as identity (start with 1, increment by 1),
-        nome varchar(20) not null,
-        ID_piano int references "APP"."PIANO"(ID_piano) on delete cascade
 );

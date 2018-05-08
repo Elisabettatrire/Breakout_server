@@ -1,8 +1,7 @@
-drop table "APP"."AULE";
 drop table "APP"."TOKEN";
 drop table "APP"."UTENTE";
 drop table "APP"."TRONCO";
-drop table "APP"."PDR";
+drop table "APP"."PDI";
 drop table "APP"."NODI";
 drop table "APP"."MAPPA";
 drop table "APP"."BEACON";
