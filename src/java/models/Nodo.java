@@ -14,6 +14,8 @@ import java.util.Set;
 public class Nodo {
 
     private long ID_nodo;
+    private String codice;
+    private float larghezza;
     private float coord_X;
     private float coord_Y;
     private Set<Tronco> tronchi_stella;
@@ -21,6 +23,22 @@ public class Nodo {
     public Nodo() {
     }
 
+    public float getLarghezza() {
+        return larghezza;
+    }
+
+    public void setLarghezza(float larghezza) {
+        this.larghezza = larghezza;
+    }
+
+    public String getCodice() {
+        return codice;
+    }
+
+    public void setCodice(String codice) {
+        this.codice = codice;
+    }
+    
     public Set<Tronco> getTronchi_stella() {
         return tronchi_stella;
     }

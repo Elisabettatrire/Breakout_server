@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class Piano {
     private long ID_piano;
-    private String nome;
+    private String quota;
     private Set<Mappa> mappe;
 
     public Piano() {
@@ -35,11 +35,11 @@ public class Piano {
         this.ID_piano = ID_piano;
     }
 
-    public String getNome() {
-        return nome;
+    public String getQuota() {
+        return quota;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setQuota(String quota) {
+        this.quota = quota;
     }
 }

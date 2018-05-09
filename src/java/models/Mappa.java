@@ -5,8 +5,6 @@
  */
 package models;
 
-import java.util.Set;
-
 /**
  *
  * @author costantino
@@ -15,6 +13,8 @@ public class Mappa {
     private long ID_mappa;
     private long ID_piano;
     private Grafo grafo;
+    private String nome;
+    private String urlImmagine;
 
     public Mappa() {
     }
