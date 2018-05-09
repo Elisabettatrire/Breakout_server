@@ -4,11 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Mappa.java</file>
+            <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Pdi.java</file>
+            <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Scala.java</file>
+            <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Nodo.java</file>
             <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Piano.java</file>
             <file>file:/home/costantino/NetBeansProjects/Breakout_server/Costruzione_DB_Breakout.sql</file>
+            <file>file:/home/costantino/NetBeansProjects/Breakout_server/Distruzione_DB_Breakout.sql</file>
             <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Tronco.java</file>
             <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Beacon.java</file>
+            <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Utente_Server.java</file>
             <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Grafo.java</file>
+            <file>file:/home/costantino/NetBeansProjects/Breakout_server/src/java/models/Utente_App.java</file>
         </group>
     </open-files>
 </project-private>
