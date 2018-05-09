@@ -18,8 +18,17 @@ public class Beacon {
     private float ind_fumi;
     private float ind_LOS;
     private float ind_rischio;
+    private long ID_pdi;
 
     public Beacon() {
+    }
+
+    public long getID_pdi() {
+        return ID_pdi;
+    }
+
+    public void setID_pdi(long ID_pdi) {
+        this.ID_pdi = ID_pdi;
     }
 
     public long getID_beacon() {
