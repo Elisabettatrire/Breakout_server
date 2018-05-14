@@ -9,57 +9,111 @@ and open the template in the editor.
         <title>Gestione Mappe</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap-grid.css" type="text/css">
-        <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap-grid.min.css" type="text/css">
-        <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap-reboot.css" type="text/css">
-        <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap-reboot.min.css" type="text/css">
-        <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
-        <script src="bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
-        <script src="bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
-        <script src="bootstrap-4.1.1-dist/js/bootstrap.js"></script>
-        <script src="bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.css" type="text/css">
+        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.min.css" type="text/css">
+        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.css" type="text/css">
+        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.min.css" type="text/css">
+        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
+        <link href="static/fontawesome/fontawesome-all.css" rel="stylesheet">
+        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
+        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
+        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
+        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
+        <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
+        
+        
     </head>
     <body>
-        <!-- Header -->
-        
-        <div class="col-lg-12" style="background-color: #28a745">
-            <div class="container">
-                <h1 style="color: #FFFFFF; font-size: 3em">
-                    Gestore Mappe Server
-                </h1>
-            </div>
-        </div>
-        
         <!-- Page Content -->
+        <!-- set up the modal to start hidden and fade in and out -->
+        
         <div class="container">
-            <div class="row"  style="margin-top: 30px">
-                <div class="col-lg-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h2 style="margin-bottom: 40px;">
-                                Home
-                            </h2>
-                            <button type="button" class="btn btn-outline-success" style="font-weight: bold">
-                                Gestisci mappe</button>
-                            <button type="button" class="btn btn-outline-success" style="font-weight: bold">
-                                Aggiungi mappa</button>
-                            <button type="button" class="btn btn-outline-success" style="font-weight: bold">
-                                Elimina mappa</button>
-                        </div>
+            <div class="row"  style="margin-top: 40px; margin-bottom: 40px">
+                <!-- Table Piani -->
+                <div class="col-md-6">
+                    <h3>Elenco Piani</h3>
+                    <form>
+                        <table class="table table-bordered table-striped" style="text-align: center">
+                            <thead>
+                                <tr><th>Quota</th><th>Modifica</th><th>Elimina</th>
+                            </thead>
+                            <tr><td>Q145</td><td><button class="btn btn-outline-dark btn-sm">
+                                        <span class="fas fa-cog"></span></button></td>
+                                <td><button class="btn btn-outline-danger btn-sm">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                            <tr><td>Q150</td><td><button class="btn btn-outline-dark btn-sm">
+                                        <span class="fas fa-cog"></span></button></td>
+                                <td><button class="btn btn-outline-danger btn-sm">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                            <tr><td>Q155</td><td><button class="btn btn-outline-dark btn-sm">
+                                        <span class="fas fa-cog"></span></button></td>
+                                <td><button class="btn btn-outline-danger btn-sm">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                            <tr><td>Q160</td><td><button class="btn btn-outline-dark btn-sm">
+                                        <span class="fas fa-cog"></span></button></td>
+                                <td><button id="ciao" class="btn btn-outline-danger btn-sm">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                        </table>
+                    </form><div style="text-align: right">
+                        <button class="btn btn-outline-success"><b>Aggiungi Piano</b></button>
                     </div>
                 </div>
-            </div>
-            <div class="row" style="margin-top: 40px; margin-bottom: 200px">
+                <!-- End Table Piani -->
+                
+                <!-- Table Scale -->
                 <div class="col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <button type="button" class="btn btn-outline-dark" style="font-weight: bold">
-                                Logout</button>
-                        </div>
+                    <h3>Elenco Scale</h3>
+                    <form>
+                        <table class="table table-bordered table-striped" style="text-align: center">
+                            <thead>
+                                <tr><th>Lunghezza</th><th>Codice Nodo 1</th><th>Codice Nodo 2</th><th>Codice</th>
+                            </thead>
+                            <tr><td>1</td><td></td><td></td><td></td></tr>
+                            <tr><td>2</td><td></td><td></td><td></td></tr>
+                            <tr><td>3</td><td></td><td></td><td></td></tr>
+                            <tr><td>4</td><td></td><td></td><td></td></tr>
+                        </table>
+                    </form>
+                    <div style="text-align: right">
+                        <button class="btn btn-outline-success"><b>Aggiungi Scala</b></button>
                     </div>
+                </div>
+                <!-- End Table Scale -->
+                
+            </div>
+            <!-- End Row -->
+            <div class="row"  style="margin-top: 60px; margin-bottom: 40px">
+                <div class="col-lg-12" style="text-align: right">
+                    <button class="btn btn-outline-dark"><b>Logout</b></button>
                 </div>
             </div>
         </div>
+        
+        <script>
+            $('button.btn-outline-danger').click(function(e) {
+                e.preventDefault();
+                bootbox.confirm({
+                    title: "Conferma eliminazione mappa",
+                    message: "Sicuro di voler rimuovere la mappa selezionata?\n\
+                            Questa azione non può essere annullata.",
+                    buttons: {
+                        confirm: {
+                            label: 'Si',
+                            className: 'btn-danger'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-secondary'
+                        }
+                    },
+                    callback: function (result) {
+                        console.log('This was logged in the callback: ' + result);
+                        }
+                });
+            });
+        </script>
+        
     </body>
 </html>
