@@ -5,38 +5,26 @@
  */
 package models;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  *
  * @author costantino
  */
-public class Pdi {
-    private long ID_pdi;
-    private Set<Beacon> beacon;
+public class Pdi extends Nodo {
+    private ArrayList<Beacon> beacon;
     private String tipo;
     private String descrizione;
-    private float larghezza;
     private float lunghezza;
-    private float coord_X;
-    private float coord_Y;
 
     public Pdi() {
     }
 
-    public long getID_pdi() {
-        return ID_pdi;
-    }
-
-    public void setID_pdi(long ID_pdi) {
-        this.ID_pdi = ID_pdi;
-    }
-
-    public Set<Beacon> getBeacon() {
+    public ArrayList<Beacon> getBeacon() {
         return beacon;
     }
 
-    public void setBeacon(Set<Beacon> beacon) {
+    public void setBeacon(ArrayList<Beacon> beacon) {
         this.beacon = beacon;
     }
 
@@ -56,14 +44,6 @@ public class Pdi {
         this.descrizione = descrizione;
     }
 
-    public float getLarghezza() {
-        return larghezza;
-    }
-
-    public void setLarghezza(float larghezza) {
-        this.larghezza = larghezza;
-    }
-
     public float getLunghezza() {
         return lunghezza;
     }
@@ -72,19 +52,4 @@ public class Pdi {
         this.lunghezza = lunghezza;
     }
 
-    public float getCoord_X() {
-        return coord_X;
-    }
-
-    public void setCoord_X(float coord_X) {
-        this.coord_X = coord_X;
-    }
-
-    public float getCoord_Y() {
-        return coord_Y;
-    }
-
-    public void setCoord_Y(float coord_Y) {
-        this.coord_Y = coord_Y;
-    }
 }

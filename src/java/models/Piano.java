@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,16 +14,16 @@ import java.util.Set;
 public class Piano {
     private long ID_piano;
     private String quota;
-    private Set<Mappa> mappe;
+    private ArrayList<Mappa> mappe;
 
     public Piano() {
     }
 
-    public Set<Mappa> getMappe() {
+    public ArrayList<Mappa> getMappe() {
         return mappe;
     }
 
-    public void setMappe(Set<Mappa> mappe) {
+    public void setMappe(ArrayList<Mappa> mappe) {
         this.mappe = mappe;
     }
     

@@ -5,7 +5,7 @@
  */
 package models;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,14 +13,31 @@ import java.util.Set;
  */
 public class Nodo {
 
-    private long ID_nodo;
+    private long ID;
     private String codice;
     private float larghezza;
     private float coord_X;
     private float coord_Y;
-    private Set<Tronco> tronchi_stella;
+    private ArrayList<Scala> tronchi_stella; // tra i tronchi vanno messe ache le scale
+    private long ID_piano;
     
     public Nodo() {
+    }
+
+    public ArrayList<Scala> getTronchi_stella() {
+        return tronchi_stella;
+    }
+
+    public void setTronchi_stella(ArrayList<Scala> tronchi_stella) {
+        this.tronchi_stella = tronchi_stella;
+    }
+
+    public long getID_piano() {
+        return ID_piano;
+    }
+
+    public void setID_piano(long ID_piano) {
+        this.ID_piano = ID_piano;
     }
 
     public float getLarghezza() {
@@ -38,21 +55,13 @@ public class Nodo {
     public void setCodice(String codice) {
         this.codice = codice;
     }
-    
-    public Set<Tronco> getTronchi_stella() {
-        return tronchi_stella;
+
+    public long getID() {
+        return ID;
     }
 
-    public void setTronchi_stella(Set<Tronco> tronchi_stella) {
-        this.tronchi_stella = tronchi_stella;
-    }
-
-    public long getID_nodo() {
-        return ID_nodo;
-    }
-
-    public void setID_nodo(long ID_nodo) {
-        this.ID_nodo = ID_nodo;
+    public void setID(long ID) {
+        this.ID = ID;
     }
 
     public float getCoord_X() {

@@ -5,29 +5,50 @@
  */
 package models;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  *
  * @author costantino
  */
 public class Scala {
-    private long ID_scala;
+    private long ID;
     private double larghezza_media;
     private double lunghezza;
-    private Set<Nodo> nodi;
+    private ArrayList<Nodo> nodi;
     private Beacon beacon;
     private float costo_totale_normalizzato;
 
     public Scala() {
     }
-
-    public long getID_scala() {
-        return ID_scala;
+    
+    public Nodo otherNode (Nodo node){
+        Nodo other = null;
+        ArrayList<Nodo> i = this.getNodi();
+        
+        for(Nodo f:i){
+            if (f.equals(node)){ 
+            } else {
+                other = (Nodo) f;
+            }  
+        }
+    return other;
     }
 
-    public void setID_scala(long ID_scala) {
-        this.ID_scala = ID_scala;
+    public ArrayList<Nodo> getNodi() {
+        return nodi;
+    }
+
+    public void setNodi(ArrayList<Nodo> nodi) {
+        this.nodi = nodi;
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
     }
 
     public double getLarghezza_media() {
@@ -44,14 +65,6 @@ public class Scala {
 
     public void setLunghezza(double lunghezza) {
         this.lunghezza = lunghezza;
-    }
-
-    public Set<Nodo> getNodi() {
-        return nodi;
-    }
-
-    public void setNodi(Set<Nodo> nodi) {
-        this.nodi = nodi;
     }
 
     public Beacon getBeacon() {

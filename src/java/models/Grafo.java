@@ -5,32 +5,32 @@
  */
 package models;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 /**
  *
  * @author costantino
  */
 class Grafo {
-    private Set<Nodo> nodi;
-    private Set<Tronco> tronchi;
+    private ArrayList<Nodo> nodi;
+    private ArrayList<Scala> tronchi;
     
     public Grafo (){
     }
 
-    public Set<Nodo> getNodi() {
+    public ArrayList<Nodo> getNodi() {
         return nodi;
     }
 
-    public void setNodi(Set<Nodo> nodi) {
+    public void setNodi(ArrayList<Nodo> nodi) {
         this.nodi = nodi;
     }
 
-    public Set<Tronco> getTronchi() {
+    public ArrayList<Scala> getTronchi() {
         return tronchi;
     }
 
-    public void setTronchi(Set<Tronco> tronchi) {
+    public void setTronchi(ArrayList<Scala> tronchi) {
         this.tronchi = tronchi;
-    } 
+    }
 }
