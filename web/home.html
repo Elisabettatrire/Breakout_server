@@ -57,7 +57,7 @@ and open the template in the editor.
                                         <span class="fas fa-trash-alt"></span></button></td></tr>
                         </table>
                     </form><div style="text-align: right">
-                        <button class="btn btn-outline-success"><b>Aggiungi Piano</b></button>
+                        <button id="aggiungiPiano" class="btn btn-outline-success"><b>Aggiungi Piano</b></button>
                     </div>
                 </div>
                 <!-- End Table Piani -->
@@ -77,7 +77,7 @@ and open the template in the editor.
                         </table>
                     </form>
                     <div style="text-align: right">
-                        <button class="btn btn-outline-success"><b>Aggiungi Scala</b></button>
+                        <button id="aggiungiScala" class="btn btn-outline-success"><b>Aggiungi Scala</b></button>
                     </div>
                 </div>
                 <!-- End Table Scale -->
@@ -92,6 +92,7 @@ and open the template in the editor.
         </div>
         
         <script>
+            // Popup per la conferma dell'eliminazione di una mappa
             $('button.btn-outline-danger').click(function(e) {
                 e.preventDefault();
                 bootbox.confirm({
@@ -111,6 +112,61 @@ and open the template in the editor.
                     callback: function (result) {
                         console.log('This was logged in the callback: ' + result);
                         }
+                });
+            });
+            
+            // Prompt per l'inserimento di un nuovo piano
+            $('#aggiungiPiano').click(function(e) {
+                e.preventDefault();
+                bootbox.confirm({
+                    title: "Aggiungi piano",
+                    message: "<form action='#'>\
+                            <table class='table table-borderless'><tr><td>Quota:</td>\n\
+                            <td><input type='text' name='quota' size='45' placeholder='&nbsp;es. 155'>\n\
+                            </td><br></table></form>",
+                    buttons: {
+                        confirm: {
+                            label: 'Conferma',
+                            className: 'btn-outline-success'
+                        },
+                        cancel: {
+                            label: 'Annulla',
+                            className: 'btn-secondary'
+                        }
+                    },
+                    callback: function (result) {
+                        console.log(result);
+                    }
+                });
+            });
+            
+            // Prompt per l'inserimento di una nuova scala
+            $('#aggiungiScala').click(function(e) {
+                e.preventDefault();
+                bootbox.confirm({
+                    title: "Aggiungi scala",
+                    message: "<form action='#'>\
+                            <table class='table table-borderless'><tr><td>Lunghezza (m):</td>\n\
+                            <td><input type='text' name='lunghezza' size='38'\n\
+                            placeholder='&nbsp;es. 25'></td><br>\n\
+                            <tr><td>Cod. Nodo 1:</td><td><input type='text' \n\
+                            placeholder='&nbsp;es. ABCD1234' name='nodo_1' size='38'></td>\n\
+                            <tr><td>Cod. Nodo 2:</td><td><input type='text'\n\
+                            placeholder='&nbsp;es. ABCD1234' name='nodo_1' size='38'></td>\n\
+                            </table></form>",
+                    buttons: {
+                        confirm: {
+                            label: 'Conferma',
+                            className: 'btn-outline-success'
+                        },
+                        cancel: {
+                            label: 'Annulla',
+                            className: 'btn-secondary'
+                        }
+                    },
+                    callback: function (result) {
+                        console.log(result);
+                    }
                 });
             });
         </script>
