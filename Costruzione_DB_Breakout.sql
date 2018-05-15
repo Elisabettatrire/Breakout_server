@@ -42,7 +42,7 @@ create table "APP"."NODI"
 	coordinata_x float not null,
 	coordinata_y float not null,
         larghezza float not null,
-	ID_mappa int references "APP"."MAPPA"(ID_mappa) on delete cascade
+	ID_piano int references "APP"."PIANO"(ID_piano) on delete cascade
 );
 
 create table "APP"."TRONCO"
