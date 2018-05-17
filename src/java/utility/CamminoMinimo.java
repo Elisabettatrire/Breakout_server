@@ -25,7 +25,7 @@ public class CamminoMinimo {
      * @param partenza : punto di interesse di partenza
      * @return : ArrayList contenente tutti i tronchi che descrivono il cammino minimo
      */
-    public ArrayList<Scala> Dijkstra_PDI (Nodo dest, Pdi partenza){
+    public static ArrayList<Scala> Dijkstra_PDI (Nodo dest, Pdi partenza){
         
         HashMap<Nodo,Costo_e_Cammino> dijkstraTemp = new HashMap<>(); // insieme temporaneo dei cammini minimi
         HashMap<Nodo,Costo_e_Cammino> dijkstraDef = new HashMap<>(); // insieme definitivo dei cammini minimi
@@ -63,7 +63,7 @@ public class CamminoMinimo {
      * @param partenza : tronco di partenza (è di tipo Scala perchè Tronco estende Scala)
      * @return : ArrayList contenente tutti i tronchi che descrivono il cammino minimo
      */
-    public ArrayList<Scala> Dijkstra_Tronco (Nodo dest, Scala partenza){
+    public static ArrayList<Scala> Dijkstra_Tronco (Nodo dest, Scala partenza){
         
         HashMap<Nodo,Costo_e_Cammino> dijkstraTemp = new HashMap<>(); // insieme temporaneo dei cammini minimi
         HashMap<Nodo,Costo_e_Cammino> dijkstraDef = new HashMap<>(); // insieme definitivo dei cammini minimi
@@ -104,33 +104,32 @@ public class CamminoMinimo {
         return camminoMinimo;
     }
     
-    public HashMap<Nodo,Costo_e_Cammino> impostaCostoECammino(HashMap<Nodo,Costo_e_Cammino> dijkstraTemp, HashMap<Nodo,Costo_e_Cammino> dijkstraDef, Nodo nodo){
+    private static HashMap<Nodo,Costo_e_Cammino> impostaCostoECammino(HashMap<Nodo,Costo_e_Cammino> dijkstraTemp, HashMap<Nodo,Costo_e_Cammino> dijkstraDef, Nodo nodo){
         
-        for (Scala i : nodo.getTronchi_stella()) {
+        nodo.getTronchi_stella().forEach((i) -> {
             Nodo other;
             other = i.otherNode(nodo);
-            if (!dijkstraTemp.containsKey(other) && !dijkstraDef.containsKey(other)){
-                ArrayList<Scala> set_tronchi;
+            if (!dijkstraTemp.containsKey(other) && !dijkstraDef.containsKey(other)) {
+                ArrayList<Scala> cammino;
                 Costo_e_Cammino cost_camm = new Costo_e_Cammino();
                 Float costo;
                 
-                set_tronchi = dijkstraDef.get(nodo).getCammino();
-                set_tronchi.add(i);
+                cammino = dijkstraDef.get(nodo).getCammino();
+                cammino.add(i);
                 
                 costo= i.getCosto_totale_normalizzato()+dijkstraDef.get(nodo).getCosto();
                 
                 cost_camm.setCosto(costo);
-                cost_camm.setCammino(set_tronchi);
+                cost_camm.setCammino(cammino);
 
                 dijkstraTemp.put(other, cost_camm);
             }
-        
-        }
+        });
         return dijkstraTemp;
     }
     
-    public Nodo trovaCostoMin (HashMap<Nodo,Costo_e_Cammino> dijkstra){
-        Nodo nodo_costo_min;
+    private static Nodo trovaCostoMin (HashMap<Nodo,Costo_e_Cammino> dijkstra){
+        Nodo nodo_costo_min = new Nodo();
         
         Entry<Nodo, Costo_e_Cammino> min = null;
         for (Entry<Nodo, Costo_e_Cammino> entry : dijkstra.entrySet()) {
@@ -138,8 +137,8 @@ public class CamminoMinimo {
                 min = entry;
             }
         }
-
-        nodo_costo_min = min.getKey();
+        if(min != null) nodo_costo_min = min.getKey();
+        
         return nodo_costo_min;
     }
     
