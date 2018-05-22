@@ -11,9 +11,6 @@ import java.io.*;
 import java.sql.*;
 import java.util.*;
 
-import it.breakout.models.Mappa;
-
-
 
 /**
  *
@@ -23,9 +20,7 @@ import it.breakout.models.Mappa;
 public class MappaServlet extends HttpServlet{
     
     private String query;
-    private String id_mappa;
     private ArrayList<String> quote;
-    private String mappaID = "mappaBean";
     private Connection conn;
     private Statement stat;
 

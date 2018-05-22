@@ -9,9 +9,9 @@
 <%@include file="header.html" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="it-IT">
     <head>
-        <title>Gestione Mappe</title>
+        <title>Breakout - Home</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -27,16 +27,14 @@
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
-        
-        
     </head>
     <body>
         <!-- Page Content -->        
         <div class="container">
-            <div class="row"  style="margin-top: 40px; margin-bottom: 40px">
+            <div class="row">
                 <!-- Table Piani -->
                 <div class="col-md-6">
-                    <h3>Elenco Piani</h3>
+                    <h4>Lista Piani</h4>
                     <table class="table table-bordered table-striped" style="text-align: center">
                         <thead>
                             <tr><th>Quota</th><th>Modifica</th><th>Elimina</th>
@@ -47,7 +45,8 @@
                             <tr><td>${quota}</td>
                                 <td><button id="mod-q${quota}" class="btn btn-outline-dark btn-sm">
                                         <span class="fas fa-cog"></span></button></td>
-                                <td><button id="rm-q${quota}" class="btn btn-outline-danger btn-sm">
+                                <td><button id="rm-q${quota}" class="btn btn-outline-danger btn-sm"
+                                            data-toggle="modal" data-target="#modal-elimina-piano">
                                         <span class="fas fa-trash-alt"></span></button></td></tr>
                         </c:forEach>
                         <!-- -->
@@ -60,10 +59,9 @@
                 </div>
                 <!-- End Table Piani -->
                 
-                
                 <!-- Table Scale -->
                 <div class="col-md-6">
-                    <h3>Elenco Scale</h3>
+                    <h4>Lista Scale</h4>
                     <table class="table table-bordered table-striped" style="text-align: center">
                         <thead>
                             <tr><th>Lunghezza</th><th>Codice Nodo 1</th><th>Codice Nodo 2</th><th>Codice</th>
@@ -91,18 +89,18 @@
         <!-- End Page Content -->
         
         <!-- Modal Conferma Eliminazione Mappa -->
-        <div id="modal-elimina-mappa" class="modal fade">
+        <div id="modal-elimina-piano" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title">Conferma Eliminazione Mappa</h5>
+                    <h5 class="modal-title">Conferma eliminazione piano</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
                     <div class="modal-body">
                         <form action='#'>
-                            <p>Sicuro di voler rimuovere la mappa selezionata?
+                            <p>Sicuro di voler rimuovere il piano selezionato?
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
@@ -120,10 +118,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title">Aggiungi Piano</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <h5 class="modal-title">Aggiungi piano</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <form action='MappaServlet'>
@@ -132,7 +130,8 @@
                             </td></table>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-outline-success" type='submit' value='Conferma' name='Conferma'>
+                                <input class="btn btn-outline-success" type='submit' 
+                                       style="font-weight: bold" value='Aggiungi piano' name='Aggiungi piano'>
                             </div>
                         </form>                    
                     </div>
@@ -146,7 +145,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title">Aggiungi Scala</h5>
+                    <h5 class="modal-title">Aggiungi scala</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -164,7 +163,8 @@
                             </table>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-outline-success" type='submit' value='Conferma' name='Conferma'>
+                                <input class="btn btn-outline-success" type='submit'
+                                       style="font-weight: bold" value='Conferma' name='Conferma'>
                             </div>
                         </form>                    
                     </div>
@@ -175,4 +175,5 @@
         
     </body>
 </html>
+
 <%@include file="footer.html" %>
