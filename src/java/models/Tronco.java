@@ -8,8 +8,9 @@ package models;
  *
  * @author costantino
  */
-public class Tronco extends Scala{
+public class Tronco extends Collegamento{
     private long ID_mappa;
+    
     
     public Tronco(){
     };

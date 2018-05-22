@@ -1,9 +1,8 @@
+drop table "APP"."MODIFICHE";
 drop table "APP"."TOKEN";
 drop table "APP"."UTENTE";
-drop table "APP"."SCALA";
 drop table "APP"."TRONCO";
-drop table "APP"."NODI";
-drop table "APP"."MAPPA";
 drop table "APP"."BEACON";
-drop table "APP"."PDI";
+drop table "APP"."NODO";
+drop table "APP"."MAPPA";
 drop table "APP"."PIANO";

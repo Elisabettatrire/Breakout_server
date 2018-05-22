@@ -5,10 +5,17 @@
  */
 package services;
 
+import java.util.Set;
+import models.Piano;
+
 /**
  *
  * @author costantino
  */
 public class Piano_Service {
+
+    public static Set<Piano> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

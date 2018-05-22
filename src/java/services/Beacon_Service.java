@@ -5,10 +5,17 @@
  */
 package services;
 
+import java.util.Set;
+import models.Beacon;
+
 /**
  *
  * @author costantino
  */
 public class Beacon_Service {
+
+    public static Set<Beacon> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
