@@ -11,13 +11,5 @@ nbdist/
 .nb-gradle/
 nbactions.xml
 
-nbproject\private\
-nbproject\project.properties
-build\
-nbbuild\
-dist\
-nbdist\
-.nb-gradle\
-nbactions.xml
 
 # End of https://www.gitignore.io/api/netbeans
