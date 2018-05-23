@@ -7,6 +7,7 @@ package models;
 
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 /**
  *
  * @author costantino
@@ -69,4 +70,28 @@ public class Mappa {
     public void setID_piano(long ID_piano) {
         this.ID_piano = ID_piano;
     }    
+}
+
+class Grafo {
+    private ArrayList<Nodo> nodi;
+    private ArrayList<Scala> tronchi;
+    
+    public Grafo (){
+    }
+
+    public ArrayList<Nodo> getNodi() {
+        return nodi;
+    }
+
+    public void setNodi(ArrayList<Nodo> nodi) {
+        this.nodi = nodi;
+    }
+
+    public ArrayList<Scala> getTronchi() {
+        return tronchi;
+    }
+
+    public void setTronchi(ArrayList<Scala> tronchi) {
+        this.tronchi = tronchi;
+    }
 }
