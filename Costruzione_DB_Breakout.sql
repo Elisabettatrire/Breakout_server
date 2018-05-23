@@ -17,7 +17,7 @@ create table "APP"."NODO"
 	ID_nodo int primary key not null generated always as identity (start with 1, increment by 1),
         codice varchar(10) not null unique,
         is_pdi boolean default false not null,
-        tipo varchar(50) not null,
+        tipo varchar(50),
 	coordinata_x float not null,
 	coordinata_y float not null,
         larghezza float not null,
