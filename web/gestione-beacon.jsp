@@ -65,16 +65,16 @@
                     </div>
                     <div class="row" style="margin-top: 50px">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-outline-dark">
-                                <b>Indietro</b>
+                            <button type="button" class="btn btn-dark">
+                                < Indietro
                             </button>
                         </div>
                     </div>
                 </div>
                 
-                <!--Immagine dell mappa fs:990x1572-->
+                <!-- Immagine dell mappa fs:990x1572 -->
                 <div class="col-md-6" style="text-align: center">
-                    <img src="/Immagini/150_color.jpg" style="max-width:60%; max-height:60%">
+                    <img src="/Immagini/150_color.jpg" width="594" height="943">
                 </div> 
             </div>
             
@@ -104,12 +104,11 @@
                                         Annulla
                                     </button>
                                     <input class="btn btn-outline-success" type='submit' 
-                                            style="font-weight: bold" value='Aggiungi beacon' name='Aggiungi beacon'>
+                                            style="font-weight: bold" value='Aggiungi beacon' name='aggiungi-beacon'>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>

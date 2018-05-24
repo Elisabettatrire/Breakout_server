@@ -26,6 +26,12 @@
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
+        <!--Librerie per la selezione multipla-->
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css"/>
+        <script src="static/SelezioneRighe.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -34,95 +40,133 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <h2>Mappa Q150\1 - Gestione Grafo</h2>
                     <br><br>
                     <!-- Tabella dei Nodi della mappa -->
-                    <h4>Lista Nodi</h4>
-                    <table class="table table-bordered table-striped" style="text-align: center">
-                        <thead>
-                            <tr><th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th>
-                                <th>Codice</th><th>Modifica</th><th>Elimina</th>
-                        </thead>
-                        <tr><td>129</td><td>465</td><td>1.8</td><td>150G2</td>
-                            <td><button id="mod-150g2" class="btn btn-outline-dark btn-sm"
-                                    data-toggle="modal" data-target="#modal-mod-nodo">
-                                    <span class="fas fa-cog"></span></button></td>
-                            <td><button id="rm-150g2" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="modal" data-target="#modal-elimina-nodo">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>
-                        <tr><td>110</td><td>465</td><td>1.8</td><td>150G1G2</td>
-                            <td><button id="mod-150g1g2" class="btn btn-outline-dark btn-sm"
-                                    data-toggle="modal" data-target="#modal-mod-nodo">
-                                    <span class="fas fa-cog"></span></button></td>
-                            <td><button id="rm-150g1g2" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="modal" data-target="#modal-elimina-nodo">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>
-                    </table>
-                    <div style="text-align: right">
-                        <button type="button" class="btn btn-outline-success"
-                                data-toggle="modal" data-target="#modal-agg-nodo">
-                            <b>Aggiungi nodo</b>
-                        </button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Lista Nodi</h4>
+                        </div>
+                        <div class="col-md-6" style="text-align: right">
+                            <button type="button" class="btn btn-sm btn-outline-success"
+                                    data-toggle="modal" data-target="#modal-agg-nodo">
+                                <b>Aggiungi nodo</b>
+                            </button>
+                        </div>
                     </div>
+                    <form>
+                        <table class="table table-bordered table-striped" style="text-align: center">
+                            <thead>
+                                <tr><th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th><th>Codice</th>
+                            </thead>
+                            <tr><td>129</td><td>465</td><td>1.8</td><td>150G2</td></tr>
+                            <tr><td>110</td><td>465</td><td>1.8</td><td>150G1G2</td></tr>
+                        </table>
+                        <!-- Bottoni per la gestione dei nodi -->
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                        data-toggle="modal" data-target="#modal-elimina-nodi">
+                                    <b>Elimina i nodi selezionati</b>
+                                </button>
+                            </div>
+                            <div class="col-md-6" style="text-align: right">
+                                <button type="button" class="btn btn-sm btn-outline-dark"
+                                        data-toggle="modal" data-target="#modal-mod-nodo">
+                                    <b>Modifica il nodo selezionato</b>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                     <hr>
+                    <br>
                     
                     <!-- Tabella dei Tronchi della mappa -->
-                    <h4>Lista Tronchi</h4>
-                    <table  class="table table-bordered table-striped" style="text-align: center">
-                        <thead>
-                            <tr>
-                                <th>Lunghezza</th><th>Cod. Nodo 1</th><th>Cod. Nodo 2</th>
-                                <th>Codice</th><th>Modifica</th><th>Elimina</th>
-                            </tr>
-                        </thead>
-                        <tr><td>19</td><td>150G2</td><td>150G1G2</td><td>T1501</td>
-                            <td><button id="mod-t1501" class="btn btn-outline-dark btn-sm"
-                                    data-toggle="modal" data-target="#modal-mod-tronco">
-                                    <span class="fas fa-cog"></span></button></td>
-                            <td><button id="rm-t1501" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="modal" data-target="#modal-elimina-tronco">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>    
-                    </table>
-                    <div style="text-align: right">
-                        <button type="button" class="btn btn-outline-success"
-                                data-toggle="modal" data-target="#modal-agg-tronco">
-                            <b>Aggiungi tronco</b>
-                        </button>
+                    <div class="row"> 
+                        <div class="col-md-6">
+                            <h4>Lista Tronchi</h4>
+                        </div>
+                        <div class="col-md-6" style="text-align: right">
+                            <button type="button" class="btn btn-sm btn-outline-success"
+                                    data-toggle="modal" data-target="#modal-agg-tronco">
+                                <b>Aggiungi tronco</b>
+                            </button>
+                        </div>
                     </div>
+                    <form>
+                        <table  class="table table-bordered table-striped" style="text-align: center">
+                            <thead>
+                                <tr>
+                                    <th>Lunghezza</th><th>Cod. Nodo 1</th><th>Cod. Nodo 2</th><th>Codice</th>
+                                </tr>
+                            </thead>
+                            <tr><td>19</td><td>150G2</td><td>150G1G2</td><td>T1501</td></tr>    
+                        </table>
+                        <!--Bottoni per la gestione dei tronchi-->
+                        <div class="row" style="margin-top: 10px"> 
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                        data-toggle="modal" data-target="#modal-elimina-tronchi">
+                                    <b>Elimina i tronchi selezionati</b>
+                                </button>
+                            </div>
+                            <div class="col-md-6" style="text-align: right">
+                                <button type="button" class="btn btn-sm btn-outline-dark"
+                                        data-toggle="modal" data-target="#modal-mod-tronco">
+                                    <b>Modifica il tronco selezionato</b>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                     <hr>
+                    <br>
                 </div>
                      
                 <!-- Immagine della mappa fs:990x1572 -->
-                <div class="col-md-4" >  
-                    <img src="/Immagini/150_color.jpg" width="396" height="630">
+                <div class="col-md-6" >  
+                    <img src="/Immagini/150_color.jpg" width="594" height="943">
                 </div>
             </div>
             
             <!-- Tabella dei Punti di Interesse-->
             <br><br>
-            <h4>Punti di interesse</h4>            
-            <table class="table table-bordered table-striped" style="text-align: center">
-                <thead>
-                    <tr>
-                        <th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th><th>Lunghezza</th><th>Tipo</th>
-                        <th>Descrizione</th><th>Codice</th><th>Modifica</th><th>Elimina</th>
-                    </tr>
-                </thead>
-                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                    <td><button id="mod" class="btn btn-outline-dark btn-sm"
-                            data-toggle="modal" data-target="#modal-mod-pdi">
-                            <span class="fas fa-cog"></span></button></td>
-                    <td><button id="rm" class="btn btn-outline-danger btn-sm"
-                            data-toggle="modal" data-target="#modal-elimina-pdi">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>
-            </table>
-            <div style="text-align: right">
-                <button type="button" class="btn btn-outline-success"
-                    data-toggle="modal" data-target="#modal-agg-pdi">
-                    <b>Aggiungi PDI</b>
-                </button>
+            <div class="row"> 
+                <div class="col-md-3">
+                    <h4>Punti di interesse</h4>
+                </div>
+                <div class="col-md-3" style="text-align: right">
+                    <button type="button" class="btn btn-sm btn-outline-success"
+                                data-toggle="modal" data-target="#modal-agg-pdi">
+                            <b>Aggiungi PDI</b>
+                        </button>
+                </div>
             </div>
+            <form> 
+                <table class="table table-bordered table-striped" style="text-align: center">
+                    <thead>
+                        <tr>
+                            <th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th><th>Lunghezza</th><th>Tipo</th>
+                            <th>Descrizione </th><th>Codice</th>
+                        </tr>
+                    </thead>
+                    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                </table>
+                <!-- Bottoni per la gestione dei PDI -->
+                <div class="row" style="margin-top: 10px">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                data-toggle="modal" data-target="#modal-elimina-pdi">
+                            <b>Elimina i PDI selezionati</b></button>
+                    </div>
+                    <div class="col-md-3" style="text-align: right">
+                        <button type="button" class="btn btn-sm btn-outline-dark" 
+                            data-toggle="modal" data-target="#modal-mod-pdi">
+                            <b>Modifica il PDI selezionato</b>
+                        </button>
+                    </div>
+                </div>
+            </form>
             <br>
             <div class="row">
                 <button type="button" class="btn btn-dark">
@@ -197,7 +241,7 @@
         </div>
         
         <!-- Modal Conferma Eliminazione Nodo -->
-        <div id="modal-elimina-nodo" class="modal fade">
+        <div id="modal-elimina-nodi" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -295,7 +339,7 @@
         </div>
         
         <!-- Modal Conferma Eliminazione Tronco -->
-        <div id="modal-elimina-tronco" class="modal fade">
+        <div id="modal-elimina-tronchi" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

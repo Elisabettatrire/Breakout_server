@@ -67,7 +67,7 @@
                             </div>
                             <div class="col-md-8" style="text-align: right">
                                 <input type="submit" class="btn btn-outline-success"
-                                       style="font-weight: bold" value='Aggiungi mappa' name='Aggiungi mappa'>
+                                       style="font-weight: bold" value='Aggiungi mappa' name='aggiungi-mappa'>
                             </div>
                         </div>
                     </form>
@@ -75,7 +75,7 @@
                 
                 <!-- Immagine della mappa fs:990x1572 -->
                 <div class="col-md-6" style="text-align: center">
-                       <img src="/Immagini/150_color.jpg" style="max-width:60%; max-height:60%">
+                       <img src="/Immagini/150_color.jpg" width="594" height="943">
                 </div>
             </div>
         </div>

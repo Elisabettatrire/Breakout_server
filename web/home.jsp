@@ -6,7 +6,6 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8" session="true"%>
-<%@include file="header.html" %>
 
 <!DOCTYPE html>
 <html lang="it-IT">
@@ -29,6 +28,9 @@
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
     </head>
     <body>
+        <!-- Header -->
+        <%@include file="header.html" %>
+        
         <!-- Page Content -->        
         <div class="container">
             <div class="row">
@@ -104,7 +106,7 @@
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-danger" type='submit' value='Elimina' name='Elimina'>
+                                <input class="btn btn-danger" type='submit' value='Elimina' name='elimina-piano'>
                             </div>
                         </form>                    
                     </div>
@@ -131,7 +133,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                                 <input class="btn btn-outline-success" type='submit' 
-                                       style="font-weight: bold" value='Aggiungi piano' name='Aggiungi piano'>
+                                       style="font-weight: bold" value='Aggiungi piano' name='aggiungi-piano'>
                             </div>
                         </form>                    
                     </div>
@@ -164,7 +166,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                                 <input class="btn btn-outline-success" type='submit'
-                                       style="font-weight: bold" value='Conferma' name='Conferma'>
+                                       style="font-weight: bold" value='Aggiungi scala' name='aggiungi-scala'>
                             </div>
                         </form>                    
                     </div>
