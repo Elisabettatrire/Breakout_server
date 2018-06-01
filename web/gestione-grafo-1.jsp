@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.min.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
-        <link href="static/fontawesome/fontawesome-all.css" rel="stylesheet">
+        <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
@@ -31,7 +31,7 @@
         <script type="text/javascript" src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css"/>
-        <script src="static/SelezioneRighe.js"></script>
+        <script src="../static/SelezioneRighe.js"></script>
     </head>
     <body>
         <!-- Header -->

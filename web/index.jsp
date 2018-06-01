@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
-        <title>Breakout - Login</title>
+        <title>Breakout - Accedi</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -28,45 +28,24 @@
     </head>
     <body>
         <!-- Header -->
-        <%@include file="header.html" %>
+        <%@include file="header.jsp" %>
         
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h2 style="margin-bottom: 40px;">Autenticazione</h2>
-                            <p>
-                                <big><big>Username</big></big> <br><br>
-                                <input type="text" name="Username"  size="50" style=" height:40px"/>
-                            </p>
-                            <big><big>Password</big></big> <br><br>
-                            <input type="password" name="Password" size="50" style=" height:40px"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 40px; margin-bottom: 200px">
                 <div class="col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <button type="button" class="btn btn-outline-dark" style="font-weight: bold">
-                                Login</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row" style="margin-top: 40px; margin-bottom: 20px">
-                <div class="col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <form action="MappaServlet">
-                            <input type="submit" class="btn btn-outline-dark" style="font-weight: bold">
-                            </form>
-                        </div>
-                    </div>
+                    <h1>Autenticazione</h1>
+                    <br>
+                    <form method="POST" action="j_security_check">
+                        <p style="font-size: xx-large">Username</p>
+                        <input type="text" name="j_username"  autofocus="true" size="45" style=" height:40px">
+                        <br><br>
+                        <p style="font-size: xx-large">Password</p> 
+                        <input type="password" name="j_password" size="45" style=" height:40px">
+                        <br><br>
+                        <input type="submit" value="Accedi" class="btn btn-lg btn-outline-success"
+                               style="font-weight: bold" name="accedi">
+                    </form>
                 </div>
             </div>
         </div>

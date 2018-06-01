@@ -20,11 +20,12 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.min.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
-        <link href="static/fontawesome/fontawesome-all.css" rel="stylesheet">
+        <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
+        <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
     </head>
     <body>
         <!-- Header -->

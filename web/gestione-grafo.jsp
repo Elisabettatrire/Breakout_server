@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.min.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
-        <link href="static/fontawesome/fontawesome-all.css" rel="stylesheet">
+        <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
@@ -125,7 +125,7 @@
             </div>
             <br>
             <div class="row">
-                <button type="button" class="btn btn-dark">
+                <button type="button" class="btn btn-secondary">
                     < Indietro
                 </button>
             </div>
@@ -154,7 +154,7 @@
                             </table>
                             <!-- Bottoni per tornare alla schermata precedente o per aggiungere il nodo -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-dark" data-dismiss="modal">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     Annulla
                                 </button>
                                 <input class="btn btn-outline-success" type='submit' 
@@ -185,7 +185,7 @@
                             </table>
                             <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-dark" data-dismiss="modal">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     Annulla</button>
                                 <input class="btn btn-outline-success" type='submit' 
                                     style="font-weight: bold" value='Conferma modifiche' name='conferma-modifiche'>
@@ -201,14 +201,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title">Conferma eliminazione nodi</h5>
+                    <h5 class="modal-title">Conferma eliminazione nodo</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
                     <div class="modal-body">
                         <form action='#'>
-                            <p>Sicuro di voler rimuovere i nodi selezionati?
+                            <p>Sicuro di voler rimuovere il nodo selezionato?
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
