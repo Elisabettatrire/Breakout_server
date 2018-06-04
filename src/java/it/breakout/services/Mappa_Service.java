@@ -23,10 +23,10 @@ public class Mappa_Service {
     
     public static final String TBL_NAME = "mappa";
     public static final String FIELD_ID = "id_mappa";
-    public static final String FIELD_QUOTA = "quota";
+    public static final String FIELD_ID_PIANO = "id_piano";
     
     private void open() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout", "app", "app");
+        conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
     }
     
     private void close() {
@@ -42,17 +42,18 @@ public class Mappa_Service {
         }
     }
     
-    public Set<Mappa> findAll() {
+    public ArrayList<Mappa> findAll() {
 		ResultSet rs = null;
-		Set<Mappa> mappe = new HashSet<>();
+		ArrayList<Mappa> mappe = new ArrayList<>();
         try {
             open();
-            String query = "select * from " + TBL_NAME;
+            String query = "select * from " + TBL_NAME + " order by nome";
             st = conn.prepareStatement(query);
             rs = st.executeQuery();
             while(rs.next()) {
             	Mappa mappa;
-                mappa = new Mappa();  
+                mappa = new Mappa();
+                mappa.setNome(rs.getString("nome"));
                 mappe.add(mappa);
             }
         } 
@@ -62,7 +63,7 @@ public class Mappa_Service {
         finally {
             close();
         }
-        System.out.println(mappe);
+        
         return mappe;
     }
     

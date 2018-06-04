@@ -55,6 +55,17 @@
                     </table>
                 </div>
             </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-secondary">
+                        <a href="home.jsp" style="color: inherit; text-decoration: none">
+                        < Home
+                        </a>
+                    </button>
+                </div>
+            </div>
+            
         </div>
         
         <!-- Finestra popup per la modifica di un utente-->

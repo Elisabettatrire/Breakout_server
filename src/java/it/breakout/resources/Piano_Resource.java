@@ -10,16 +10,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import it.breakout.models.Mappa;
-import it.breakout.services.Mappa_Service;
+import it.breakout.models.Piano;
+import it.breakout.services.Piano_Service;
 
-public class Mappa_Resource {
+public class Piano_Resource {
     
-    Mappa_Service mappa_service = new Mappa_Service();
+    Piano_Service piano_service = new Piano_Service();
     Connection conn = null;
     
-    public ArrayList<Mappa> findAll() {
-	return mappa_service.findAll();
+    public ArrayList<Piano> findAll() {
+	return piano_service.findAll();
+    }
+    
+    public Piano findById(String search_id) {
+	return piano_service.findById(search_id);
     }
     
 }

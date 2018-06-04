@@ -38,14 +38,14 @@
                     <form action="DBAccess" method="POST">
                         <input type="submit" value="Gestione Mappe" class="btn btn-lg btn-success" name="mappe"
                                    style="width: 500px; height: 250px; font-size: 26pt">
-                        <input type="hidden" name="scelta" value="mappe">
+                        <input type="hidden" name="modalita" value="mappe">
                     </form>
                 </div>
                 <div class="col-md-6" style="text-align: left">
                     <form action="DBAccess" method="POST">
                         <input type="submit" value="Gestione Utenti App" class="btn btn-lg btn-success" name="mappe"
                                    style="width: 500px; height: 250px; font-size: 26pt">
-                        <input type="hidden" name="scelta" value="utenti">
+                        <input type="hidden" name="modalita" value="utenti">
                     </form>
                 </div>
             </div>

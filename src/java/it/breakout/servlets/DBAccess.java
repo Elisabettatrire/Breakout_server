@@ -10,8 +10,13 @@ import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.HttpConstraint;;
 import java.io.IOException;
 import java.sql.*;
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
 
+import it.breakout.resources.Tronco_Resource;
+import it.breakout.resources.Piano_Resource;
+import it.breakout.models.Scala;
+import it.breakout.models.Piano;
 
 /**
  *
@@ -22,10 +27,9 @@ import java.util.*;
 public class DBAccess extends HttpServlet{
     
     private String query;
-    private ArrayList<String> quote;
     private Connection conn;
     private Statement stat;
-    private String scelta;
+    private String modalita;
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> 
@@ -40,76 +44,41 @@ public class DBAccess extends HttpServlet{
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
         throws ServletException, IOException {
         
-        quote = new ArrayList<>();
-        scelta = request.getParameter("scelta");
+        modalita = request.getParameter("modalita");
         RequestDispatcher rd;        
         
-        switch(scelta) {
-            case "mappe":
-        
-                query = "select * from mappa";
+        try {
+            switch(modalita) {
+                /*  Click su "Gestione mappe nella home" */
+                case "mappe":
+                    
+                    /* Riempimento tabella piani */
+                    ArrayList<Piano> al_piani = new ArrayList<>();
+                    Piano_Resource piano_resource = new Piano_Resource();
+                    al_piani = piano_resource.findAll();
+                    request.setAttribute("piani", al_piani);
+                    
+                    /* Riempimento tabella scale */
+                    ArrayList<Scala> al_scale = new ArrayList<>();
+                    Tronco_Resource tronco_resource = new Tronco_Resource();
+                    al_scale = tronco_resource.findAllStairs();
+                    request.setAttribute("scale", al_scale);
+                    
+                    /* Invio alla pagina web */
+                    rd = request.getRequestDispatcher("gestione-mappe.jsp");
+                    rd.forward(request, response);
+                    break;
 
-                try {
-                    conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout", "app", "app");
-                    stat = conn.createStatement();
-                    ResultSet rs = stat.executeQuery(query);
-                    while(rs.next()) {
-                        quote.add(rs.getString("piano"));
-                    }
+                case "utenti":
 
-                } catch (Exception f) {
-                        f.printStackTrace();
-                } finally {
-                    try {
-                    if (conn != null) {
-                        conn.close();
-                    }
-                    if (stat != null) {
-                        stat.close();
-                    }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
+                    query = "select * from utenti";
 
-                request.setAttribute("quote", quote);
-                rd = request.getRequestDispatcher("gestione-mappe.jsp");
-                rd.forward(request, response);
-                break;
-                
-            case "utenti":
-            
-                query = "select * from utenti";
-
-                try {
-                    conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout", "app", "app");
-                    stat = conn.createStatement();
-                    ResultSet rs = stat.executeQuery(query);
-                    while(rs.next()) {
-                        quote.add(rs.getString("nome"));
-                    }
-
-                } catch (Exception f) {
-                        f.printStackTrace();
-                } finally {
-                    try {
-                    if (conn != null) {
-                        conn.close();
-                    }
-                    if (stat != null) {
-                        stat.close();
-                    }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-                
-                request.setAttribute("quote", quote);
-                rd = request.getRequestDispatcher("gestione-utenti.jsp");
-                rd.forward(request, response);
-                
-                break;
+                    break;
+            }
+        } catch (Exception f) {
+            f.printStackTrace();
         }
+
     }
 
    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

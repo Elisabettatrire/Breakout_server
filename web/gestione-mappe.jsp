@@ -42,8 +42,8 @@
                             <tr><th>Quota</th><th>Modifica</th><th>Elimina</th>
                         </thead>
                         <!-- Get data from request object -->
-                        <c:forEach items="${requestScope.quote}" var="quota">
-
+                        <c:forEach items="${requestScope.piani}" var="piano">
+                            <c:set var="quota" value="${piano.getQuota()}"/>
                             <tr><td>${quota}</td>
                                 <td><button id="mod-q${quota}" class="btn btn-outline-dark btn-sm">
                                         <span class="fas fa-cog"></span></button></td>
@@ -68,10 +68,12 @@
                         <thead>
                             <tr><th>Lunghezza</th><th>Codice Nodo 1</th><th>Codice Nodo 2</th><th>Codice</th>
                         </thead>
-                        <tr><td>1</td><td></td><td></td><td></td></tr>
-                        <tr><td>2</td><td></td><td></td><td></td></tr>
-                        <tr><td>3</td><td></td><td></td><td></td></tr>
-                        <tr><td>4</td><td></td><td></td><td></td></tr>
+                        <c:forEach items="${requestScope.scale}" var="scala">
+                            <c:set var="lunghezza" value="${scala.getLunghezza()}"/>
+                            <c:set var="nodi" value="${scala.getNodiLong()}"/>
+                            <tr><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td><td></td></tr>
+                        </c:forEach>
+                        
                     </table>
                     <div style="text-align: right">
                         <button id="aggiungiScala" data-toggle="modal" data-target="#modal-scala"
@@ -82,6 +84,17 @@
                 
             </div>
             <!-- End Row -->
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-secondary">
+                        <a href="home.jsp" style="color: inherit; text-decoration: none">
+                        < Home
+                        </a>
+                    </button>
+                </div>
+            </div>
+            
         </div>
         <!-- End Page Content -->
         

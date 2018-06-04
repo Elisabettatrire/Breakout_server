@@ -43,7 +43,9 @@ create table "APP"."TRONCO"
         lunghezza float not null,
         ID_nodo1 int references "APP"."NODO"(ID_nodo) on delete cascade,
         ID_nodo2 int references "APP"."NODO"(ID_nodo) on delete cascade,
-        ID_beacon int references "APP"."BEACON"(ID_beacon) on delete cascade
+        ID_beacon int references "APP"."BEACON"(ID_beacon) on delete cascade,
+        ID_mappa int references "APP"."MAPPA"(ID_mappa) on delete cascade,
+        ID_piano int references "APP"."PIANO"(ID_piano) on delete cascade
 );
 
 create table "APP"."UTENTE" 

@@ -125,9 +125,11 @@
             </div>
             <br>
             <div class="row">
-                <button type="button" class="btn btn-secondary">
-                    < Indietro
-                </button>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-secondary">
+                        < Indietro
+                    </button>
+                </div>
             </div>
         </div>
         
