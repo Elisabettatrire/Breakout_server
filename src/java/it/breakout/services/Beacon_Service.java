@@ -3,23 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package services;
+package it.breakout.services;
 
 import java.util.Set;
-import models.Nodo;
-import models.Pdi;
+import models.Beacon;
 
 /**
  *
  * @author costantino
  */
-public class Nodo_Service {
+public class Beacon_Service {
 
-    public static Set<Nodo> findAllNodes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static Set<Pdi> findAllPdis() {
+    public static Set<Beacon> findAll() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
