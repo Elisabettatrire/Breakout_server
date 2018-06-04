@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utility;
+package it.breakout.utility;
 
+import it.breakout.models.Nodo;
+import it.breakout.models.Pdi;
+import it.breakout.models.Scala;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import models.Nodo;
-import models.Pdi;
-import models.Scala;
 
 /**
  *

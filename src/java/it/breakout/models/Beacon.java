@@ -5,6 +5,8 @@
  */
 package it.breakout.models;
 
+import models.*;
+
 /**
  *
  * @author costantino
@@ -22,7 +24,7 @@ public class Beacon {
 
     public Beacon() {
     }
-    
+
     public long getID_pdi() {
         return ID_pdi;
     }

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package models;
+package it.breakout.services;
+
+import services.*;
 
 /**
  *
  * @author costantino
  */
-public class Collegamento extends Scala {
-    private long ID_Piano;
+public class Modifiche_Service {
+    
 }

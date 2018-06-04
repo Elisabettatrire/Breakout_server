@@ -5,10 +5,10 @@
  */
 package it.breakout.services;
 
+import it.breakout.models.Collegamento;
+import it.breakout.models.Scala;
+import it.breakout.models.Tronco;
 import java.util.Set;
-import models.Collegamento;
-import models.Scala;
-import models.Tronco;
 
 /**
  *

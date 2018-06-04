@@ -5,8 +5,8 @@
  */
 package it.breakout.services;
 
+import it.breakout.models.Beacon;
 import java.util.Set;
-import models.Beacon;
 
 /**
  *

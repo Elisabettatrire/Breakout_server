@@ -4,12 +4,16 @@
  * and open the template in the editor.
  */
 package it.breakout.models;
+
+import models.*;
+
 /**
  *
  * @author costantino
  */
-public class Tronco extends Scala{
+public class Tronco extends Collegamento{
     private long ID_mappa;
+    
     
     public Tronco(){
     };

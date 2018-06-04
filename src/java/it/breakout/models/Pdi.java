@@ -5,6 +5,7 @@
  */
 package it.breakout.models;
 
+import models.*;
 import java.util.ArrayList;
 
 /**
