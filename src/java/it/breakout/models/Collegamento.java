@@ -5,8 +5,6 @@
  */
 package it.breakout.models;
 
-import models.*;
-
 /**
  *
  * @author costantino

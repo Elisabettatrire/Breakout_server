@@ -5,7 +5,6 @@
  */
 package it.breakout.models;
 
-import models.*;
 
 /**
  *
