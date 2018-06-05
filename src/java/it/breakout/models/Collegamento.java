@@ -10,5 +10,14 @@ package it.breakout.models;
  * @author costantino
  */
 public class Collegamento extends Scala {
+    
     private long ID_Piano;
+    
+    @Override
+    public void setCodice() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("C");
+        sb.append(ID);
+        codice = sb.toString();
+    }
 }

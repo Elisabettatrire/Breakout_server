@@ -29,7 +29,7 @@
     </head>
     <body>
         <!-- Header -->
-        <%@include file="header.html" %>
+        <%@include file="header.jsp" %>
 
         <!-- Page Content -->
         <div class="container">
@@ -45,8 +45,11 @@
                                 <b>Gestione beacon</b></button>
                         </div>
                         <div class="col-md-6" style="text-align: right">
-                            <button type="button" class="btn btn-outline-dark">
-                                <b>Gestione grafo</b></button>
+                            <form action="DBAccess" method="POST">
+                                <input type="submit" value="Gestione Grafo" class="btn btn-outline-dark"
+                                       style="font-weight: bold">
+                                <input type="hidden" name="modalita" value="grafo">
+                            </form>
                         </div>
                     </div>
                     <br><br>
@@ -69,7 +72,7 @@
                 <div class="col-md-6" >
                     <img src="/Immagini/150_color.jpg" width="594" height="943">
                 </div>
-                <button type="button" class="btn btn-dark">
+                <button type="button" class="btn btn-secondary">
                     < Indietro</button>
             </div>
         </div>

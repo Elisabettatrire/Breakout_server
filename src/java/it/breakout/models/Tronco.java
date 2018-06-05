@@ -11,6 +11,7 @@ package it.breakout.models;
  * @author costantino
  */
 public class Tronco extends Collegamento{
+    
     private long ID_mappa;
     
     
@@ -23,5 +24,13 @@ public class Tronco extends Collegamento{
 
     public void setID_mappa(long ID_mappa) {
         this.ID_mappa = ID_mappa;
+    }
+    
+    @Override
+    public void setCodice() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("T");
+        sb.append(ID);
+        codice = sb.toString();
     }
 }

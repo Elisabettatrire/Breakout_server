@@ -12,21 +12,22 @@ import java.util.ArrayList;
  * @author costantino
  */
 public class Scala {
-    private long ID;
+    protected long ID;
     private double larghezza_media;
     private double lunghezza;
     private Long[] nodi_long;
     private ArrayList<Nodo> nodi;
     private Beacon beacon;
     private float costo_totale_normalizzato;
+    protected String codice;
 
     public Scala() {
-        this.nodi_long = new Long[2];
+        nodi_long = new Long[2];
     }
     
     public Nodo otherNode (Nodo node){
         Nodo other = null;
-        ArrayList<Nodo> i = this.getNodi();
+        ArrayList<Nodo> i = getNodi();
         
         for(Nodo f:i){
             if (f.equals(node)){ 
@@ -42,8 +43,8 @@ public class Scala {
     }
 
     public void setNodiLong(long nodo_1, long nodo_2) {
-        this.nodi_long[0] = nodo_1;
-        this.nodi_long[1] = nodo_2;
+        nodi_long[0] = nodo_1;
+        nodi_long[1] = nodo_2;
     }
 
     public ArrayList<Nodo> getNodi() {
@@ -92,5 +93,16 @@ public class Scala {
 
     public void setCosto_totale_normalizzato(float costo_totale_normalizzato) {
         this.costo_totale_normalizzato = costo_totale_normalizzato;
+    }
+    
+    public String getCodice() {
+        return codice;
+    }
+    
+    public void setCodice() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("S");
+        sb.append(ID);
+        codice = sb.toString();
     }
 }

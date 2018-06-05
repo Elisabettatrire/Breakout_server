@@ -52,7 +52,31 @@ public class Tronco_Service {
     }
 
     public ArrayList<Tronco> findAllArcs() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ResultSet rs = null;
+        ArrayList<Tronco> tronchi = new ArrayList<>();
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " order by id_tronco";
+            st = conn.prepareStatement(query);
+            rs = st.executeQuery();
+            while(rs.next()) {
+                Tronco tronco = new Tronco();
+                tronco.setID(rs.getInt("id_tronco"));
+                tronco.setLunghezza(rs.getDouble("lunghezza"));
+                tronco.setCodice();
+                tronco.setNodiLong(rs.getLong("id_nodo1"), rs.getLong("id_nodo2"));
+                tronchi.add(tronco);
+            }
+        } 
+        catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+        
+        return tronchi;
     }
 
     public ArrayList<Scala> findAllStairs() {
@@ -68,7 +92,6 @@ public class Tronco_Service {
             while(rs.next()) {
                 Scala scala = new Scala();
                 scala.setLunghezza(rs.getDouble("lunghezza"));
-                long ciao = rs.getLong("id_nodo1");
                 scala.setNodiLong(rs.getLong("id_nodo1"), rs.getLong("id_nodo2"));
                 scale.add(scala);
             }

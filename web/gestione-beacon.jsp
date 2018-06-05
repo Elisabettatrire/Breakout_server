@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : gestione-beacon
     Created on : 22-mag-2018, 14.54.41
     Author     : Giovanni

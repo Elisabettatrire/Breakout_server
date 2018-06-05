@@ -9,14 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.HttpConstraint;;
 import java.io.IOException;
-import java.sql.*;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import it.breakout.resources.Tronco_Resource;
 import it.breakout.resources.Piano_Resource;
+import it.breakout.resources.Nodo_Resource;
 import it.breakout.models.Scala;
 import it.breakout.models.Piano;
+import it.breakout.models.Nodo;
+import it.breakout.models.Tronco;
 
 /**
  *
@@ -60,23 +63,42 @@ public class DBAccess extends HttpServlet{
                     
                     /* Riempimento tabella scale */
                     ArrayList<Scala> al_scale = new ArrayList<>();
-                    Tronco_Resource tronco_resource = new Tronco_Resource();
-                    al_scale = tronco_resource.findAllStairs();
+                    Tronco_Resource tronco_resource1 = new Tronco_Resource();
+                    al_scale = tronco_resource1.findAllStairs();
                     request.setAttribute("scale", al_scale);
                     
                     /* Invio alla pagina web */
                     rd = request.getRequestDispatcher("gestione-mappe.jsp");
                     rd.forward(request, response);
+                    
                     break;
-
+                    
+                /*  Click su "Gestione utenti app" nella home*/
                 case "utenti":
 
                     query = "select * from utenti";
 
                     break;
+                    
+                /*  Click su "Gestione Grafo" */
+                case "grafo":
+                    
+                    /* Riempimento tabella nodi */
+                    Nodo_Resource nodo_resource = new Nodo_Resource();
+                    ArrayList<Nodo> al_nodi = nodo_resource.findAllNodes();
+                    request.setAttribute("nodi", al_nodi);
+                    
+                    Tronco_Resource tronco_resource2 = new Tronco_Resource();
+                    ArrayList<Tronco> al_tronchi = tronco_resource2.findAllArcs();
+                    request.setAttribute("tronchi", al_tronchi);
+                    
+                    rd = request.getRequestDispatcher("gestione-grafo.jsp");
+                    rd.forward(request, response);
+                    
             }
-        } catch (Exception f) {
+        } catch (IOException | ServletException f) {
             f.printStackTrace();
+            response.sendRedirect("500.jsp");
         }
 
     }

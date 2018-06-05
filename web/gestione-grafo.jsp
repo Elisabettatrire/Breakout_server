@@ -29,7 +29,7 @@
     </head>
     <body>
         <!-- Header -->
-        <%@include file="header.html" %>
+        <%@include file="header.jsp" %>
 
         <!-- Page Content -->
         <div class="container">
@@ -41,23 +41,22 @@
                     <h4>Lista Nodi</h4>
                     <table class="table table-bordered table-striped" style="text-align: center">
                         <thead>
-                            <tr><th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th>
-                                <th>Codice</th><th>Modifica</th><th>Elimina</th>
+                            <tr><th>Codice</th><th>Coord_X</th><th>Coord_Y</th>
+                                <th>Larghezza</th><th>Modifica</th><th>Elimina</th>
                         </thead>
-                        <tr><td>129</td><td>465</td><td>1.8</td><td>150G2</td>
-                            <td><button id="mod-150g2" class="btn btn-outline-dark btn-sm"
-                                    data-toggle="modal" data-target="#modal-mod-nodo">
-                                    <span class="fas fa-cog"></span></button></td>
-                            <td><button id="rm-150g2" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="modal" data-target="#modal-elimina-nodo">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>
-                        <tr><td>110</td><td>465</td><td>1.8</td><td>150G1G2</td>
-                            <td><button id="mod-150g1g2" class="btn btn-outline-dark btn-sm"
-                                    data-toggle="modal" data-target="#modal-mod-nodo">
-                                    <span class="fas fa-cog"></span></button></td>
-                            <td><button id="rm-150g1g2" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="modal" data-target="#modal-elimina-nodo">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>
+                        <c:forEach items="${requestScope.nodi}" var="nodo">
+                            <c:set var="codice" value="${nodo.getCodice()}"/>
+                            <c:set var="x" value="${nodo.getCoord_X()}"/>
+                            <c:set var="y" value="${nodo.getCoord_Y()}"/>
+                            <c:set var="larghezza" value="${nodo.getLarghezza()}"/>
+                            <tr><td>${codice}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
+                                <td><button id="mod-${codice}" class="btn btn-outline-dark btn-sm"
+                                            data-toggle="modal" data-target="#modal-mod-nodo">
+                                        <span class="fas fa-cog"></span></button></td>
+                                <td><button id="rm-${codice}" class="btn btn-outline-danger btn-sm"
+                                            data-toggle="modal" data-target="#modal-elimina-nodo">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                        </c:forEach>
                     </table>
                     <div style="text-align: right">
                         <button type="button" class="btn btn-outline-success"
@@ -72,17 +71,22 @@
                     <table  class="table table-bordered table-striped" style="text-align: center">
                         <thead>
                             <tr>
-                                <th>Lunghezza</th><th>Cod. Nodo 1</th><th>Cod. Nodo 2</th>
-                                <th>Codice</th><th>Modifica</th><th>Elimina</th>
+                                <th>Codice</th><th>Lunghezza</th><th>Cod. Nodo 1</th>
+                                <th>Cod. Nodo 2</th><th>Modifica</th><th>Elimina</th>
                             </tr>
                         </thead>
-                        <tr><td>19</td><td>150G2</td><td>150G1G2</td><td>T1501</td>
-                            <td><button id="mod-t1501" class="btn btn-outline-dark btn-sm"
-                                    data-toggle="modal" data-target="#modal-mod-tronco">
-                                    <span class="fas fa-cog"></span></button></td>
-                            <td><button id="rm-t1501" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="modal" data-target="#modal-elimina-tronco">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>    
+                        <c:forEach items="${requestScope.tronchi}" var="tronco">
+                            <c:set var="codice" value="${tronco.getCodice()}"/>
+                            <c:set var="lunghezza" value="${tronco.getLunghezza()}"/>
+                            <c:set var="nodi" value="${tronco.getNodiLong()}"/>
+                            <tr><td>${codice}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td>
+                                <td><button id="mod-${codice}" class="btn btn-outline-dark btn-sm"
+                                            data-toggle="modal" data-target="#modal-mod-tronco">
+                                        <span class="fas fa-cog"></span></button></td>
+                                <td><button id="rm-${codice}" class="btn btn-outline-danger btn-sm"
+                                            data-toggle="modal" data-target="#modal-elimina-tronco">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                        </c:forEach>
                     </table>
                     <div style="text-align: right">
                         <button type="button" class="btn btn-outline-success"
@@ -105,8 +109,9 @@
             <table class="table table-bordered table-striped" style="text-align: center">
                 <thead>
                     <tr>
-                        <th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th><th>Lunghezza</th><th>Tipo</th>
-                        <th>Descrizione</th><th>Codice</th><th>Modifica</th><th>Elimina</th>
+                        <th>Codice</th><th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th>
+                        <th>Lunghezza</th><th>Tipo</th><th>Descrizione</th><th>Modifica</th>
+                        <th>Elimina</th>
                     </tr>
                 </thead>
                 <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>

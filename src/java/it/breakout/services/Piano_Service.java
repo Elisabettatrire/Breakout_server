@@ -45,8 +45,8 @@ public class Piano_Service {
     }
     
     public ArrayList<Piano> findAll() {
-		ResultSet rs = null;
-		ArrayList<Piano> piani = new ArrayList<>();
+            ResultSet rs = null;
+            ArrayList<Piano> piani = new ArrayList<>();
         try {
             open();
             
