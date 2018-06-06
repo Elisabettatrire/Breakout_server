@@ -56,15 +56,14 @@ public class DBAccess extends HttpServlet{
                 case "mappe":
                     
                     /* Riempimento tabella piani */
-                    ArrayList<Piano> al_piani = new ArrayList<>();
                     Piano_Resource piano_resource = new Piano_Resource();
-                    al_piani = piano_resource.findAll();
+                    ArrayList<Piano>  al_piani = piano_resource.findAll();
                     request.setAttribute("piani", al_piani);
                     
                     /* Riempimento tabella scale */
-                    ArrayList<Scala> al_scale = new ArrayList<>();
+
                     Tronco_Resource tronco_resource1 = new Tronco_Resource();
-                    al_scale = tronco_resource1.findAllStairs();
+                    ArrayList<Scala> al_scale = tronco_resource1.findAllStairs();
                     request.setAttribute("scale", al_scale);
                     
                     /* Invio alla pagina web */

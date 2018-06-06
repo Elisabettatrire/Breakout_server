@@ -131,9 +131,11 @@
             <br>
             <div class="row">
                 <div class="col-md-6">
-                    <button type="button" class="btn btn-secondary">
-                        < Indietro
-                    </button>
+                    <form action="DBAccess" method="POST">
+                        <input type="submit" value="< Indietro" class="btn btn-outline-dark"
+                                style="font-weight: bold">
+                        <input type="hidden" name="" value="">
+                    </form>
                 </div>
             </div>
         </div>

@@ -25,7 +25,7 @@ public class Piano_Service {
     
     public static final String TBL_NAME = "piano";
     public static final String FIELD_ID = "id_piano";
-    public static final String FIELD_NOME = "quota";
+    public static final String FIELD_QUOTA = "quota";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
@@ -56,7 +56,7 @@ public class Piano_Service {
             while(rs.next()) {
                 Piano piano = new Piano();
                 piano.setQuota(rs.getString("quota"));
-                piano.setID_piano(rs.getLong("id_piano"));
+                piano.setID_piano(rs.getInt("id_piano"));
                 piani.add(piano);
             }
         } 
@@ -70,16 +70,48 @@ public class Piano_Service {
         return piani;
     }
     
-    public Piano findById(String search_id) {
-		ResultSet rs = null;
-                Piano piano = new Piano();
+    public Piano findById(int search_id) {
+        
+        ResultSet rs = null;
+        Piano piano = new Piano();
         try {
             open();
-            String query = "select * from " + TBL_NAME + "where id_piano=" + search_id;
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID + "= ?";
             st = conn.prepareStatement(query);
+            st.setInt(1, search_id);
             rs = st.executeQuery();
-            piano.setQuota(rs.getString("quota"));
-            piano.setID_piano(rs.getLong("id_piano"));
+            while(rs.next()) {
+                piano.setQuota(rs.getString("quota"));
+                piano.setID_piano(rs.getInt("id_piano"));
+            }
+        } 
+        catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+        
+        return piano;
+    }
+    
+    public Piano findByQuota(String quota) {
+        
+        ResultSet rs = null;
+        Piano piano = new Piano();
+        
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_QUOTA + " = ?";
+            st = conn.prepareStatement(query);
+            st.setString(1, quota);
+            rs = st.executeQuery();
+            while(rs.next()) {
+                piano.setQuota(rs.getString("quota"));
+                piano.setID_piano(rs.getInt("id_piano"));
+            }
         } 
         catch (SQLException e) {
         	e.printStackTrace();

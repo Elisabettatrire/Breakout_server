@@ -34,13 +34,25 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <div class="col-md-12" style="margin-bottom: 200px">
+                <div class="col-md-12">
                     <h1 class="display-2">Errore 500</h1>
                     <br>
                     <p style="font-size: x-large">Il server ha riscontrato un errore interno</p>
                 </div>
             </div>
+            
+            <div class="row" style="margin-bottom: 200px; margin-top: 40px">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-secondary">
+                        <a href="home.jsp" style="color: inherit; text-decoration: none">
+                        Torna alla Home
+                        </a>
+                    </button>
+                </div>
+            </div>
         </div>
+        
+        
 
         <!-- Footer -->
         <%@include file="footer.html" %>

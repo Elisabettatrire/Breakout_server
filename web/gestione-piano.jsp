@@ -29,13 +29,13 @@
     </head>
     <body>
         <!-- Header -->
-        <%@include file="header.html" %>
+        <%@include file="header.jsp" %>
 
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <h2>Piano Q150 - Mappe</h2>
+                <div class="col-md-12">
+                    <h2>Piano Q${requestScope.quota} - Mappe</h2>
                     <br><br>
                     <!-- Tabella delle mappe del piano -->
                     <h4>Lista Mappe</h4>
@@ -49,34 +49,29 @@
                                 </th><th>Elimina</th>
                             </tr>
                         </thead>
-                        <tr><td><a href="gestione-mappa.jsp" target="_blank">Q150/1</a></td>
-                            <td><button id="rm-q150-1" class="btn btn-outline-danger btn-sm"
-                                        data-toggle="modal" data-target="#modal-elimina-mappa">
-                                <span class="fas fa-trash-alt"></span></button></td></tr>
-                        <tr><td><a href="gestione-mappa.jsp" target="_blank">Q150/2</a></td>
-                            <td><button id="rm-q150-2" class="btn btn-outline-danger btn-sm"
-                                        data-toggle="modal" data-target="#modal-elimina-mappa">
-                                <span class="fas fa-trash-alt"></span></button></td></tr>
-                        <tr><td><a href="gestione-mappa.jsp" target="_blank">Q145/1</a></td>
-                            <td><button id="rm-q145-1" class="btn btn-outline-danger btn-sm"
-                                        data-toggle="modal" data-target="#modal-elimina-mappa">
-                                <span class="fas fa-trash-alt"></span></button></td></tr>
+                        <c:forEach items="${requestScope.mappe}" var="mappa">
+                            <c:set var="nome" value="${mappa.getNome()}"/>
+                            <tr><td><a href="#" target="_blank">${nome}</a></td>
+                                <td><button id="rm-${nome}" class="btn btn-outline-danger btn-sm"
+                                    data-toggle="modal" data-target="#modal-elimina-mappa">
+                            <span class="fas fa-trash-alt"></span></button></td></tr>
+                        </c:forEach>
                     </table>
-                    <div style="text-align: right">
-                        <button type="button" class="btn btn-outline-success">
-                            <b>Aggiungi mappa</b>
-                        </button>
-                    </div>
-                </div>
-                
-                <!--Immagine dell mappa fs:990x1572 -->
-                <div class="col-md-6" >
-                    <img src="/Immagini/150_color.jpg" width="594" height="943">
                 </div>
             </div>
-                <button type="button" class="btn btn-dark">
-                        < Indietro
-                </button>
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="DBAccess" method="POST">
+                        <input type="submit" value="< Indietro" class="btn btn-secondary">
+                        <input type="hidden" name="modalita" value="mappe">
+                    </form>
+                </div>
+                <div class="col-md-6" style="text-align: right">
+                    <button type="button" class="btn btn-outline-success">
+                        <b>Aggiungi mappa</b>
+                    </button>
+                </div>
+            </div>    
         </div>
         
         <!-- codice per la definizione della tabella DataTable

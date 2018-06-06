@@ -1,14 +1,7 @@
 package it.breakout.resources;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import it.breakout.models.Mappa;
 import it.breakout.services.Mappa_Service;
@@ -20,6 +13,10 @@ public class Mappa_Resource {
     
     public ArrayList<Mappa> findAll() {
 	return mappa_service.findAll();
+    }
+    
+    public ArrayList<Mappa> findByIDPiano(int id_search) {
+	return mappa_service.findByIDPiano(id_search);
     }
     
 }

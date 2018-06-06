@@ -13,8 +13,8 @@ import java.util.ArrayList;
  * @author costantino
  */
 public class Mappa {
-    private long ID_mappa;
-    private long ID_piano;
+    private int ID_mappa;
+    private int ID_piano;
 //    private Grafo grafo;
     private String nome;
     private String urlImmagine;
@@ -59,7 +59,7 @@ public class Mappa {
         return ID_mappa;
     }
 
-    public void setID_mappa(long ID_mappa) {
+    public void setID_mappa(int ID_mappa) {
         this.ID_mappa = ID_mappa;
     }
 
@@ -67,7 +67,7 @@ public class Mappa {
         return ID_piano;
     }
 
-    public void setID_piano(long ID_piano) {
+    public void setID_piano(int ID_piano) {
         this.ID_piano = ID_piano;
     }    
 }

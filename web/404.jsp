@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Breakout - Error 500</title>
+        <title>Breakout - Error 404</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.min.css" type="text/css">
@@ -34,10 +34,20 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <div class="col-md-12" style="margin-bottom: 200px">
+                <div class="col-md-12">
                     <h1 class="display-2">Errore 404</h1>
                     <br>
                     <p style="font-size: x-large">Spiacenti, la risorsa richiesta non è stata trovata</p>
+                </div>
+            </div>
+            
+            <div class="row"  style="margin-bottom: 200px; margin-top: 40px;">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-secondary">
+                        <a href="home.jsp" style="color: inherit; text-decoration: none">
+                        Torna alla Home
+                        </a>
+                    </button>
                 </div>
             </div>
         </div>

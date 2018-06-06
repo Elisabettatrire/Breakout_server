@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,8 +22,12 @@ public class Piano_Resource {
 	return piano_service.findAll();
     }
     
-    public Piano findById(String search_id) {
-	return piano_service.findById(search_id);
+    public Piano findById(int search_id) {
+        return piano_service.findById(search_id);
+    }
+    
+    public Piano findByQuota(String quota) {
+        return piano_service.findByQuota(quota);
     }
     
 }

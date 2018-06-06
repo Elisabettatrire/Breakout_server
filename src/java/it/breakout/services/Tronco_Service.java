@@ -91,6 +91,8 @@ public class Tronco_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Scala scala = new Scala();
+                scala.setID(rs.getLong("id_tronco"));
+                scala.setCodice();
                 scala.setLunghezza(rs.getDouble("lunghezza"));
                 scala.setNodiLong(rs.getLong("id_nodo1"), rs.getLong("id_nodo2"));
                 scale.add(scala);

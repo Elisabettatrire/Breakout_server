@@ -44,7 +44,13 @@
                         <!-- Get data from request object -->
                         <c:forEach items="${requestScope.piani}" var="piano">
                             <c:set var="quota" value="${piano.getQuota()}"/>
-                            <tr><td>${quota}</td>
+                            <tr><td>
+<!--                                    <form action="SingleObject" method='GET'>
+                                        <input type='submit' value='${quota}'>
+                                        <input type='hidden' name="obj" value="piano">
+                                        <input type='hidden' name="nm" value='${quota}'>
+                                    </form>-->
+                                    <a href='SingleObject?obj=piano&nm=${quota}'>${quota}</a></td>
                                 <td><button id="mod-q${quota}" class="btn btn-outline-dark btn-sm">
                                         <span class="fas fa-cog"></span></button></td>
                                 <td><button id="rm-q${quota}" class="btn btn-outline-danger btn-sm"
@@ -65,15 +71,13 @@
                 <div class="col-md-6">
                     <h4>Lista Scale</h4>
                     <table class="table table-bordered table-striped" style="text-align: center">
-                        <thead>
-                            <tr><th>Lunghezza</th><th>Codice Nodo 1</th><th>Codice Nodo 2</th><th>Codice</th>
-                        </thead>
-                        <c:forEach items="${requestScope.scale}" var="scala">
-                            <c:set var="lunghezza" value="${scala.getLunghezza()}"/>
-                            <c:set var="nodi" value="${scala.getNodiLong()}"/>
-                            <tr><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td><td></td></tr>
-                        </c:forEach>
-                        
+                        <tr><th>Codice</th><th>Lunghezza</th><th>Codice Nodo 1</th><th>Codice Nodo 2</th>
+                            <c:forEach items="${requestScope.scale}" var="scala">
+                                <c:set var="codice" value="${scala.getCodice()}"/>
+                                <c:set var="lunghezza" value="${scala.getLunghezza()}"/>
+                                <c:set var="nodi" value="${scala.getNodiLong()}"/>
+                                <tr><td>${codice}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td></tr>
+                            </c:forEach>
                     </table>
                     <div style="text-align: right">
                         <button id="aggiungiScala" data-toggle="modal" data-target="#modal-scala"

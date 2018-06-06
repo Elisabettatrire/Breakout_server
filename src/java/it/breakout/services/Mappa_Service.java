@@ -6,9 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 import it.breakout.models.Mappa;
 
@@ -43,12 +40,42 @@ public class Mappa_Service {
     }
     
     public ArrayList<Mappa> findAll() {
-		ResultSet rs = null;
-		ArrayList<Mappa> mappe = new ArrayList<>();
+        
+        ResultSet rs = null;
+        ArrayList<Mappa> mappe = new ArrayList<>();
+        
         try {
             open();
             String query = "select * from " + TBL_NAME + " order by nome";
             st = conn.prepareStatement(query);
+            rs = st.executeQuery();
+            while(rs.next()) {
+            	Mappa mappa;
+                mappa = new Mappa();
+                mappa.setNome(rs.getString("nome"));
+                mappe.add(mappa);
+            }
+        } 
+        catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+        
+        return mappe;
+    }
+    
+    public ArrayList<Mappa> findByIDPiano(int search_id) {
+        
+        ResultSet rs = null;
+        ArrayList<Mappa> mappe = new ArrayList<>();
+        
+        try {
+            open();
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_PIANO + "=? order by nome";
+            st = conn.prepareStatement(query);
+            st.setInt(1, search_id);
             rs = st.executeQuery();
             while(rs.next()) {
             	Mappa mappa;
