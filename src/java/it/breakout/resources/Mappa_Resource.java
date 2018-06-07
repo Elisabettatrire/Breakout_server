@@ -15,8 +15,12 @@ public class Mappa_Resource {
 	return mappa_service.findAll();
     }
     
-    public ArrayList<Mappa> findByIDPiano(int id_search) {
-	return mappa_service.findByIDPiano(id_search);
+    public ArrayList<Mappa> findByIDPiano(int search_id) {
+	return mappa_service.findByIDPiano(search_id);
+    }
+    
+    public Mappa findByNome(String search_nome) {
+	return mappa_service.findByNome(search_nome);
     }
     
 }

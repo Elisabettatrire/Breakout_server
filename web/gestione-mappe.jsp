@@ -39,19 +39,18 @@
                     <h4>Lista Piani</h4>
                     <table class="table table-bordered table-striped" style="text-align: center">
                         <thead>
-                            <tr><th>Quota</th><th>Modifica</th><th>Elimina</th>
+                            <tr><th>Quota&nbsp;&nbsp;
+                                <i data-toggle="tooltip" data-placement="top"
+                                       title="Clicca sulla quota per aprire la pagina di gestione del piano"
+                                       class="fas fa-info-circle" style="color: #007bff;"></i>
+                                </th><th>Modifica</th><th>Elimina</th>
                         </thead>
                         <!-- Get data from request object -->
                         <c:forEach items="${requestScope.piani}" var="piano">
                             <c:set var="quota" value="${piano.getQuota()}"/>
-                            <tr><td>
-<!--                                    <form action="SingleObject" method='GET'>
-                                        <input type='submit' value='${quota}'>
-                                        <input type='hidden' name="obj" value="piano">
-                                        <input type='hidden' name="nm" value='${quota}'>
-                                    </form>-->
-                                    <a href='SingleObject?obj=piano&nm=${quota}'>${quota}</a></td>
-                                <td><button id="mod-q${quota}" class="btn btn-outline-dark btn-sm">
+                            <tr><td><a href='SingleObject?obj=piano&nm=${quota}'>${quota}</a></td>
+                                <td><button id="mod-q${quota}" class="btn btn-outline-dark btn-sm"
+                                        data-toggle="modal" data-target="#modal-mod-piano">
                                         <span class="fas fa-cog"></span></button></td>
                                 <td><button id="rm-q${quota}" class="btn btn-outline-danger btn-sm"
                                             data-toggle="modal" data-target="#modal-elimina-piano">

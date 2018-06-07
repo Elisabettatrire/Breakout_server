@@ -20,6 +20,7 @@ public class Mappa_Service {
     
     public static final String TBL_NAME = "mappa";
     public static final String FIELD_ID = "id_mappa";
+    public static final String FIELD_NOME = "nome";
     public static final String FIELD_ID_PIANO = "id_piano";
     
     private void open() throws SQLException {
@@ -46,6 +47,7 @@ public class Mappa_Service {
         
         try {
             open();
+            
             String query = "select * from " + TBL_NAME + " order by nome";
             st = conn.prepareStatement(query);
             rs = st.executeQuery();
@@ -73,6 +75,7 @@ public class Mappa_Service {
         
         try {
             open();
+            
             String query = "select * from " + TBL_NAME + " where " + FIELD_ID_PIANO + "=? order by nome";
             st = conn.prepareStatement(query);
             st.setInt(1, search_id);
@@ -92,6 +95,34 @@ public class Mappa_Service {
         }
         
         return mappe;
+    }
+    
+    public Mappa findByNome(String search_nome) {
+        
+        ResultSet rs = null;
+        Mappa mappa = new Mappa();
+        
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_NOME + "=? order by nome";
+            st = conn.prepareStatement(query);
+            st.setString(1, search_nome);
+            rs = st.executeQuery();
+            while(rs.next()) {
+            	mappa.setNome(rs.getString("nome"));
+                mappa.setID_mappa(rs.getInt("id_mappa"));
+                mappa.setID_piano(rs.getInt("id_piano"));
+            }
+        } 
+        catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+        
+        return mappa;
     }
     
 }

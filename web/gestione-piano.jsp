@@ -46,15 +46,18 @@
                                     <i data-toggle="tooltip" data-placement="top"
                                        title="Clicca sul nome della mappa per aprire la pagina di gestione"
                                        class="fas fa-info-circle" style="color: #007bff;"></i>
-                                </th><th>Elimina</th>
+                                </th><th>Modifica</th><th>Elimina</th>
                             </tr>
                         </thead>
                         <c:forEach items="${requestScope.mappe}" var="mappa">
                             <c:set var="nome" value="${mappa.getNome()}"/>
-                            <tr><td><a href="#" target="_blank">${nome}</a></td>
+                            <tr><td><a href="SingleObject?obj=mappa&nm=${nome}">${nome}</a></td>
+                                <td><button id="mod-${nome}" class="btn btn-outline-dark btn-sm"
+                                        data-toggle="modal" data-target="#modal-mod-mappa">
+                                        <span class="fas fa-cog"></span></button></td>
                                 <td><button id="rm-${nome}" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="modal" data-target="#modal-elimina-mappa">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>
+                                        data-toggle="modal" data-target="#modal-elimina-mappa">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
                         </c:forEach>
                     </table>
                 </div>

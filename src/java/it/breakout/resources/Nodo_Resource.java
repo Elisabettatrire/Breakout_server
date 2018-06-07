@@ -19,5 +19,9 @@ public class Nodo_Resource {
     public ArrayList<Pdi> findAllPois() {
 	return nodo_service.findAllPois();
     }
+    
+    public ArrayList<Nodo> findByIDMappa(int search_id) {
+        return nodo_service.findByIDMappa(search_id);
+    }
        
 }

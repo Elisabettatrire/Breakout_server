@@ -35,7 +35,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h2>Mappa Q150\1 - Gestione Grafo</h2>
+                    <h2>Mappa ${requestScope.nome} - Gestione Grafo</h2>
                     <br><br>
                     <!-- Tabella dei Nodi della mappa -->
                     <h4>Lista Nodi</h4>
@@ -67,7 +67,7 @@
                     <hr>
                     
                     <!-- Tabella dei Tronchi della mappa -->
-                    <h4>Lista Tronchi</h4>
+                    <h4>Lista Tronchi MI SERVE L'ID DELLA MAPPA</h4>
                     <table  class="table table-bordered table-striped" style="text-align: center">
                         <thead>
                             <tr>
@@ -104,38 +104,46 @@
             </div>
             
             <!-- Tabella dei Punti di Interesse-->
-            <br><br>
-            <h4>Punti di interesse</h4>            
-            <table class="table table-bordered table-striped" style="text-align: center">
-                <thead>
-                    <tr>
-                        <th>Codice</th><th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th>
-                        <th>Lunghezza</th><th>Tipo</th><th>Descrizione</th><th>Modifica</th>
-                        <th>Elimina</th>
-                    </tr>
-                </thead>
-                <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                    <td><button id="mod" class="btn btn-outline-dark btn-sm"
-                            data-toggle="modal" data-target="#modal-mod-pdi">
-                            <span class="fas fa-cog"></span></button></td>
-                    <td><button id="rm" class="btn btn-outline-danger btn-sm"
-                            data-toggle="modal" data-target="#modal-elimina-pdi">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>
-            </table>
-            <div style="text-align: right">
-                <button type="button" class="btn btn-outline-success"
-                    data-toggle="modal" data-target="#modal-agg-pdi">
-                    <b>Aggiungi PDI</b>
-                </button>
+            <div class="row">
+                <div class="col-md-12">
+                    <br><br>
+                    <h4>Punti di interesse</h4>            
+                    <table class="table table-bordered table-striped" style="text-align: center">
+                        <thead>
+                            <tr>
+                                <th>Codice</th><th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th>
+                                <th>Lunghezza</th><th>Tipo</th><th>Descrizione</th><th>Modifica</th>
+                                <th>Elimina</th>
+                            </tr>
+                        </thead>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            <td><button id="mod" class="btn btn-outline-dark btn-sm"
+                                    data-toggle="modal" data-target="#modal-mod-pdi">
+                                    <span class="fas fa-cog"></span></button></td>
+                            <td><button id="rm" class="btn btn-outline-danger btn-sm"
+                                    data-toggle="modal" data-target="#modal-elimina-pdi">
+                                    <span class="fas fa-trash-alt"></span></button></td></tr>
+                    </table>
+                </div>
             </div>
-            <br>
             <div class="row">
                 <div class="col-md-6">
-                    <form action="DBAccess" method="POST">
-                        <input type="submit" value="< Indietro" class="btn btn-outline-dark"
-                                style="font-weight: bold">
-                        <input type="hidden" name="" value="">
+                    <form action="SingleObject" method="GET">
+                        <input type="submit" value="< Indietro" class="btn btn-secondary">
+                        <input type="hidden" name="obj" value="piano">
+                        <input type="hidden" name="nm" value="${requestScope.quota}">
                     </form>
+                    <br>
+                    <form action="DBAccess" method="POST">
+                        <input type="submit" value="Torna a Gestione Mappe" class="btn btn-secondary">
+                        <input type="hidden" name="modalita" value="mappe">
+                    </form>
+                </div>
+                <div class="col-md-6" style="text-align: right">
+                    <button type="button" class="btn btn-outline-success"
+                        data-toggle="modal" data-target="#modal-agg-pdi">
+                        <b>Aggiungi PDI</b>
+                    </button>
                 </div>
             </div>
         </div>

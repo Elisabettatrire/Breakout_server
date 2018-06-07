@@ -28,6 +28,7 @@ public class Nodo_Service {
     public static final String TBL_NAME = "nodo";
     public static final String FIELD_ID = "id_nodo";
     public static final String FIELD_CODICE = "codice";
+    public static final String FIELD_ID_MAPPA = "id_mappa";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
@@ -76,6 +77,35 @@ public class Nodo_Service {
 
     public ArrayList<Pdi> findAllPois() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public ArrayList<Nodo> findByIDMappa(int search_id) {
+        ResultSet rs = null;
+        ArrayList<Nodo> nodi = new ArrayList<>();
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + "=? order by codice";
+            st = conn.prepareStatement(query);
+            st.setInt(1, search_id);
+            rs = st.executeQuery();
+            while(rs.next()) {
+                Nodo nodo = new Nodo();
+                nodo.setCodice(rs.getString("codice"));
+                nodo.setCoord_X(rs.getFloat("coordinata_x"));
+                nodo.setCoord_Y(rs.getFloat("coordinata_y"));
+                nodo.setLarghezza(rs.getFloat("larghezza"));
+                nodi.add(nodo);
+            }
+        } 
+        catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+        
+        return nodi;
     }
     
 }

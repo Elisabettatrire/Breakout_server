@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import it.breakout.models.Mappa;
 import it.breakout.models.Piano;
+import it.breakout.models.Nodo;
 import it.breakout.resources.Mappa_Resource;
 import it.breakout.resources.Piano_Resource;
+import it.breakout.resources.Nodo_Resource;
 
 /**
  *
@@ -44,6 +46,9 @@ public class SingleObject extends HttpServlet {
 
         oggetto = request.getParameter("obj");
         identificatore = request.getParameter("nm");
+        int id_piano = 0;
+        int id_mappa = 0;
+        String quota = null;
         RequestDispatcher rd;
         
         try {
@@ -53,12 +58,31 @@ public class SingleObject extends HttpServlet {
                     Mappa_Resource mappa_resource = new Mappa_Resource();
                     Piano_Resource piano_resource = new Piano_Resource();
                     Piano piano_search = piano_resource.findByQuota(identificatore);
-                    int id_piano = piano_search.getID_piano();
+                    id_piano = piano_search.getID_piano();
                     ArrayList<Mappa> al_mappe = mappa_resource.findByIDPiano(id_piano);
                     request.setAttribute("quota", identificatore);
                     request.setAttribute("mappe", al_mappe);
                     
                     rd = request.getRequestDispatcher("gestione-piano.jsp");
+                    rd.forward(request, response);
+                    
+                    break;
+                    
+                case "mappa":
+                    /* Reindirizzamento pagina di gestione grafo */
+                    Mappa_Resource mappa_resource1 = new Mappa_Resource();
+                    Nodo_Resource nodo_resource = new Nodo_Resource();
+                    Piano_Resource piano_resource1 = new Piano_Resource();
+                    Mappa mappa_search = mappa_resource1.findByNome(identificatore);
+                    id_mappa = mappa_search.getID_mappa();
+                    quota = piano_resource1.findById(mappa_search.getID_piano()).getQuota();
+                    ArrayList<Nodo> al_nodi = nodo_resource.findByIDMappa(id_mappa);
+                    request.setAttribute("nome", identificatore);
+                    request.setAttribute("nodi", al_nodi);
+                    request.setAttribute("quota", quota);
+                    
+                    
+                    rd = request.getRequestDispatcher("gestione-grafo.jsp");
                     rd.forward(request, response);
                     
                     break;

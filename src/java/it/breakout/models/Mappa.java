@@ -55,7 +55,7 @@ public class Mappa {
         this.ultima_modifica = ultima_modifica;
     }
 
-    public long getID_mappa() {
+    public int getID_mappa() {
         return ID_mappa;
     }
 
@@ -63,7 +63,7 @@ public class Mappa {
         this.ID_mappa = ID_mappa;
     }
 
-    public long getID_piano() {
+    public int getID_piano() {
         return ID_piano;
     }
 
