@@ -8,7 +8,6 @@ package it.breakout.services;
 import it.breakout.models.Nodo;
 import it.breakout.models.Pdi;
 import it.breakout.models.Piano;
-import static it.breakout.services.Piano_Service.TBL_NAME;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -29,6 +28,7 @@ public class Nodo_Service {
     public static final String FIELD_ID = "id_nodo";
     public static final String FIELD_CODICE = "codice";
     public static final String FIELD_ID_MAPPA = "id_mappa";
+    public static final String FIELD_IS_PDI = "is_pdi";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
@@ -49,7 +49,7 @@ public class Nodo_Service {
     
     public ArrayList<Nodo> findAllNodes() {
         ResultSet rs = null;
-            ArrayList<Nodo> nodi = new ArrayList<>();
+        ArrayList<Nodo> nodi = new ArrayList<>();
         try {
             open();
             
@@ -76,7 +76,31 @@ public class Nodo_Service {
     }
 
     public ArrayList<Pdi> findAllPois() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ResultSet rs = null;
+        ArrayList<Pdi> pdis = new ArrayList<>();
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_IS_PDI + "=true order by codice";
+            st = conn.prepareStatement(query);
+            rs = st.executeQuery();
+            while(rs.next()) {
+                Pdi pdi = new Pdi();
+                pdi.setCodice(rs.getString("codice"));
+                pdi.setCoord_X(rs.getFloat("coordinata_x"));
+                pdi.setCoord_Y(rs.getFloat("coordinata_y"));
+                pdi.setLarghezza(rs.getFloat("larghezza"));
+                pdis.add(pdi);
+            }
+        } 
+        catch (SQLException e) {
+        	e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+        
+        return pdis;
     }
     
     public ArrayList<Nodo> findByIDMappa(int search_id) {

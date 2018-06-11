@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import it.breakout.models.Mappa;
 import it.breakout.models.Piano;
 import it.breakout.models.Nodo;
+import it.breakout.models.Pdi;
 import it.breakout.resources.Mappa_Resource;
 import it.breakout.resources.Piano_Resource;
 import it.breakout.resources.Nodo_Resource;
@@ -27,7 +28,7 @@ import it.breakout.resources.Nodo_Resource;
  * @author Giovanni
  */
 @ServletSecurity(@HttpConstraint(rolesAllowed = "admin"))
-public class SingleObject extends HttpServlet {
+public class ObjectAccess extends HttpServlet {
     
     private String oggetto;
     private String identificatore;
@@ -77,8 +78,10 @@ public class SingleObject extends HttpServlet {
                     id_mappa = mappa_search.getID_mappa();
                     quota = piano_resource1.findById(mappa_search.getID_piano()).getQuota();
                     ArrayList<Nodo> al_nodi = nodo_resource.findByIDMappa(id_mappa);
+                    ArrayList<Pdi> al_pdis = nodo_resource.findAllPois();
                     request.setAttribute("nome", identificatore);
                     request.setAttribute("nodi", al_nodi);
+                    request.setAttribute("pdis", al_pdis);
                     request.setAttribute("quota", quota);
                     
                     

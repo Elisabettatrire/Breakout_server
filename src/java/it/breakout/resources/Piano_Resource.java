@@ -18,6 +18,7 @@ public class Piano_Resource {
     Piano_Service piano_service = new Piano_Service();
     Connection conn = null;
     
+    /* Funzioni di ricerca */
     public ArrayList<Piano> findAll() {
 	return piano_service.findAll();
     }
@@ -30,4 +31,12 @@ public class Piano_Resource {
         return piano_service.findByQuota(quota);
     }
     
+    /* Funzioni di inserimento-modifica-cancellazione */
+    public void insert(String quota) {
+        piano_service.insert(quota);
+    }
+    
+    public void delete(int id_piano) {
+        piano_service.delete(id_piano);
+    }
 }

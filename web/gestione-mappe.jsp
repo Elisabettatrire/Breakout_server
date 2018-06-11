@@ -21,11 +21,13 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
+        <link rel="stylesheet" href="static/scroll-table.css" type="text/css">
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
+        <script src="static/scroll-table.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -41,24 +43,34 @@
                         <thead>
                             <tr><th>Quota&nbsp;&nbsp;
                                 <i data-toggle="tooltip" data-placement="top"
-                                       title="Clicca sulla quota per aprire la pagina di gestione del piano"
-                                       class="fas fa-info-circle" style="color: #007bff;"></i>
+                                    title="Clicca sulla quota per aprire la pagina di gestione del piano"
+                                    class="fas fa-info-circle" style="color: #007bff;"></i>
                                 </th><th>Modifica</th><th>Elimina</th>
                         </thead>
                         <!-- Get data from request object -->
-                        <c:forEach items="${requestScope.piani}" var="piano">
+                        <c:forEach items="${requestScope.piani}" var="piano" varStatus="i">
                             <c:set var="quota" value="${piano.getQuota()}"/>
-                            <tr><td><a href='SingleObject?obj=piano&nm=${quota}'>${quota}</a></td>
-                                <td><button id="mod-q${quota}" class="btn btn-outline-dark btn-sm"
+                            <c:set var="indice" value="${i.index}"/>
+                            <c:set var="id_piano" value="${piano.getID_piano()}"/>                            
+                            <tr><td><a href='ObjectAccess?obj=piano&nm=${quota}'>${quota}</a></td>
+                                <td><button id="mod-${id_piano}" class="btn btn-outline-dark btn-sm"
                                         data-toggle="modal" data-target="#modal-mod-piano">
                                         <span class="fas fa-cog"></span></button></td>
-                                <td><button id="rm-q${quota}" class="btn btn-outline-danger btn-sm"
-                                            data-toggle="modal" data-target="#modal-elimina-piano">
-                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                                <td>
+                                    <form onsubmit="return confirm('Sicuro di voler rimuovere il piano selezionato? Questa azione non può essere annullata.');"
+                                          method="post" action="DBModify">
+                                        <button type="submit" value="X"
+                                                class="btn btn-outline-danger btn-sm">
+                                            <span class="fas fa-trash-alt"></span></button>
+                                        <input type="hidden" name="azione" value="elimina-piano">
+                                        <input type="hidden" name="id_piano" value="${id_piano}">
+                                        <input type="hidden" name="modalita" value="mappe">
+                                    </form>
+                                </td></tr>
                         </c:forEach>
                         <!-- -->
                     </table>
-                            
+                    
                     <div style="text-align: right">
                         <button id="aggiungiPiano" data-toggle="modal" data-target="#modal-piano"
                                 class="btn btn-outline-success"><b>Aggiungi Piano</b></button>
@@ -66,18 +78,30 @@
                 </div>
                 <!-- End Table Piani -->
                 
-                <!-- Table Scale -->
+                <!-- Table Scale scrollabile-->
                 <div class="col-md-6">
                     <h4>Lista Scale</h4>
-                    <table class="table table-bordered table-striped" style="text-align: center">
-                        <tr><th>Codice</th><th>Lunghezza</th><th>Codice Nodo 1</th><th>Codice Nodo 2</th>
-                            <c:forEach items="${requestScope.scale}" var="scala">
-                                <c:set var="codice" value="${scala.getCodice()}"/>
-                                <c:set var="lunghezza" value="${scala.getLunghezza()}"/>
-                                <c:set var="nodi" value="${scala.getNodiLong()}"/>
-                                <tr><td>${codice}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td></tr>
-                            </c:forEach>
-                    </table>
+                    <div id="table-scroll" class="table-scroll">
+                        <div id="faux-table" class="faux-table" aria="hidden"></div>
+                        <div class="table-wrap">
+                            <table id="main-table" class="table table-bordered table-striped main-table" style="text-align: center">
+                                <thead>
+                                <tr><th scope="col">Codice</th>
+                                    <th scope="col">Lunghezza</th>
+                                    <th scope="col">Codice Nodo 1</th>
+                                    <th scope="col">Codice Nodo 2</th>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.scale}" var="scala">
+                                        <c:set var="codice" value="${scala.getCodice()}"/>
+                                        <c:set var="lunghezza" value="${scala.getLunghezza()}"/>
+                                        <c:set var="nodi" value="${scala.getNodiLong()}"/>
+                                        <tr><td>${codice}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td></tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div style="text-align: right">
                         <button id="aggiungiScala" data-toggle="modal" data-target="#modal-scala"
                                 class="btn btn-outline-success"><b>Aggiungi Scala</b></button>
@@ -101,7 +125,8 @@
         </div>
         <!-- End Page Content -->
         
-        <!-- Modal Conferma Eliminazione Mappa -->
+        <!-- Modal Conferma Eliminazione Piano -->
+        <!--
         <div id="modal-elimina-piano" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -112,19 +137,21 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <form action='#'>
+                        <form action='DBModify'>
                             <p>Sicuro di voler rimuovere il piano selezionato?
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                                 <input class="btn btn-danger" type='submit' value='Elimina' name='elimina-piano'>
+                                <input type="hidden" name="id_piano" value="">
                             </div>
                         </form>                    
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Modal Conferma Eliminazione Mappa -->
+        -->
+        <!-- End Modal Conferma Eliminazione Piano -->
         
         <!-- Modal Form Aggiungi Piano -->
         <div id="modal-piano" class="modal fade">
@@ -137,14 +164,16 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action='MappaServlet'>
+                        <form action="DBModify" method="post">
                             <table class='table table-borderless'><tr><td>Quota:</td>
-                            <td><input type='text' name='quota' size='45' placeholder='&nbsp;es. 155'>
+                                    <td><input autofocus="true" type='text' name='quota' size='45' placeholder='&nbsp;es. 155'>
                             </td></table>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                                 <input class="btn btn-outline-success" type='submit' 
                                        style="font-weight: bold" value='Aggiungi piano' name='aggiungi-piano'>
+                                <input type="hidden" name="azione" value="aggiungi-piano">
+                                <input type="hidden" name="modalita" value="mappe">
                             </div>
                         </form>                    
                     </div>

@@ -51,7 +51,7 @@
                         </thead>
                         <c:forEach items="${requestScope.mappe}" var="mappa">
                             <c:set var="nome" value="${mappa.getNome()}"/>
-                            <tr><td><a href="SingleObject?obj=mappa&nm=${nome}">${nome}</a></td>
+                            <tr><td><a href="ObjectAccess?obj=mappa&nm=${nome}">${nome}</a></td>
                                 <td><button id="mod-${nome}" class="btn btn-outline-dark btn-sm"
                                         data-toggle="modal" data-target="#modal-mod-mappa">
                                         <span class="fas fa-cog"></span></button></td>
@@ -65,7 +65,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <form action="DBAccess" method="POST">
-                        <input type="submit" value="< Indietro" class="btn btn-secondary">
+                        <input type="submit" value="< Gestione Mappe" class="btn btn-secondary">
                         <input type="hidden" name="modalita" value="mappe">
                     </form>
                 </div>

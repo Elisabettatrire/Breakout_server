@@ -48,7 +48,7 @@ public class DBAccess extends HttpServlet{
         throws ServletException, IOException {
         
         modalita = request.getParameter("modalita");
-        RequestDispatcher rd;        
+        RequestDispatcher rd;
         
         try {
             switch(modalita) {
@@ -59,9 +59,9 @@ public class DBAccess extends HttpServlet{
                     Piano_Resource piano_resource = new Piano_Resource();
                     ArrayList<Piano>  al_piani = piano_resource.findAll();
                     request.setAttribute("piani", al_piani);
+
                     
                     /* Riempimento tabella scale */
-
                     Tronco_Resource tronco_resource1 = new Tronco_Resource();
                     ArrayList<Scala> al_scale = tronco_resource1.findAllStairs();
                     request.setAttribute("scale", al_scale);

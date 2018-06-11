@@ -26,6 +26,7 @@ public class Piano_Service {
     public static final String TBL_NAME = "piano";
     public static final String FIELD_ID = "id_piano";
     public static final String FIELD_QUOTA = "quota";
+    public static final String DEFAULT = "default";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
@@ -44,6 +45,7 @@ public class Piano_Service {
         }
     }
     
+    /* Funzioni di ricerca */
     public ArrayList<Piano> findAll() {
             ResultSet rs = null;
             ArrayList<Piano> piani = new ArrayList<>();
@@ -121,5 +123,44 @@ public class Piano_Service {
         }
         
         return piano;
+    }
+    
+    /* Funzioni di inserimento-modifica-cancellazione */
+    public void insert(String quota) {
+                
+        try {
+            open();
+            
+            String query = "insert into " + TBL_NAME + " (quota) values(?)";
+            st = conn.prepareStatement(query);
+            st.setString(1, quota);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+    }
+    
+    public void delete(int id_piano) {
+                
+        try {
+            open();
+            
+            String query = "delete from " + TBL_NAME + " where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, id_piano);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
     }
 }

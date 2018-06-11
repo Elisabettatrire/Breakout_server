@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html>
 <html lang="it-IT">
@@ -21,11 +22,13 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
+        <link rel="stylesheet" href="static/scroll-table.css" type="text/css">
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
+        <script src="static/scroll-table.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -39,25 +42,36 @@
                     <br><br>
                     <!-- Tabella dei Nodi della mappa -->
                     <h4>Lista Nodi</h4>
-                    <table class="table table-bordered table-striped" style="text-align: center">
-                        <thead>
-                            <tr><th>Codice</th><th>Coord_X</th><th>Coord_Y</th>
-                                <th>Larghezza</th><th>Modifica</th><th>Elimina</th>
-                        </thead>
-                        <c:forEach items="${requestScope.nodi}" var="nodo">
-                            <c:set var="codice" value="${nodo.getCodice()}"/>
-                            <c:set var="x" value="${nodo.getCoord_X()}"/>
-                            <c:set var="y" value="${nodo.getCoord_Y()}"/>
-                            <c:set var="larghezza" value="${nodo.getLarghezza()}"/>
-                            <tr><td>${codice}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
-                                <td><button id="mod-${codice}" class="btn btn-outline-dark btn-sm"
-                                            data-toggle="modal" data-target="#modal-mod-nodo">
-                                        <span class="fas fa-cog"></span></button></td>
-                                <td><button id="rm-${codice}" class="btn btn-outline-danger btn-sm"
-                                            data-toggle="modal" data-target="#modal-elimina-nodo">
-                                        <span class="fas fa-trash-alt"></span></button></td></tr>
-                        </c:forEach>
-                    </table>
+                    <div id="table-scroll" class="table-scroll">
+                        <div id="faux-table" class="faux-table" aria="hidden"></div>
+                        <div class="table-wrap">
+                            <table id="main-table" class="table table-bordered table-striped main-table" style="text-align: center">
+                                <thead>
+                                    <tr><th scope="col">Codice</th>
+                                        <th scope="col">Coord_X</th>
+                                        <th scope="col">Coord_Y</th>
+                                        <th scope="col">Larghezza</th>
+                                        <th scope="col">Modifica</th>
+                                        <th scope="col">Elimina</th>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.nodi}" var="nodo">
+                                        <c:set var="codice_nodo" value="${nodo.getCodice()}"/>
+                                        <c:set var="x" value="${nodo.getCoord_X()}"/>
+                                        <c:set var="y" value="${nodo.getCoord_Y()}"/>
+                                        <c:set var="larghezza" value="${nodo.getLarghezza()}"/>
+                                        <tr><td>${codice_nodo}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
+                                            <td><button id="mod-${codice_nodo}" class="btn btn-outline-dark btn-sm"
+                                                        data-toggle="modal" data-target="#modal-mod-nodo">
+                                                    <span class="fas fa-cog"></span></button></td>
+                                            <td><button id="rm-${codice_nodo}" class="btn btn-outline-danger btn-sm"
+                                                        data-toggle="modal" data-target="#modal-elimina-nodo">
+                                                    <span class="fas fa-trash-alt"></span></button></td></tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div style="text-align: right">
                         <button type="button" class="btn btn-outline-success"
                                 data-toggle="modal" data-target="#modal-agg-nodo">
@@ -76,14 +90,14 @@
                             </tr>
                         </thead>
                         <c:forEach items="${requestScope.tronchi}" var="tronco">
-                            <c:set var="codice" value="${tronco.getCodice()}"/>
+                            <c:set var="codice_tronco" value="${tronco.getCodice()}"/>
                             <c:set var="lunghezza" value="${tronco.getLunghezza()}"/>
                             <c:set var="nodi" value="${tronco.getNodiLong()}"/>
-                            <tr><td>${codice}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td>
-                                <td><button id="mod-${codice}" class="btn btn-outline-dark btn-sm"
+                            <tr><td>${codice_tronco}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td>
+                                <td><button id="mod-${codice_tronco}" class="btn btn-outline-dark btn-sm"
                                             data-toggle="modal" data-target="#modal-mod-tronco">
                                         <span class="fas fa-cog"></span></button></td>
-                                <td><button id="rm-${codice}" class="btn btn-outline-danger btn-sm"
+                                <td><button id="rm-${codice_tronco}" class="btn btn-outline-danger btn-sm"
                                             data-toggle="modal" data-target="#modal-elimina-tronco">
                                         <span class="fas fa-trash-alt"></span></button></td></tr>
                         </c:forEach>
@@ -98,8 +112,9 @@
                 </div>
                      
                 <!-- Immagine della mappa fs:990x1572 -->
+                <c:set var = "nome_img" value = "${fn:replace(requestScope.nome, '/', '-')}" />
                 <div class="col-md-4" >  
-                    <img src="/Immagini/150_color.jpg" width="396" height="630">
+                    <img src="/Immagini/${nome_img}.jpg" width="396" height="630">
                 </div>
             </div>
             
@@ -107,7 +122,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <br><br>
-                    <h4>Punti di interesse</h4>            
+                    <h4>Punti di interesse</h4>
                     <table class="table table-bordered table-striped" style="text-align: center">
                         <thead>
                             <tr>
@@ -116,34 +131,44 @@
                                 <th>Elimina</th>
                             </tr>
                         </thead>
-                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                            <td><button id="mod" class="btn btn-outline-dark btn-sm"
-                                    data-toggle="modal" data-target="#modal-mod-pdi">
-                                    <span class="fas fa-cog"></span></button></td>
-                            <td><button id="rm" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="modal" data-target="#modal-elimina-pdi">
-                                    <span class="fas fa-trash-alt"></span></button></td></tr>
+                        <c:forEach items="${requestScope.pdis}" var="pdi">
+                            <c:set var="codice_pdi" value="${pdi.getCodice()}"/>
+                            <c:set var="x" value="${pdi.getCoord_X()}"/>
+                            <c:set var="y" value="${pdi.getCoord_Y()}"/>
+                            <c:set var="larghezza" value="${pdi.getLarghezza()}"/>
+                            <tr><td>${codice_pdi}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
+                                <td></td><td></td><td></td>
+                                <td><button id="mod-${codice_nodo}" class="btn btn-outline-dark btn-sm"
+                                            data-toggle="modal" data-target="#modal-mod-pdi">
+                                        <span class="fas fa-cog"></span></button></td>
+                                <td><button id="rm-${codice_nodo}" class="btn btn-outline-danger btn-sm"
+                                            data-toggle="modal" data-target="#modal-elimina-pdi">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                        </c:forEach>
                     </table>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <form action="SingleObject" method="GET">
-                        <input type="submit" value="< Indietro" class="btn btn-secondary">
-                        <input type="hidden" name="obj" value="piano">
-                        <input type="hidden" name="nm" value="${requestScope.quota}">
-                    </form>
-                    <br>
-                    <form action="DBAccess" method="POST">
-                        <input type="submit" value="Torna a Gestione Mappe" class="btn btn-secondary">
-                        <input type="hidden" name="modalita" value="mappe">
-                    </form>
-                </div>
-                <div class="col-md-6" style="text-align: right">
+                <div class="col-md-12" style="text-align: right">
                     <button type="button" class="btn btn-outline-success"
                         data-toggle="modal" data-target="#modal-agg-pdi">
                         <b>Aggiungi PDI</b>
                     </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <form action="ObjectAccess" method="GET">
+                        <input type="submit" value="< Gestione Piano" class="btn btn-secondary">
+                        <input type="hidden" name="obj" value="piano">
+                        <input type="hidden" name="nm" value="${requestScope.quota}">
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <form action="DBAccess" method="POST">
+                        <input type="submit" value="Gestione Mappe" class="btn btn-secondary">
+                        <input type="hidden" name="modalita" value="mappe">
+                    </form>
                 </div>
             </div>
         </div>
@@ -160,14 +185,18 @@
                         <!-- text area per inserire i dati dei nodi da caricare -->
                         <form>
                             <table class="table table-borderless">
-                                <tr><td>Coord_X</td><td><input type="text" name="coord-x"
-                                                                placeholder=" es. 129" value="" size="40"></td></tr>
-                                <tr><td>Coord_Y</td><td><input type="text" name="coord-y"
-                                                               placeholder=" es. 465" value="" size="40"></td></tr>
-                                <tr><td>Larghezza</td><td><input type="text" name="larghezza" placeholder=" es. 1.8"
-                                                                value="" size="40"></td></tr>
-                                <tr><td>Codice</td><td><input type="text" name="codice" placeholder=" es. 150G2"
-                                                                value="" size="40"></td></tr>
+                                <tr><td>Coord_X</td><td>
+                                        <input type="text" name="coord-x"
+                                                placeholder=" es. 129" value="" size="40"></td></tr>
+                                <tr><td>Coord_Y</td><td>
+                                        <input type="text" name="coord-y"
+                                                placeholder=" es. 465" value="" size="40"></td></tr>
+                                <tr><td>Larghezza</td><td>
+                                        <input type="text" name="larghezza" placeholder=" es. 1.8"
+                                                value="" size="40"></td></tr>
+                                <tr><td>Codice</td><td>
+                                        <input type="text" name="codice" placeholder=" es. 150G2"
+                                                value="" size="40"></td></tr>
                             </table>
                             <!-- Bottoni per tornare alla schermata precedente o per aggiungere il nodo -->
                             <div class="modal-footer">
