@@ -164,9 +164,15 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="col-md-12">
+                            <p class="warning" style="color: red; display: none">
+                                Devono essere compilati tutti i campi, altrimenti l'inserimento
+                                non verrà portato a termine.</p>
+                        </div>
                         <form action="DBModify" method="post">
                             <table class='table table-borderless'><tr><td>Quota:</td>
-                                    <td><input autofocus="true" type='text' name='quota' size='45' placeholder='&nbsp;es. 155'>
+                                    <td><input class="text-input" autofocus="true" type='text' name='quota'
+                                               size='45'placeholder='&nbsp;es. 155'>
                             </td></table>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
@@ -193,14 +199,19 @@
                     </button>
                     </div>
                     <div class="modal-body">
+                        <div class="col-md-12">
+                            <p class="warning" style="color: red; display: none">
+                                Devono essere compilati tutti i campi, altrimenti l'inserimento
+                                non verrà portato a termine.</p>
+                        </div>
                         <form action='#'>
                             <table class='table table-borderless'>
                                 <tr><td>Lunghezza (m):</td>
-                                    <td><input type='text' name='lunghezza' size='38'
-                                        placeholder='&nbsp;es. 25'></td>
-                                <tr><td>Cod. Nodo 1:</td><td><input type='text'
+                                    <td><input class="text-input" type='text' name='lunghezza' size='38'
+                                        autofocus="true" placeholder='&nbsp;es. 25'></td>
+                                <tr><td>Cod. Nodo 1:</td><td><input class="text-input" type='text'
                                         placeholder='&nbsp;es. 145UA5' name='nodo_1' size='38'></td>
-                                <tr><td>Cod. Nodo 2:</td><td><input type='text'
+                                <tr><td>Cod. Nodo 2:</td><td><input class="text-input" type='text'
                                         placeholder='&nbsp;es. 145DICEA' name='nodo_1' size='38'></td>
                             </table>
                             <div class="modal-footer">
@@ -214,6 +225,17 @@
             </div>
         </div>
         <!-- End Modal Form Aggiungi Scala -->
+        
+        <!-- Warning per gli input vuoti -->
+        <script>
+            $('input.text-input').blur(function()
+            {
+                if(!$(this).val()) {
+                    $('p.warning').css('display', 'inline-block');
+                }
+            });
+        </script>
+            
         
     </body>
 </html>

@@ -59,7 +59,6 @@ public class DBAccess extends HttpServlet{
                     Piano_Resource piano_resource = new Piano_Resource();
                     ArrayList<Piano>  al_piani = piano_resource.findAll();
                     request.setAttribute("piani", al_piani);
-
                     
                     /* Riempimento tabella scale */
                     Tronco_Resource tronco_resource1 = new Tronco_Resource();

@@ -6,14 +6,14 @@
 package it.breakout.servlets;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
 
 import it.breakout.services.Piano_Service;
-import javax.servlet.RequestDispatcher;
+import it.breakout.utility.FormFilter;
 
 /**
  *
@@ -38,12 +38,16 @@ public class DBModify extends HttpServlet {
         azione = request.getParameter("azione");
         RequestDispatcher rd;
         Piano_Service piano_service = new Piano_Service();
+        FormFilter form_filter = new FormFilter();
         
         switch(azione) {
             case "aggiungi-piano":
                 
                 String quota = request.getParameter("quota");
-                piano_service.insert(quota);
+                String filtered = form_filter.filtraQuota(quota);
+                if(!filtered.equals("empty")) {
+                    piano_service.insert(filtered);
+                }
                 
                 rd = request.getRequestDispatcher("/DBAccess");
                 rd.forward(request, response);
