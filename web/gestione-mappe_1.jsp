@@ -21,14 +21,13 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
-        <link rel="stylesheet" type="text/css" href="static/datatables.min.css"/>
+        <link rel="stylesheet" href="static/scroll-table.css" type="text/css">
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
         <script src="static/scroll-table.js"></script>
-        <script type="text/javascript" src="static/datatables.min.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -40,7 +39,10 @@
                 <!-- Table Piani -->
                 <div class="col-md-6">
                     <h4>Lista Piani</h4>
-                        <table class="display" style="width:100%; text-align: center">
+                    <div id="table-scroll" class="table-scroll">
+                        <div id="faux-table" class="faux-table" aria="hidden"></div>
+                    <div class="table-wrap">
+                            <table id="main-table" class="table table-bordered table-striped main-table" style="text-align: center">
                         <thead>
                             <tr><th>Quota&nbsp;&nbsp;
                                 <i data-toggle="tooltip" data-placement="top"
@@ -71,13 +73,15 @@
                                 </td></tr>
                         </c:forEach>
                         </tbody>
+                        
+                        
                         <!-- -->
                     </table>
+                        </div>
+                    </div>
                     
                     
-                    
-                    
-                    <div style="text-align: right; margin-top: 10px"">
+                    <div style="text-align: right">
                         <button id="aggiungiPiano" data-toggle="modal" data-target="#modal-piano"
                                 class="btn btn-outline-success"><b>Aggiungi Piano</b></button>
                     </div>
@@ -87,7 +91,10 @@
                 <!-- Table Scale scrollabile-->
                 <div class="col-md-6">
                     <h4>Lista Scale</h4>
-                            <table class="table-striped display" style="text-align: center; width:100%;">
+                    <div id="table-scroll" class="table-scroll">
+                        <div id="faux-table" class="faux-table" aria="hidden"></div>
+                        <div class="table-wrap">
+                            <table id="main-table" class="table table-bordered table-striped main-table" style="text-align: center">
                                 <thead>
                                 <tr><th>Codice</th>
                                     <th>Lunghezza</th>
@@ -103,14 +110,14 @@
                                     </c:forEach>
                                 </tbody>
                             </table>
-                    <div style="text-align: right; margin-top: 10px">
+                        </div>
+                    </div>
+                    <div style="text-align: right">
                         <button id="aggiungiScala" data-toggle="modal" data-target="#modal-scala"
                                 class="btn btn-outline-success"><b>Aggiungi Scala</b></button>
                     </div>
                 </div>
                 <!-- End Table Scale -->
-                
-                
                 
             </div>
             <!-- End Row -->

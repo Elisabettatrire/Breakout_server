@@ -4,7 +4,14 @@
  * and open the template in the editor.
  */
 
-jQuery(document).ready(function() {
-   jQuery(".main-table").clone(true).appendTo('#table-scroll .faux-table').addClass('clone');
-   jQuery(".main-table.clone").clone(true).appendTo('#table-scroll .faux-table').addClass('clone2'); 
- });
+$(document).ready(function() {
+    $(".display").DataTable( {
+        "scrollY":          "290px",
+        "scrollCollapse":   true,
+        "paging":           false,
+        "info":             false,
+        "searching":        false,
+        "ordering":         false
+    } );
+} );
+
