@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-md-6" style="text-align: left">
                     <form action="DBAccess" method="POST">
-                        <input type="submit" value="Gestione Utenti App" class="btn btn-lg btn-success" name="mappe"
+                        <input type="submit" value="Gestione Utenti App" class="btn btn-lg btn-success" name="utenti"
                                    style="width: 500px; height: 250px; font-size: 26pt">
                         <input type="hidden" name="modalita" value="utenti">
                     </form>

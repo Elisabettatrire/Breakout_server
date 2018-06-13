@@ -1,14 +1,7 @@
 package it.breakout.resources;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import it.breakout.models.Piano;
 import it.breakout.services.Piano_Service;
@@ -34,6 +27,10 @@ public class Piano_Resource {
     /* Funzioni di inserimento-modifica-cancellazione */
     public void insert(String quota) {
         piano_service.insert(quota);
+    }
+    
+    public void update(String quota, int id_piano) {
+        piano_service.update(quota, id_piano);
     }
     
     public void delete(int id_piano) {

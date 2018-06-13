@@ -22,6 +22,7 @@ public class Mappa_Service {
     public static final String FIELD_ID = "id_mappa";
     public static final String FIELD_NOME = "nome";
     public static final String FIELD_ID_PIANO = "id_piano";
+    public static final String FIELD_IMG = "img";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
@@ -84,6 +85,7 @@ public class Mappa_Service {
             	Mappa mappa;
                 mappa = new Mappa();
                 mappa.setNome(rs.getString("nome"));
+                mappa.setID_mappa(rs.getInt("id_mappa"));
                 mappe.add(mappa);
             }
         } 
@@ -123,6 +125,66 @@ public class Mappa_Service {
         }
         
         return mappa;
+    }
+    
+    public void insert(Mappa mappa) {
+        
+        try {
+            open();
+            
+            String query = "insert into " + TBL_NAME + " (img,nome,id_piano) values(?,?,?)";
+            st = conn.prepareStatement(query);
+            st.setString(1, mappa.getUrlImmagine());
+            st.setString(2, mappa.getNome());
+            st.setInt(3, mappa.getID_piano());
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        finally {
+            close();
+        }
+    }
+    
+    public void update(Mappa mappa, int id_mappa) {
+        
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set " + FIELD_NOME + "=?, "
+                    + FIELD_IMG + "=? where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setString(1, mappa.getNome());
+            st.setString(2, mappa.getUrlImmagine());
+            st.setInt(3, mappa.getID_mappa());
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        finally {
+            close();
+        }
+    }
+    
+    public void delete(int id_mappa) {
+        
+        try {
+            open();
+            
+            String query = "delete from " + TBL_NAME + " where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, id_mappa);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
     }
     
 }

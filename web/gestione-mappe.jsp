@@ -29,6 +29,7 @@
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
         <script src="static/scroll-table.js"></script>
         <script type="text/javascript" src="static/datatables.min.js"></script>
+        <script type="text/javascript" src="static/modal-forms.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -40,7 +41,7 @@
                 <!-- Table Piani -->
                 <div class="col-md-6">
                     <h4>Lista Piani</h4>
-                        <table class="display" style="width:100%; text-align: center">
+                    <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr><th>Quota&nbsp;&nbsp;
                                 <i data-toggle="tooltip" data-placement="top"
@@ -58,26 +59,16 @@
                                 <td><button id="mod-${id_piano}" class="btn btn-outline-dark btn-sm"
                                         data-toggle="modal" data-target="#modal-mod-piano">
                                         <span class="fas fa-cog"></span></button></td>
-                                <td>
-                                    <form onsubmit="return confirm('Sicuro di voler rimuovere il piano selezionato? Questa azione non può essere annullata.');"
-                                          method="post" action="DBModify">
-                                        <button type="submit" value="X"
-                                                class="btn btn-outline-danger btn-sm">
-                                            <span class="fas fa-trash-alt"></span></button>
-                                        <input type="hidden" name="azione" value="elimina-piano">
-                                        <input type="hidden" name="id_piano" value="${id_piano}">
-                                        <input type="hidden" name="modalita" value="mappe">
-                                    </form>
+                                <td><button id="del-${id_piano}" class="btn btn-outline-danger btn-sm"
+                                            data-toggle="modal" data-target="#modal-elimina-piano">
+                                    <span class="fas fa-trash-alt"></span></button></td>
                                 </td></tr>
                         </c:forEach>
                         </tbody>
                         <!-- -->
                     </table>
                     
-                    
-                    
-                    
-                    <div style="text-align: right; margin-top: 10px"">
+                    <div style="text-align: right; margin-top: 10px">
                         <button id="aggiungiPiano" data-toggle="modal" data-target="#modal-piano"
                                 class="btn btn-outline-success"><b>Aggiungi Piano</b></button>
                     </div>
@@ -128,34 +119,6 @@
         </div>
         <!-- End Page Content -->
         
-        <!-- Modal Conferma Eliminazione Piano -->
-        <!--
-        <div id="modal-elimina-piano" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title">Conferma eliminazione piano</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action='DBModify'>
-                            <p>Sicuro di voler rimuovere il piano selezionato?
-                                Questa azione non può essere annullata.</p>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-danger" type='submit' value='Elimina' name='elimina-piano'>
-                                <input type="hidden" name="id_piano" value="">
-                            </div>
-                        </form>                    
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
-        <!-- End Modal Conferma Eliminazione Piano -->
-        
         <!-- Modal Form Aggiungi Piano -->
         <div id="modal-piano" class="modal fade">
             <div class="modal-dialog">
@@ -174,7 +137,7 @@
                         </div>
                         <form action="DBModify" method="post">
                             <table class='table table-borderless'><tr><td>Quota:</td>
-                                    <td><input class="text-input" autofocus="true" type='text' name='quota'
+                                    <td><input autofocus="true" type='text' name='quota'
                                                size='45'placeholder='&nbsp;es. 155'>
                             </td></table>
                             <div class="modal-footer">
@@ -190,6 +153,69 @@
             </div>
         </div>
         <!-- End Modal Form Aggiungi Piano -->
+        
+        <!-- Modal Form Modifica Piano -->
+        <div id="modal-mod-piano" method="post" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modifica piano</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <p class="warning">
+                                I campi non compilati manterrano il valore precedente.</p>
+                        </div>
+                        <form action="DBModify" method="post" id="form-mod-piano">
+                            <table class='table table-borderless'><tr><td>Quota:</td>
+                                    <td><input autofocus="true" type='text' name='quota'
+                                               size='45' placeholder="&nbsp;(invariato)">
+                            </td></table>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                                <input class="btn btn-outline-success" type='submit' 
+                                       style="font-weight: bold" value='Applica modifiche' name='modifica-piano'>
+                                <input type="hidden" name="id_piano" value="">
+                                <input type="hidden" name="azione" value="modifica-piano">
+                                <input type="hidden" name="modalita" value="mappe">
+                            </div>
+                        </form>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Form Modifica Piano -->
+        
+        <!-- Modal Conferma Eliminazione Piano -->
+        <div id="modal-elimina-piano" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Conferma eliminazione piano</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action='DBModify' method="post" id="form-del-piano">
+                            <p>Sicuro di voler rimuovere il piano selezionato?
+                                Questa azione non può essere annullata.</p>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                                <input class="btn btn-danger" type='submit' value='Elimina piano' name='elimina-piano'>
+                                <input type="hidden" name="id_piano" value="">
+                                <input type="hidden" name="azione" value="elimina-piano">
+                                <input type="hidden" name="modalita" value="mappe">
+                            </div>
+                        </form>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Conferma Eliminazione Piano -->
         
         <!-- Modal Form Aggiungi Scala -->
         <div id="modal-scala" class="modal fade">
@@ -210,11 +236,11 @@
                         <form action='#'>
                             <table class='table table-borderless'>
                                 <tr><td>Lunghezza (m):</td>
-                                    <td><input class="text-input" type='text' name='lunghezza' size='38'
+                                    <td><input type='text' name='lunghezza' size='38'
                                         autofocus="true" placeholder='&nbsp;es. 25'></td>
-                                <tr><td>Cod. Nodo 1:</td><td><input class="text-input" type='text'
+                                <tr><td>Cod. Nodo 1:</td><td><input type='text'
                                         placeholder='&nbsp;es. 145UA5' name='nodo_1' size='38'></td>
-                                <tr><td>Cod. Nodo 2:</td><td><input class="text-input" type='text'
+                                <tr><td>Cod. Nodo 2:</td><td><input type='text'
                                         placeholder='&nbsp;es. 145DICEA' name='nodo_1' size='38'></td>
                             </table>
                             <div class="modal-footer">
@@ -229,8 +255,8 @@
         </div>
         <!-- End Modal Form Aggiungi Scala -->
         
-        <!-- Warning per gli input vuoti -->
         <script>
+            /* Warning per gli input vuoti */
 //            $('input.text-input').focusout(function()
 //            {
 //                if(!$(this).val()) {
@@ -238,8 +264,6 @@
 //                }
 //            });
         </script>
-            
-        
     </body>
 </html>
 

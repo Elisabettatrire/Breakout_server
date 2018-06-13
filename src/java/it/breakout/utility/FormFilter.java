@@ -41,24 +41,21 @@ public class FormFilter {
         } else return -1;
     }
     
-    public String filtraDescrizione(String input_description) {
-        
-        /* Rimozione spazi iniziali e finali */
-        String trimmed = input_description.trim();
-        String filtered = trimmed.replaceAll("[^A-Za-z0-9]", "");
-        /*FINIRE*/
-        return filtered;
-        
-    }
-    
-    
-    public String codeFilter(String input_code) {
+    public String filtraCodice(String input_code) {
         
         /* Rimozione caratteri speciali */
         String filtered = input_code.replaceAll("[^A-Za-z0-9]","");
         
         if(filtered != null && !filtered.isEmpty()) {
             return filtered.toUpperCase(); // Lettere maiuscole
+        } else return "empty";
+    }
+    
+    public String filtraNomeMappa(String input_nome_mappa) {
+        /* Rimozione caratteri speciali e lettere*/
+        String filtered = input_nome_mappa.replaceAll("[^A-Za-z0-9/_-]","");
+        if(filtered != null && !filtered.isEmpty()) {
+            return filtered; // Lettere maiuscole
         } else return "empty";
     }
 }

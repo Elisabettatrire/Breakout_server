@@ -10,8 +10,8 @@ package it.breakout.models;
  *
  * @author costantino
  */
-public class Utente_App {
-    private long ID_utente;
+public class Utente {
+    private int ID_utente;
     private String username;
     private String password;
     private String email;
@@ -20,14 +20,14 @@ public class Utente_App {
     private String ultima_posizione;
     private boolean is_online;
 
-    public Utente_App() {
+    public Utente() {
     }
 
     public long getID_utente() {
         return ID_utente;
     }
 
-    public void setID_utente(long ID_utente) {
+    public void setID_utente(int ID_utente) {
         this.ID_utente = ID_utente;
     }
 

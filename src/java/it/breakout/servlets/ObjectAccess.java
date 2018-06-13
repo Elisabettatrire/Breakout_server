@@ -78,7 +78,7 @@ public class ObjectAccess extends HttpServlet {
                     id_mappa = mappa_search.getID_mappa();
                     quota = piano_resource1.findById(mappa_search.getID_piano()).getQuota();
                     ArrayList<Nodo> al_nodi = nodo_resource.findByIDMappa(id_mappa);
-                    ArrayList<Pdi> al_pdis = nodo_resource.findAllPois();
+                    ArrayList<Pdi> al_pdis = nodo_resource.findPoisByIDMappa(id_mappa);
                     request.setAttribute("nome", identificatore);
                     request.setAttribute("nodi", al_nodi);
                     request.setAttribute("pdis", al_pdis);
@@ -91,7 +91,7 @@ public class ObjectAccess extends HttpServlet {
                     break;
             }
         } catch (IOException | ServletException f) {
-            f.printStackTrace();
+            f.getMessage();
             response.sendRedirect("500.jsp");
         }
 

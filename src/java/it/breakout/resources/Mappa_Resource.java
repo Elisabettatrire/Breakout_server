@@ -23,4 +23,16 @@ public class Mappa_Resource {
 	return mappa_service.findByNome(search_nome);
     }
     
+    public void insert(Mappa mappa) {
+        mappa_service.insert(mappa);
+    }
+    
+    public void update(Mappa mappa, int id_mappa) {
+        mappa_service.update(mappa, id_mappa);
+    }
+    
+    public void delete(int id_mappa) {
+        mappa_service.delete(id_mappa);
+    }
+    
 }

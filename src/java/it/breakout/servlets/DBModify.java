@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 
-import it.breakout.services.Piano_Service;
+import it.breakout.resources.Piano_Resource;
+import it.breakout.resources.Mappa_Resource;
 import it.breakout.utility.FormFilter;
+import it.breakout.models.Mappa;
 
 /**
  *
@@ -37,32 +39,137 @@ public class DBModify extends HttpServlet {
         
         azione = request.getParameter("azione");
         RequestDispatcher rd;
-        Piano_Service piano_service = new Piano_Service();
         FormFilter form_filter = new FormFilter();
         
-        switch(azione) {
-            case "aggiungi-piano":
-                
-                String quota = request.getParameter("quota");
-                String filtered = form_filter.filtraQuota(quota);
-                if(!filtered.equals("empty")) {
-                    piano_service.insert(filtered);
-                }
-                
-                rd = request.getRequestDispatcher("/DBAccess");
-                rd.forward(request, response);
-                
-                break;
-                
-            case "elimina-piano":
-                
-                int id_piano = Integer.parseInt(request.getParameter("id_piano"));
-                piano_service.delete(id_piano);
-                
-                rd = request.getRequestDispatcher("/DBAccess");
-                rd.forward(request, response);
-        }
+        /* Variabili per inserimento-modifica-eliminazione piano */
+        Piano_Resource piano_resource = new Piano_Resource();
+        String quota;
+        String quota_filtered;
+        int id_piano;
         
+        /* Variabili per inserimento-modifica-eliminazione scala */
+        
+        /* Variabili per inserimento-modifica-eliminazione mappa */
+        Mappa_Resource mappa_resource = new Mappa_Resource();
+        Mappa mappa = new Mappa();
+        String nome_mappa;
+        String nome_mappa_filtered;
+        String url_immagine;
+        
+        try {
+            switch(azione) {
+
+                /* Azioni relative alla tabella dei piani */
+                case "aggiungi-piano":
+
+                    quota = request.getParameter("quota");
+                    quota_filtered = form_filter.filtraQuota(quota);
+                    if(!quota_filtered.equals("empty")) {
+                        piano_resource.insert(quota_filtered);
+                    }
+
+                    /* Ritorno alla lista dei piani che sarà aggiornata */
+                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd.forward(request, response);
+
+                    break;
+
+                case "modifica-piano":
+
+                    id_piano = Integer.parseInt(request.getParameter("id_piano"));
+                    quota = request.getParameter("quota");
+                    /* Se il campo viene lasciato vuoto non si deve fare niente */
+                    if(!quota.equals("")) {
+
+                        quota_filtered = form_filter.filtraQuota(quota);
+
+                        if(!quota_filtered.equals("empty")) {
+                            piano_resource.update(quota_filtered, id_piano);
+                        }
+                    }
+
+                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd.forward(request, response);
+
+                case "elimina-piano":
+
+                    piano_resource.delete(Integer.parseInt(request.getParameter("id_piano")));
+
+                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd.forward(request, response);
+
+                    break;
+
+                /* Azioni relative alla tabella delle scale */
+
+                /* Azioni relative alla tabella delle mappe */
+                case "aggiungi-mappa":
+
+                    nome_mappa = request.getParameter("nome-mappa");
+                    quota = request.getParameter("nm"); // non c'è bisogno di filtrarla
+                    url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
+
+                    nome_mappa_filtered = form_filter.filtraNomeMappa(nome_mappa);
+
+                    if(!nome_mappa_filtered.equals("empty")) {
+                        mappa.setNome(nome_mappa_filtered);
+                        mappa.setID_piano(piano_resource.findByQuota(quota).getID_piano()); // veloce
+                        mappa.setUrlImmagine(url_immagine);
+
+                        mappa_resource.insert(mappa);
+                    }
+
+                    rd = request.getRequestDispatcher("ObjectAccess?obj=piano&nm="+quota);
+                    rd.forward(request, response);
+
+                    break;
+                    
+                case "modifica-mappa":
+                    
+                    nome_mappa = request.getParameter("nome-mappa");
+                    quota = request.getParameter("nm"); // non c'è bisogno di filtrarla
+                    url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
+                    mappa.setID_mappa(Integer.parseInt(request.getParameter("id_mappa")));
+                    
+                    if(!nome_mappa.equals("")) {
+                        
+                        nome_mappa_filtered = form_filter.filtraNomeMappa(nome_mappa);
+                        
+                        if(!nome_mappa_filtered.equals("empty")) {
+                            mappa.setNome(nome_mappa_filtered);
+                        }
+                        
+                    }
+                    
+                    if(!url_immagine.equals("")) {
+                        
+                        mappa.setUrlImmagine(url_immagine);
+                        
+                    }
+                    
+                    mappa_resource.update(mappa, mappa.getID_mappa());
+                    
+                    rd = request.getRequestDispatcher("ObjectAccess?obj=piano&nm="+quota);
+                    rd.forward(request, response);
+
+                    break;
+                    
+
+                case "elimina-mappa":
+
+                    mappa_resource.delete(Integer.parseInt(request.getParameter("id_mappa")));
+                    quota = request.getParameter("nm");
+
+                    rd = request.getRequestDispatcher("ObjectAccess?obj=piano&nm="+quota);
+                    rd.forward(request, response);
+
+                    break;
+            }
+        } catch (IOException | ServletException f) {
+            f.getMessage();
+            response.sendRedirect("500.jsp");
+        }
+                 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

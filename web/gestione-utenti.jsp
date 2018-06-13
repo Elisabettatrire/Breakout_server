@@ -41,11 +41,11 @@
                     <h4>Lista Utenti</h4>
                     <table class="table table-bordered table-striped" style="text-align: center">
                         <thead>
-                            <tr><th>ID</th><th>Nome</th><th>Cognome</th><th>Username</th>
-                                <th>Password</th><th>e-mail</th><th>Modifica</th><th>Elimina</th>
+                            <tr><th>Username</th><th>Password</th><th>Nome</th><th>Cognome</th>
+                                <th>e-mail</th><th>Modifica</th><th>Elimina</th>
                         </thead>
-                        <tr><td>1</td><td>Mario</td><td>Rossi</td><td>mario72</td><td>mariolino</td>
-                            <td>mario.rossi@email.it</td>
+                        <tr><td>mario72</td><td>mario.rossi@email.it</td><td>Mario</td>
+                            <td>Rossi</td><td>mariolino</td>
                             <td><button id="mod-150g2" class="btn btn-outline-dark btn-sm"
                                     data-toggle="modal" data-target="#modal-mod-utente">
                                     <span class="fas fa-cog"></span></button></td>

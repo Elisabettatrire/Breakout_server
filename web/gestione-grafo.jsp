@@ -11,9 +11,8 @@
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Breakout - Gestione Grafo</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.min.css" type="text/css">
@@ -22,13 +21,14 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
-        <link rel="stylesheet" href="static/scroll-table.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="static/datatables.min.css"/>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
         <script src="static/scroll-table.js"></script>
+        <script type="text/javascript" src="static/datatables.min.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -37,15 +37,19 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <h2>Mappa ${requestScope.nome} - Gestione Grafo</h2>
                     <br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
                     <!-- Tabella dei Nodi della mappa -->
                     <h4>Lista Nodi</h4>
                     <div id="table-scroll" class="table-scroll">
                         <div id="faux-table" class="faux-table" aria="hidden"></div>
                         <div class="table-wrap">
-                            <table id="main-table" class="table table-bordered table-striped main-table" style="text-align: center">
+                            <table class="display" style="width:100%; text-align: center">
                                 <thead>
                                     <tr><th scope="col">Codice</th>
                                         <th scope="col">Coord_X</th>
@@ -72,7 +76,7 @@
                             </table>
                         </div>
                     </div>
-                    <div style="text-align: right">
+                    <div style="text-align: right; margin-top: 10px">
                         <button type="button" class="btn btn-outline-success"
                                 data-toggle="modal" data-target="#modal-agg-nodo">
                             <b>Aggiungi nodo</b>
@@ -82,7 +86,7 @@
                     
                     <!-- Tabella dei Tronchi della mappa -->
                     <h4>Lista Tronchi MI SERVE L'ID DELLA MAPPA</h4>
-                    <table  class="table table-bordered table-striped" style="text-align: center">
+                    <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
                                 <th>Codice</th><th>Lunghezza</th><th>Cod. Nodo 1</th>
@@ -102,7 +106,7 @@
                                         <span class="fas fa-trash-alt"></span></button></td></tr>
                         </c:forEach>
                     </table>
-                    <div style="text-align: right">
+                    <div style="text-align: right; margin-top: 10px">
                         <button type="button" class="btn btn-outline-success"
                                 data-toggle="modal" data-target="#modal-agg-tronco">
                             <b>Aggiungi tronco</b>
@@ -122,12 +126,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <br><br>
-                    <h4>Punti di interesse</h4>
-                    <table class="table table-bordered table-striped" style="text-align: center">
+                    <h4>Lista punti di interesse</h4>
+                    <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
                                 <th>Codice</th><th>Coord_X</th><th>Coord_Y</th><th>Larghezza</th>
-                                <th>Lunghezza</th><th>Tipo</th><th>Descrizione</th><th>Modifica</th>
+                                <th>Lunghezza</th><th>Tipo</th><th>Modifica</th>
                                 <th>Elimina</th>
                             </tr>
                         </thead>
@@ -136,8 +140,9 @@
                             <c:set var="x" value="${pdi.getCoord_X()}"/>
                             <c:set var="y" value="${pdi.getCoord_Y()}"/>
                             <c:set var="larghezza" value="${pdi.getLarghezza()}"/>
+                            <c:set var="tipo" value="${pdi.getTipo()}"/>
                             <tr><td>${codice_pdi}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
-                                <td></td><td></td><td></td>
+                                <td></td><td>${tipo}</td>
                                 <td><button id="mod-${codice_nodo}" class="btn btn-outline-dark btn-sm"
                                             data-toggle="modal" data-target="#modal-mod-pdi">
                                         <span class="fas fa-cog"></span></button></td>
@@ -149,7 +154,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12" style="text-align: right">
+                <div class="col-md-12" style="text-align: right;  margin-top: 10px">
                     <button type="button" class="btn btn-outline-success"
                         data-toggle="modal" data-target="#modal-agg-pdi">
                         <b>Aggiungi PDI</b>

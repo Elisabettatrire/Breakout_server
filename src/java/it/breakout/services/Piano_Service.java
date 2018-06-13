@@ -145,6 +145,27 @@ public class Piano_Service {
         }
     }
     
+    public void update(String quota, int id_piano) {
+                
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set " + FIELD_QUOTA + "=? where "
+                    + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setString(1, quota);
+            st.setInt(2, id_piano);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+            e.printStackTrace();
+        }
+        finally {
+            close();
+        }
+    }
+    
     public void delete(int id_piano) {
                 
         try {
