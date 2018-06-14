@@ -18,4 +18,8 @@ public class Beacon_Service {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    Beacon findById(Integer id_beacon) { //TODO da implementare 
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+    }
+    
 }

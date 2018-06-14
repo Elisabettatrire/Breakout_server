@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author costantino
  */
 public class Piano {
-    private int ID_piano;
+    private Integer ID_piano;
     private String quota;
     private ArrayList<Mappa> mappe;
 
@@ -27,11 +27,11 @@ public class Piano {
         this.mappe = mappe;
     }
     
-    public int getID_piano() {
+    public Integer getID_piano() {
         return ID_piano;
     }
 
-    public void setID_piano(int ID_piano) {
+    public void setID_piano(Integer ID_piano) {
         this.ID_piano = ID_piano;
     }
 

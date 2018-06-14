@@ -55,6 +55,7 @@ public class DBModify extends HttpServlet {
         String nome_mappa;
         String nome_mappa_filtered;
         String url_immagine;
+        int id_mappa;
         
         try {
             switch(azione) {
@@ -125,28 +126,34 @@ public class DBModify extends HttpServlet {
                     break;
                     
                 case "modifica-mappa":
-                    
+                                        
                     nome_mappa = request.getParameter("nome-mappa");
                     quota = request.getParameter("nm"); // non c'è bisogno di filtrarla
                     url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
-                    mappa.setID_mappa(Integer.parseInt(request.getParameter("id_mappa")));
+                    id_mappa = Integer.parseInt(request.getParameter("id_mappa"));
+                    mappa.setID_mappa(id_mappa);
                     
-                    if(!nome_mappa.equals("")) {
-                        
+                    /* Aggiornamento nome mappa */
+                    // Se il campo è vuoto bisogna mantenere il valore precedente
+                    if(nome_mappa.equals("")) {
+                        nome_mappa = mappa_resource.findByID(id_mappa).getNome();
+                        mappa.setNome(nome_mappa);
+                    } else {
                         nome_mappa_filtered = form_filter.filtraNomeMappa(nome_mappa);
-                        
+                        // Se una volta filtrato non è vuoto...
                         if(!nome_mappa_filtered.equals("empty")) {
                             mappa.setNome(nome_mappa_filtered);
                         }
-                        
                     }
                     
-                    if(!url_immagine.equals("")) {
-                        
-                        mappa.setUrlImmagine(url_immagine);
-                        
+                    /* Aggiornamento url */
+                    // Se il campo è vuoto bisogna mantenere il valore precedente
+                    if(url_immagine.equals("")) {
+                        url_immagine = mappa_resource.findByID(id_mappa).getUrlImmagine();
                     }
+                    mappa.setUrlImmagine(url_immagine);
                     
+                    /* Invio query */
                     mappa_resource.update(mappa, mappa.getID_mappa());
                     
                     rd = request.getRequestDispatcher("ObjectAccess?obj=piano&nm="+quota);

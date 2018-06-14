@@ -37,7 +37,7 @@ public class Mappa_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.printStackTrace();
+                e.getMessage();
         }
     }
     
@@ -56,11 +56,14 @@ public class Mappa_Service {
             	Mappa mappa;
                 mappa = new Mappa();
                 mappa.setNome(rs.getString("nome"));
+                mappa.setUrlImmagine(rs.getString("img"));
+                mappa.setID_mappa(rs.getInt("id_mappa"));
+                mappa.setID_piano(rs.getInt("id_piano"));
                 mappe.add(mappa);
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -69,7 +72,7 @@ public class Mappa_Service {
         return mappe;
     }
     
-    public ArrayList<Mappa> findByIDPiano(int search_id) {
+    public ArrayList<Mappa> findByIDPiano(Integer search_id) {
         
         ResultSet rs = null;
         ArrayList<Mappa> mappe = new ArrayList<>();
@@ -85,7 +88,9 @@ public class Mappa_Service {
             	Mappa mappa;
                 mappa = new Mappa();
                 mappa.setNome(rs.getString("nome"));
+                mappa.setUrlImmagine(rs.getString("img"));
                 mappa.setID_mappa(rs.getInt("id_mappa"));
+                mappa.setID_piano(rs.getInt("id_piano"));
                 mappe.add(mappa);
             }
         } 
@@ -97,6 +102,35 @@ public class Mappa_Service {
         }
         
         return mappe;
+    }
+    
+    public Mappa findByID(Integer search_id) {
+        
+        ResultSet rs = null;
+        Mappa mappa = new Mappa();
+        
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, search_id);
+            rs = st.executeQuery();
+            while(rs.next()) {
+            	mappa.setNome(rs.getString("nome"));
+                mappa.setUrlImmagine(rs.getString("img"));
+                mappa.setID_mappa(rs.getInt("id_mappa"));
+                mappa.setID_piano(rs.getInt("id_piano"));
+            }
+        } 
+        catch (SQLException e) {
+        	e.getMessage();
+        }
+        finally {
+            close();
+        }
+        
+        return mappa;
     }
     
     public Mappa findByNome(String search_nome) {
@@ -113,12 +147,13 @@ public class Mappa_Service {
             rs = st.executeQuery();
             while(rs.next()) {
             	mappa.setNome(rs.getString("nome"));
+                mappa.setUrlImmagine(rs.getString("img"));
                 mappa.setID_mappa(rs.getInt("id_mappa"));
                 mappa.setID_piano(rs.getInt("id_piano"));
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -147,7 +182,7 @@ public class Mappa_Service {
         }
     }
     
-    public void update(Mappa mappa, int id_mappa) {
+    public void update(Mappa mappa, Integer id_mappa) {
         
         try {
             open();
@@ -168,7 +203,7 @@ public class Mappa_Service {
         }
     }
     
-    public void delete(int id_mappa) {
+    public void delete(Integer id_mappa) {
         
         try {
             open();
@@ -180,7 +215,6 @@ public class Mappa_Service {
             
         } catch (SQLException e) {
             e.getMessage();
-            e.printStackTrace();
         }
         finally {
             close();

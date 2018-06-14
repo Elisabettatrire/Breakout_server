@@ -11,7 +11,7 @@ package it.breakout.models;
  * @author costantino
  */
 public class Utente_Server {
-    private long ID_utente;
+    private Integer ID_utente;
     private String username;
     private String password;
     private String email;
@@ -21,11 +21,11 @@ public class Utente_Server {
     public Utente_Server() {
     }
 
-    public long getID_utente() {
+    public Integer getID_utente() {
         return ID_utente;
     }
 
-    public void setID_utente(long ID_utente) {
+    public void setID_utente(Integer ID_utente) {
         this.ID_utente = ID_utente;
     }
 

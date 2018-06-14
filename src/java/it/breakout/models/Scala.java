@@ -7,44 +7,44 @@ package it.breakout.models;
 
 import java.util.ArrayList;
 
+import it.breakout.services.Nodo_Service;
+
 /**
  *
  * @author costantino
  */
 public class Scala {
-    protected long ID;
+    protected Integer ID;
     private double larghezza_media;
     private double lunghezza;
-    private Long[] nodi_long;
+    private Integer[] nodi_int;
     private ArrayList<Nodo> nodi;
     private Beacon beacon;
-    private float costo_totale_normalizzato;
+    private float costo_totale;
     protected String codice;
 
     public Scala() {
-        nodi_long = new Long[2];
+        nodi_int = new Integer[2]; 
     }
     
-    public Nodo otherNode (Nodo node){
-        Nodo other = null;
-        ArrayList<Nodo> i = getNodi();
-        
-        for(Nodo f:i){
-            if (f.equals(node)){ 
-            } else {
-                other = (Nodo) f;
-            }  
+    public Integer otherNode (Integer id){
+        Integer other = null;
+        Integer[] nodi = this.getNodiInteger();
+        if (id==nodi[0]){
+            other=nodi[1];
+        }else{
+            other=nodi[0];
         }
-    return other;
+        return other;
     }
 
-    public Long[] getNodiLong() {
-        return nodi_long;
+    public Integer[] getNodiInteger() {
+        return nodi_int;
     }
 
-    public void setNodiLong(long nodo_1, long nodo_2) {
-        nodi_long[0] = nodo_1;
-        nodi_long[1] = nodo_2;
+    public void setNodiInteger(Integer nodo_1, Integer nodo_2) {
+        nodi_int[0] = nodo_1;
+        nodi_int[1] = nodo_2;
     }
 
     public ArrayList<Nodo> getNodi() {
@@ -55,11 +55,11 @@ public class Scala {
         this.nodi = nodi;
     }
     
-    public long getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(long ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 
@@ -87,12 +87,12 @@ public class Scala {
         this.beacon = beacon;
     }
 
-    public float getCosto_totale_normalizzato() {
-        return costo_totale_normalizzato;
+    public float getCosto_totale() {
+        return costo_totale;
     }
 
-    public void setCosto_totale_normalizzato(float costo_totale_normalizzato) {
-        this.costo_totale_normalizzato = costo_totale_normalizzato;
+    public void setCosto_totale(float costo_totale) {
+        this.costo_totale = costo_totale;
     }
     
     public String getCodice() {
@@ -104,5 +104,21 @@ public class Scala {
         sb.append("S");
         sb.append(ID);
         codice = sb.toString();
+    }
+    
+    public void setCosto_totale() {
+        double LOS = larghezza_media * lunghezza / beacon.getInd_NDC();
+        costo_totale = (float) (LOS + beacon.getInd_rischio() + beacon.getInd_fumi() + beacon.getInd_fuoco());
+    }
+
+    public void setLarghezza_media() {
+        setNodi();
+        this.larghezza_media = (nodi.get(0).getLarghezza() + nodi.get(1).getLarghezza()) / 2;
+    }
+
+    private void setNodi() {
+        Nodo_Service nodoSrv = new Nodo_Service();
+        nodi.add(nodoSrv.findById(nodi_int[0]));
+        nodi.add(nodoSrv.findById(nodi_int[1]));
     }
 }

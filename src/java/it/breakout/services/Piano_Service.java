@@ -41,7 +41,7 @@ public class Piano_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.printStackTrace();
+                e.getMessage();
         }
     }
     
@@ -63,7 +63,7 @@ public class Piano_Service {
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -72,7 +72,7 @@ public class Piano_Service {
         return piani;
     }
     
-    public Piano findById(int search_id) {
+    public Piano findById(Integer search_id) {
         
         ResultSet rs = null;
         Piano piano = new Piano();
@@ -89,7 +89,7 @@ public class Piano_Service {
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -116,7 +116,7 @@ public class Piano_Service {
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -138,14 +138,13 @@ public class Piano_Service {
             
         } catch (SQLException e) {
             e.getMessage();
-            e.printStackTrace();
         }
         finally {
             close();
         }
     }
     
-    public void update(String quota, int id_piano) {
+    public void update(String quota, Integer id_piano) {
                 
         try {
             open();
@@ -159,14 +158,13 @@ public class Piano_Service {
             
         } catch (SQLException e) {
             e.getMessage();
-            e.printStackTrace();
         }
         finally {
             close();
         }
     }
     
-    public void delete(int id_piano) {
+    public void delete(Integer id_piano) {
                 
         try {
             open();
@@ -178,7 +176,6 @@ public class Piano_Service {
             
         } catch (SQLException e) {
             e.getMessage();
-            e.printStackTrace();
         }
         finally {
             close();

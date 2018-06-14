@@ -11,7 +11,7 @@ package it.breakout.models;
  */
 public class Collegamento extends Scala {
     
-    private long ID_Piano;
+    private Integer ID_Piano;
     
     @Override
     public void setCodice() {

@@ -13,17 +13,26 @@ import java.util.ArrayList;
  */
 public class Nodo {
 
-    private long ID;
+    private Integer ID;
     private String codice;
     private float larghezza;
     private float coord_X;
     private float coord_Y;
+    private Integer[] tronchi_stella_int;
     private ArrayList<Scala> tronchi_stella; // tra i tronchi vanno messe anche le scale e i collegamenti
-    private long ID_mappa;
+    private Integer ID_mappa;
     
     public Nodo() {
     }
 
+    public Integer[] getTronchi_stella_int() {
+        return tronchi_stella_int;
+    }
+
+    public void setTronchi_stella_int(Integer[] tronchi_stella_int) {
+        this.tronchi_stella_int = tronchi_stella_int;
+    }
+    
     public ArrayList<Scala> getTronchi_stella() {
         return tronchi_stella;
     }
@@ -32,11 +41,11 @@ public class Nodo {
         this.tronchi_stella = tronchi_stella;
     }
 
-    public long getID_mappa() {
+    public Integer getID_mappa() {
         return ID_mappa;
     }
 
-    public void setID_mappa(long ID_mappa) {
+    public void setID_mappa(Integer ID_mappa) {
         this.ID_mappa = ID_mappa;
     }
 
@@ -56,11 +65,11 @@ public class Nodo {
         this.codice = codice;
     }
 
-    public long getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(long ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 

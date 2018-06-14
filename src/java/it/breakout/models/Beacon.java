@@ -11,31 +11,31 @@ package it.breakout.models;
  */
 public class Beacon {
     
-    private long ID_beacon;
+    private Integer ID_beacon;
     private float coord_X;
     private float coord_Y;
     private float ind_fuoco;
     private float ind_fumi;
-    private float ind_LOS;
+    private float ind_NDC;
     private float ind_rischio;
-    private long ID_pdi;
+    private Integer ID_pdi;
 
     public Beacon() {
     }
 
-    public long getID_pdi() {
+    public Integer getID_pdi() {
         return ID_pdi;
     }
 
-    public void setID_pdi(long ID_pdi) {
+    public void setID_pdi(Integer ID_pdi) {
         this.ID_pdi = ID_pdi;
     }
 
-    public long getID_beacon() {
+    public Integer getID_beacon() {
         return ID_beacon;
     }
 
-    public void setID_beacon(long ID_beacon) {
+    public void setID_beacon(Integer ID_beacon) {
         this.ID_beacon = ID_beacon;
     }
 
@@ -71,12 +71,12 @@ public class Beacon {
         this.ind_fumi = ind_fumi;
     }
 
-    public float getInd_LOS() {
-        return ind_LOS;
+    public float getInd_NDC() {
+        return ind_NDC;
     }
 
-    public void setInd_LOS(float ind_LOS) {
-        this.ind_LOS = ind_LOS;
+    public void setInd_NDC(float ind_NDC) {
+        this.ind_NDC = ind_NDC;
     }
 
     public float getInd_rischio() {

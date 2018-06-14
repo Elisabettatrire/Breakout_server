@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import it.breakout.models.Beacon;
+
 /**
  *
  * @author costantino
@@ -47,7 +49,7 @@ public class Tronco_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.printStackTrace();
+                e.getMessage();
         }
     }
 
@@ -65,12 +67,12 @@ public class Tronco_Service {
                 tronco.setID(rs.getInt("id_tronco"));
                 tronco.setLunghezza(rs.getDouble("lunghezza"));
                 tronco.setCodice();
-                tronco.setNodiLong(rs.getLong("id_nodo1"), rs.getLong("id_nodo2"));
+                tronco.setNodiInteger(rs.getInt("id_nodo1"), rs.getInt("id_nodo2"));
                 tronchi.add(tronco);
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -91,15 +93,15 @@ public class Tronco_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Scala scala = new Scala();
-                scala.setID(rs.getLong("id_tronco"));
+                scala.setID(rs.getInt("id_tronco"));
                 scala.setCodice();
                 scala.setLunghezza(rs.getDouble("lunghezza"));
-                scala.setNodiLong(rs.getLong("id_nodo1"), rs.getLong("id_nodo2"));
+                scala.setNodiInteger(rs.getInt("id_nodo1"), rs.getInt("id_nodo2"));
                 scale.add(scala);
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -110,5 +112,78 @@ public class Tronco_Service {
     
     public ArrayList<Collegamento> findAllLinks() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Integer[] getArcsByNode_Integer(Integer id_nodo) {
+
+        ResultSet rs = null;
+        Integer[] arcs = null;
+
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_N1 + " = ? OR "
+                    + FIELD_ID_N2 + " = ? ";
+            st = conn.prepareStatement(query);
+            st.setInt(1, id_nodo);
+            st.setInt(2, id_nodo);
+            rs = st.executeQuery();
+            int i = 0;
+            
+            while(rs.next()) {
+                arcs[i] = rs.getInt(FIELD_ID);
+                i++;
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        finally {
+            close();
+        }
+        
+        return arcs;
+    }
+    
+    private Beacon getBeacon(Integer id_beacon) {
+        Beacon_Service beaconSrv = new Beacon_Service();
+        return beaconSrv.findById(id_beacon);
+    }
+
+    public Scala findByIdGeneric(Integer id) {
+
+        ResultSet rs = null;
+        Scala arc = new Scala();
+
+        try {
+
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID + "= ?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, id);
+            rs = st.executeQuery();
+            
+            while(rs.next()) {
+                arc.setID(id);
+                Integer[] nodes = null;
+                nodes[0] = rs.getInt(FIELD_ID_N1);
+                nodes[1] = rs.getInt(FIELD_ID_N2);
+                arc.setNodiInteger(nodes[0], nodes[1]);
+                arc.setLarghezza_media();
+                arc.setBeacon(getBeacon(rs.getInt(FIELD_ID_BEACON)));
+                arc.setCosto_totale();
+            }
+        }
+
+        catch (SQLException e) {
+            e.getMessage();
+        }
+
+        finally {
+            close();
+        }
+        
+        return arc;
+
     }
 }

@@ -28,6 +28,9 @@ public class Nodo_Service {
     public static final String FIELD_CODICE = "codice";
     public static final String FIELD_ID_MAPPA = "id_mappa";
     public static final String FIELD_IS_PDI = "is_pdi";
+    public static final String FIELD_COORD_X = "coordinata_x";
+    public static final String FIELD_COORD_Y = "coordinata_y";
+    public static final String FIELD_WIDTH = "larghezza";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
@@ -42,7 +45,7 @@ public class Nodo_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.printStackTrace();
+                e.getMessage();
         }
     }
     
@@ -65,7 +68,7 @@ public class Nodo_Service {
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -94,7 +97,7 @@ public class Nodo_Service {
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -103,7 +106,50 @@ public class Nodo_Service {
         return pdis;
     }
     
-    public ArrayList<Nodo> findByIDMappa(int search_id) {
+    private Integer[] getStar_Integer(Integer id_nodo) {
+        Tronco_Service troncoSrv = new Tronco_Service();
+        return troncoSrv.getArcsByNode_Integer(id_nodo);
+    }
+
+    
+
+    public Nodo findById(Integer Id){
+
+        ResultSet rs = null;
+
+        Nodo nodo = new Nodo();
+
+        try {
+
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID + "= ?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, Id);
+            rs = st.executeQuery();
+
+            while(rs.next()) {
+                nodo.setID(Id);
+                nodo.setCodice(rs.getString(FIELD_CODICE));
+                nodo.setCoord_X(rs.getFloat(FIELD_COORD_X));
+                nodo.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
+                nodo.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
+                nodo.setTronchi_stella_int(getStar_Integer(Id));
+                nodo.setLarghezza(rs.getFloat(FIELD_WIDTH));
+            }
+        } 
+
+        catch (SQLException e) {
+        	e.getMessage();
+        }
+        finally {
+            close();
+        }
+       
+        return nodo;
+    }
+    
+    public ArrayList<Nodo> findByIDMappa(Integer search_id) {
         ResultSet rs = null;
         ArrayList<Nodo> nodi = new ArrayList<>();
         try {
@@ -124,7 +170,7 @@ public class Nodo_Service {
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -133,7 +179,7 @@ public class Nodo_Service {
         return nodi;
     }
     
-    public ArrayList<Pdi> findPoisByIDMappa(int search_id) {
+    public ArrayList<Pdi> findPoisByIDMappa(Integer search_id) {
         ResultSet rs = null;
         ArrayList<Pdi> pdis = new ArrayList<>();
         try {
