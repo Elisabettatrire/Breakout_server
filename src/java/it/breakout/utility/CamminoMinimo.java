@@ -79,7 +79,7 @@ public class CamminoMinimo {
         dijkstraTemp = impostaCostoECammino(dijkstraTemp, dijkstraDef, destNodeId); //Inserisco nell'insieme temporaneo i nodi adiacenti alla destinazione 
         
         Tronco_Service troncoSrv = new Tronco_Service();
-        Scala startArc = troncoSrv.findByIdGeneric(startArcId);
+        Scala startArc = troncoSrv.findByIDGeneric(startArcId);
         
         /*
         Finchè l'insieme definitivo non contiene tutti e due i nodi del tronco di partenza, sposta il nodo
@@ -113,11 +113,11 @@ public class CamminoMinimo {
         Nodo_Service nodoSrv = new Nodo_Service();
         Tronco_Service troncoSrv = new Tronco_Service();
         
-        Nodo nodo = nodoSrv.findById(nodoId);
+        Nodo nodo = nodoSrv.findByID(nodoId);
         ArrayList<Scala> stella = new ArrayList<>();
         
         for (Integer i : nodo.getTronchi_stella_int()){
-            Scala arc = troncoSrv.findByIdGeneric(i);
+            Scala arc = troncoSrv.findByIDGeneric(i);
             stella.add(arc);
         }
         

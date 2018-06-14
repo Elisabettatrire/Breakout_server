@@ -56,7 +56,7 @@ public class Nodo {
     public void setLarghezza(float larghezza) {
         this.larghezza = larghezza;
     }
-
+    
     public String getCodice() {
         return codice;
     }

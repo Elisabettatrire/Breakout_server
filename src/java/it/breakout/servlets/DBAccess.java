@@ -78,25 +78,7 @@ public class DBAccess extends HttpServlet{
                     rd.forward(request, response);
 
                     break;
-                    
-                /*  Click su quota piano per "Gestione Grafo" */
-                case "grafo":
-                    
-                    /* Riempimento tabella nodi */
-                    Nodo_Resource nodo_resource = new Nodo_Resource();
-                    ArrayList<Nodo> al_nodi = nodo_resource.findAllNodes();
-                    request.setAttribute("nodi", al_nodi);
-                    
-                    /* Riempimento tabella tronchi */
-                    Tronco_Resource tronco_resource2 = new Tronco_Resource();
-                    ArrayList<Tronco> al_tronchi = tronco_resource2.findAllArcs();
-                    request.setAttribute("tronchi", al_tronchi);
-                    
-                    rd = request.getRequestDispatcher("gestione-grafo.jsp");
-                    rd.forward(request, response);
-                    
-                    break;
-                    
+
             }
         } catch (IOException | ServletException f) {
             f.getMessage();

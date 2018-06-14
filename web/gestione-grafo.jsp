@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
+        <title>Breakout - Gestione Grafo</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -29,6 +30,7 @@
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
         <script src="static/scroll-table.js"></script>
         <script type="text/javascript" src="static/datatables.min.js"></script>
+        <script type="text/javascript" src="static/modal-forms.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -85,7 +87,7 @@
                     <hr>
                     
                     <!-- Tabella dei Tronchi della mappa -->
-                    <h4>Lista Tronchi MI SERVE L'ID DELLA MAPPA</h4>
+                    <h4>Lista Tronchi MI SERVE LA TABELLA TRONCHI COMPLETA</h4>
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
@@ -164,15 +166,16 @@
             <div class="row">
                 <div class="col-md-2">
                     <form action="ObjectAccess" method="GET">
-                        <input type="submit" value="< Gestione Piano" class="btn btn-secondary">
-                        <input type="hidden" name="obj" value="piano">
-                        <input type="hidden" name="nm" value="${requestScope.quota}">
+                        <input type="submit" value="< Gestione Mappa" class="btn btn-secondary">
+                        <input type="hidden" name="obj" value="mappa">
+                        <input type="hidden" name="nm" value="${requestScope.nome}">
                     </form>
                 </div>
                 <div class="col-md-2">
-                    <form action="DBAccess" method="POST">
-                        <input type="submit" value="Gestione Mappe" class="btn btn-secondary">
-                        <input type="hidden" name="modalita" value="mappe">
+                    <form action="ObjectAccess" method="POST">
+                        <input type="submit" value="Gestione Piano" class="btn btn-secondary">
+                        <input type="hidden" name="obj" value="piano">
+                        <input type="hidden" name="nm" value="${requestScope.quota}">
                     </form>
                 </div>
             </div>

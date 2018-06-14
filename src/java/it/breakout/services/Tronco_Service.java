@@ -53,21 +53,26 @@ public class Tronco_Service {
         }
     }
 
-    public ArrayList<Tronco> findAllArcs() {
+    /* I tronchi sono i segmenti che collegano due nodi della stessa mappa */
+    public ArrayList<Tronco> findAllArcs(Integer id_mappa) {
         ResultSet rs = null;
         ArrayList<Tronco> tronchi = new ArrayList<>();
         try {
             open();
             
-            String query = "select * from " + TBL_NAME + " order by id_tronco";
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + "=? order by id_tronco";
             st = conn.prepareStatement(query);
+            st.setInt(1, id_mappa);
             rs = st.executeQuery();
             while(rs.next()) {
                 Tronco tronco = new Tronco();
-                tronco.setID(rs.getInt("id_tronco"));
-                tronco.setLunghezza(rs.getDouble("lunghezza"));
+                tronco.setID(rs.getInt(FIELD_ID));
+                tronco.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
+                tronco.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
+                tronco.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                tronco.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
+                tronco.setID_piano(rs.getInt(FIELD_ID_PIANO));
                 tronco.setCodice();
-                tronco.setNodiInteger(rs.getInt("id_nodo1"), rs.getInt("id_nodo2"));
                 tronchi.add(tronco);
             }
         } 
@@ -81,6 +86,7 @@ public class Tronco_Service {
         return tronchi;
     }
 
+    /* Le scale sono i segmenti che collegano i nodi di due piani diversi */
     public ArrayList<Scala> findAllStairs() {
         ResultSet rs = null;
         ArrayList<Scala> scale = new ArrayList<>();
@@ -93,10 +99,10 @@ public class Tronco_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Scala scala = new Scala();
-                scala.setID(rs.getInt("id_tronco"));
-                scala.setCodice();
-                scala.setLunghezza(rs.getDouble("lunghezza"));
-                scala.setNodiInteger(rs.getInt("id_nodo1"), rs.getInt("id_nodo2"));
+                scala.setID(rs.getInt(FIELD_ID));
+                scala.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
+                scala.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
+                scala.setID_beacon(rs.getInt(FIELD_ID_BEACON));
                 scale.add(scala);
             }
         } 
@@ -110,6 +116,9 @@ public class Tronco_Service {
         return scale;
     }
     
+    /* I collegamenti sono i segmenti che collegano due nodi di due mappe diverse
+     * ma dello stesso piano
+     */
     public ArrayList<Collegamento> findAllLinks() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -149,7 +158,7 @@ public class Tronco_Service {
         return beaconSrv.findById(id_beacon);
     }
 
-    public Scala findByIdGeneric(Integer id) {
+    public Scala findByIDGeneric(Integer id) {
 
         ResultSet rs = null;
         Scala arc = new Scala();

@@ -5,7 +5,6 @@
  */
 package it.breakout.services;
 
-import it.breakout.models.Nodo;
 import it.breakout.models.Utente;
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -26,7 +26,6 @@ public class Piano_Service {
     public static final String TBL_NAME = "piano";
     public static final String FIELD_ID = "id_piano";
     public static final String FIELD_QUOTA = "quota";
-    public static final String DEFAULT = "default";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
@@ -57,8 +56,8 @@ public class Piano_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Piano piano = new Piano();
-                piano.setQuota(rs.getString("quota"));
-                piano.setID_piano(rs.getInt("id_piano"));
+                piano.setQuota(rs.getString(FIELD_QUOTA));
+                piano.setID_piano(rs.getInt(FIELD_ID));
                 piani.add(piano);
             }
         } 
@@ -84,8 +83,8 @@ public class Piano_Service {
             st.setInt(1, search_id);
             rs = st.executeQuery();
             while(rs.next()) {
-                piano.setQuota(rs.getString("quota"));
-                piano.setID_piano(rs.getInt("id_piano"));
+                piano.setQuota(rs.getString(FIELD_QUOTA));
+                piano.setID_piano(rs.getInt(FIELD_ID));
             }
         } 
         catch (SQLException e) {
@@ -111,8 +110,8 @@ public class Piano_Service {
             st.setString(1, quota);
             rs = st.executeQuery();
             while(rs.next()) {
-                piano.setQuota(rs.getString("quota"));
-                piano.setID_piano(rs.getInt("id_piano"));
+                piano.setQuota(rs.getString(FIELD_QUOTA));
+                piano.setID_piano(rs.getInt(FIELD_ID));
             }
         } 
         catch (SQLException e) {

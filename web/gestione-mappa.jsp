@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html>
 <html lang="it-IT">
@@ -35,7 +36,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h2>Gestione Mappa Q150\1</h2>
+                    <c:set var="nome" value="${requestScope.nome}" />
+                    <h2>Gestione Mappa ${nome}</h2>
                     <br>
                     <br>
                     <!--Bottoni per la gestione dei beacon e dei grafi-->
@@ -45,10 +47,11 @@
                                 <b>Gestione beacon</b></button>
                         </div>
                         <div class="col-md-6" style="text-align: right">
-                            <form action="DBAccess" method="POST">
+                            <form action="ObjectAccess" method="POST">
                                 <input type="submit" value="Gestione Grafo" class="btn btn-outline-dark"
                                        style="font-weight: bold">
-                                <input type="hidden" name="modalita" value="grafo">
+                                <input type="hidden" name="obj" value="grafo">
+                                <input type="hidden" name="nm" value="${nome}">
                             </form>
                         </div>
                     </div>
@@ -58,23 +61,35 @@
                         <thead>
                             <tr><th>Nome beacon</th> <th>Codice Tronco/codice PDI</th></tr>
                         </thead>
-                        <tr><td>Beacon B1</td><td>T150N1</td></tr>
-                        <tr><td>Beacon B2</td><td>T150N2</td></tr>
-                        <tr><td>Beacon B3</td><td>T150N3</td></tr>
+                        <tbody>
+                            <c:forEach items="${requestScope.al_beacon}" var="beacon">
+                                <c:set var="id_beacon" value="${beacon.getID_beacon()}"/>
+                                <tr><td>Beacon B${id_beacon}</td><td><i>Codice tronco</i></td></tr>
+                            </c:forEach>
+                        </tbody>
                     </table>
                     <div style="text-align: right">
                         <button  id="agg-collegamento" type="button" class="btn btn-outline-success"
                                  data-toggle="modal" data-target="#agg-coll">
                             <b>Aggiungi collegamento</b></button>
                     </div>
+                    <c:set var="quota" value="${requestScope.quota}" />
+                    <div class="row">
+                        <button type="button" class="btn btn-secondary">
+                            <a href="ObjectAccess?obj=piano&nm=${quota}"
+                               style="color: inherit; text-decoration: none">
+                                < Gestione Piano</a>
+                        </button>
+                    </div>
                 </div>
                 <!--Immagine dell mappa fs:990x1572-->
-                <div class="col-md-6" >
-                    <img src="/Immagini/150_color.jpg" width="594" height="943">
+                <c:set var = "nome_img" value = "${fn:replace(requestScope.nome, '/', '-')}" />
+                <div class="col-md-4" >  
+                    <img src="/Immagini/${nome_img}.jpg" width="396" height="630">
                 </div>
-                <button type="button" class="btn btn-secondary">
-                    < Indietro</button>
             </div>
+            
+            
         </div>
         
         <!-- Finestra popup aggiungi collegamento-->

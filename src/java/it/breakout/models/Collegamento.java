@@ -11,13 +11,18 @@ package it.breakout.models;
  */
 public class Collegamento extends Scala {
     
-    private Integer ID_Piano;
+    private Integer ID_piano;
+
+    public void setID_piano(Integer ID_piano) {
+        this.ID_piano = ID_piano;
+    }
+
+    public Integer getID_piano() {
+        return ID_piano;
+    }
     
     @Override
     public void setCodice() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("C");
-        sb.append(ID);
-        codice = sb.toString();
+        codice = "C" + ID;
     }
 }

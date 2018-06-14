@@ -13,8 +13,7 @@ package it.breakout.models;
 public class Tronco extends Collegamento{
     
     private Integer ID_mappa;
-    
-    
+      
     public Tronco(){
     };
     
@@ -28,9 +27,6 @@ public class Tronco extends Collegamento{
     
     @Override
     public void setCodice() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("T");
-        sb.append(ID);
-        codice = sb.toString();
+        codice = "T" + ID;
     }
 }

@@ -72,21 +72,26 @@
                 </div>
             </div>
             <div class="row" style=" margin-top: 30px">
-                <div class="col-md-6">
-                    <form action="DBAccess" method="POST">
-                        <input type="submit" value="< Gestione Mappe" class="btn btn-secondary">
-                        <input type="hidden" name="modalita" value="mappe">
-                    </form>
-                </div>
-                <div class="col-md-6" style="text-align: right">
+                <div class="col-md-12" style="text-align: right">
                     <button type="button" class="btn btn-outline-success"
                             data-toggle="modal" data-target="#modal-aggiungi-mappa">
                         <b>Aggiungi mappa</b>
                     </button>
                 </div>
             </div>    
+             
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="DBAccess" method="POST">
+                        <input type="submit" value="< Gestione Mappe" class="btn btn-secondary">
+                        <input type="hidden" name="modalita" value="mappe">
+                    </form>
+                </div>
+            </div>
+                    
         </div>
-        
+                    
+                    
         <!-- Modal Form Aggiungi Mappa -->
         <div id="modal-aggiungi-mappa" class="modal fade">
             <div class="modal-dialog">

@@ -20,6 +20,7 @@ public class Scala {
     private Integer[] nodi_int;
     private ArrayList<Nodo> nodi;
     private Beacon beacon;
+    private Integer ID_beacon;
     private float costo_totale;
     protected String codice;
 
@@ -78,6 +79,14 @@ public class Scala {
     public void setLunghezza(double lunghezza) {
         this.lunghezza = lunghezza;
     }
+    
+    public Integer getID_beacon() {
+        return ID_beacon;
+    }
+
+    public void setID_beacon(Integer ID_beacon) {
+        this.ID_beacon = ID_beacon;
+    }
 
     public Beacon getBeacon() {
         return beacon;
@@ -99,13 +108,6 @@ public class Scala {
         return codice;
     }
     
-    public void setCodice() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("S");
-        sb.append(ID);
-        codice = sb.toString();
-    }
-    
     public void setCosto_totale() {
         double LOS = larghezza_media * lunghezza / beacon.getInd_NDC();
         costo_totale = (float) (LOS + beacon.getInd_rischio() + beacon.getInd_fumi() + beacon.getInd_fuoco());
@@ -118,7 +120,12 @@ public class Scala {
 
     private void setNodi() {
         Nodo_Service nodoSrv = new Nodo_Service();
-        nodi.add(nodoSrv.findById(nodi_int[0]));
-        nodi.add(nodoSrv.findById(nodi_int[1]));
+        nodi.add(nodoSrv.findByID(nodi_int[0]));
+        nodi.add(nodoSrv.findByID(nodi_int[1]));
     }
+    
+    public void setCodice() {
+        codice = "S" + ID;
+    }
+    
 }

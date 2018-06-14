@@ -26,11 +26,13 @@ public class Nodo_Service {
     public static final String TBL_NAME = "nodo";
     public static final String FIELD_ID = "id_nodo";
     public static final String FIELD_CODICE = "codice";
-    public static final String FIELD_ID_MAPPA = "id_mappa";
     public static final String FIELD_IS_PDI = "is_pdi";
+    public static final String FIELD_TIPO = "tipo";
     public static final String FIELD_COORD_X = "coordinata_x";
     public static final String FIELD_COORD_Y = "coordinata_y";
     public static final String FIELD_WIDTH = "larghezza";
+    public static final String FIELD_LENGTH = "lunghezza";
+    public static final String FIELD_ID_MAPPA = "id_mappa";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
@@ -49,9 +51,11 @@ public class Nodo_Service {
         }
     }
     
-    public ArrayList<Nodo> findAllNodes() {
+    public ArrayList<Nodo> findAll() {
+        
         ResultSet rs = null;
         ArrayList<Nodo> nodi = new ArrayList<>();
+        
         try {
             open();
             
@@ -60,10 +64,12 @@ public class Nodo_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Nodo nodo = new Nodo();
-                nodo.setCodice(rs.getString("codice"));
-                nodo.setCoord_X(rs.getFloat("coordinata_x"));
-                nodo.setCoord_Y(rs.getFloat("coordinata_y"));
-                nodo.setLarghezza(rs.getFloat("larghezza"));
+                nodo.setID(rs.getInt(FIELD_ID));
+                nodo.setCodice(rs.getString(FIELD_CODICE));
+                nodo.setCoord_X(rs.getFloat(FIELD_COORD_X));
+                nodo.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
+                nodo.setLarghezza(rs.getFloat(FIELD_WIDTH));
+                nodo.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
                 nodi.add(nodo);
             }
         } 
@@ -88,11 +94,14 @@ public class Nodo_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Pdi pdi = new Pdi();
-                pdi.setCodice(rs.getString("codice"));
-                pdi.setCoord_X(rs.getFloat("coordinata_x"));
-                pdi.setCoord_Y(rs.getFloat("coordinata_y"));
-                pdi.setLarghezza(rs.getFloat("larghezza"));
-                pdi.setTipo(rs.getString("tipo"));
+                pdi.setID(rs.getInt(FIELD_ID));
+                pdi.setCodice(rs.getString(FIELD_CODICE));
+                pdi.setTipo(rs.getString(FIELD_TIPO));
+                pdi.setCoord_X(rs.getFloat(FIELD_COORD_X));
+                pdi.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
+                pdi.setLarghezza(rs.getFloat(FIELD_WIDTH));
+                pdi.setLunghezza(rs.getFloat(FIELD_LENGTH));
+                pdi.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
                 pdis.add(pdi);
             }
         } 
@@ -111,41 +120,34 @@ public class Nodo_Service {
         return troncoSrv.getArcsByNode_Integer(id_nodo);
     }
 
-    
-
-    public Nodo findById(Integer Id){
+    public Nodo findByID(Integer search_id){
 
         ResultSet rs = null;
-
         Nodo nodo = new Nodo();
 
         try {
-
             open();
             
             String query = "select * from " + TBL_NAME + " where " + FIELD_ID + "= ?";
             st = conn.prepareStatement(query);
-            st.setInt(1, Id);
+            st.setInt(1, search_id);
             rs = st.executeQuery();
 
             while(rs.next()) {
-                nodo.setID(Id);
+                nodo.setID(search_id);
                 nodo.setCodice(rs.getString(FIELD_CODICE));
                 nodo.setCoord_X(rs.getFloat(FIELD_COORD_X));
                 nodo.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
                 nodo.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
-                nodo.setTronchi_stella_int(getStar_Integer(Id));
+                nodo.setTronchi_stella_int(getStar_Integer(search_id));
                 nodo.setLarghezza(rs.getFloat(FIELD_WIDTH));
             }
-        } 
-
-        catch (SQLException e) {
-        	e.getMessage();
-        }
-        finally {
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
             close();
         }
-       
+        
         return nodo;
     }
     
@@ -162,10 +164,11 @@ public class Nodo_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Nodo nodo = new Nodo();
-                nodo.setCodice(rs.getString("codice"));
-                nodo.setCoord_X(rs.getFloat("coordinata_x"));
-                nodo.setCoord_Y(rs.getFloat("coordinata_y"));
-                nodo.setLarghezza(rs.getFloat("larghezza"));
+                nodo.setCodice(rs.getString(FIELD_CODICE));
+                nodo.setCoord_X(rs.getFloat(FIELD_COORD_X));
+                nodo.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
+                nodo.setLarghezza(rs.getFloat(FIELD_WIDTH));
+                nodo.setID_mappa(search_id);
                 nodi.add(nodo);
             }
         } 
@@ -192,15 +195,19 @@ public class Nodo_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Pdi pdi = new Pdi();
-                pdi.setCodice(rs.getString("codice"));
-                pdi.setCoord_X(rs.getFloat("coordinata_x"));
-                pdi.setCoord_Y(rs.getFloat("coordinata_y"));
-                pdi.setLarghezza(rs.getFloat("larghezza"));
+                pdi.setID(rs.getInt(FIELD_ID));
+                pdi.setCodice(rs.getString(FIELD_CODICE));
+                pdi.setTipo(rs.getString(FIELD_TIPO));
+                pdi.setCoord_X(rs.getFloat(FIELD_COORD_X));
+                pdi.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
+                pdi.setLarghezza(rs.getFloat(FIELD_WIDTH));
+                pdi.setLunghezza(rs.getFloat(FIELD_LENGTH));
+                pdi.setID_mappa(rs.getInt(search_id));
                 pdis.add(pdi);
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();

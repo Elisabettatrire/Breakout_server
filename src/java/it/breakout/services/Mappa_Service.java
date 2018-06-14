@@ -55,10 +55,10 @@ public class Mappa_Service {
             while(rs.next()) {
             	Mappa mappa;
                 mappa = new Mappa();
-                mappa.setNome(rs.getString("nome"));
-                mappa.setUrlImmagine(rs.getString("img"));
-                mappa.setID_mappa(rs.getInt("id_mappa"));
-                mappa.setID_piano(rs.getInt("id_piano"));
+                mappa.setNome(rs.getString(FIELD_NOME));
+                mappa.setUrlImmagine(rs.getString(FIELD_IMG));
+                mappa.setID_mappa(rs.getInt(FIELD_ID));
+                mappa.setID_piano(rs.getInt(FIELD_ID_PIANO));
                 mappe.add(mappa);
             }
         } 
@@ -87,15 +87,15 @@ public class Mappa_Service {
             while(rs.next()) {
             	Mappa mappa;
                 mappa = new Mappa();
-                mappa.setNome(rs.getString("nome"));
-                mappa.setUrlImmagine(rs.getString("img"));
-                mappa.setID_mappa(rs.getInt("id_mappa"));
-                mappa.setID_piano(rs.getInt("id_piano"));
+                mappa.setNome(rs.getString(FIELD_NOME));
+                mappa.setUrlImmagine(rs.getString(FIELD_IMG));
+                mappa.setID_mappa(rs.getInt(FIELD_ID));
+                mappa.setID_piano(rs.getInt(FIELD_ID_PIANO));
                 mappe.add(mappa);
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
@@ -117,10 +117,10 @@ public class Mappa_Service {
             st.setInt(1, search_id);
             rs = st.executeQuery();
             while(rs.next()) {
-            	mappa.setNome(rs.getString("nome"));
-                mappa.setUrlImmagine(rs.getString("img"));
-                mappa.setID_mappa(rs.getInt("id_mappa"));
-                mappa.setID_piano(rs.getInt("id_piano"));
+            	mappa.setNome(rs.getString(FIELD_NOME));
+                mappa.setUrlImmagine(rs.getString(FIELD_IMG));
+                mappa.setID_mappa(rs.getInt(FIELD_ID));
+                mappa.setID_piano(rs.getInt(FIELD_ID_PIANO));
             }
         } 
         catch (SQLException e) {
@@ -146,10 +146,10 @@ public class Mappa_Service {
             st.setString(1, search_nome);
             rs = st.executeQuery();
             while(rs.next()) {
-            	mappa.setNome(rs.getString("nome"));
-                mappa.setUrlImmagine(rs.getString("img"));
-                mappa.setID_mappa(rs.getInt("id_mappa"));
-                mappa.setID_piano(rs.getInt("id_piano"));
+            	mappa.setNome(rs.getString(FIELD_NOME));
+                mappa.setUrlImmagine(rs.getString(FIELD_IMG));
+                mappa.setID_mappa(rs.getInt(FIELD_ID));
+                mappa.setID_piano(rs.getInt(FIELD_ID_PIANO));
             }
         } 
         catch (SQLException e) {

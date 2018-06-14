@@ -10,15 +10,23 @@ public class Nodo_Resource {
     
     Nodo_Service nodo_service = new Nodo_Service();
     
-    public ArrayList<Nodo> findAllNodes() {
-	return nodo_service.findAllNodes();
+    public ArrayList<Nodo> findAll() {
+	return nodo_service.findAll();
     }
     
-    public ArrayList<Pdi> findPoisByIDMappa(int search_id) {
+    public Nodo findByID(Integer search_id) {
+        return nodo_service.findByID(search_id);
+    }
+    
+    public ArrayList<Pdi> findAllPois() {
+	return nodo_service.findAllPois();
+    }
+    
+    public ArrayList<Pdi> findPoisByIDMappa(Integer search_id) {
 	return nodo_service.findPoisByIDMappa(search_id);
     }
     
-    public ArrayList<Nodo> findByIDMappa(int search_id) {
+    public ArrayList<Nodo> findByIDMappa(Integer search_id) {
         return nodo_service.findByIDMappa(search_id);
     }
        

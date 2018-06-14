@@ -89,7 +89,7 @@
                                     <c:forEach items="${requestScope.scale}" var="scala">
                                         <c:set var="codice" value="${scala.getCodice()}"/>
                                         <c:set var="lunghezza" value="${scala.getLunghezza()}"/>
-                                        <c:set var="nodi" value="${scala.getNodiLong()}"/>
+                                        <c:set var="nodi" value="${scala.getNodiInteger()}"/>
                                         <tr><td>${codice}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td></tr>
                                     </c:forEach>
                                 </tbody>
@@ -100,9 +100,6 @@
                     </div>
                 </div>
                 <!-- End Table Scale -->
-                
-                
-                
             </div>
             <!-- End Row -->
             
