@@ -93,6 +93,7 @@ public class Tronco_Service {
         try {
             open();
             
+            /* Qui invece vengono selezionati i segmenti che non hanno piano e mappa (?) */
             String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + " is null and "
                     + FIELD_ID_PIANO + " is null";
             st = conn.prepareStatement(query);
@@ -103,6 +104,7 @@ public class Tronco_Service {
                 scala.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
                 scala.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
                 scala.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                scala.setCodice();
                 scale.add(scala);
             }
         } 

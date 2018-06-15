@@ -78,22 +78,22 @@
                 <!-- Table Scale scrollabile-->
                 <div class="col-md-6">
                     <h4>Lista Scale</h4>
-                            <table class="table-striped display" style="text-align: center; width:100%;">
-                                <thead>
-                                <tr><th>Codice</th>
-                                    <th>Lunghezza</th>
-                                    <th>Codice Nodo 1</th>
-                                    <th>Codice Nodo 2</th>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${requestScope.scale}" var="scala">
-                                        <c:set var="codice" value="${scala.getCodice()}"/>
-                                        <c:set var="lunghezza" value="${scala.getLunghezza()}"/>
-                                        <c:set var="nodi" value="${scala.getNodiInteger()}"/>
-                                        <tr><td>${codice}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td></tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                    <table class="table-striped display" style="text-align: center; width:100%;">
+                        <thead>
+                        <tr><th>Codice</th>
+                            <th>Lunghezza</th>
+                            <th>Codice Nodo 1</th>
+                            <th>Codice Nodo 2</th>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.scale}" var="scala">
+                                <c:set var="codice" value="${scala.getCodice()}"/>
+                                <c:set var="lunghezza" value="${scala.getLunghezza()}"/>
+                                <c:set var="nodi" value="${scala.getNodiInteger()}"/>
+                                <tr><td>${codice}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td></tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                     <div style="text-align: right; margin-top: 10px">
                         <button id="aggiungiScala" data-toggle="modal" data-target="#modal-scala"
                                 class="btn btn-outline-success"><b>Aggiungi Scala</b></button>
@@ -133,7 +133,7 @@
                                 non verrà portato a termine.</p>
                         </div>
                         <form action="DBModify" method="post">
-                            <table class='table table-borderless'><tr><td>Quota:</td>
+                            <table class="table table-borderless"><tr><td>Quota:</td>
                                     <td><input autofocus="true" type='text' name='quota'
                                                size='45'placeholder='&nbsp;es. 155'>
                             </td></table>

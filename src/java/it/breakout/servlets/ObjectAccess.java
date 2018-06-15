@@ -81,11 +81,13 @@ public class ObjectAccess extends HttpServlet {
                     
                     ArrayList<Beacon> al_beacon = beacon_resource.findAll();
                     Mappa mappa_search1 = mappa_resource2.findByNome(identificatore);
-                    quota = piano_resource2.findById(mappa_search1.getID_piano()).getQuota();
+                    id_mappa = mappa_search1.getID_piano();
+                    quota = piano_resource2.findById(id_mappa).getQuota();
                     
                     request.setAttribute("nome", identificatore);
                     request.setAttribute("beacons", al_beacon);
                     request.setAttribute("quota", quota);
+                    request.setAttribute("id_mappa", id_mappa);
                     
                     rd = request.getRequestDispatcher("gestione-mappa.jsp");
                     rd.forward(request, response);
@@ -113,8 +115,26 @@ public class ObjectAccess extends HttpServlet {
                     request.setAttribute("pdis", al_pdis);
                     request.setAttribute("quota", quota);
                     
-                    
                     rd = request.getRequestDispatcher("gestione-grafo.jsp");
+                    rd.forward(request, response);
+                    
+                    break;
+                    
+                case "beacon":
+                    /* Reindirizzamento pagina di gestione beacon della mappa */
+                    Mappa_Resource mappa_resource3 = new Mappa_Resource();
+                    Beacon_Resource beacon_resource1 = new Beacon_Resource();
+                    
+                    id_mappa = Integer.parseInt(identificatore);
+                    Mappa mappa_search2 = mappa_resource3.findByID(id_mappa);
+                    //quota = piano_resource1.findById(mappa_search.getID_piano()).getQuota();
+                    ArrayList<Beacon> al_beacon1 = beacon_resource1.findByIDMappa(id_mappa);
+                    
+                    request.setAttribute("id_mappa", identificatore);
+                    request.setAttribute("al_beacon", al_beacon1);
+                    request.setAttribute("nome_mappa", mappa_search2.getNome());
+                    
+                    rd = request.getRequestDispatcher("gestione-beacon.jsp");
                     rd.forward(request, response);
                     
                     break;

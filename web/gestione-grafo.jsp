@@ -48,44 +48,38 @@
                 <div class="col-md-8">
                     <!-- Tabella dei Nodi della mappa -->
                     <h4>Lista Nodi</h4>
-                    <div id="table-scroll" class="table-scroll">
-                        <div id="faux-table" class="faux-table" aria="hidden"></div>
-                        <div class="table-wrap">
-                            <table class="display" style="width:100%; text-align: center">
-                                <thead>
-                                    <tr><th scope="col">Codice</th>
-                                        <th scope="col">Coord_X</th>
-                                        <th scope="col">Coord_Y</th>
-                                        <th scope="col">Larghezza</th>
-                                        <th scope="col">Modifica</th>
-                                        <th scope="col">Elimina</th>
-                                </thead>
-                                <tbody>
-                                    <c:forEach items="${requestScope.nodi}" var="nodo">
-                                        <c:set var="codice_nodo" value="${nodo.getCodice()}"/>
-                                        <c:set var="x" value="${nodo.getCoord_X()}"/>
-                                        <c:set var="y" value="${nodo.getCoord_Y()}"/>
-                                        <c:set var="larghezza" value="${nodo.getLarghezza()}"/>
-                                        <tr><td>${codice_nodo}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
-                                            <td><button id="mod-${codice_nodo}" class="btn btn-outline-dark btn-sm"
-                                                        data-toggle="modal" data-target="#modal-mod-nodo">
-                                                    <span class="fas fa-cog"></span></button></td>
-                                            <td><button id="rm-${codice_nodo}" class="btn btn-outline-danger btn-sm"
-                                                        data-toggle="modal" data-target="#modal-elimina-nodo">
-                                                    <span class="fas fa-trash-alt"></span></button></td></tr>
-                                    </c:forEach>
-                                </tbody>
-                            </table>
+                        <table class="display" style="width:100%; text-align: center">
+                            <thead>
+                                <tr><th scope="col">Codice</th>
+                                    <th scope="col">Coord_X</th>
+                                    <th scope="col">Coord_Y</th>
+                                    <th scope="col">Larghezza</th>
+                                    <th scope="col">Modifica</th>
+                                    <th scope="col">Elimina</th>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${requestScope.nodi}" var="nodo">
+                                    <c:set var="codice_nodo" value="${nodo.getCodice()}"/>
+                                    <c:set var="x" value="${nodo.getCoord_X()}"/>
+                                    <c:set var="y" value="${nodo.getCoord_Y()}"/>
+                                    <c:set var="larghezza" value="${nodo.getLarghezza()}"/>
+                                    <tr><td>${codice_nodo}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
+                                        <td><button id="mod-${codice_nodo}" class="btn btn-outline-dark btn-sm"
+                                                    data-toggle="modal" data-target="#modal-mod-nodo">
+                                                <span class="fas fa-cog"></span></button></td>
+                                        <td><button id="rm-${codice_nodo}" class="btn btn-outline-danger btn-sm"
+                                                    data-toggle="modal" data-target="#modal-elimina-nodo">
+                                                <span class="fas fa-trash-alt"></span></button></td></tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                        <div style="text-align: right; margin-top: 10px">
+                            <button type="button" class="btn btn-outline-success"
+                                    data-toggle="modal" data-target="#modal-agg-nodo">
+                                <b>Aggiungi nodo</b>
+                            </button>
                         </div>
-                    </div>
-                    <div style="text-align: right; margin-top: 10px">
-                        <button type="button" class="btn btn-outline-success"
-                                data-toggle="modal" data-target="#modal-agg-nodo">
-                            <b>Aggiungi nodo</b>
-                        </button>
-                    </div>
                     <hr>
-                    
                     <!-- Tabella dei Tronchi della mappa -->
                     <h4>Lista Tronchi MI SERVE LA TABELLA TRONCHI COMPLETA</h4>
                     <table class="display" style="width:100%; text-align: center">
@@ -116,14 +110,13 @@
                     </div>
                     <hr>
                 </div>
-                     
                 <!-- Immagine della mappa fs:990x1572 -->
                 <c:set var = "nome_img" value = "${fn:replace(requestScope.nome, '/', '-')}" />
                 <div class="col-md-4" >  
                     <img src="/Immagini/${nome_img}.jpg" width="396" height="630">
                 </div>
             </div>
-            
+                    
             <!-- Tabella dei Punti di Interesse-->
             <div class="row">
                 <div class="col-md-12">
@@ -165,7 +158,7 @@
             </div>
             <div class="row">
                 <div class="col-md-2">
-                    <form action="ObjectAccess" method="GET">
+                    <form action="ObjectAccess" method="POST">
                         <input type="submit" value="< Gestione Mappa" class="btn btn-secondary">
                         <input type="hidden" name="obj" value="mappa">
                         <input type="hidden" name="nm" value="${requestScope.nome}">

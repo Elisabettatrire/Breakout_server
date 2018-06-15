@@ -43,8 +43,12 @@
                     <!--Bottoni per la gestione dei beacon e dei grafi-->
                     <div class="row">
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-outline-dark">
-                                <b>Gestione beacon</b></button>
+                            <form action="ObjectAccess" method="POST">
+                                <input type="submit" value="Gestione Beacon" class="btn btn-outline-dark"
+                                       style="font-weight: bold">
+                                <input type="hidden" name="obj" value="beacon">
+                                <input type="hidden" name="nm" value="${requestScope.id_mappa}">
+                            </form>
                         </div>
                         <div class="col-md-6" style="text-align: right">
                             <form action="ObjectAccess" method="POST">
@@ -59,7 +63,7 @@
                     <!--Tabella dei beacon e dei tronchi presenti nella mappa-->
                     <table class="table table-bordered table-striped" style="text-align: center">
                         <thead>
-                            <tr><th>Nome beacon</th> <th>Codice Tronco/codice PDI</th></tr>
+                            <tr><th>Nome beacon</th><th>Codice Tronco/codice PDI</th></tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${requestScope.al_beacon}" var="beacon">
@@ -75,11 +79,13 @@
                     </div>
                     <c:set var="quota" value="${requestScope.quota}" />
                     <div class="row">
-                        <button type="button" class="btn btn-secondary">
-                            <a href="ObjectAccess?obj=piano&nm=${quota}"
-                               style="color: inherit; text-decoration: none">
-                                < Gestione Piano</a>
-                        </button>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-secondary">
+                                <a href="ObjectAccess?obj=piano&nm=${quota}"
+                                   style="color: inherit; text-decoration: none">
+                                    < Gestione Piano</a>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <!--Immagine dell mappa fs:990x1572-->

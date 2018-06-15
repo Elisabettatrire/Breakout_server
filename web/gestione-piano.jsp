@@ -112,7 +112,10 @@
                             <table class='table table-borderless'>
                                 <tr><td>Nome:</td>
                                 <td><input autofocus="true" type='text' name='nome-mappa'
-                                               size='45' placeholder='&nbsp;es. Q155/2'>
+                                               size='35' placeholder='&nbsp;es. Q155/2'>&nbsp;
+                                    <i data-toggle="tooltip" data-placement="top"
+                                        title="Sono ammessi solamente caratteri alfanumerici, l'underscore, il trattino  e lo slash."
+                                        class="fas fa-question-circle" style="color: #007bff;"></i>
                                 </td></tr>
                                 <tr><td>Immagine:</td>
                                     <td><input type="file" name="url-immagine"></td></tr>
@@ -150,7 +153,10 @@
                             <table class='table table-borderless'>
                                 <tr><td>Nome:</td>
                                 <td><input autofocus="true" type='text' name='nome-mappa'
-                                               size='45' placeholder='&nbsp;(invariato)'>
+                                           size='35' placeholder='&nbsp;(invariato)'>&nbsp;
+                                    <i data-toggle="tooltip" data-placement="top"
+                                        title="Sono ammessi solamente caratteri alfanumerici, l'underscore, il trattino  e lo slash."
+                                        class="fas fa-question-circle" style="color: #007bff;"></i>
                                 </td></tr>
                                 <tr><td>Immagine:</td>
                                     <td><input type="file" name="url-immagine"></td></tr>

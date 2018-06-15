@@ -37,15 +37,18 @@ public class DBModify extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        /* Variabili comuni */
         azione = request.getParameter("azione");
         RequestDispatcher rd;
         FormFilter form_filter = new FormFilter();
+        Integer check;  // Serve per vedere se le query restituiscono un valore nullo
+        int id_mappa;
+        int id_piano;
         
         /* Variabili per inserimento-modifica-eliminazione piano */
         Piano_Resource piano_resource = new Piano_Resource();
         String quota;
         String quota_filtered;
-        int id_piano;
         
         /* Variabili per inserimento-modifica-eliminazione scala */
         
@@ -55,7 +58,6 @@ public class DBModify extends HttpServlet {
         String nome_mappa;
         String nome_mappa_filtered;
         String url_immagine;
-        int id_mappa;
         
         try {
             switch(azione) {
@@ -65,7 +67,10 @@ public class DBModify extends HttpServlet {
 
                     quota = request.getParameter("quota");
                     quota_filtered = form_filter.filtraQuota(quota);
-                    if(!quota_filtered.equals("empty")) {
+                    /* Controllo se esiste una mappa con lo stesso nome */
+                    check = piano_resource.findByQuota(quota_filtered).getID_piano();
+                    
+                    if(!quota_filtered.equals("empty") && check==null) {
                         piano_resource.insert(quota_filtered);
                     }
 
@@ -81,10 +86,11 @@ public class DBModify extends HttpServlet {
                     quota = request.getParameter("quota");
                     /* Se il campo viene lasciato vuoto non si deve fare niente */
                     if(!quota.equals("")) {
-
+                        
                         quota_filtered = form_filter.filtraQuota(quota);
-
-                        if(!quota_filtered.equals("empty")) {
+                        check = piano_resource.findByQuota(quota_filtered).getID_piano();
+                        
+                        if(!quota_filtered.equals("empty") && check==null) {
                             piano_resource.update(quota_filtered, id_piano);
                         }
                     }
@@ -111,12 +117,14 @@ public class DBModify extends HttpServlet {
                     url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
 
                     nome_mappa_filtered = form_filter.filtraNomeMappa(nome_mappa);
-
-                    if(!nome_mappa_filtered.equals("empty")) {
+                    /* Controllo se esiste una mappa con lo stesso nome */
+                    check = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
+                    
+                    if(!nome_mappa_filtered.equals("empty") && check==null) {
+                        
                         mappa.setNome(nome_mappa_filtered);
                         mappa.setID_piano(piano_resource.findByQuota(quota).getID_piano()); // veloce
                         mappa.setUrlImmagine(url_immagine);
-
                         mappa_resource.insert(mappa);
                     }
 
@@ -132,16 +140,21 @@ public class DBModify extends HttpServlet {
                     url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
                     id_mappa = Integer.parseInt(request.getParameter("id_mappa"));
                     mappa.setID_mappa(id_mappa);
-                    
+                                        
                     /* Aggiornamento nome mappa */
                     // Se il campo è vuoto bisogna mantenere il valore precedente
                     if(nome_mappa.equals("")) {
+                        
                         nome_mappa = mappa_resource.findByID(id_mappa).getNome();
                         mappa.setNome(nome_mappa);
+                        
                     } else {
+                        
                         nome_mappa_filtered = form_filter.filtraNomeMappa(nome_mappa);
                         // Se una volta filtrato non è vuoto...
-                        if(!nome_mappa_filtered.equals("empty")) {
+                        check = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
+                        
+                        if(!nome_mappa_filtered.equals("empty") && check==null) {
                             mappa.setNome(nome_mappa_filtered);
                         }
                     }

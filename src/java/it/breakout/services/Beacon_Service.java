@@ -32,6 +32,7 @@ public class Beacon_Service {
     public static final String FIELD_NDC = "los";
     public static final String FIELD_RISCHIO = "rischio";
     public static final String FIELD_ID_PDI = "id_pdi";
+    public static final String FIELD_ID_MAPPA = "";
     
     
     private void open() throws SQLException {
@@ -88,6 +89,43 @@ public class Beacon_Service {
     
     Beacon findById(Integer id_beacon) { //TODO da implementare 
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+    }
+    
+    public ArrayList<Beacon> findByIDMappa(Integer id_mappa) {
+        
+        ResultSet rs = null;
+        ArrayList<Beacon> beacons = new ArrayList<>();
+        
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA +
+                    "=? order by " + FIELD_ID;
+            st = conn.prepareStatement(query);
+            st.setInt(1, id_mappa);
+            rs = st.executeQuery();
+            while(rs.next()) {
+            	Beacon beacon;
+                beacon = new Beacon();
+                beacon.setID_beacon(rs.getInt(FIELD_ID));
+                beacon.setCoord_X(rs.getFloat(FIELD_COORD_X));
+                beacon.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
+                beacon.setID_pdi(rs.getInt(FIELD_ID_PDI));
+                beacon.setInd_NDC(rs.getFloat(FIELD_NDC));
+                beacon.setInd_fumi(rs.getFloat(FIELD_FUMI));
+                beacon.setInd_fuoco(rs.getFloat(FIELD_FUOCO));
+                beacon.setInd_rischio(rs.getFloat(FIELD_RISCHIO));
+                beacons.add(beacon);
+            }
+        } 
+        catch (SQLException e) {
+        	e.getMessage();
+        }
+        finally {
+            close();
+        }
+        
+        return beacons;
     }
     
 }

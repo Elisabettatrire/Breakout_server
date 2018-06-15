@@ -15,11 +15,8 @@ import java.util.ArrayList;
 
 import it.breakout.resources.Tronco_Resource;
 import it.breakout.resources.Piano_Resource;
-import it.breakout.resources.Nodo_Resource;
 import it.breakout.models.Scala;
 import it.breakout.models.Piano;
-import it.breakout.models.Nodo;
-import it.breakout.models.Tronco;
 
 /**
  *

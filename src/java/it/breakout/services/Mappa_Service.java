@@ -141,7 +141,7 @@ public class Mappa_Service {
         try {
             open();
             
-            String query = "select * from " + TBL_NAME + " where " + FIELD_NOME + "=? order by nome";
+            String query = "select * from " + TBL_NAME + " where " + FIELD_NOME + "=?";
             st = conn.prepareStatement(query);
             st.setString(1, search_nome);
             rs = st.executeQuery();

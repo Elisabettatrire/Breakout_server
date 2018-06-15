@@ -27,4 +27,8 @@ public class Beacon_Resource {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
     }
     
+    public ArrayList<Beacon> findByIDMappa(Integer id_mappa) {
+        return beacon_service.findByIDMappa(id_mappa);
+    }
+    
 }
