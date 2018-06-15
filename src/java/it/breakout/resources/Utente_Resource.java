@@ -18,8 +18,12 @@ public class Utente_Resource {
  
     Utente_Service utente_service = new Utente_Service();
     
-    public ArrayList<Utente> findAllUsers() {
-        return utente_service.findAllUsers();
+    public ArrayList<Utente> findAll() {
+        return utente_service.findAll();
+    }
+    
+    public void delete(Integer id_utente) {
+        utente_service.delete(id_utente);
     }
     
 }

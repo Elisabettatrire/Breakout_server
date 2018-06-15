@@ -10,9 +10,9 @@
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Breakout - Gestione Utenti</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.min.css" type="text/css">
@@ -20,12 +20,16 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.min.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
-        <link href="static/fontawesome/fontawesome-all.css" rel="stylesheet">
+        <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
+        <link rel="stylesheet" type="text/css" href="static/datatables.min.css"/>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
+        <script src="static/scroll-table.js"></script>
+        <script type="text/javascript" src="static/datatables.min.js"></script>
+        <script type="text/javascript" src="static/modal-forms.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -39,25 +43,35 @@
                     <br><br>
                     <!-- Tabella dei Nodi della mappa -->
                     <h4>Lista Utenti</h4>
-                    <table class="table table-bordered table-striped" style="text-align: center">
+                    <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr><th>Username</th><th>Password</th><th>Nome</th><th>Cognome</th>
                                 <th>e-mail</th><th>Modifica</th><th>Elimina</th>
                         </thead>
-                        <tr><td>mario72</td><td>mario.rossi@email.it</td><td>Mario</td>
-                            <td>Rossi</td><td>mariolino</td>
-                            <td><button id="mod-150g2" class="btn btn-outline-dark btn-sm"
+                        <tbody>
+                            <c:forEach items="${requestScope.utenti}" var="utente">
+                                <c:set var="id_utente" value="${utente.getID_utente()}"/>
+                                <c:set var="username" value="${utente.getUsername()}"/>
+                                <c:set var="password" value="${utente.getPassword()}"/>
+                                <c:set var="nome" value="${utente.getNome()}"/>
+                                <c:set var="cognome" value="${utente.getCognome()}"/>
+                                <c:set var="email" value="${utente.getEmail()}"/>
+                                <tr><td>${username}</td><td>${password}</td><td>${nome}</td>
+                                    <td>${cognome}</td><td>${email}</td>
+                                <td><button id="mod-${id_utente}" class="btn btn-outline-dark btn-sm"
                                     data-toggle="modal" data-target="#modal-mod-utente">
                                     <span class="fas fa-cog"></span></button></td>
-                            <td><button id="rm-150g2" class="btn btn-outline-danger btn-sm"
-                                    data-toggle="modal" data-target="#modal-elimina-utente">
-                            <span class="fas fa-trash-alt"></span></button></td></tr>
+                                <td><button id="del-${id_utente}" class="btn btn-outline-danger btn-sm"
+                                        data-toggle="modal" data-target="#modal-elimina-utente">
+                                <span class="fas fa-trash-alt"></span></button></td></tr>
+                            </c:forEach>
+                        </tbody>
                     </table>
                 </div>
             </div>
             
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6" style="margin-top: 20px">
                     <button type="button" class="btn btn-secondary">
                         <a href="home.jsp" style="color: inherit; text-decoration: none">
                         < Home
@@ -109,12 +123,15 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <form action='#'>
+                        <form action='DBModify' method="post" id="form-del-utente">
                             <p>Sicuro di voler rimuovere l'utente selezionato?
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-danger" type='submit' value='Elimina' name='elimina-nodi'>
+                                <input class="btn btn-danger" type='submit' value='Elimina utente' name='elimina-utente'>
+                                <input type="hidden" name="id_utente" value="">
+                                <input type="hidden" name="azione" value="elimina-utente">
+                                <input type="hidden" name="modalita" value="utenti">
                             </div>
                         </form>                    
                     </div>

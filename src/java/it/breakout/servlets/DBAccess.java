@@ -15,8 +15,10 @@ import java.util.ArrayList;
 
 import it.breakout.resources.Tronco_Resource;
 import it.breakout.resources.Piano_Resource;
+import it.breakout.resources.Utente_Resource;
 import it.breakout.models.Scala;
 import it.breakout.models.Piano;
+import it.breakout.models.Utente;
 
 /**
  *
@@ -70,7 +72,11 @@ public class DBAccess extends HttpServlet{
                     
                 /*  Click su "Gestione utenti app" nella home*/
                 case "utenti":
-
+                    
+                    Utente_Resource utente_resource = new Utente_Resource();
+                    ArrayList<Utente> al_utenti = utente_resource.findAll();
+                    request.setAttribute("utenti", al_utenti);
+                    
                     rd = request.getRequestDispatcher("gestione-utenti.jsp");
                     rd.forward(request, response);
 

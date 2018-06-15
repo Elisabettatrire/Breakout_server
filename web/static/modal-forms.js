@@ -6,7 +6,7 @@
 $(document).ready(function() {
     $('button[id^="del"]').on('click', function(){
         var but_id = $(this).attr('id').split('-');
-        var del_id = but_id[1];
+        var del_id = but_id[1]; // Si prende il secondo elemento ovvero l'id
         $('form[id^="form-del"] input[name^="id"]').val(del_id);
     });
     $('button[id^="mod"]').on('click', function(){

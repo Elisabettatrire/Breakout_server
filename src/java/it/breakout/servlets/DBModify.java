@@ -14,8 +14,10 @@ import javax.servlet.RequestDispatcher;
 
 import it.breakout.resources.Piano_Resource;
 import it.breakout.resources.Mappa_Resource;
+import it.breakout.resources.Utente_Resource;
 import it.breakout.utility.FormFilter;
 import it.breakout.models.Mappa;
+import it.breakout.models.Utente;
 
 /**
  *
@@ -42,8 +44,8 @@ public class DBModify extends HttpServlet {
         RequestDispatcher rd;
         FormFilter form_filter = new FormFilter();
         Integer check;  // Serve per vedere se le query restituiscono un valore nullo
-        int id_mappa;
-        int id_piano;
+        Integer id_mappa;
+        Integer id_piano;
         
         /* Variabili per inserimento-modifica-eliminazione piano */
         Piano_Resource piano_resource = new Piano_Resource();
@@ -58,6 +60,12 @@ public class DBModify extends HttpServlet {
         String nome_mappa;
         String nome_mappa_filtered;
         String url_immagine;
+        
+        /* Variabili per inserimento-modifica-eliminazione utente */
+        Utente_Resource utente_resource = new Utente_Resource();
+        Utente utente = new Utente();
+        Integer id_utente;
+        
         
         try {
             switch(azione) {
@@ -184,6 +192,18 @@ public class DBModify extends HttpServlet {
                     rd.forward(request, response);
 
                     break;
+                    
+                /* Azioni relative alla tabella degli utenti */
+                case "elimina-utente":
+                    
+                    id_utente = Integer.parseInt(request.getParameter("id_utente"));
+                    utente_resource.delete(Integer.parseInt(request.getParameter("id_utente")));
+
+                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd.forward(request, response);
+
+                    break;
+                    
             }
         } catch (IOException | ServletException f) {
             f.getMessage();

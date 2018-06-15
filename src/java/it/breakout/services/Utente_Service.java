@@ -26,6 +26,9 @@ public class Utente_Service {
     public static final String FIELD_ID = "id_utente";
     public static final String FIELD_USR = "username";
     public static final String FIELD_PSW = "password";
+    public static final String FIELD_EMAIL = "email";
+    public static final String FIELD_NOME = "nome";
+    public static final String FIELD_COGNOME = "cognome";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
@@ -40,11 +43,11 @@ public class Utente_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.printStackTrace();
+            e.getMessage();
         }
     }
     
-    public ArrayList<Utente> findAllUsers() {
+    public ArrayList<Utente> findAll() {
         ResultSet rs = null;
         ArrayList<Utente> utenti = new ArrayList<>();
         
@@ -56,22 +59,40 @@ public class Utente_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Utente utente = new Utente();
-                utente.setID_utente(rs.getInt("id_utente"));
-                utente.setUsername(rs.getString("username"));
-                utente.setPassword(rs.getString("password"));
-                utente.setEmail(rs.getString("email"));
-                utente.setNome(rs.getString("nome"));
-                utente.setCognome(rs.getString("cognome"));
+                utente.setID_utente(rs.getInt(FIELD_ID));
+                utente.setUsername(rs.getString(FIELD_USR));
+                utente.setPassword(rs.getString(FIELD_PSW));
+                utente.setEmail(rs.getString(FIELD_EMAIL));
+                utente.setNome(rs.getString(FIELD_NOME));
+                utente.setCognome(rs.getString(FIELD_COGNOME));
                 utenti.add(utente);
             }
         } 
         catch (SQLException e) {
-        	e.printStackTrace();
+        	e.getMessage();
         }
         finally {
             close();
         }
         
         return utenti;
+    }
+    
+    public void delete(Integer id_utente) {
+        
+        try {
+            open();
+            
+            String query = "delete from " + TBL_NAME + " where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, id_utente);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        }
+        finally {
+            close();
+        }
     }
 }
