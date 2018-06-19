@@ -15,9 +15,12 @@ import javax.servlet.RequestDispatcher;
 import it.breakout.resources.Piano_Resource;
 import it.breakout.resources.Mappa_Resource;
 import it.breakout.resources.Utente_Resource;
+import it.breakout.resources.Nodo_Resource;
 import it.breakout.utility.FormFilter;
 import it.breakout.models.Mappa;
-import it.breakout.models.Utente;
+import it.breakout.models.Nodo;
+import static it.breakout.utility.Constants.*;
+import java.util.Objects;
 
 /**
  *
@@ -63,9 +66,22 @@ public class DBModify extends HttpServlet {
         
         /* Variabili per inserimento-modifica-eliminazione utente */
         Utente_Resource utente_resource = new Utente_Resource();
-        Utente utente = new Utente();
         Integer id_utente;
+        String psw;
+        String psw_confirm;
         
+        /* Variabili per inserimento-modifica-eliminazione utente */
+        Nodo_Resource nodo_resource = new Nodo_Resource();
+        Nodo nodo = new Nodo();
+        Integer id_nodo;
+        String codice_nodo;
+        String codice_nodo_filtered;
+        String coord_x;
+        Double coord_x_filtered;
+        String coord_y;
+        Double coord_y_filtered;
+        String larghezza;
+        Double larghezza_filtered;        
         
         try {
             switch(azione) {
@@ -75,10 +91,10 @@ public class DBModify extends HttpServlet {
 
                     quota = request.getParameter("quota");
                     quota_filtered = form_filter.filtraQuota(quota);
-                    /* Controllo se esiste una mappa con lo stesso nome */
+                    /* Controllo se esiste un piano con lo stesso nome */
                     check = piano_resource.findByQuota(quota_filtered).getID_piano();
                     
-                    if(!quota_filtered.equals("empty") && check==null) {
+                    if(!quota_filtered.equals(DEFAULT_STRING) && check==null) {
                         piano_resource.insert(quota_filtered);
                     }
 
@@ -92,17 +108,17 @@ public class DBModify extends HttpServlet {
 
                     id_piano = Integer.parseInt(request.getParameter("id_piano"));
                     quota = request.getParameter("quota");
-                    /* Se il campo viene lasciato vuoto non si deve fare niente */
-                    if(!quota.equals("")) {
+                    quota_filtered = form_filter.filtraQuota(quota);
+                    check = piano_resource.findByQuota(quota_filtered).getID_piano();
                         
-                        quota_filtered = form_filter.filtraQuota(quota);
-                        check = piano_resource.findByQuota(quota_filtered).getID_piano();
-                        
-                        if(!quota_filtered.equals("empty") && check==null) {
-                            piano_resource.update(quota_filtered, id_piano);
-                        }
+                    /* Il controllo se il campo viene lasciato vuoto viene fatto
+                    dopo che questo è stato filtrato, almeno se sono stati
+                    inseriti dei caratteri non validi il valore rimane uguale
+                    */
+                    if(!quota_filtered.equals(DEFAULT_STRING) && check==null) {
+                        piano_resource.update(quota_filtered, id_piano);
                     }
-
+                    
                     rd = request.getRequestDispatcher("/DBAccess");
                     rd.forward(request, response);
 
@@ -128,7 +144,7 @@ public class DBModify extends HttpServlet {
                     /* Controllo se esiste una mappa con lo stesso nome */
                     check = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
                     
-                    if(!nome_mappa_filtered.equals("empty") && check==null) {
+                    if(!nome_mappa_filtered.equals(DEFAULT_STRING) && check==null) {
                         
                         mappa.setNome(nome_mappa_filtered);
                         mappa.setID_piano(piano_resource.findByQuota(quota).getID_piano()); // veloce
@@ -162,7 +178,7 @@ public class DBModify extends HttpServlet {
                         // Se una volta filtrato non è vuoto...
                         check = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
                         
-                        if(!nome_mappa_filtered.equals("empty") && check==null) {
+                        if(!nome_mappa_filtered.equals(DEFAULT_STRING) && check==null) {
                             mappa.setNome(nome_mappa_filtered);
                         }
                     }
@@ -181,7 +197,6 @@ public class DBModify extends HttpServlet {
                     rd.forward(request, response);
 
                     break;
-                    
 
                 case "elimina-mappa":
 
@@ -194,9 +209,23 @@ public class DBModify extends HttpServlet {
                     break;
                     
                 /* Azioni relative alla tabella degli utenti */
-                case "elimina-utente":
+                case "modifica-utente":
                     
                     id_utente = Integer.parseInt(request.getParameter("id_utente"));
+                    psw = request.getParameter("psw");
+                    psw_confirm = request.getParameter("psw-confirm");
+                    
+                    if(psw.equals(psw_confirm)) {
+                        utente_resource.update(psw, id_utente);
+                    }
+                    
+                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd.forward(request, response);
+
+                    break;
+                    
+                case "elimina-utente":
+                    
                     utente_resource.delete(Integer.parseInt(request.getParameter("id_utente")));
 
                     rd = request.getRequestDispatcher("/DBAccess");
@@ -204,6 +233,71 @@ public class DBModify extends HttpServlet {
 
                     break;
                     
+                /* Azioni relative alla tabella dei nodi */
+                case "aggiungi-nodo":
+                    
+                    nome_mappa = request.getParameter("nm");
+                    codice_nodo = request.getParameter("codice");
+                    coord_x = request.getParameter("coord-x");
+                    coord_y = request.getParameter("coord-y");
+                    larghezza = request.getParameter("larghezza");
+                    
+                    codice_nodo_filtered = form_filter.filtraCodice(codice_nodo);
+                    coord_x_filtered = form_filter.filtraCoordinata(coord_x);
+                    coord_y_filtered = form_filter.filtraCoordinata(coord_y);
+                    larghezza_filtered = form_filter.filtraMisura(larghezza);
+                    
+                    if(!codice_nodo_filtered.equals(DEFAULT_STRING)
+                            && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(larghezza_filtered, DEFAULT_DOUBLE)){
+                        
+                        id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
+                        
+                        nodo.setCodice(codice_nodo_filtered);
+                        nodo.setCoord_X(coord_x_filtered);
+                        nodo.setCoord_Y(coord_y_filtered);
+                        nodo.setLarghezza(larghezza_filtered);
+                        nodo.setID_mappa(id_mappa);
+                        
+                        nodo_resource.insertNodo(nodo);
+                        
+                    }
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                    rd.forward(request, response);
+                    
+                    break;
+
+                case "modifica-nodo":
+
+                    nome_mappa = request.getParameter("nm");
+                    codice_nodo = request.getParameter("codice");
+                    coord_x = request.getParameter("coord-x");
+                    coord_y = request.getParameter("coord-y");
+                    larghezza = request.getParameter("larghezza");
+                    
+                    codice_nodo_filtered = form_filter.filtraCodice(codice_nodo);
+                    coord_x_filtered = form_filter.filtraCoordinata(coord_x);
+                    coord_y_filtered = form_filter.filtraCoordinata(coord_y);
+                    larghezza_filtered = form_filter.filtraMisura(larghezza);
+                    
+                    nodo_resource.updateNodo(nodo, Integer.parseInt(request.getParameter("id_nodo")));
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                    rd.forward(request, response);
+                    
+                    break;
+                    
+                case "elimina-nodo":
+                    
+                    nodo_resource.deleteNodo(Integer.parseInt(request.getParameter("id_nodo")));
+                    nome_mappa = request.getParameter("nm");
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                    rd.forward(request, response);
+                    
+                    break;
             }
         } catch (IOException | ServletException f) {
             f.getMessage();

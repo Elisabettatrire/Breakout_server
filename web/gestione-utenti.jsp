@@ -30,6 +30,7 @@
         <script src="static/scroll-table.js"></script>
         <script type="text/javascript" src="static/datatables.min.js"></script>
         <script type="text/javascript" src="static/modal-forms.js"></script>
+        <script type="text/javascript" src="static/psw.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -87,24 +88,28 @@
             <div class="modal-dialog " >
                 <div class="modal-content ">
                     <div class="modal-header" >
-                        <h5 class="modal-title">Modifica informazioni utente</h5>
+                        <h5 class="modal-title">Modifica password utente</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <!-- text area per modificare i dati dei nodi caricati -->
                     <div class="modal-body">
-                        <form>
+                        <form action="DBModify" method="post" id="form-mod-piano">
                             <table class="table table-borderless">
-                                <tr><td>Coord_X</td><td><input type="text" name="coord-x" size="40"></td></tr>
-                                <tr><td>Coord_Y</td><td><input type="text" name="coord-y" size="40"></td></tr>
-                                <tr><td>Larghezza</td><td><input type="text" name="larghezza"size="40"></td></tr>
-                                <tr><td>Codice</td><td><input type="text" name="codice" size="40"></td></tr>
+                                <tr><td>Nuova password</td><td><input type="password" name="psw" size="30"
+                                                                      autofocus="true"></td></tr>
+                                <tr><td>Conferma password</td><td><input type="password" name="psw-confirm"
+                                                                         size="30"></td></tr>
+                                <input type="hidden" name="id_utente" value="">
+                                <input type="hidden" name="azione" value="modifica-utente">
+                                <input type="hidden" name="modalita" value="utenti">
                             </table>
                             <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     Annulla</button>
                                 <input class="btn btn-outline-success" type='submit' 
-                                    style="font-weight: bold" value='Conferma modifiche' name='conferma-modifiche'>
+                                    style="font-weight: bold" value='Conferma modifiche'
+                                    name='conferma-modifiche'>
                             </div>
                         </form>
                     </div>
@@ -127,8 +132,10 @@
                             <p>Sicuro di voler rimuovere l'utente selezionato?
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-danger" type='submit' value='Elimina utente' name='elimina-utente'>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Annulla</button>
+                                <input class="btn btn-danger" type='submit' value='Elimina utente'
+                                       name='elimina-utente'>
                                 <input type="hidden" name="id_utente" value="">
                                 <input type="hidden" name="azione" value="elimina-utente">
                                 <input type="hidden" name="modalita" value="utenti">
@@ -138,7 +145,11 @@
                 </div>
             </div>
         </div>
-
+        
+        <!-- Script per mostrare la password -->
+        <script>
+        
+        </script>
         <!-- Footer -->
         <%@include file="footer.html" %>
     </body>

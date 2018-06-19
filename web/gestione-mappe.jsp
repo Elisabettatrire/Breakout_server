@@ -166,7 +166,7 @@
                             <p class="warning">
                                 I campi non compilati manterrano il valore precedente.</p>
                         </div>
-                        <form action="DBModify" method="post" id="form-mod-piano">
+                        <form action="DBModify" method="post" id="form-mod-utente">
                             <table class='table table-borderless'><tr><td>Quota:</td>
                                     <td><input autofocus="true" type='text' name='quota'
                                                size='45' placeholder="&nbsp;(invariato)">

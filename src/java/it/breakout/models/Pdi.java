@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Pdi extends Nodo {
     private ArrayList<Beacon> beacon;
     private String tipo;
-    private float lunghezza;
+    private Double lunghezza;
 
     public Pdi() {
     }
@@ -35,11 +35,11 @@ public class Pdi extends Nodo {
         this.tipo = tipo;
     }
 
-    public float getLunghezza() {
+    public Double getLunghezza() {
         return lunghezza;
     }
 
-    public void setLunghezza(float lunghezza) {
+    public void setLunghezza(Double lunghezza) {
         this.lunghezza = lunghezza;
     }
 

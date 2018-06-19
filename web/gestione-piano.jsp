@@ -145,10 +145,6 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="col-md-12">
-                            <p class="warning">
-                                I campi non compilati manterrano il valore precedente.</p>
-                        </div>
                         <form action="DBModify" method="post" id="form-mod-mappa">
                             <table class='table table-borderless'>
                                 <tr><td>Nome:</td>

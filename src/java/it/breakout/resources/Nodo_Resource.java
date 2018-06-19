@@ -29,5 +29,17 @@ public class Nodo_Resource {
     public ArrayList<Nodo> findByIDMappa(Integer search_id) {
         return nodo_service.findByIDMappa(search_id);
     }
+    
+    public void insertNodo(Nodo nodo) {
+        nodo_service.insertNodo(nodo);
+    }
+    
+    public void updateNodo(Nodo nodo, Integer id_nodo) {
+        nodo_service.updateNodo(nodo, id_nodo);
+    }
+    
+    public void deleteNodo(Integer id_nodo) {
+        nodo_service.deleteNodo(id_nodo);
+    }
        
 }

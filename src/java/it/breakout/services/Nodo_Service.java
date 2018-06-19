@@ -66,9 +66,9 @@ public class Nodo_Service {
                 Nodo nodo = new Nodo();
                 nodo.setID(rs.getInt(FIELD_ID));
                 nodo.setCodice(rs.getString(FIELD_CODICE));
-                nodo.setCoord_X(rs.getFloat(FIELD_COORD_X));
-                nodo.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
-                nodo.setLarghezza(rs.getFloat(FIELD_WIDTH));
+                nodo.setCoord_X(rs.getDouble(FIELD_COORD_X));
+                nodo.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
+                nodo.setLarghezza(rs.getDouble(FIELD_WIDTH));
                 nodo.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
                 nodi.add(nodo);
             }
@@ -97,10 +97,10 @@ public class Nodo_Service {
                 pdi.setID(rs.getInt(FIELD_ID));
                 pdi.setCodice(rs.getString(FIELD_CODICE));
                 pdi.setTipo(rs.getString(FIELD_TIPO));
-                pdi.setCoord_X(rs.getFloat(FIELD_COORD_X));
-                pdi.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
-                pdi.setLarghezza(rs.getFloat(FIELD_WIDTH));
-                pdi.setLunghezza(rs.getFloat(FIELD_LENGTH));
+                pdi.setCoord_X(rs.getDouble(FIELD_COORD_X));
+                pdi.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
+                pdi.setLarghezza(rs.getDouble(FIELD_WIDTH));
+                pdi.setLunghezza(rs.getDouble(FIELD_LENGTH));
                 pdi.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
                 pdis.add(pdi);
             }
@@ -136,11 +136,11 @@ public class Nodo_Service {
             while(rs.next()) {
                 nodo.setID(search_id);
                 nodo.setCodice(rs.getString(FIELD_CODICE));
-                nodo.setCoord_X(rs.getFloat(FIELD_COORD_X));
-                nodo.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
+                nodo.setCoord_X(rs.getDouble(FIELD_COORD_X));
+                nodo.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 nodo.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
                 nodo.setTronchi_stella_int(getStar_Integer(search_id));
-                nodo.setLarghezza(rs.getFloat(FIELD_WIDTH));
+                nodo.setLarghezza(rs.getDouble(FIELD_WIDTH));
             }
         } catch (SQLException e) {
             e.getMessage();
@@ -164,10 +164,11 @@ public class Nodo_Service {
             rs = st.executeQuery();
             while(rs.next()) {
                 Nodo nodo = new Nodo();
+                nodo.setID(rs.getInt(FIELD_ID));
                 nodo.setCodice(rs.getString(FIELD_CODICE));
-                nodo.setCoord_X(rs.getFloat(FIELD_COORD_X));
-                nodo.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
-                nodo.setLarghezza(rs.getFloat(FIELD_WIDTH));
+                nodo.setCoord_X(rs.getDouble(FIELD_COORD_X));
+                nodo.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
+                nodo.setLarghezza(rs.getDouble(FIELD_WIDTH));
                 nodo.setID_mappa(search_id);
                 nodi.add(nodo);
             }
@@ -198,21 +199,83 @@ public class Nodo_Service {
                 pdi.setID(rs.getInt(FIELD_ID));
                 pdi.setCodice(rs.getString(FIELD_CODICE));
                 pdi.setTipo(rs.getString(FIELD_TIPO));
-                pdi.setCoord_X(rs.getFloat(FIELD_COORD_X));
-                pdi.setCoord_Y(rs.getFloat(FIELD_COORD_Y));
-                pdi.setLarghezza(rs.getFloat(FIELD_WIDTH));
-                pdi.setLunghezza(rs.getFloat(FIELD_LENGTH));
+                pdi.setCoord_X(rs.getDouble(FIELD_COORD_X));
+                pdi.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
+                pdi.setLarghezza(rs.getDouble(FIELD_WIDTH));
+                pdi.setLunghezza(rs.getDouble(FIELD_LENGTH));
                 pdi.setID_mappa(rs.getInt(search_id));
                 pdis.add(pdi);
             }
-        } 
-        catch (SQLException e) {
+        } catch (SQLException e) {
         	e.getMessage();
-        }
-        finally {
+        } finally {
             close();
         }
         
         return pdis;
+    }
+    
+    public void insertNodo(Nodo nodo) {
+        
+        try {
+            open();
+            
+            String query = "insert into " + TBL_NAME + " (codice,coordinata_x,coordinata_y,larghezza,id_mappa)"
+                    + "values(?,?,?,?,?)";
+            st = conn.prepareStatement(query);
+            st.setString(1, nodo.getCodice());
+            st.setDouble(2, nodo.getCoord_X());
+            st.setDouble(3, nodo.getCoord_Y());
+            st.setDouble(4, nodo.getLarghezza());
+            st.setInt(5,nodo.getID_mappa());
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
+    }
+    
+    public void updateNodo(Nodo nodo, Integer id_nodo) {
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set "
+                    + FIELD_CODICE + "=?, "
+                    + FIELD_COORD_X + "=?, "
+                    + FIELD_COORD_Y + "=?, "
+                    + FIELD_WIDTH + "=? "
+                    + "where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setString(1, nodo.getCodice());
+            st.setDouble(2, nodo.getCoord_X());
+            st.setDouble(3, nodo.getCoord_Y());
+            st.setDouble(4, nodo.getLarghezza());
+            st.setInt(5,nodo.getID_mappa());
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
+    }
+    
+    public void deleteNodo(Integer id_nodo) {
+        
+        try {
+            open();
+            
+            String query = "delete from " + TBL_NAME + " where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, id_nodo);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
     }
 }

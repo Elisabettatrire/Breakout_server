@@ -67,15 +67,30 @@ public class Utente_Service {
                 utente.setCognome(rs.getString(FIELD_COGNOME));
                 utenti.add(utente);
             }
-        } 
-        catch (SQLException e) {
+        } catch (SQLException e) {
         	e.getMessage();
-        }
-        finally {
+        } finally {
             close();
         }
         
         return utenti;
+    }
+    
+    public void update(String psw, Integer id_utente) {
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set " + FIELD_PSW + "=? where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setString(1, psw);
+            st.setInt(2, id_utente);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
     }
     
     public void delete(Integer id_utente) {
@@ -90,8 +105,7 @@ public class Utente_Service {
             
         } catch (SQLException e) {
             e.getMessage();
-        }
-        finally {
+        } finally {
             close();
         }
     }

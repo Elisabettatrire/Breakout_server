@@ -15,9 +15,9 @@ public class Nodo {
 
     private Integer ID;
     private String codice;
-    private float larghezza;
-    private float coord_X;
-    private float coord_Y;
+    private Double larghezza;
+    private Double coord_X;
+    private Double coord_Y;
     private Integer[] tronchi_stella_int;
     private ArrayList<Scala> tronchi_stella; // tra i tronchi vanno messe anche le scale e i collegamenti
     private Integer ID_mappa;
@@ -49,11 +49,11 @@ public class Nodo {
         this.ID_mappa = ID_mappa;
     }
 
-    public float getLarghezza() {
+    public Double getLarghezza() {
         return larghezza;
     }
 
-    public void setLarghezza(float larghezza) {
+    public void setLarghezza(Double larghezza) {
         this.larghezza = larghezza;
     }
     
@@ -73,19 +73,19 @@ public class Nodo {
         this.ID = ID;
     }
 
-    public float getCoord_X() {
+    public Double getCoord_X() {
         return coord_X;
     }
 
-    public void setCoord_X(float coord_X) {
+    public void setCoord_X(Double coord_X) {
         this.coord_X = coord_X;
     }
 
-    public float getCoord_Y() {
+    public Double getCoord_Y() {
         return coord_Y;
     }
 
-    public void setCoord_Y(float coord_Y) {
+    public void setCoord_Y(Double coord_Y) {
         this.coord_Y = coord_Y;
     }
 }

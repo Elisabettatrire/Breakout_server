@@ -22,6 +22,10 @@ public class Utente_Resource {
         return utente_service.findAll();
     }
     
+    public void update(String psw, Integer id_utente) {
+        utente_service.update(psw, id_utente);
+    }
+    
     public void delete(Integer id_utente) {
         utente_service.delete(id_utente);
     }

@@ -40,7 +40,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Mappa ${requestScope.nome} - Gestione Grafo</h2>
+                    <c:set var="nome_mappa" value="${requestScope.nome}" />
+                    <h2>Mappa ${nome_mappa} - Gestione Grafo</h2>
                     <br><br>
                 </div>
             </div>
@@ -60,14 +61,15 @@
                             <tbody>
                                 <c:forEach items="${requestScope.nodi}" var="nodo">
                                     <c:set var="codice_nodo" value="${nodo.getCodice()}"/>
+                                    <c:set var="id_nodo" value="${nodo.getID()}"/>
                                     <c:set var="x" value="${nodo.getCoord_X()}"/>
                                     <c:set var="y" value="${nodo.getCoord_Y()}"/>
                                     <c:set var="larghezza" value="${nodo.getLarghezza()}"/>
                                     <tr><td>${codice_nodo}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
-                                        <td><button id="mod-${codice_nodo}" class="btn btn-outline-dark btn-sm"
+                                        <td><button id="mod-${id_nodo}" class="btn btn-outline-dark btn-sm"
                                                     data-toggle="modal" data-target="#modal-mod-nodo">
                                                 <span class="fas fa-cog"></span></button></td>
-                                        <td><button id="rm-${codice_nodo}" class="btn btn-outline-danger btn-sm"
+                                        <td><button id="del-${id_nodo}" class="btn btn-outline-danger btn-sm"
                                                     data-toggle="modal" data-target="#modal-elimina-nodo">
                                                 <span class="fas fa-trash-alt"></span></button></td></tr>
                                 </c:forEach>
@@ -93,7 +95,8 @@
                             <c:set var="codice_tronco" value="${tronco.getCodice()}"/>
                             <c:set var="lunghezza" value="${tronco.getLunghezza()}"/>
                             <c:set var="nodi" value="${tronco.getNodiLong()}"/>
-                            <tr><td>${codice_tronco}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td>
+                            <tr><td>${codice_tronco}</td><td>${lunghezza}</td><td>${nodi[0]}</td>
+                                <td>${nodi[1]}</td>
                                 <td><button id="mod-${codice_tronco}" class="btn btn-outline-dark btn-sm"
                                             data-toggle="modal" data-target="#modal-mod-tronco">
                                         <span class="fas fa-cog"></span></button></td>
@@ -184,7 +187,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- text area per inserire i dati dei nodi da caricare -->
-                        <form>
+                        <form action="DBModify" method="post">
                             <table class="table table-borderless">
                                 <tr><td>Coord_X</td><td>
                                         <input type="text" name="coord-x"
@@ -192,7 +195,7 @@
                                 <tr><td>Coord_Y</td><td>
                                         <input type="text" name="coord-y"
                                                 placeholder=" es. 465" value="" size="40"></td></tr>
-                                <tr><td>Larghezza</td><td>
+                                <tr><td>Larghezza (m)</td><td>
                                         <input type="text" name="larghezza" placeholder=" es. 1.8"
                                                 value="" size="40"></td></tr>
                                 <tr><td>Codice</td><td>
@@ -201,11 +204,11 @@
                             </table>
                             <!-- Bottoni per tornare alla schermata precedente o per aggiungere il nodo -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    Annulla
-                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                                 <input class="btn btn-outline-success" type='submit' 
-                                    style="font-weight: bold" value='Aggiungi nodo' name='aggiungi-nodo'>
+                                    style="font-weight: bold" value='Aggiungi nodo'>
+                                <input type="hidden" name="azione" value="aggiungi-nodo">
+                                <input type="hidden" name="nm" value="${nome_mappa}">
                             </div>
                         </form>
                     </div>
@@ -223,19 +226,27 @@
                     </div>
                     <!-- text area per modificare i dati dei nodi caricati -->
                     <div class="modal-body">
-                        <form>
+                        <form action="DBModify" method="post" id="form-mod-nodo">
                             <table class="table table-borderless">
-                                <tr><td>Coord_X</td><td><input type="text" name="coord-x" size="40"></td></tr>
-                                <tr><td>Coord_Y</td><td><input type="text" name="coord-y" size="40"></td></tr>
-                                <tr><td>Larghezza</td><td><input type="text" name="larghezza"size="40"></td></tr>
-                                <tr><td>Codice</td><td><input type="text" name="codice" size="40"></td></tr>
+                                <tr><td>Coord_X</td><td><input type="text" name="coord-x" size="40"
+                                                               autofocus="true" placeholder="&nbsp;(invariato)">
+                                    </td></tr>
+                                <tr><td>Coord_Y</td><td><input type="text" name="coord-y" size="40"
+                                                               placeholder="&nbsp;(invariato)"></td></tr>
+                                <tr><td>Larghezza (m)</td><td><input type="text" name="larghezza"size="40"
+                                                                 placeholder="&nbsp;(invariato)"></td></tr>
+                                <tr><td>Codice</td><td><input type="text" name="codice" size="40"
+                                                              placeholder="&nbsp;(invariato)"></td></tr>
                             </table>
                             <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     Annulla</button>
                                 <input class="btn btn-outline-success" type='submit' 
-                                    style="font-weight: bold" value='Conferma modifiche' name='conferma-modifiche'>
+                                    style="font-weight: bold" value='Conferma modifiche'>
+                                <input type="hidden" name="id_nodo" value="">
+                                <input type="hidden" name="azione" value="modifica-nodo">
+                                <input type="hidden" name="nm" value="${nome_mappa}">
                             </div>
                         </form>
                     </div>
@@ -254,12 +265,16 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <form action='#'>
+                        <form action="DBModify" method="post" id="form-del-nodo">
                             <p>Sicuro di voler rimuovere il nodo selezionato?
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    Annulla</button>
                                 <input class="btn btn-danger" type='submit' value='Elimina' name='elimina-nodi'>
+                                <input type="hidden" name="id_nodo" value="">
+                                <input type="hidden" name="azione" value="elimina-nodo">
+                                <input type="hidden" name="nm" value="${nome_mappa}">
                             </div>
                         </form>                    
                     </div>

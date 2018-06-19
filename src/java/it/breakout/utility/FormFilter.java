@@ -5,6 +5,8 @@
  */
 package it.breakout.utility;
 
+import static it.breakout.utility.Constants.*;
+
 /**
  *
  * @author Giovanni
@@ -18,7 +20,7 @@ public class FormFilter {
         
         if(filtered != null && !filtered.isEmpty()) {
             return filtered;
-        } else return "empty";
+        } else return DEFAULT_STRING;
     }
     
     public String filtraQuota(String input_quota) {
@@ -28,17 +30,33 @@ public class FormFilter {
         
         if(filtered != null && !filtered.isEmpty()) {
             return filtered;
-        } else return "empty";
+        } else return DEFAULT_STRING;
     }
     
-    public int filtraNumero(String input_number) {
+    public Double filtraCoordinata(String input_number) {
         
         /* Rimozione caratteri speciali e lettere*/
-        String filtered = input_number.replaceAll("[^0-9]","");
+        String filtered = input_number.replaceAll("[^0-9.,-]",""); // Solo decimali ammessi
+        String dotted = filtered.replaceAll(",","."); // Solo punti ammessi
+        String pattern = "^-?\\d+(,\\d+)*(\\.\\d+(e\\d+)?)?$";
+        boolean check = dotted.matches(pattern); // Forma corretta del decimale
         
-        if(filtered != null && !filtered.isEmpty()) {
-            return Integer.parseInt(filtered);
-        } else return -1;
+        if(filtered != null && !filtered.isEmpty() && check) {
+            return Double.parseDouble(dotted);
+        } else return DEFAULT_DOUBLE;
+    }
+    
+    public Double filtraMisura(String input_number) {
+        
+        /* Rimozione caratteri speciali e lettere*/
+        String filtered = input_number.replaceAll("[^0-9.,]",""); // Solo decimali ammessi
+        String dotted = filtered.replaceAll(",","."); // Solo punti ammessi
+        String pattern = "^?\\d+(,\\d+)*(\\.\\d+(e\\d+)?)?$";
+        boolean check = dotted.matches(pattern); // Forma corretta del decimale
+        
+        if(filtered != null && !filtered.isEmpty() && check) {
+            return Double.parseDouble(dotted);
+        } else return DEFAULT_DOUBLE;
     }
     
     public String filtraCodice(String input_code) {
@@ -48,7 +66,7 @@ public class FormFilter {
         
         if(filtered != null && !filtered.isEmpty()) {
             return filtered.toUpperCase(); // Lettere maiuscole
-        } else return "empty";
+        } else return DEFAULT_STRING;
     }
     
     public String filtraNomeMappa(String input_nome_mappa) {
@@ -56,6 +74,6 @@ public class FormFilter {
         String filtered = input_nome_mappa.replaceAll("[^A-Za-z0-9/_-]","");
         if(filtered != null && !filtered.isEmpty()) {
             return filtered; // Lettere maiuscole
-        } else return "empty";
+        } else return DEFAULT_STRING;
     }
 }
