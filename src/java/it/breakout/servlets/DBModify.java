@@ -16,9 +16,11 @@ import it.breakout.resources.Piano_Resource;
 import it.breakout.resources.Mappa_Resource;
 import it.breakout.resources.Utente_Resource;
 import it.breakout.resources.Nodo_Resource;
+import it.breakout.resources.Beacon_Resource;
 import it.breakout.utility.FormFilter;
 import it.breakout.models.Mappa;
 import it.breakout.models.Nodo;
+import it.breakout.models.Beacon;
 import static it.breakout.utility.Constants.*;
 import java.util.Objects;
 
@@ -71,7 +73,7 @@ public class DBModify extends HttpServlet {
         String psw;
         String psw_confirm;
         
-        /* Variabili per inserimento-modifica-eliminazione utente */
+        /* Variabili per inserimento-modifica-eliminazione nodo */
         Nodo_Resource nodo_resource = new Nodo_Resource();
         Nodo nodo = new Nodo();
         Nodo nodo_old = new Nodo();
@@ -83,7 +85,13 @@ public class DBModify extends HttpServlet {
         String coord_y;
         Double coord_y_filtered;
         String larghezza;
-        Double larghezza_filtered;        
+        Double larghezza_filtered;
+        
+        /* Variabili per inserimento-modifica-eliminazione beacon */
+        Beacon_Resource beacon_resource = new Beacon_Resource();
+        Beacon beacon = new Beacon();
+        Beacon beacon_old = new Beacon();
+        Integer id_beacon;
         
         try {
             switch(azione) {
@@ -338,6 +346,20 @@ public class DBModify extends HttpServlet {
                     rd.forward(request, response);
                     
                     break;
+                    
+                /* Azioni relative alla tabella dei beacon */
+                case "aggiungi-beacon":
+                    
+                    break;
+                    
+                case "modifica-beacon":
+                    
+                    break;
+                    
+                case "elimina-beacon":
+                    
+                    break;
+                
             }
         } catch (IOException | ServletException f) {
             f.getMessage();

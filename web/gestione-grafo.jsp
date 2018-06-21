@@ -194,18 +194,18 @@
                         <!-- text area per inserire i dati dei nodi da caricare -->
                         <form action="DBModify" method="post">
                             <table class="table table-borderless">
-                                <tr><td>Codice</td><td>
+                                <tr><td>Codice:</td><td>
                                         <input type="text" name="codice" placeholder=" es. 150G2"
-                                               value="" size="40" autofocus="true"></td></tr>
-                                <tr><td>Coord_X</td><td>
+                                               size="40" autofocus="true"></td></tr>
+                                <tr><td>Coord_X:</td><td>
                                         <input type="text" name="coord-x"
-                                                placeholder=" es. 129" value="" size="40"></td></tr>
-                                <tr><td>Coord_Y</td><td>
+                                                placeholder=" es. 129" size="40"></td></tr>
+                                <tr><td>Coord_Y:</td><td>
                                         <input type="text" name="coord-y"
-                                                placeholder=" es. 465" value="" size="40"></td></tr>
-                                <tr><td>Larghezza (m)</td><td>
+                                                placeholder=" es. 465" size="40"></td></tr>
+                                <tr><td>Larghezza (m):</td><td>
                                         <input type="text" name="larghezza" placeholder=" es. 1.8"
-                                                value="" size="40"></td></tr>
+                                                size="40"></td></tr>
                             </table>
                             <!-- Bottoni per tornare alla schermata precedente o per aggiungere il nodo -->
                             <div class="modal-footer">
@@ -233,16 +233,16 @@
                     <div class="modal-body">
                         <form action="DBModify" method="post" id="form-mod-nodo">
                             <table class="table table-borderless">
-                                <tr><td>Codice</td><td>
+                                <tr><td>Codice:</td><td>
                                         <input type="text" name="codice" size="40"
                                                placeholder="&nbsp;(invariato)" autofocus="true"></td></tr>
-                                <tr><td>Coord_X</td><td>
+                                <tr><td>Coord_X:</td><td>
                                         <input type="text" name="coord-x" size="40"
                                                     autofocus="true" placeholder="&nbsp;(invariato)"></td></tr>
-                                <tr><td>Coord_Y</td><td>
+                                <tr><td>Coord_Y:</td><td>
                                         <input type="text" name="coord-y" size="40"
                                                     placeholder="&nbsp;(invariato)"></td></tr>
-                                <tr><td>Larghezza (m)</td>
+                                <tr><td>Larghezza (m):</td>
                                     <td><input type="text" name="larghezza"size="40"
                                                     placeholder="&nbsp;(invariato)"></td></tr>
                             </table>

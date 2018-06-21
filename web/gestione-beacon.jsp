@@ -47,7 +47,7 @@
                     <!--Tabella dei beacon della mappa-->
                     <table class="table-striped display" style="text-align: center; width:100%;">
                         <thead>
-                            <tr><th>Nome</th><th>Coord_X</th><th>Coord_Y</th><th>Modifica</th>
+                            <tr><th>Nome</th><th>Coord. X</th><th>Coord. Y</th><th>Modifica</th>
                                 <th>Elimina</th></tr>
                         </thead>
                         <tbody>
@@ -59,7 +59,7 @@
                                 <td><button id="mod-${id}" class="btn btn-outline-dark btn-sm"
                                             data-toggle="modal" data-target="#modal-mod-beacon">
                                         <span class="fas fa-cog"></span></button></td>
-                                <td><button id="rm-${id}" class="btn btn-outline-danger btn-sm"
+                                <td><button id="del-${id}" class="btn btn-outline-danger btn-sm"
                                             data-toggle="modal" data-target="#modal-elimina-beacon">
                                         <span class="fas fa-trash-alt"></span></button></td></tr></tr>
                             </c:forEach>
@@ -95,11 +95,18 @@
                         </button>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-2">
                             <form action="ObjectAccess" method="POST">
                                 <input type="submit" value="< Gestione Mappa" class="btn btn-secondary">
                                 <input type="hidden" name="obj" value="mappa">
                                 <input type="hidden" name="nm" value="${nome_mappa}">
+                            </form>
+                        </div>
+                        <div class="col-md-2">
+                            <form action="ObjectAccess" method="POST">
+                                <input type="submit" value="Gestione Piano" class="btn btn-secondary">
+                                <input type="hidden" name="obj" value="piano">
+                                <input type="hidden" name="nm" value="${requestScope.quota}">
                             </form>
                         </div>
                     </div>
@@ -121,26 +128,106 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button> 
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <table class='table table-borderless'>
-                                    <tr><td>Seleziona il file <i>.csv</i> contenente i dati del beacon</td></tr>
-                                    <tr><td>
-                                    <!-- Bottone per caricare il file .cvs contenente i dati dei beacon-->
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="csv-beacon" lang="it">
-                                        <label class="custom-file-label" for="csv-beacon">Scegli file</label>
-                                    </div>
-                                    </td></tr>
+                            <div class="col-md-12">
+                                <p class="warning">
+                                    Devono essere compilati tutti i campi, altrimenti l'inserimento
+                                    non verrà portato a termine.</p>
+                            </div>
+                            <!-- text area per inserire i dati dei nodi da caricare -->
+                            <form action="#" method="post">
+                                <table class="table table-borderless">
+                                    <tr><td>Codice:</td><td>
+                                            <input type="text" name="codice" placeholder=" es. 150G2"
+                                                   size="40" autofocus="true"></td></tr>
+                                    <tr><td>Coord_X:</td><td>
+                                            <input type="text" name="coord-x"
+                                                    placeholder=" es. 129" size="40"></td></tr>
+                                    <tr><td>Coord_Y:</td><td>
+                                            <input type="text" name="coord-y"
+                                                    placeholder=" es. 465" size="40"></td></tr>
+                                    <tr><td>Indici vari...</td><td>
+                                            <input type="text" name="" placeholder=""
+                                                    size="40"></td></tr>
                                 </table>
+                                <!-- Bottoni per tornare alla schermata precedente o per aggiungere il nodo -->
                                 <div class="modal-footer">
-                                    <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                        Annulla
-                                    </button>
+                                        Annulla</button>
                                     <input class="btn btn-outline-success" type='submit' 
-                                            style="font-weight: bold" value='Aggiungi beacon' name='aggiungi-beacon'>
+                                        style="font-weight: bold" value='Aggiungi beacon'>
+                                    <input type="hidden" name="azione" value="aggiungi-beacon">
+                                    <input type="hidden" name="nm" value="${nome_mappa}">
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                
+            <!-- Finestra popup per la modifica di un beacon-->
+            <div id="modal-mod-beacon" class="modal fade">
+                <div class="modal-dialog " >
+                    <div class="modal-content ">
+                        <div class="modal-header" >
+                            <h5 class="modal-title">Modifica beacon</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- text area per modificare i dati dei nodi caricati -->
+                        <div class="modal-body">
+                            <form action="DBModify" method="post" id="form-mod-nodo">
+                                <table class="table table-borderless">
+                                    <<tr><td>Codice:</td><td>
+                                            <input type="text" name="codice" placeholder=" es. 150G2"
+                                                   size="40" autofocus="true"></td></tr>
+                                    <tr><td>Coord_X:</td><td>
+                                            <input type="text" name="coord-x"
+                                                    placeholder=" (invariato)" size="40"></td></tr>
+                                    <tr><td>Coord_Y:</td><td>
+                                            <input type="text" name="coord-y"
+                                                    placeholder=" (invariato)" size="40"></td></tr>
+                                    <tr><td>Indici vari...</td><td>
+                                            <input type="text" name="" placeholder=" (invariato)"
+                                                    size="40"></td></tr>
+                                </table>
+                                <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Annulla</button>
+                                    <input class="btn btn-outline-success" type='submit' 
+                                        style="font-weight: bold" value='Conferma modifiche'>
+                                    <input type="hidden" name="id_beacon" value="">
+                                    <input type="hidden" name="azione" value="modifica-beacon">
+                                    <input type="hidden" name="nm" value="${nome_mappa}">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Conferma Eliminazione Beacon -->
+            <div id="modal-elimina-beacon" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title">Conferma eliminazione beacon</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="DBModify" method="post" id="form-del-nodo">
+                                <p>Sicuro di voler rimuovere il beacon selezionato?
+                                    Questa azione non può essere annullata.</p>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                        Annulla</button>
+                                    <input class="btn btn-danger" type='submit' value='Elimina'>
+                                    <input type="hidden" name="id_beacon" value="">
+                                    <input type="hidden" name="azione" value="elimina-beacon">
+                                    <input type="hidden" name="nm" value="${nome_mappa}">
+                                </div>
+                            </form>                    
                         </div>
                     </div>
                 </div>

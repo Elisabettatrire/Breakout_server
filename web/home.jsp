@@ -10,9 +10,9 @@
 <!DOCTYPE html>
 <html lang="it-IT">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Breakout - Home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.min.css" type="text/css">
@@ -20,12 +20,16 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.min.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
-        <link href="static/fontawesome/fontawesome-all.css" rel="stylesheet">
+        <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
+        <link rel="stylesheet" type="text/css" href="static/datatables.min.css"/>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
+        <script src="static/scroll-table.js"></script>
+        <script type="text/javascript" src="static/datatables.min.js"></script>
+        <script type="text/javascript" src="static/modal-forms.js"></script>
     </head>
     <body>
         <!-- Header -->
@@ -33,7 +37,7 @@
 
         <!-- Page Content -->
         <div class="container">
-            <div class="row" style="margin-top: 100px; margin-bottom: 100px">
+            <div class="row" style="margin-top: 100px; margin-bottom: 30px">
                 <div class="col-md-6" style="text-align: right">
                     <form action="DBAccess" method="POST">
                         <input type="submit" value="Gestione Mappe" class="btn btn-lg btn-success" name="mappe"
@@ -47,6 +51,46 @@
                                    style="width: 500px; height: 250px; font-size: 26pt">
                         <input type="hidden" name="modalita" value="utenti">
                     </form>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 100px">
+                <div class="col-md-4"></div>
+                <div class="col-md-4" style="text-align: center">
+                    <table>
+                        <tr style="text-align: left"><td><p style="font-size: x-large">
+                                    Importa dati da file <a data-toggle="modal" data-target="#modal-info">.csv
+                                    </a>
+                                </p>
+                            </td></tr>
+                        <tr style="text-align: center">
+                            <td colspan="2"><form action="#" method="post" enctype="multipart/form-data">
+                                    <input type="file" accept=".csv" id="input-csv">
+                                </form></td></tr>
+                    </table>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
+        
+        <!-- Modal informazioni riguardo il file csv -->
+        <div id="modal-info" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Importazione dati da CSV</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <p>Qui andiamo ad inserire come deve essere fatto il file per
+                                caricare correttamente i dati.</p>             
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
