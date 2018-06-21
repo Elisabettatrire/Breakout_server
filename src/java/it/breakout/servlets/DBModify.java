@@ -46,7 +46,7 @@ public class DBModify extends HttpServlet {
         azione = request.getParameter("azione");
         RequestDispatcher rd;
         FormFilter form_filter = new FormFilter();
-        Integer check;  // Serve per vedere se le query restituiscono un valore nullo
+        Integer exists;  // Serve per vedere se le query restituiscono un valore nullo
         Integer id_mappa;
         Integer id_piano;
         
@@ -60,6 +60,7 @@ public class DBModify extends HttpServlet {
         /* Variabili per inserimento-modifica-eliminazione mappa */
         Mappa_Resource mappa_resource = new Mappa_Resource();
         Mappa mappa = new Mappa();
+        Mappa mappa_old = new Mappa();
         String nome_mappa;
         String nome_mappa_filtered;
         String url_immagine;
@@ -73,6 +74,7 @@ public class DBModify extends HttpServlet {
         /* Variabili per inserimento-modifica-eliminazione utente */
         Nodo_Resource nodo_resource = new Nodo_Resource();
         Nodo nodo = new Nodo();
+        Nodo nodo_old = new Nodo();
         Integer id_nodo;
         String codice_nodo;
         String codice_nodo_filtered;
@@ -92,12 +94,15 @@ public class DBModify extends HttpServlet {
                     quota = request.getParameter("quota");
                     quota_filtered = form_filter.filtraQuota(quota);
                     /* Controllo se esiste un piano con lo stesso nome */
-                    check = piano_resource.findByQuota(quota_filtered).getID_piano();
+                    exists = piano_resource.findByQuota(quota_filtered).getID_piano();
                     
-                    if(!quota_filtered.equals(DEFAULT_STRING) && check==null) {
+                    if(!quota_filtered.equals(DEFAULT_STRING) && exists==null) {
                         piano_resource.insert(quota_filtered);
                     }
-
+                    
+                    /* Pulisco la variabile di controllo per poterla riutilizzare */
+                    exists = null;
+                    
                     /* Ritorno alla lista dei piani che sarà aggiornata */
                     rd = request.getRequestDispatcher("/DBAccess");
                     rd.forward(request, response);
@@ -109,15 +114,17 @@ public class DBModify extends HttpServlet {
                     id_piano = Integer.parseInt(request.getParameter("id_piano"));
                     quota = request.getParameter("quota");
                     quota_filtered = form_filter.filtraQuota(quota);
-                    check = piano_resource.findByQuota(quota_filtered).getID_piano();
+                    /* Controllo che non esista già la quota inserita */
+                    exists = piano_resource.findByQuota(quota_filtered).getID_piano();
                         
                     /* Il controllo se il campo viene lasciato vuoto viene fatto
                     dopo che questo è stato filtrato, almeno se sono stati
-                    inseriti dei caratteri non validi il valore rimane uguale
-                    */
-                    if(!quota_filtered.equals(DEFAULT_STRING) && check==null) {
+                    inseriti dei caratteri non validi il valore rimane uguale */
+                    if(!quota_filtered.equals(DEFAULT_STRING) && exists==null) {
                         piano_resource.update(quota_filtered, id_piano);
                     }
+                    
+                    exists = null;
                     
                     rd = request.getRequestDispatcher("/DBAccess");
                     rd.forward(request, response);
@@ -142,16 +149,18 @@ public class DBModify extends HttpServlet {
 
                     nome_mappa_filtered = form_filter.filtraNomeMappa(nome_mappa);
                     /* Controllo se esiste una mappa con lo stesso nome */
-                    check = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
+                    exists = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
                     
-                    if(!nome_mappa_filtered.equals(DEFAULT_STRING) && check==null) {
+                    if(!nome_mappa_filtered.equals(DEFAULT_STRING) && exists==null) {
                         
                         mappa.setNome(nome_mappa_filtered);
                         mappa.setID_piano(piano_resource.findByQuota(quota).getID_piano()); // veloce
                         mappa.setUrlImmagine(url_immagine);
                         mappa_resource.insert(mappa);
                     }
-
+                    
+                    exists = null;
+                    
                     rd = request.getRequestDispatcher("ObjectAccess?obj=piano&nm="+quota);
                     rd.forward(request, response);
 
@@ -163,32 +172,31 @@ public class DBModify extends HttpServlet {
                     quota = request.getParameter("nm"); // non c'è bisogno di filtrarla
                     url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
                     id_mappa = Integer.parseInt(request.getParameter("id_mappa"));
-                    mappa.setID_mappa(id_mappa);
+                    
+                    /* Visto che i campi da controllare sono più di uno ho bisogno
+                    di un oggetto che contenga i vecchi valori
+                    */
+                    mappa_old = mappa_resource.findByID(id_mappa);
+                    
+                    nome_mappa_filtered = form_filter.filtraNomeMappa(nome_mappa);
+                    exists = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
                                         
                     /* Aggiornamento nome mappa */
-                    // Se il campo è vuoto bisogna mantenere il valore precedente
-                    if(nome_mappa.equals("")) {
-                        
-                        nome_mappa = mappa_resource.findByID(id_mappa).getNome();
-                        mappa.setNome(nome_mappa);
-                        
-                    } else {
-                        
-                        nome_mappa_filtered = form_filter.filtraNomeMappa(nome_mappa);
-                        // Se una volta filtrato non è vuoto...
-                        check = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
-                        
-                        if(!nome_mappa_filtered.equals(DEFAULT_STRING) && check==null) {
-                            mappa.setNome(nome_mappa_filtered);
-                        }
+                    if(!nome_mappa_filtered.equals(DEFAULT_STRING) && exists==null) {
+                        mappa.setNome(nome_mappa_filtered);
+                    } else { // Se il campo è vuoto bisogna mantenere il valore precedente
+                        mappa.setNome(mappa_old.getNome());
                     }
+                    
+                    exists = null;
                     
                     /* Aggiornamento url */
                     // Se il campo è vuoto bisogna mantenere il valore precedente
-                    if(url_immagine.equals("")) {
-                        url_immagine = mappa_resource.findByID(id_mappa).getUrlImmagine();
+                    if(!url_immagine.isEmpty()) {
+                        mappa.setUrlImmagine(url_immagine);
+                    } else {
+                        mappa.setUrlImmagine(mappa_old.getUrlImmagine());
                     }
-                    mappa.setUrlImmagine(url_immagine);
                     
                     /* Invio query */
                     mappa_resource.update(mappa, mappa.getID_mappa());
@@ -208,7 +216,7 @@ public class DBModify extends HttpServlet {
 
                     break;
                     
-                /* Azioni relative alla tabella degli utenti */
+                /* Azioni relative alla tabella degli utenti (Pericolo SQLInjection?) */
                 case "modifica-utente":
                     
                     id_utente = Integer.parseInt(request.getParameter("id_utente"));
@@ -276,13 +284,45 @@ public class DBModify extends HttpServlet {
                     coord_x = request.getParameter("coord-x");
                     coord_y = request.getParameter("coord-y");
                     larghezza = request.getParameter("larghezza");
+                    id_nodo = Integer.parseInt(request.getParameter("id_nodo"));
+                    
+                    /* Visto che i campi da controllare sono più di uno ho bisogno
+                    di un oggetto che contenga i vecchi valori
+                    */
+                    nodo_old = nodo_resource.findByID(id_nodo);
                     
                     codice_nodo_filtered = form_filter.filtraCodice(codice_nodo);
                     coord_x_filtered = form_filter.filtraCoordinata(coord_x);
                     coord_y_filtered = form_filter.filtraCoordinata(coord_y);
                     larghezza_filtered = form_filter.filtraMisura(larghezza);
                     
-                    nodo_resource.updateNodo(nodo, Integer.parseInt(request.getParameter("id_nodo")));
+                    /* Controllo campi */
+                    exists = nodo_resource.findByCodice(codice_nodo_filtered).getID();
+                    if(!codice_nodo_filtered.equals(DEFAULT_STRING) && exists == null) {
+                        nodo.setCodice(codice_nodo_filtered);
+                    } else{
+                        nodo.setCodice(nodo_old.getCodice());
+                    }
+                    
+                    if(!Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)) {
+                        nodo.setCoord_X(coord_x_filtered);
+                    } else {
+                        nodo.setCoord_X(nodo_old.getCoord_X());
+                    }
+                    
+                    if(!Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)) {
+                        nodo.setCoord_Y(coord_y_filtered);
+                    } else {
+                        nodo.setCoord_Y(nodo_old.getCoord_Y());
+                    }
+                    
+                    if(!Objects.equals(larghezza_filtered, DEFAULT_DOUBLE)) {
+                        nodo.setLarghezza(larghezza_filtered);
+                    } else {
+                        nodo.setLarghezza(nodo_old.getLarghezza());
+                    }
+                    
+                    nodo_resource.updateNodo(nodo, id_nodo);
                     
                     rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
                     rd.forward(request, response);

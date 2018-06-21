@@ -186,9 +186,17 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button> 
                     </div>
                     <div class="modal-body">
+                        <div class="col-md-12">
+                            <p class="warning">
+                                Devono essere compilati tutti i campi, altrimenti l'inserimento
+                                non verrà portato a termine.</p>
+                        </div>
                         <!-- text area per inserire i dati dei nodi da caricare -->
                         <form action="DBModify" method="post">
                             <table class="table table-borderless">
+                                <tr><td>Codice</td><td>
+                                        <input type="text" name="codice" placeholder=" es. 150G2"
+                                               value="" size="40" autofocus="true"></td></tr>
                                 <tr><td>Coord_X</td><td>
                                         <input type="text" name="coord-x"
                                                 placeholder=" es. 129" value="" size="40"></td></tr>
@@ -197,9 +205,6 @@
                                                 placeholder=" es. 465" value="" size="40"></td></tr>
                                 <tr><td>Larghezza (m)</td><td>
                                         <input type="text" name="larghezza" placeholder=" es. 1.8"
-                                                value="" size="40"></td></tr>
-                                <tr><td>Codice</td><td>
-                                        <input type="text" name="codice" placeholder=" es. 150G2"
                                                 value="" size="40"></td></tr>
                             </table>
                             <!-- Bottoni per tornare alla schermata precedente o per aggiungere il nodo -->
@@ -228,15 +233,18 @@
                     <div class="modal-body">
                         <form action="DBModify" method="post" id="form-mod-nodo">
                             <table class="table table-borderless">
-                                <tr><td>Coord_X</td><td><input type="text" name="coord-x" size="40"
-                                                               autofocus="true" placeholder="&nbsp;(invariato)">
-                                    </td></tr>
-                                <tr><td>Coord_Y</td><td><input type="text" name="coord-y" size="40"
-                                                               placeholder="&nbsp;(invariato)"></td></tr>
-                                <tr><td>Larghezza (m)</td><td><input type="text" name="larghezza"size="40"
-                                                                 placeholder="&nbsp;(invariato)"></td></tr>
-                                <tr><td>Codice</td><td><input type="text" name="codice" size="40"
-                                                              placeholder="&nbsp;(invariato)"></td></tr>
+                                <tr><td>Codice</td><td>
+                                        <input type="text" name="codice" size="40"
+                                               placeholder="&nbsp;(invariato)" autofocus="true"></td></tr>
+                                <tr><td>Coord_X</td><td>
+                                        <input type="text" name="coord-x" size="40"
+                                                    autofocus="true" placeholder="&nbsp;(invariato)"></td></tr>
+                                <tr><td>Coord_Y</td><td>
+                                        <input type="text" name="coord-y" size="40"
+                                                    placeholder="&nbsp;(invariato)"></td></tr>
+                                <tr><td>Larghezza (m)</td>
+                                    <td><input type="text" name="larghezza"size="40"
+                                                    placeholder="&nbsp;(invariato)"></td></tr>
                             </table>
                             <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
                             <div class="modal-footer">

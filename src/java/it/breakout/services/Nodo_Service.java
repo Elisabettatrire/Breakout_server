@@ -151,6 +151,37 @@ public class Nodo_Service {
         return nodo;
     }
     
+    public Nodo findByCodice(String search_code){
+
+        ResultSet rs = null;
+        Nodo nodo = new Nodo();
+
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_CODICE + "= ?";
+            st = conn.prepareStatement(query);
+            st.setString(1, search_code);
+            rs = st.executeQuery();
+
+            while(rs.next()) {
+                nodo.setID(rs.getInt(FIELD_ID));
+                nodo.setCodice(search_code);
+                nodo.setCoord_X(rs.getDouble(FIELD_COORD_X));
+                nodo.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
+                nodo.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
+                nodo.setTronchi_stella_int(getStar_Integer(rs.getInt(FIELD_ID)));
+                nodo.setLarghezza(rs.getDouble(FIELD_WIDTH));
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
+        
+        return nodo;
+    }
+    
     public ArrayList<Nodo> findByIDMappa(Integer search_id) {
         ResultSet rs = null;
         ArrayList<Nodo> nodi = new ArrayList<>();
@@ -252,7 +283,7 @@ public class Nodo_Service {
             st.setDouble(2, nodo.getCoord_X());
             st.setDouble(3, nodo.getCoord_Y());
             st.setDouble(4, nodo.getLarghezza());
-            st.setInt(5,nodo.getID_mappa());
+            st.setInt(5, id_nodo);
             st.executeUpdate();
             
         } catch (SQLException e) {

@@ -18,6 +18,10 @@ public class Nodo_Resource {
         return nodo_service.findByID(search_id);
     }
     
+    public Nodo findByCodice(String search_code) {
+        return nodo_service.findByCodice(search_code);
+    }
+    
     public ArrayList<Pdi> findAllPois() {
 	return nodo_service.findAllPois();
     }

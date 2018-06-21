@@ -187,8 +187,10 @@ public class Mappa_Service {
         try {
             open();
             
-            String query = "update " + TBL_NAME + " set " + FIELD_NOME + "=?, "
-                    + FIELD_IMG + "=? where " + FIELD_ID + "=?";
+            String query = "update " + TBL_NAME + " set "
+                    + FIELD_NOME + "=?, "
+                    + FIELD_IMG + "=? "
+                    + "where " + FIELD_ID + "=?";
             st = conn.prepareStatement(query);
             st.setString(1, mappa.getNome());
             st.setString(2, mappa.getUrlImmagine());
