@@ -7,12 +7,17 @@ package it.breakout.services;
 
 import it.breakout.models.Nodo;
 import it.breakout.models.Pdi;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static it.breakout.utility.Constants.DB_PSW;
+import static it.breakout.utility.Constants.DB_URL;
+import static it.breakout.utility.Constants.DB_USR;
 
 /**
  *
@@ -35,7 +40,7 @@ public class Nodo_Service {
     public static final String FIELD_ID_MAPPA = "id_mappa";
     
     private void open() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
+        conn = DriverManager.getConnection(DB_URL, DB_USR, DB_PSW);
     }
     
     private void close() {
@@ -149,6 +154,40 @@ public class Nodo_Service {
         }
         
         return nodo;
+    }
+    
+    public Pdi findPoiByID(Integer search_id){
+
+        ResultSet rs = null;
+        Pdi pdi = new Pdi();
+
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID + "= ?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, search_id);
+            rs = st.executeQuery();
+
+            while(rs.next()) {
+                pdi.setID(search_id);
+                pdi.setCodice(rs.getString(FIELD_CODICE));
+                pdi.setTipo(rs.getString(FIELD_TIPO));
+                pdi.setCoord_X(rs.getDouble(FIELD_COORD_X));
+                pdi.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
+                pdi.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
+                pdi.setTronchi_stella_int(getStar_Integer(search_id));
+                pdi.setLarghezza(rs.getDouble(FIELD_WIDTH));
+                pdi.setLunghezza(rs.getDouble(FIELD_LENGTH));
+                
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
+        
+        return pdi;
     }
     
     public Nodo findByCodice(String search_code){
@@ -301,6 +340,60 @@ public class Nodo_Service {
             String query = "delete from " + TBL_NAME + " where " + FIELD_ID + "=?";
             st = conn.prepareStatement(query);
             st.setInt(1, id_nodo);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
+    }
+    
+    public void insertPdi(Pdi pdi) {
+        
+        try {
+            open();
+            
+            String query = "insert into " + TBL_NAME + " (codice,is_pdi,tipo,coordinata_x,coordinata_y,"
+                    + "larghezza,lunghezza,id_mappa) values(?,?,?,?,?,?,?,?)";
+            st = conn.prepareStatement(query);
+            st.setString(1, pdi.getCodice());
+            st.setBoolean(2, true);
+            st.setString(3, pdi.getTipo());
+            st.setDouble(4, pdi.getCoord_X());
+            st.setDouble(5, pdi.getCoord_Y());
+            st.setDouble(6, pdi.getLarghezza());
+            st.setDouble(7, pdi.getLunghezza());
+            st.setInt(8,pdi.getID_mappa());
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
+    }
+    
+    public void updatePoi(Pdi pdi, Integer id_pdi) {
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set "
+                    + FIELD_CODICE + "=?, "
+                    + FIELD_TIPO + "=?, "
+                    + FIELD_COORD_X + "=?, "
+                    + FIELD_COORD_Y + "=?, "
+                    + FIELD_WIDTH + "=?, "
+                    + FIELD_LENGTH + "=? "
+                    + "where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setString(1, pdi.getCodice());
+            st.setString(2, pdi.getTipo());
+            st.setDouble(3, pdi.getCoord_X());
+            st.setDouble(4, pdi.getCoord_Y());
+            st.setDouble(5, pdi.getLarghezza());
+            st.setDouble(6, pdi.getLunghezza());
+            st.setInt(7, id_pdi);
             st.executeUpdate();
             
         } catch (SQLException e) {

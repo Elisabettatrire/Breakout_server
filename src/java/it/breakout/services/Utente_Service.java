@@ -6,12 +6,17 @@
 package it.breakout.services;
 
 import it.breakout.models.Utente;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import static it.breakout.utility.Constants.DB_PSW;
+import static it.breakout.utility.Constants.DB_URL;
+import static it.breakout.utility.Constants.DB_USR;
 
 /**
  *
@@ -31,7 +36,7 @@ public class Utente_Service {
     public static final String FIELD_COGNOME = "cognome";
     
     private void open() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
+        conn = DriverManager.getConnection(DB_URL, DB_USR, DB_PSW);
     }
     
     private void close() {

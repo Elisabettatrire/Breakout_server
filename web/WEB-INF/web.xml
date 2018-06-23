@@ -30,14 +30,6 @@
         <url-pattern>/DBModify</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>Login</servlet-name>
-        <servlet-class>it.breakout.servlets.Login</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Login</servlet-name>
-        <url-pattern>/Login</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>it.breakout.servlets.Logout</servlet-class>
     </servlet>

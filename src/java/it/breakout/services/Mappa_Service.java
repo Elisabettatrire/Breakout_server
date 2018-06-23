@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 import it.breakout.models.Mappa;
 
+import static it.breakout.utility.Constants.DB_PSW;
+import static it.breakout.utility.Constants.DB_URL;
+import static it.breakout.utility.Constants.DB_USR;
+
 /**
  *
  * @author costantino
@@ -25,7 +29,7 @@ public class Mappa_Service {
     public static final String FIELD_IMG = "img";
     
     private void open() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:derby://localhost:1527/breakout1", "app", "app");
+        conn = DriverManager.getConnection(DB_URL, DB_USR, DB_PSW);
     }
     
     private void close() {

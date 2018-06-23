@@ -20,6 +20,7 @@ import it.breakout.resources.Beacon_Resource;
 import it.breakout.utility.FormFilter;
 import it.breakout.models.Mappa;
 import it.breakout.models.Nodo;
+import it.breakout.models.Pdi;
 import it.breakout.models.Beacon;
 import static it.breakout.utility.Constants.*;
 import java.util.Objects;
@@ -62,7 +63,7 @@ public class DBModify extends HttpServlet {
         /* Variabili per inserimento-modifica-eliminazione mappa */
         Mappa_Resource mappa_resource = new Mappa_Resource();
         Mappa mappa = new Mappa();
-        Mappa mappa_old = new Mappa();
+        Mappa mappa_old;
         String nome_mappa;
         String nome_mappa_filtered;
         String url_immagine;
@@ -73,20 +74,28 @@ public class DBModify extends HttpServlet {
         String psw;
         String psw_confirm;
         
-        /* Variabili per inserimento-modifica-eliminazione nodo */
+        /* Variabili per inserimento-modifica-eliminazione nodo-pdi */
         Nodo_Resource nodo_resource = new Nodo_Resource();
         Nodo nodo = new Nodo();
-        Nodo nodo_old = new Nodo();
+        Nodo nodo_old;
+        Pdi pdi = new Pdi();
+        Pdi pdi_old;
         Integer id_nodo;
+        Integer id_pdi;
         String codice_nodo;
         String codice_nodo_filtered;
+        String codice_pdi;
+        String codice_pdi_filtered;
         String coord_x;
         Double coord_x_filtered;
         String coord_y;
         Double coord_y_filtered;
         String larghezza;
         Double larghezza_filtered;
-        
+        String lunghezza;
+        Double lunghezza_filtered;
+        String tipo;
+ 
         /* Variabili per inserimento-modifica-eliminazione beacon */
         Beacon_Resource beacon_resource = new Beacon_Resource();
         Beacon beacon = new Beacon();
@@ -263,10 +272,13 @@ public class DBModify extends HttpServlet {
                     coord_y_filtered = form_filter.filtraCoordinata(coord_y);
                     larghezza_filtered = form_filter.filtraMisura(larghezza);
                     
+                    exists = nodo_resource.findByCodice(codice_nodo_filtered).getID();
+                    
                     if(!codice_nodo_filtered.equals(DEFAULT_STRING)
                             && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
                             && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
-                            && !Objects.equals(larghezza_filtered, DEFAULT_DOUBLE)){
+                            && !Objects.equals(larghezza_filtered, DEFAULT_DOUBLE)
+                            && exists == null){
                         
                         id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
                         
@@ -340,6 +352,128 @@ public class DBModify extends HttpServlet {
                 case "elimina-nodo":
                     
                     nodo_resource.deleteNodo(Integer.parseInt(request.getParameter("id_nodo")));
+                    nome_mappa = request.getParameter("nm");
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                    rd.forward(request, response);
+                    
+                    break;
+                
+                /* Azioni relative alla tabella dei pdi */
+                case "aggiungi-pdi":
+                    
+                    nome_mappa = request.getParameter("nm");
+                    codice_pdi = request.getParameter("codice");
+                    coord_x = request.getParameter("coord-x");
+                    coord_y = request.getParameter("coord-y");
+                    larghezza = request.getParameter("larghezza");
+                    lunghezza = request.getParameter("lunghezza");
+                    tipo = request.getParameter("tipo");
+                    
+                    codice_pdi_filtered = form_filter.filtraCodice(codice_pdi);
+                    coord_x_filtered = form_filter.filtraCoordinata(coord_x);
+                    coord_y_filtered = form_filter.filtraCoordinata(coord_y);
+                    larghezza_filtered = form_filter.filtraMisura(larghezza);
+                    lunghezza_filtered = form_filter.filtraMisura(lunghezza);
+                    
+                    exists = nodo_resource.findByCodice(codice_pdi_filtered).getID();
+                    
+                    if(!codice_pdi_filtered.equals(DEFAULT_STRING)
+                            && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(larghezza_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(lunghezza_filtered, DEFAULT_DOUBLE)
+                            && exists == null){
+                        
+                        id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
+                        
+                        pdi.setCodice(codice_pdi_filtered);
+                        pdi.setCoord_X(coord_x_filtered);
+                        pdi.setCoord_Y(coord_y_filtered);
+                        pdi.setLarghezza(larghezza_filtered);
+                        pdi.setLunghezza(lunghezza_filtered);
+                        pdi.setID_mappa(id_mappa);
+                        pdi.setTipo(tipo);
+                        
+                        nodo_resource.insertPdi(pdi);
+                        
+                    }
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                    rd.forward(request, response);
+                    
+                    break;
+
+                case "modifica-pdi":
+
+                    nome_mappa = request.getParameter("nm");
+                    codice_pdi = request.getParameter("codice");
+                    coord_x = request.getParameter("coord-x");
+                    coord_y = request.getParameter("coord-y");
+                    larghezza = request.getParameter("larghezza");
+                    lunghezza = request.getParameter("lunghezza");
+                    tipo = request.getParameter("tipo");
+                    id_pdi = Integer.parseInt(request.getParameter("id_pdi"));
+                    
+                    /* Visto che i campi da controllare sono più di uno ho bisogno
+                    di un oggetto che contenga i vecchi valori
+                    */
+                    pdi_old = nodo_resource.findPoiByID(id_pdi);
+                    
+                    codice_pdi_filtered = form_filter.filtraCodice(codice_pdi);
+                    coord_x_filtered = form_filter.filtraCoordinata(coord_x);
+                    coord_y_filtered = form_filter.filtraCoordinata(coord_y);
+                    larghezza_filtered = form_filter.filtraMisura(larghezza);
+                    lunghezza_filtered = form_filter.filtraMisura(lunghezza);
+                    
+                    /* Controllo campi */
+                    exists = nodo_resource.findByCodice(codice_pdi_filtered).getID();
+                    if(!codice_pdi_filtered.equals(DEFAULT_STRING) && exists == null) {
+                        pdi.setCodice(codice_pdi_filtered);
+                    } else{
+                        pdi.setCodice(pdi_old.getCodice());
+                    }
+                    
+                    if(!Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)) {
+                        pdi.setCoord_X(coord_x_filtered);
+                    } else {
+                        pdi.setCoord_X(pdi_old.getCoord_X());
+                    }
+                    
+                    if(!Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)) {
+                        pdi.setCoord_Y(coord_y_filtered);
+                    } else {
+                        pdi.setCoord_Y(pdi_old.getCoord_Y());
+                    }
+                    
+                    if(!Objects.equals(larghezza_filtered, DEFAULT_DOUBLE)) {
+                        pdi.setLarghezza(larghezza_filtered);
+                    } else {
+                        pdi.setLarghezza(pdi_old.getLarghezza());
+                    }
+                    
+                    if(!Objects.equals(lunghezza_filtered, DEFAULT_DOUBLE)) {
+                        pdi.setLunghezza(lunghezza_filtered);
+                    } else {
+                        pdi.setLunghezza(pdi_old.getLunghezza());
+                    }
+                    
+                    if(!Objects.equals(tipo, "invariato")) {
+                        pdi.setTipo(tipo);
+                    } else {
+                        pdi.setTipo(pdi_old.getTipo());
+                    }
+                    
+                    nodo_resource.updatePoi(pdi, id_pdi);
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                    rd.forward(request, response);
+                    
+                    break;
+                    
+                case "elimina-pdi":
+                    
+                    nodo_resource.deleteNodo(Integer.parseInt(request.getParameter("id_pdi")));
                     nome_mappa = request.getParameter("nm");
                     
                     rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);

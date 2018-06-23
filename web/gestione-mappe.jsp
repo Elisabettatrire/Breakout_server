@@ -132,19 +132,21 @@
                                 Devono essere compilati tutti i campi, altrimenti l'inserimento
                                 non verrà portato a termine.</p>
                         </div>
-                        <form action="DBModify" method="post">
-                            <table class="table table-borderless"><tr><td>Quota:</td>
-                                    <td><input autofocus="true" type='text' name='quota'
-                                               size='45'placeholder='&nbsp;es. 155'>
-                            </td></table>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-outline-success" type='submit' 
-                                       style="font-weight: bold" value='Aggiungi piano' name='aggiungi-piano'>
-                                <input type="hidden" name="azione" value="aggiungi-piano">
-                                <input type="hidden" name="modalita" value="mappe">
-                            </div>
-                        </form>                    
+                        <div class="col-md-12" style="text-align: center">
+                            <form action="DBModify" method="post">
+                                <table class="table table-borderless"><tr><td>Quota:</td>
+                                        <td><input autofocus="true" type='text' name='quota'
+                                                   size="30" placeholder='&nbsp;es. 155'>
+                                </td></table>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                                    <input class="btn btn-outline-success" type='submit' 
+                                           style="font-weight: bold" value='Aggiungi piano' name='aggiungi-piano'>
+                                    <input type="hidden" name="azione" value="aggiungi-piano">
+                                    <input type="hidden" name="modalita" value="mappe">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -166,20 +168,22 @@
                             <p class="warning">
                                 I campi non compilati manterrano il valore precedente.</p>
                         </div>
-                        <form action="DBModify" method="post" id="form-mod-utente">
-                            <table class='table table-borderless'><tr><td>Quota:</td>
-                                    <td><input autofocus="true" type='text' name='quota'
-                                               size='45' placeholder="&nbsp;(invariato)">
-                            </td></table>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-outline-success" type='submit' 
-                                       style="font-weight: bold" value='Applica modifiche' name='modifica-piano'>
-                                <input type="hidden" name="id_piano" value="">
-                                <input type="hidden" name="azione" value="modifica-piano">
-                                <input type="hidden" name="modalita" value="mappe">
-                            </div>
-                        </form>                    
+                        <div class="col-md-12" style="text-align: center">
+                            <form action="DBModify" method="post" id="form-mod-piano">
+                                <table class='table table-borderless'><tr><td>Quota:</td>
+                                        <td><input autofocus="true" type='text' name='quota'
+                                                   size="30" placeholder="&nbsp;(invariato)">
+                                </td></table>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                                    <input class="btn btn-outline-success" type='submit' 
+                                           style="font-weight: bold" value='Applica modifiche' name='modifica-piano'>
+                                    <input type="hidden" name="id_piano" value="">
+                                    <input type="hidden" name="azione" value="modifica-piano">
+                                    <input type="hidden" name="modalita" value="mappe">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,22 +234,24 @@
                                 Devono essere compilati tutti i campi, altrimenti l'inserimento
                                 non verrà portato a termine.</p>
                         </div>
-                        <form action='#'>
-                            <table class='table table-borderless'>
-                                <tr><td>Lunghezza (m):</td>
-                                    <td><input type='text' name='lunghezza' size='38'
-                                        autofocus="true" placeholder='&nbsp;es. 25'></td>
-                                <tr><td>Cod. Nodo 1:</td><td><input type='text'
-                                        placeholder='&nbsp;es. 145UA5' name='nodo_1' size='38'></td>
-                                <tr><td>Cod. Nodo 2:</td><td><input type='text'
-                                        placeholder='&nbsp;es. 145DICEA' name='nodo_1' size='38'></td>
-                            </table>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-outline-success" type='submit'
-                                       style="font-weight: bold" value='Aggiungi scala' name='aggiungi-scala'>
-                            </div>
-                        </form>                    
+                        <div class="col-md-12">
+                            <form action='#'>
+                                <table class='table table-borderless'>
+                                    <tr><td>Lunghezza (m):</td>
+                                        <td><input type='text' name='lunghezza' size="30"
+                                            autofocus="true" placeholder='&nbsp;es. 25'></td>
+                                    <tr><td>Cod. Nodo 1:</td><td><input type='text'
+                                            placeholder='&nbsp;es. 145UA5' name='nodo_1' size="30"></td>
+                                    <tr><td>Cod. Nodo 2:</td><td><input type='text'
+                                            placeholder='&nbsp;es. 145DICEA' name='nodo_1' size="30"></td>
+                                </table>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                                    <input class="btn btn-outline-success" type='submit'
+                                           style="font-weight: bold" value='Aggiungi scala' name='aggiungi-scala'>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

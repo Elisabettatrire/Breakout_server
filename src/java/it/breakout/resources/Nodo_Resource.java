@@ -18,6 +18,10 @@ public class Nodo_Resource {
         return nodo_service.findByID(search_id);
     }
     
+    public Pdi findPoiByID(Integer search_id) {
+        return nodo_service.findPoiByID(search_id);
+    }
+    
     public Nodo findByCodice(String search_code) {
         return nodo_service.findByCodice(search_code);
     }
@@ -44,6 +48,14 @@ public class Nodo_Resource {
     
     public void deleteNodo(Integer id_nodo) {
         nodo_service.deleteNodo(id_nodo);
+    }
+    
+    public void insertPdi(Pdi pdi) {
+        nodo_service.insertPdi(pdi);
+    }
+    
+    public void updatePoi(Pdi pdi, Integer id_pdi) {
+        nodo_service.updatePoi(pdi, id_pdi);
     }
        
 }
