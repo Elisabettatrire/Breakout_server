@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
         <link rel="stylesheet" type="text/css" href="static/datatables.min.css"/>
+        <link rel="stylesheet" href="static/full-height.css" type="text/css">
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
@@ -53,7 +54,7 @@
                     </form>
                 </div>
             </div>
-            <div class="row" style="margin-bottom: 100px">
+            <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4" style="text-align: center">
                     <table>
@@ -84,7 +85,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="col-md-12">
-                            <p>Qui andiamo ad inserire come deve essere fatto il file per
+                            <p>Qui andiamo scrivere come deve essere fatto il file per
                                 caricare correttamente i dati.</p>             
                         </div>
                         <div class="modal-footer">

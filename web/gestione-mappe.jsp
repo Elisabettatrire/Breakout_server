@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
         <link rel="stylesheet" type="text/css" href="static/datatables.min.css"/>
+        <link rel="stylesheet" href="static/full-height.css" type="text/css">
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
         <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
@@ -257,16 +258,7 @@
             </div>
         </div>
         <!-- End Modal Form Aggiungi Scala -->
-        
-        <script>
-            /* Warning per gli input vuoti */
-//            $('input.text-input').focusout(function()
-//            {
-//                if(!$(this).val()) {
-//                    $('p.warning').css('display', 'inline-block');
-//                }
-//            });
-        </script>
+
     </body>
 </html>
 

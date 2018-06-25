@@ -458,7 +458,7 @@ public class DBModify extends HttpServlet {
                         pdi.setLunghezza(pdi_old.getLunghezza());
                     }
                     
-                    if(!Objects.equals(tipo, "invariato")) {
+                    if(tipo.equals(TIPO_INV)) {
                         pdi.setTipo(tipo);
                     } else {
                         pdi.setTipo(pdi_old.getTipo());

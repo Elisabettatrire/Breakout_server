@@ -20,4 +20,8 @@ public class Constants {
     public static final String DEFAULT_STRING = "%empty%";
     public static final Double DEFAULT_DOUBLE = -1e-10;
     
+    /* Parametri PDI */
+    public static final String TIPO_AULA = "Aula";
+    public static final String TIPO_PDR = "Punto di Ritrovo";
+    public static final String TIPO_INV = "invariato";
 }
