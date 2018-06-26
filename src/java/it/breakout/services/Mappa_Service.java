@@ -179,29 +179,20 @@ public class Mappa_Service {
         try {
             
             url_immagine = mappa.getUrlImmagine();
-            File immagine_mappa = new File(url_immagine);
-
-            FileInputStream stream_immagine = new FileInputStream(immagine_mappa);
             
             open();
             
-            String query = "insert into " + TBL_NAME + " (img,nome,id_piano,immagine) values(?,?,?,?)";
+            String query = "insert into " + TBL_NAME + " (img,nome,id_piano) values(?,?,?)";
             st = conn.prepareStatement(query);
             st.setString(1, url_immagine);
             st.setString(2, mappa.getNome());
             st.setInt(3, mappa.getID_piano());
-            st.setBinaryStream(4, stream_immagine);
 
             st.executeUpdate();
             
         } catch (SQLException e) {
             e.getMessage();
-        } catch (FileNotFoundException e) {
-            Logger.getLogger(Mappa_Service.class.getName()).log(Level.SEVERE, null, e);
-        } catch (IOException e) {
-            Logger.getLogger(Mappa_Service.class.getName()).log(Level.SEVERE, null, e);
-        }
-        finally {
+        } finally {
             close();
         }
     }
@@ -241,8 +232,7 @@ public class Mappa_Service {
             
         } catch (SQLException e) {
             e.getMessage();
-        }
-        finally {
+        } finally {
             close();
         }
     }

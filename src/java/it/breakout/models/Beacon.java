@@ -12,15 +12,25 @@ package it.breakout.models;
 public class Beacon {
     
     private Integer ID_beacon;
-    private float coord_X;
-    private float coord_Y;
-    private float ind_fuoco;
-    private float ind_fumi;
-    private float ind_NDC;
-    private float ind_rischio;
+    private String codice;
+    private Double coord_X;
+    private Double coord_Y;
+    private Double ind_fuoco;
+    private Double ind_fumi;
+    private Double ind_NDC;
+    private Double ind_rischio;
     private Integer ID_pdi;
+    private Integer ID_mappa;
 
     public Beacon() {
+    }
+    
+    public String getCodice() {
+        return codice;
+    }
+
+    public void setCodice(String codice) {
+        this.codice = codice;
     }
 
     public Integer getID_pdi() {
@@ -39,51 +49,59 @@ public class Beacon {
         this.ID_beacon = ID_beacon;
     }
 
-    public float getCoord_X() {
+    public Double getCoord_X() {
         return coord_X;
     }
 
-    public void setCoord_X(float coord_X) {
+    public void setCoord_X(Double coord_X) {
         this.coord_X = coord_X;
     }
 
-    public float getCoord_Y() {
+    public Double getCoord_Y() {
         return coord_Y;
     }
 
-    public void setCoord_Y(float coord_Y) {
+    public void setCoord_Y(Double coord_Y) {
         this.coord_Y = coord_Y;
     }
 
-    public float getInd_fuoco() {
+    public Double getInd_fuoco() {
         return ind_fuoco;
     }
 
-    public void setInd_fuoco(float ind_fuoco) {
+    public void setInd_fuoco(Double ind_fuoco) {
         this.ind_fuoco = ind_fuoco;
     }
 
-    public float getInd_fumi() {
+    public Double getInd_fumi() {
         return ind_fumi;
     }
 
-    public void setInd_fumi(float ind_fumi) {
+    public void setInd_fumi(Double ind_fumi) {
         this.ind_fumi = ind_fumi;
     }
 
-    public float getInd_NDC() {
+    public Double getInd_NDC() {
         return ind_NDC;
     }
 
-    public void setInd_NDC(float ind_NDC) {
+    public void setInd_NDC(Double ind_NDC) {
         this.ind_NDC = ind_NDC;
     }
 
-    public float getInd_rischio() {
+    public Double getInd_rischio() {
         return ind_rischio;
     }
 
-    public void setInd_rischio(float ind_rischio) {
+    public void setInd_rischio(Double ind_rischio) {
         this.ind_rischio = ind_rischio;
+    }
+    
+    public Integer getID_mappa() {
+        return ID_mappa;
+    }
+
+    public void setID_mappa(Integer ID_mappa) {
+        this.ID_mappa = ID_mappa;
     }
 }

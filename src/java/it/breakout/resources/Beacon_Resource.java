@@ -31,4 +31,16 @@ public class Beacon_Resource {
         return beacon_service.findByIDMappa(id_mappa);
     }
     
+    public Beacon findByCodice(String search_code) {
+        return beacon_service.findByCodice(search_code);
+    }
+    
+    public void insert(Beacon beacon) {
+        beacon_service.insert(beacon);
+    }
+    
+    public void delete(Integer id_beacon) {
+        beacon_service.delete(id_beacon);
+    }
+    
 }

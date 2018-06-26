@@ -6,8 +6,6 @@
 package it.breakout.servlets;
 
 import java.io.IOException;
-import java.io.File;
-import java.io.FileInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -88,6 +86,16 @@ public class DBModify extends HttpServlet {
     private Beacon beacon = new Beacon();
     private Beacon beacon_old = new Beacon();
     private Integer id_beacon;
+    private String codice_beacon;
+    private String codice_beacon_filtered;
+    private String fuoco;
+    private Double fuoco_filtered;
+    private String fumi;
+    private Double fumi_filtered;
+    private String ndc;
+    private Double ndc_filtered;
+    private String rischio;
+    private Double rischio_filtered;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -487,6 +495,52 @@ public class DBModify extends HttpServlet {
                 /* Azioni relative alla tabella dei beacon */
                 case "aggiungi-beacon":
                     
+                    nome_mappa = request.getParameter("nm");
+                    codice_beacon = request.getParameter("codice");
+                    coord_x = request.getParameter("coord-x");
+                    coord_y = request.getParameter("coord-y");
+                    fuoco = request.getParameter("fuoco");
+                    fumi = request.getParameter("fumi");
+                    ndc = request.getParameter("ndc");
+                    rischio = request.getParameter("rischio");
+                    
+                    codice_beacon_filtered = form_filter.filtraCodice(codice_beacon);
+                    coord_x_filtered = form_filter.filtraCoordinata(coord_x);
+                    coord_y_filtered = form_filter.filtraCoordinata(coord_y);
+                    fuoco_filtered = form_filter.filtraMisura(fuoco);
+                    fumi_filtered = form_filter.filtraMisura(fumi);
+                    ndc_filtered = form_filter.filtraMisura(ndc);
+                    rischio_filtered = form_filter.filtraMisura(rischio);
+                    
+                    exists = beacon_resource.findByCodice(codice_beacon_filtered).getID_beacon();
+                    
+                    if(!codice_beacon_filtered.equals(DEFAULT_STRING)
+                            && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(fuoco_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(fumi_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(ndc_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(rischio_filtered, DEFAULT_DOUBLE)                            
+                            && exists == null){
+                        
+                        id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
+                        
+                        beacon.setCodice(codice_beacon_filtered);
+                        beacon.setCoord_X(coord_x_filtered);
+                        beacon.setCoord_Y(coord_y_filtered);
+                        beacon.setInd_fuoco(fuoco_filtered);
+                        beacon.setInd_fumi(fumi_filtered);
+                        beacon.setInd_NDC(ndc_filtered);
+                        beacon.setInd_rischio(rischio_filtered);                        
+                        beacon.setID_mappa(id_mappa);                        
+                        
+                        beacon_resource.insert(beacon);
+                        
+                    }
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=beacon&nm="+id_mappa);
+                    rd.forward(request, response);
+                    
                     break;
                     
                 case "modifica-beacon":
@@ -494,6 +548,14 @@ public class DBModify extends HttpServlet {
                     break;
                     
                 case "elimina-beacon":
+                    
+                    beacon_resource.delete(Integer.parseInt(request.getParameter("id_beacon")));
+                    nome_mappa = request.getParameter("nm");
+                    
+                    id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=beacon&nm="+id_mappa);
+                    rd.forward(request, response);
                     
                     break;
                 

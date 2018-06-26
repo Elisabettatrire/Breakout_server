@@ -76,11 +76,11 @@ public class ObjectAccess extends HttpServlet {
                 case "mappa":
                     /* Reindirizzamento pagina di gestione mappa */
                     Beacon_Resource beacon_resource = new Beacon_Resource();
-                    Mappa_Resource mappa_resource2 = new Mappa_Resource();
+                    Mappa_Resource mappa_resource_2 = new Mappa_Resource();
                     Piano_Resource piano_resource2 = new Piano_Resource();
                     
                     ArrayList<Beacon> al_beacon = beacon_resource.findAll();
-                    Mappa mappa_search1 = mappa_resource2.findByNome(identificatore);
+                    Mappa mappa_search1 = mappa_resource_2.findByNome(identificatore);
                     id_mappa = mappa_search1.getID_piano();
                     quota = piano_resource2.findById(id_mappa).getQuota();
                     
@@ -96,14 +96,14 @@ public class ObjectAccess extends HttpServlet {
                     
                 case "grafo":
                     /* Reindirizzamento pagina di gestione grafo */
-                    Mappa_Resource mappa_resource1 = new Mappa_Resource();
+                    Mappa_Resource mappa_resource_1 = new Mappa_Resource();
                     Nodo_Resource nodo_resource = new Nodo_Resource();
-                    Piano_Resource piano_resource1 = new Piano_Resource();
+                    Piano_Resource piano_resource_1 = new Piano_Resource();
                     Tronco_Resource tronco_resource = new Tronco_Resource();
                     
-                    Mappa mappa_search = mappa_resource1.findByNome(identificatore);
+                    Mappa mappa_search = mappa_resource_1.findByNome(identificatore);
                     id_mappa = mappa_search.getID_mappa();
-                    quota = piano_resource1.findById(mappa_search.getID_piano()).getQuota();
+                    quota = piano_resource_1.findById(mappa_search.getID_piano()).getQuota();
                     
                     ArrayList<Tronco> al_tronchi = tronco_resource.findAllArcs(id_mappa);
                     ArrayList<Nodo> al_nodi = nodo_resource.findByIDMappa(id_mappa);
@@ -122,17 +122,17 @@ public class ObjectAccess extends HttpServlet {
                     
                 case "beacon":
                     /* Reindirizzamento pagina di gestione beacon della mappa */
-                    Mappa_Resource mappa_resource3 = new Mappa_Resource();
-                    Beacon_Resource beacon_resource1 = new Beacon_Resource();
+                    Mappa_Resource mappa_resource_3 = new Mappa_Resource();
+                    Beacon_Resource beacon_resource_1 = new Beacon_Resource();
                     
                     id_mappa = Integer.parseInt(identificatore);
-                    Mappa mappa_search2 = mappa_resource3.findByID(id_mappa);
-                    //quota = piano_resource1.findById(mappa_search.getID_piano()).getQuota();
-                    ArrayList<Beacon> al_beacon1 = beacon_resource1.findByIDMappa(id_mappa);
+                    Mappa mappa_search_2 = mappa_resource_3.findByID(id_mappa);
+                    //quota = piano_resource_1.findById(mappa_search.getID_piano()).getQuota();
+                    ArrayList<Beacon> al_beacon_1 = beacon_resource_1.findByIDMappa(id_mappa);
                     
                     request.setAttribute("id_mappa", identificatore);
-                    request.setAttribute("al_beacon", al_beacon1);
-                    request.setAttribute("nome_mappa", mappa_search2.getNome());
+                    request.setAttribute("al_beacon", al_beacon_1);
+                    request.setAttribute("nome_mappa", mappa_search_2.getNome());
                     
                     rd = request.getRequestDispatcher("gestione-beacon.jsp");
                     rd.forward(request, response);

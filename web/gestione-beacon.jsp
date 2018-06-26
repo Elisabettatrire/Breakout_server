@@ -40,7 +40,7 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <c:set var="nome_mappa" value="${requestScope.nome_mappa}"/>
                     <h2>Mappa ${nome_mappa} - Gestione Beacon</h2>
                     <br><br>
@@ -48,43 +48,30 @@
                     <!--Tabella dei beacon della mappa-->
                     <table class="table-striped display" style="text-align: center; width:100%;">
                         <thead>
-                            <tr><th>Nome</th><th>Coord. X</th><th>Coord. Y</th><th>Modifica</th>
-                                <th>Elimina</th></tr>
+                            <tr><th>Nome</th><th>Coord. X</th><th>Coord. Y</th>
+                                <th>Ind. fuoco</th><th>Ind. fumi</th><th>NDC</th>
+                                <th>Ind. rischio</th><th>Modifica</th><th>Elimina</th></tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${requestScope.al_beacon}" var="beacon">
-                                <c:set var="id" value="${beacon.getID_beacon()}"/>
+                                <c:set var="id_beacon" value="${beacon.getID_beacon()}"/>
+                                <c:set var="codice" value="${beacon.getCodice()}"/>
                                 <c:set var="x" value="${beacon.getCoord_X()}"/>
                                 <c:set var="y" value="${beacon.getCoord_Y()}"/>
-                                <tr><td>${id}</td><td>${x}</td><td>${y}</td>
-                                <td><button id="mod-${id}" class="btn btn-outline-dark btn-sm"
+                                <c:set var="fuoco" value="${beacon.getInd_fuoco()}"/>
+                                <c:set var="fumi" value="${beacon.getInd_fumi()}"/>
+                                <c:set var="ndc" value="${beacon.getInd_NDC()}"/>
+                                <c:set var="rischio" value="${beacon.getInd_rischio()}"/>
+                                <tr><td>${codice}</td><td>${x}</td><td>${y}</td>
+                                    <td>${fuoco}</td><td>${fumi}</td><td>${ndc}</td>
+                                    <td>${rischio}</td>
+                                <td><button id="mod-${id_beacon}" class="btn btn-outline-dark btn-sm"
                                             data-toggle="modal" data-target="#modal-mod-beacon">
                                         <span class="fas fa-cog"></span></button></td>
-                                <td><button id="del-${id}" class="btn btn-outline-danger btn-sm"
+                                <td><button id="del-${id_beacon}" class="btn btn-outline-danger btn-sm"
                                             data-toggle="modal" data-target="#modal-elimina-beacon">
                                         <span class="fas fa-trash-alt"></span></button></td></tr></tr>
                             </c:forEach>
-                            <tr><td>Beacon B1</td><td>x1</td><td>y1</td>
-                                <td><button class="btn btn-outline-dark btn-sm"
-                                            data-toggle="modal" data-target="#modal-mod-beacon">
-                                        <span class="fas fa-cog"></span></button></td>
-                                <td><button class="btn btn-outline-danger btn-sm"
-                                            data-toggle="modal" data-target="#modal-elimina-beacon">
-                                        <span class="fas fa-trash-alt"></span></button></td></tr>
-                            <tr><td>Beacon B2</td><td>x2</td><td>y2</td>
-                                <td><button class="btn btn-outline-dark btn-sm"
-                                            data-toggle="modal" data-target="#modal-mod-beacon">
-                                        <span class="fas fa-cog"></span></button></td>
-                                <td><button class="btn btn-outline-danger btn-sm"
-                                            data-toggle="modal" data-target="#modal-elimina-beacon">
-                                        <span class="fas fa-trash-alt"></span></button></td></tr>
-                            <tr><td>Beacon B3</td><td>x3</td><td>y3</td>
-                                <td><button class="btn btn-outline-dark btn-sm"
-                                            data-toggle="modal" data-target="#modal-mod-beacon">
-                                        <span class="fas fa-cog"></span></button></td>
-                                <td><button class="btn btn-outline-danger btn-sm"
-                                            data-toggle="modal" data-target="#modal-elimina-beacon">
-                                        <span class="fas fa-trash-alt"></span></button></td></tr>
                         </tbody>
                     </table>
                     <br>
@@ -96,14 +83,14 @@
                         </button>
                     </div>
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <form action="ObjectAccess" method="POST">
                                 <input type="submit" value="< Gestione Mappa" class="btn btn-secondary">
                                 <input type="hidden" name="obj" value="mappa">
                                 <input type="hidden" name="nm" value="${nome_mappa}">
                             </form>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <form action="ObjectAccess" method="POST">
                                 <input type="submit" value="Gestione Piano" class="btn btn-secondary">
                                 <input type="hidden" name="obj" value="piano">
@@ -112,12 +99,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Immagine dell mappa fs:990x1572 -->
-                <c:set var = "nome_img" value = "${fn:replace(requestScope.nome, '/', '-')}" />
-                <div class="col-md-4" >  
-                    <img src="/Immagini/${nome_img}.jpg" width="396" height="630">
-                </div> 
             </div>
             
             <!-- Modal Form Aggiungi Beacon -->
@@ -136,7 +117,7 @@
                             </div>
                             <!-- text area per inserire i dati dei nodi da caricare -->
                             <div class="col-md-12">
-                                <form action="#" method="post">
+                                <form action="DBModify" method="post">
                                     <table class="table table-borderless">
                                         <tr><td>Codice:</td><td>
                                                 <input type="text" name="codice" placeholder=" es. 150G2"
@@ -147,8 +128,17 @@
                                         <tr><td>Coord. Y:</td><td>
                                                 <input type="text" name="coord-y"
                                                         placeholder=" es. 465" size="30"></td></tr>
-                                        <tr><td>Indici vari...</td><td>
-                                                <input type="text" name="" placeholder=""
+                                        <tr><td>Fuoco?:</td><td>
+                                                <input type="text" name="fuoco" placeholder=""
+                                                        size="30"></td></tr>
+                                        <tr><td>Fumi?:</td><td>
+                                                <input type="text" name="fumi" placeholder=""
+                                                        size="30"></td></tr>
+                                        <tr><td>NDC?:</td><td>
+                                                <input type="text" name="ndc" placeholder=""
+                                                        size="30"></td></tr>
+                                        <tr><td>Rischio?:</td><td>
+                                                <input type="text" name="rischio" placeholder=""
                                                         size="30"></td></tr>
                                     </table>
                                     <!-- Bottoni per tornare alla schermata precedente o per aggiungere il nodo -->
@@ -189,8 +179,20 @@
                                         <tr><td>Coord. Y:</td><td>
                                                 <input type="text" name="coord-y"
                                                         placeholder=" (invariato)" size="30"></td></tr>
-                                        <tr><td>Indici vari...</td><td>
-                                                <input type="text" name="" placeholder=" (invariato)"
+                                    </table>
+                                    <hr>
+                                    <table>
+                                        <tr><td>Fuoco?</td><td>
+                                                <input type="text" name="fuoco" placeholder=" (invariato)"
+                                                        size="30"></td></tr>
+                                        <tr><td>Fumi?</td><td>
+                                                <input type="text" name="fumi" placeholder=" (invariato)"
+                                                        size="30"></td></tr>
+                                        <tr><td>NDC?</td><td>
+                                                <input type="text" name="ndc" placeholder=" (invariato)"
+                                                        size="30"></td></tr>
+                                        <tr><td>Rischio?</td><td>
+                                                <input type="text" name="rischio" placeholder=" (invariato)"
                                                         size="30"></td></tr>
                                     </table>
                                     <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
