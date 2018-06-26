@@ -35,7 +35,7 @@
     </head>
     <body>
         <!-- Header -->
-        <%@include file="header.html" %>
+        <%@include file="header.jsp" %>
 
         <!-- Page Content -->
         <div class="container">

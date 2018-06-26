@@ -12,6 +12,13 @@ import it.breakout.models.Mappa;
 import static it.breakout.utility.Constants.DB_PSW;
 import static it.breakout.utility.Constants.DB_URL;
 import static it.breakout.utility.Constants.DB_USR;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,6 +28,7 @@ public class Mappa_Service {
     
     private PreparedStatement st = null;
     private Connection conn = null;
+    private String url_immagine;
     
     public static final String TBL_NAME = "mappa";
     public static final String FIELD_ID = "id_mappa";
@@ -169,17 +177,29 @@ public class Mappa_Service {
     public void insert(Mappa mappa) {
         
         try {
+            
+            url_immagine = mappa.getUrlImmagine();
+            File immagine_mappa = new File(url_immagine);
+
+            FileInputStream stream_immagine = new FileInputStream(immagine_mappa);
+            
             open();
             
-            String query = "insert into " + TBL_NAME + " (img,nome,id_piano) values(?,?,?)";
+            String query = "insert into " + TBL_NAME + " (img,nome,id_piano,immagine) values(?,?,?,?)";
             st = conn.prepareStatement(query);
-            st.setString(1, mappa.getUrlImmagine());
+            st.setString(1, url_immagine);
             st.setString(2, mappa.getNome());
             st.setInt(3, mappa.getID_piano());
+            st.setBinaryStream(4, stream_immagine);
+
             st.executeUpdate();
             
         } catch (SQLException e) {
             e.getMessage();
+        } catch (FileNotFoundException e) {
+            Logger.getLogger(Mappa_Service.class.getName()).log(Level.SEVERE, null, e);
+        } catch (IOException e) {
+            Logger.getLogger(Mappa_Service.class.getName()).log(Level.SEVERE, null, e);
         }
         finally {
             close();

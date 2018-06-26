@@ -64,8 +64,9 @@
                                 </p>
                             </td></tr>
                         <tr style="text-align: center">
-                            <td colspan="2"><form action="#" method="post" enctype="multipart/form-data">
-                                    <input type="file" accept=".csv" id="input-csv">
+                            <td colspan="2"><form action="FileUploader" method="post" enctype="multipart/form-data">
+                                    <input type="file" accept=".csv" name="file" id="input-csv">
+                                    <tr><td><input type="submit" value="Carica"></td></tr>
                                 </form></td></tr>
                     </table>
                 </div>

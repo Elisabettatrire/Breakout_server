@@ -12,7 +12,7 @@ package it.breakout.utility;
 public class Constants {
     
     /* Parametri del database */
-    public static final String DB_URL = "jdbc:derby://localhost:1527/breakout1";
+    public static final String DB_URL = "jdbc:derby://localhost:1527/breakout2";
     public static final String DB_USR = "app";
     public static final String DB_PSW = "app";
     

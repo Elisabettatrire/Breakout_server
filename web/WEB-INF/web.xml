@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet-mapping>
+        <servlet-name>FileUploader</servlet-name>
+        <url-pattern>/FileUploader</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -17,6 +21,10 @@
         <servlet-name>DBModify</servlet-name>
         <servlet-class>it.breakout.servlets.DBModify</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FileUploader</servlet-name>
+        <servlet-class>it.breakout.servlets.FileUploader</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>DBAccess</servlet-name>
         <url-pattern>/DBAccess</url-pattern>
@@ -28,6 +36,10 @@
     <servlet-mapping>
         <servlet-name>DBModify</servlet-name>
         <url-pattern>/DBModify</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploader</servlet-name>
+        <url-pattern>/FileUploader</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Logout</servlet-name>

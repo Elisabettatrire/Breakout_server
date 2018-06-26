@@ -114,7 +114,7 @@
                                 <table class='table table-borderless'>
                                     <tr><td>Nome:</td>
                                     <td><input autofocus="true" type='text' name='nome-mappa'
-                                                   size="40" placeholder='&nbsp;es. Q155/2'>&nbsp;
+                                                   size="30" placeholder='&nbsp;es. Q155/2'>&nbsp;
                                         <i data-toggle="tooltip" data-placement="top"
                                             title="Sono ammessi solamente caratteri alfanumerici, l'underscore, il trattino  e lo slash."
                                             class="fas fa-question-circle" style="color: #007bff;"></i>
@@ -125,7 +125,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                                     <input class="btn btn-outline-success" type='submit' 
-                                           style="font-weight: bold" value='Aggiungi mappa' name='aggiungi-mappa'>
+                                           style="font-weight: bold" value='Aggiungi mappa'>
                                     <input type="hidden" name="azione" value="aggiungi-mappa">
                                     <input type="hidden" name="nm" value="${quota}">
                                 </div>
@@ -153,7 +153,7 @@
                                 <table class='table table-borderless'>
                                     <tr><td>Nome:</td>
                                     <td><input autofocus="true" type='text' name='nome-mappa'
-                                               size="40" placeholder='&nbsp;(invariato)'>&nbsp;
+                                               size="30" placeholder='&nbsp;(invariato)'>&nbsp;
                                         <i data-toggle="tooltip" data-placement="top"
                                             title="Sono ammessi solamente caratteri alfanumerici, l'underscore, il trattino  e lo slash."
                                             class="fas fa-question-circle" style="color: #007bff;"></i>

@@ -6,6 +6,8 @@
 package it.breakout.servlets;
 
 import java.io.IOException;
+import java.io.File;
+import java.io.FileInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +35,60 @@ public class DBModify extends HttpServlet {
 
     private String azione;
     
+    private FormFilter form_filter = new FormFilter();
+    private Integer exists;  // Serve per vedere se le query restituiscono un valore nullo
+    private Integer id_mappa;
+    private Integer id_piano;
+
+    /* Variabili per inserimento-modifica-eliminazione piano */
+    private Piano_Resource piano_resource = new Piano_Resource();
+    private String quota;
+    private String quota_filtered;
+
+    /* Variabili per inserimento-modifica-eliminazione scala */
+ 
+    /* Variabili per inserimento-modifica-eliminazione mappa */
+    private Mappa_Resource mappa_resource = new Mappa_Resource();
+    private Mappa mappa = new Mappa();
+    private Mappa mappa_old;
+    private String nome_mappa;
+    private String nome_mappa_filtered;
+    private String url_immagine;
+ 
+    /* Variabili per inserimento-modifica-eliminazione utente */
+    private Utente_Resource utente_resource = new Utente_Resource();
+    private Integer id_utente;
+    private String psw;
+    private String psw_confirm;
+ 
+    /* Variabili per inserimento-modifica-eliminazione nodo-pdi */
+    private Nodo_Resource nodo_resource = new Nodo_Resource();
+    private Nodo nodo = new Nodo();
+    private Nodo nodo_old;
+    private Pdi pdi = new Pdi();
+    private Pdi pdi_old;
+    private Integer id_nodo;
+    private Integer id_pdi;
+    private String codice_nodo;
+    private String codice_nodo_filtered;
+    private String codice_pdi;
+    private String codice_pdi_filtered;
+    private String coord_x;
+    private Double coord_x_filtered;
+    private String coord_y;
+    private Double coord_y_filtered;
+    private String larghezza;
+    private Double larghezza_filtered;
+    private String lunghezza;
+    private Double lunghezza_filtered;
+    private String tipo;
+ 
+    /* Variabili per inserimento-modifica-eliminazione beacon */
+    private Beacon_Resource beacon_resource = new Beacon_Resource();
+    private Beacon beacon = new Beacon();
+    private Beacon beacon_old = new Beacon();
+    private Integer id_beacon;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,59 +104,6 @@ public class DBModify extends HttpServlet {
         /* Variabili comuni */
         azione = request.getParameter("azione");
         RequestDispatcher rd;
-        FormFilter form_filter = new FormFilter();
-        Integer exists;  // Serve per vedere se le query restituiscono un valore nullo
-        Integer id_mappa;
-        Integer id_piano;
-        
-        /* Variabili per inserimento-modifica-eliminazione piano */
-        Piano_Resource piano_resource = new Piano_Resource();
-        String quota;
-        String quota_filtered;
-        
-        /* Variabili per inserimento-modifica-eliminazione scala */
-        
-        /* Variabili per inserimento-modifica-eliminazione mappa */
-        Mappa_Resource mappa_resource = new Mappa_Resource();
-        Mappa mappa = new Mappa();
-        Mappa mappa_old;
-        String nome_mappa;
-        String nome_mappa_filtered;
-        String url_immagine;
-        
-        /* Variabili per inserimento-modifica-eliminazione utente */
-        Utente_Resource utente_resource = new Utente_Resource();
-        Integer id_utente;
-        String psw;
-        String psw_confirm;
-        
-        /* Variabili per inserimento-modifica-eliminazione nodo-pdi */
-        Nodo_Resource nodo_resource = new Nodo_Resource();
-        Nodo nodo = new Nodo();
-        Nodo nodo_old;
-        Pdi pdi = new Pdi();
-        Pdi pdi_old;
-        Integer id_nodo;
-        Integer id_pdi;
-        String codice_nodo;
-        String codice_nodo_filtered;
-        String codice_pdi;
-        String codice_pdi_filtered;
-        String coord_x;
-        Double coord_x_filtered;
-        String coord_y;
-        Double coord_y_filtered;
-        String larghezza;
-        Double larghezza_filtered;
-        String lunghezza;
-        Double lunghezza_filtered;
-        String tipo;
- 
-        /* Variabili per inserimento-modifica-eliminazione beacon */
-        Beacon_Resource beacon_resource = new Beacon_Resource();
-        Beacon beacon = new Beacon();
-        Beacon beacon_old = new Beacon();
-        Integer id_beacon;
         
         try {
             switch(azione) {
