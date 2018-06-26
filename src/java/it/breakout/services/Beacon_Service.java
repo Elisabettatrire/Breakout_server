@@ -95,8 +95,37 @@ public class Beacon_Service {
         return beacons;
     }
     
-    Beacon findById(Integer id_beacon) { //TODO da implementare 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+    public Beacon findByID(Integer search_id) {
+        ResultSet rs = null;
+        Beacon beacon = new Beacon();
+
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID + "= ?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, search_id);
+            rs = st.executeQuery();
+
+            while(rs.next()) {
+                beacon.setID_beacon(search_id);
+                beacon.setCodice(rs.getString(FIELD_CODICE));
+                beacon.setCoord_X(rs.getDouble(FIELD_COORD_X));
+                beacon.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
+                beacon.setID_pdi(rs.getInt(FIELD_ID_PDI));
+                beacon.setInd_NDC(rs.getDouble(FIELD_NDC));
+                beacon.setInd_fumi(rs.getDouble(FIELD_FUMI));
+                beacon.setInd_fuoco(rs.getDouble(FIELD_FUOCO));
+                beacon.setInd_rischio(rs.getDouble(FIELD_RISCHIO));
+                beacon.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
+            }
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
+        
+        return beacon;
     }
     
     public Beacon findByCodice(String search_code){
@@ -114,7 +143,7 @@ public class Beacon_Service {
 
             while(rs.next()) {
                 beacon.setID_beacon(rs.getInt(FIELD_ID));
-                beacon.setCodice(rs.getString(search_code));
+                beacon.setCodice(search_code);
                 beacon.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 beacon.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 beacon.setID_pdi(rs.getInt(FIELD_ID_PDI));
@@ -196,6 +225,38 @@ public class Beacon_Service {
             }
             st.setInt(9, beacon.getID_mappa());
 
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.getMessage();
+        } finally {
+            close();
+        }
+    }
+    
+    public void update(Beacon beacon, Integer id_beacon) {
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set "
+                    + FIELD_CODICE + "=?, "
+                    + FIELD_COORD_X + "=?, "
+                    + FIELD_COORD_Y + "=?, "
+                    + FIELD_FUOCO + "=?, "
+                    + FIELD_FUMI + "=?, "
+                    + FIELD_NDC + "=?, "
+                    + FIELD_RISCHIO + "=? "
+                    + "where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setString(1, beacon.getCodice());
+            st.setDouble(2, beacon.getCoord_X());
+            st.setDouble(3, beacon.getCoord_Y());
+            st.setDouble(4, beacon.getInd_fuoco());
+            st.setDouble(5, beacon.getInd_fumi());
+            st.setDouble(6, beacon.getInd_NDC());
+            st.setDouble(7, beacon.getInd_rischio());
+            st.setInt(8, id_beacon);
+            
             st.executeUpdate();
             
         } catch (SQLException e) {

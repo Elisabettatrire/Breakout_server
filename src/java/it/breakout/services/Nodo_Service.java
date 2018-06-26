@@ -297,7 +297,7 @@ public class Nodo_Service {
             st.setDouble(2, nodo.getCoord_X());
             st.setDouble(3, nodo.getCoord_Y());
             st.setDouble(4, nodo.getLarghezza());
-            st.setInt(5,nodo.getID_mappa());
+            st.setInt(5, nodo.getID_mappa());
             st.executeUpdate();
             
         } catch (SQLException e) {

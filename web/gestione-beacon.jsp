@@ -179,19 +179,16 @@
                                         <tr><td>Coord. Y:</td><td>
                                                 <input type="text" name="coord-y"
                                                         placeholder=" (invariato)" size="30"></td></tr>
-                                    </table>
-                                    <hr>
-                                    <table>
-                                        <tr><td>Fuoco?</td><td>
+                                        <tr><td>Fuoco?:</td><td>
                                                 <input type="text" name="fuoco" placeholder=" (invariato)"
                                                         size="30"></td></tr>
-                                        <tr><td>Fumi?</td><td>
+                                        <tr><td>Fumi?:</td><td>
                                                 <input type="text" name="fumi" placeholder=" (invariato)"
                                                         size="30"></td></tr>
-                                        <tr><td>NDC?</td><td>
+                                        <tr><td>NDC?:</td><td>
                                                 <input type="text" name="ndc" placeholder=" (invariato)"
                                                         size="30"></td></tr>
-                                        <tr><td>Rischio?</td><td>
+                                        <tr><td>Rischio?:</td><td>
                                                 <input type="text" name="rischio" placeholder=" (invariato)"
                                                         size="30"></td></tr>
                                     </table>

@@ -161,7 +161,7 @@ public class Tronco_Service {
     
     private Beacon getBeacon(Integer id_beacon) {
         Beacon_Service beaconSrv = new Beacon_Service();
-        return beaconSrv.findById(id_beacon);
+        return beaconSrv.findByID(id_beacon);
     }
 
     public Scala findByIDGeneric(Integer id) {

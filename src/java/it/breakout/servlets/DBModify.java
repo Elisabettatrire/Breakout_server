@@ -545,6 +545,80 @@ public class DBModify extends HttpServlet {
                     
                 case "modifica-beacon":
                     
+                    nome_mappa = request.getParameter("nm");
+                    codice_beacon = request.getParameter("codice");
+                    coord_x = request.getParameter("coord-x");
+                    coord_y = request.getParameter("coord-y");
+                    fuoco = request.getParameter("fuoco");
+                    fumi = request.getParameter("fumi");
+                    ndc = request.getParameter("ndc");
+                    rischio = request.getParameter("rischio");
+                    id_beacon = Integer.parseInt(request.getParameter("id_beacon"));
+                    
+                    /* Visto che i campi da controllare sono più di uno ho bisogno
+                    di un oggetto che contenga i vecchi valori
+                    */
+                    beacon_old = beacon_resource.findByID(id_beacon);
+                    
+                    codice_beacon_filtered = form_filter.filtraCodice(codice_beacon);
+                    coord_x_filtered = form_filter.filtraCoordinata(coord_x);
+                    coord_y_filtered = form_filter.filtraCoordinata(coord_y);
+                    fuoco_filtered = form_filter.filtraMisura(fuoco);
+                    fumi_filtered = form_filter.filtraMisura(fumi);
+                    ndc_filtered = form_filter.filtraMisura(ndc);
+                    rischio_filtered = form_filter.filtraMisura(rischio);
+                    
+                    exists = beacon_resource.findByCodice(codice_beacon_filtered).getID_beacon();
+                    
+                    if(!codice_beacon_filtered.equals(DEFAULT_STRING) && exists == null) {
+                        beacon.setCodice(codice_beacon_filtered);
+                    } else{
+                        beacon.setCodice(beacon_old.getCodice());
+                    }
+                    
+                    if(!Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)) {
+                        beacon.setCoord_X(coord_x_filtered);
+                    } else {
+                        beacon.setCoord_X(beacon_old.getCoord_X());
+                    }
+                    
+                    if(!Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)) {
+                        beacon.setCoord_Y(coord_y_filtered);
+                    } else {
+                        beacon.setCoord_Y(beacon_old.getCoord_Y());
+                    }
+                    
+                    if(!Objects.equals(fuoco_filtered, DEFAULT_DOUBLE)) {
+                        beacon.setInd_fuoco(fuoco_filtered);
+                    } else {
+                        beacon.setInd_fuoco(beacon_old.getInd_fuoco());
+                    }
+                    
+                    if(!Objects.equals(fumi_filtered, DEFAULT_DOUBLE)) {
+                        beacon.setInd_fumi(fumi_filtered);
+                    } else {
+                        beacon.setInd_fumi(beacon_old.getInd_fumi());
+                    }
+                    
+                    if(!Objects.equals(ndc_filtered, DEFAULT_DOUBLE)) {
+                        beacon.setInd_NDC(ndc_filtered);
+                    } else {
+                        beacon.setInd_NDC(beacon_old.getInd_NDC());
+                    }
+                    
+                    if(!Objects.equals(rischio_filtered, DEFAULT_DOUBLE)) {
+                        beacon.setInd_rischio(rischio_filtered);
+                    } else {
+                        beacon.setInd_rischio(beacon_old.getInd_rischio());
+                    }
+                    
+                    beacon_resource.update(beacon, id_beacon);
+                    
+                    id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=beacon&nm="+id_mappa);
+                    rd.forward(request, response);
+                    
                     break;
                     
                 case "elimina-beacon":

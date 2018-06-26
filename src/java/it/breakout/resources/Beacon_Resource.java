@@ -23,8 +23,8 @@ public class Beacon_Resource {
 	return beacon_service.findAll();
     }
     
-    public Beacon findByID(Integer id_search) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+    public Beacon findByID(Integer search_id) {
+        return beacon_service.findByID(search_id);
     }
     
     public ArrayList<Beacon> findByIDMappa(Integer id_mappa) {
@@ -37,6 +37,10 @@ public class Beacon_Resource {
     
     public void insert(Beacon beacon) {
         beacon_service.insert(beacon);
+    }
+    
+    public void update(Beacon beacon, Integer id_beacon) {
+        beacon_service.update(beacon, id_beacon);
     }
     
     public void delete(Integer id_beacon) {
