@@ -15,19 +15,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Breakout - Gestione Mappa</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.min.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.min.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
-        <link rel="stylesheet" href="static/full-height.css" type="text/css">
-        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
-        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
-        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
-        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
-        <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
+        <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/css/datatables.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/css/full-height.css" rel="stylesheet" type="text/css"/>
+        <link href="static/css/fontawesome/fontawesome-all.css" rel="stylesheet" type="text/css"/>
+        <script src="static/js/bootbox.min.js" type="text/javascript"></script>
+        <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="static/js/datatables.min.js" type="text/javascript"></script>
+        <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
+        <script src="static/js/modal-forms.js" type="text/javascript"></script>
+        <script src="static/js/scroll-table.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->

@@ -229,6 +229,8 @@ public class DBModify extends HttpServlet {
                     /* Invio query */
                     mappa_resource.update(mappa, mappa.getID_mappa());
                     
+                    exists = null;
+                    
                     rd = request.getRequestDispatcher("ObjectAccess?obj=piano&nm="+quota);
                     rd.forward(request, response);
 
@@ -303,6 +305,8 @@ public class DBModify extends HttpServlet {
                         
                     }
                     
+                    exists = null;
+                    
                     rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
                     rd.forward(request, response);
                     
@@ -354,6 +358,8 @@ public class DBModify extends HttpServlet {
                     }
                     
                     nodo_resource.updateNodo(nodo, id_nodo);
+                    
+                    exists = null;
                     
                     rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
                     rd.forward(request, response);
@@ -409,6 +415,8 @@ public class DBModify extends HttpServlet {
                         nodo_resource.insertPdi(pdi);
                         
                     }
+                    
+                    exists = null;
                     
                     rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
                     rd.forward(request, response);
@@ -477,6 +485,8 @@ public class DBModify extends HttpServlet {
                     
                     nodo_resource.updatePoi(pdi, id_pdi);
                     
+                    exists = null;
+                    
                     rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
                     rd.forward(request, response);
                     
@@ -513,6 +523,7 @@ public class DBModify extends HttpServlet {
                     rischio_filtered = form_filter.filtraMisura(rischio);
                     
                     exists = beacon_resource.findByCodice(codice_beacon_filtered).getID_beacon();
+                    id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
                     
                     if(!codice_beacon_filtered.equals(DEFAULT_STRING)
                             && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
@@ -522,8 +533,6 @@ public class DBModify extends HttpServlet {
                             && !Objects.equals(ndc_filtered, DEFAULT_DOUBLE)
                             && !Objects.equals(rischio_filtered, DEFAULT_DOUBLE)                            
                             && exists == null){
-                        
-                        id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
                         
                         beacon.setCodice(codice_beacon_filtered);
                         beacon.setCoord_X(coord_x_filtered);
@@ -537,6 +546,8 @@ public class DBModify extends HttpServlet {
                         beacon_resource.insert(beacon);
                         
                     }
+                    
+                    exists = null;
                     
                     rd = request.getRequestDispatcher("/ObjectAccess?obj=beacon&nm="+id_mappa);
                     rd.forward(request, response);
@@ -615,6 +626,8 @@ public class DBModify extends HttpServlet {
                     beacon_resource.update(beacon, id_beacon);
                     
                     id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
+                    
+                    exists = null;
                     
                     rd = request.getRequestDispatcher("/ObjectAccess?obj=beacon&nm="+id_mappa);
                     rd.forward(request, response);

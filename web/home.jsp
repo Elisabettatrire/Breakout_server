@@ -14,23 +14,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-grid.min.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap-reboot.min.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.css" type="text/css">
-        <link rel="stylesheet" href="static/bootstrap-4.1.1-dist/css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="static/fontawesome/fontawesome-all.css">
-        <link rel="stylesheet" type="text/css" href="static/datatables.min.css"/>
-        <link rel="stylesheet" href="static/full-height.css" type="text/css">
-        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.js"></script>
-        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.bundle.min.js"></script>
-        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.js"></script>
-        <script src="static/bootstrap-4.1.1-dist/js/bootstrap.min.js"></script>
-        <script src="static/bootstrap-4.1.1-dist/js/bootbox.min.js"></script>
-        <script src="static/scroll-table.js"></script>
-        <script type="text/javascript" src="static/datatables.min.js"></script>
-        <script type="text/javascript" src="static/modal-forms.js"></script>
+        <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/css/datatables.min.css" rel="stylesheet" type="text/css"/>
+        <link href="static/css/full-height.css" rel="stylesheet" type="text/css"/>
+        <link href="static/css/fontawesome/fontawesome-all.css" rel="stylesheet" type="text/css"/>
+        <script src="static/js/bootbox.min.js" type="text/javascript"></script>
+        <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="static/js/datatables.min.js" type="text/javascript"></script>
+        <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
+        <script src="static/js/modal-forms.js" type="text/javascript"></script>
+        <script src="static/js/scroll-table.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -38,7 +31,7 @@
 
         <!-- Page Content -->
         <div class="container">
-            <div class="row" style="margin-top: 100px; margin-bottom: 30px">
+            <div class="row" style="margin-top: 60px; margin-bottom: 30px">
                 <div class="col-md-6" style="text-align: right">
                     <form action="DBAccess" method="POST">
                         <input type="submit" value="Gestione Mappe" class="btn btn-lg btn-success" name="mappe"
@@ -55,22 +48,25 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4" style="text-align: center">
-                    <table>
-                        <tr style="text-align: left"><td><p style="font-size: x-large">
+                <div class="col-md-12">
+                    <center>
+                        <table>
+                            <form action="FileUploader" method="post" enctype="multipart/form-data">
+                                <tr style="text-align: left"><td><p style="font-size: x-large">
                                     Importa dati da file <a data-toggle="modal" data-target="#modal-info">.csv
-                                    </a>
-                                </p>
-                            </td></tr>
-                        <tr style="text-align: center">
-                            <td colspan="2"><form action="FileUploader" method="post" enctype="multipart/form-data">
-                                    <input type="file" accept=".csv" name="file" id="input-csv">
-                                    <tr><td><input type="submit" value="Carica"></td></tr>
-                                </form></td></tr>
-                    </table>
+                                    </a></p></td>
+                                </tr>                           
+                                <tr style="text-align: center">
+                                    <td><input type="file" accept=".csv" name="file" id="input-csv">
+                                    </td>
+                                </tr>
+                                <tr style="text-align: center">
+                                    <td><input class="btn btn-outline-success" type='submit' 
+                                    style="font-weight: bold; margin-top: 10px" value='Carica dati'></td></tr>
+                            </form>
+                        </table>
+                    </center>
                 </div>
-                <div class="col-md-4"></div>
             </div>
         </div>
         
