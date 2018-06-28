@@ -106,83 +106,14 @@
                     </button>
                 </div>
             </div>
-            
         </div>
-        <!-- End Page Content -->
+        <!-- End Page Content -->        
         
         <!-- Modal Form Aggiungi Piano -->
-        <div id="modal-piano" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Aggiungi piano</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <p class="warning">
-                                Devono essere compilati tutti i campi, altrimenti l'inserimento
-                                non verrà portato a termine.</p>
-                        </div>
-                        <div class="col-md-12" style="text-align: center">
-                            <form action="DBModify" method="post">
-                                <table class="table table-borderless"><tr><td>Quota:</td>
-                                        <td><input autofocus="true" type='text' name='quota'
-                                                   size="30" placeholder='&nbsp;es. 155'>
-                                </td></table>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                    <input class="btn btn-outline-success" type='submit' 
-                                           style="font-weight: bold" value='Aggiungi piano' name='aggiungi-piano'>
-                                    <input type="hidden" name="azione" value="aggiungi-piano">
-                                    <input type="hidden" name="modalita" value="mappe">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Modal Form Aggiungi Piano -->
+        <%@include file="form/aggiungi-piano.jsp"%>
         
         <!-- Modal Form Modifica Piano -->
-        <div id="modal-mod-piano" method="post" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modifica piano</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <p class="warning">
-                                I campi non compilati manterrano il valore precedente.</p>
-                        </div>
-                        <div class="col-md-12" style="text-align: center">
-                            <form action="DBModify" method="post" id="form-mod-piano">
-                                <table class='table table-borderless'><tr><td>Quota:</td>
-                                        <td><input autofocus="true" type='text' name='quota'
-                                                   size="30" placeholder="&nbsp;(invariato)">
-                                </td></table>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                    <input class="btn btn-outline-success" type='submit' 
-                                           style="font-weight: bold" value='Applica modifiche' name='modifica-piano'>
-                                    <input type="hidden" name="id_piano" value="">
-                                    <input type="hidden" name="azione" value="modifica-piano">
-                                    <input type="hidden" name="modalita" value="mappe">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Modal Form Modifica Piano -->
+        <%@include file="form/modifica-piano.jsp"%>
         
         <!-- Modal Conferma Eliminazione Piano -->
         <div id="modal-elimina-piano" class="modal fade">
@@ -213,45 +144,12 @@
         <!-- End Modal Conferma Eliminazione Piano -->
         
         <!-- Modal Form Aggiungi Scala -->
-        <div id="modal-scala" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title">Aggiungi scala</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <p class="warning">
-                                Devono essere compilati tutti i campi, altrimenti l'inserimento
-                                non verrà portato a termine.</p>
-                        </div>
-                        <div class="col-md-12">
-                            <form action='#'>
-                                <table class='table table-borderless'>
-                                    <tr><td>Lunghezza (m):</td>
-                                        <td><input type='text' name='lunghezza' size="30"
-                                            autofocus="true" placeholder='&nbsp;es. 25'></td>
-                                    <tr><td>Cod. Nodo 1:</td><td><input type='text'
-                                            placeholder='&nbsp;es. 145UA5' name='nodo_1' size="30"></td>
-                                    <tr><td>Cod. Nodo 2:</td><td><input type='text'
-                                            placeholder='&nbsp;es. 145DICEA' name='nodo_1' size="30"></td>
-                                </table>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                    <input class="btn btn-outline-success" type='submit'
-                                           style="font-weight: bold" value='Aggiungi scala' name='aggiungi-scala'>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Modal Form Aggiungi Scala -->
-
+        <%@include file="form/aggiungi-scala.jsp"%>
+        
+        <script>   
+            $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+        </script>
+        
     </body>
 </html>
 

@@ -173,94 +173,11 @@
             </div>
         </div>
         
-        <!-- Finestra popup aggiunta di un nodo -->
-        <div id="modal-agg-nodo" class="modal fade">
-            <div class="modal-dialog " >
-                <div class="modal-content ">
-                    <div class="modal-header" >
-                        <h5 class="modal-title">Aggiungi nodo</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button> 
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <p class="warning">
-                                Devono essere compilati tutti i campi, altrimenti l'inserimento
-                                non verrà portato a termine.</p>
-                        </div>
-                        <!-- text area per inserire i dati dei nodi da caricare -->
-                        <div  class="col-md-12">
-                            <form action="DBModify" method="post">
-                                <table class="table table-borderless">
-                                    <tr><td>Codice:</td><td>
-                                            <input type="text" name="codice" placeholder=" es. 150G2"
-                                                   size="30" autofocus="true"></td></tr>
-                                    <tr><td>Coord. X:</td><td>
-                                            <input type="text" name="coord-x"
-                                                    placeholder=" es. 129" size="30"></td></tr>
-                                    <tr><td>Coord. Y:</td><td>
-                                            <input type="text" name="coord-y"
-                                                    placeholder=" es. 465" size="30"></td></tr>
-                                    <tr><td>Larghezza (m):</td><td>
-                                            <input type="text" name="larghezza" placeholder=" es. 1.8"
-                                                    size="30"></td></tr>
-                                </table>
-                                <!-- Bottoni per tornare alla schermata precedente o per aggiungere il nodo -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                    <input class="btn btn-outline-success" type='submit' 
-                                        style="font-weight: bold" value='Aggiungi nodo'>
-                                    <input type="hidden" name="azione" value="aggiungi-nodo">
-                                    <input type="hidden" name="nm" value="${nome_mappa}">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Modal Form Aggiungi Nodo -->
+        <%@include file="form/aggiungi-nodo.jsp"%>
 
-        <!-- Finestra popup per la modifica di un nodo-->
-        <div id="modal-mod-nodo" class="modal fade">
-            <div class="modal-dialog " >
-                <div class="modal-content ">
-                    <div class="modal-header" >
-                        <h5 class="modal-title">Modifica nodo</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <!-- text area per modificare i dati dei nodi caricati -->
-                    <div class="modal-body">
-                        <div  class="col-md-12">
-                            <form action="DBModify" method="post" id="form-mod-nodo">
-                                <table class="table table-borderless" style="margin-left: auto; margin-right: auto">
-                                    <tr><td>Codice:</td><td>
-                                            <input type="text" name="codice" size="30"
-                                                   placeholder="&nbsp;(invariato)" autofocus="true"></td></tr>
-                                    <tr><td>Coord. X:</td><td>
-                                            <input type="text" name="coord-x" size="30"
-                                                    autofocus="true" placeholder="&nbsp;(invariato)"></td></tr>
-                                    <tr><td>Coord. Y:</td><td>
-                                            <input type="text" name="coord-y" size="30"
-                                                        placeholder="&nbsp;(invariato)"></td></tr>
-                                    <tr><td>Larghezza (m):</td>
-                                        <td><input type="text" name="larghezza"size="30"
-                                                        placeholder="&nbsp;(invariato)"></td></tr>
-                                </table>
-                                <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                        Annulla</button>
-                                    <input class="btn btn-outline-success" type='submit' 
-                                        style="font-weight: bold" value='Conferma modifiche'>
-                                    <input type="hidden" name="id_nodo" value="">
-                                    <input type="hidden" name="azione" value="modifica-nodo">
-                                    <input type="hidden" name="nm" value="${nome_mappa}">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Modal Form Modifica Nodo-->
+        <%@include file="form/modifica-nodo.jsp"%>
         
         <!-- Modal Conferma Eliminazione Nodo -->
         <div id="modal-elimina-nodo" class="modal fade">
@@ -290,90 +207,11 @@
             </div>
         </div>
            
-        <!-- Finestra popup aggiunta di un tronco-->
-        <div id="modal-agg-tronco" class="modal fade">
-            <div class="modal-dialog " >
-                <div class="modal-content ">
-                    <div class="modal-header" >
-                        <h5 class="modal-title">Aggiungi tronco</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button> 
-                    </div>
-                    <!-- text area per inserire i dati del tronco da caricare -->
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <p class="warning">
-                                Devono essere compilati tutti i campi, altrimenti l'inserimento
-                                non verrà portato a termine.</p>
-                        </div>
-                        <div  class="col-md-12">
-                            <form>
-                                <table class="table table-borderless">
-                                    <tr><td>Codice Nodo 1:</td><td>
-                                        <select name="codice-1">
-                                            <option selected disabled hidden>Seleziona</option>
-                                            <option>150G1G2</option>
-                                            <option>150G2</option>
-                                        </select></td></tr>
-                                    <tr><td>Codice Nodo 2:</td><td>
-                                        <select name="codice-2">
-                                            <option selected disabled hidden>Seleziona</option>
-                                            <option>150G1G2</option>
-                                            <option>150G2</option>
-                                        </select></td></tr> 
-                                </table>
-                                <!-- Bottoni per tornare alla schermata precedente o per aggiungere il tronco -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                        Annulla</button>
-                                    <input class="btn btn-outline-success" type='submit' 
-                                        style="font-weight: bold" value='Aggiungi tronco' name='aggiungi-tronco'>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Modal Form Aggiungi Tronco -->
+        <%@include file="form/aggiungi-tronco.jsp"%>
 
-        <!-- Finestra popup per la modifica di un tronco -->
-        <div id="modal-mod-tronco" class="modal fade">
-            <div class="modal-dialog ">
-                <div class="modal-content ">
-                    <div class="modal-header" >
-                        <h5 class="modal-title">Modifica tronco</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button> 
-                    </div>
-                    <!-- text area per modificare i dati dei tronchi caricati -->
-                    <div class="modal-body">
-                        <div  class="col-md-12">
-                            <form>
-                                <table class="table table-borderless">
-                                    <tr><td>Codice Nodo 1:</td><td>
-                                        <select name="codice-1">
-                                            <option selected disabled hidden>Seleziona</option>
-                                            <option>150G1G2</option>
-                                            <option>150G2</option>
-                                        </select></td></tr>
-                                    <tr><td>Codice Nodo 2:</td><td>
-                                        <select name="codice-2">
-                                            <option selected disabled hidden>Seleziona</option>
-                                            <option>150G1G2</option>
-                                            <option>150G2</option>
-                                        </select></td></tr>                               
-                                </table>
-                                <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                        Annulla</button>
-                                    <input class="btn btn-outline-success" type='submit' 
-                                        style="font-weight: bold" value='Conferma modifiche' name='conferma-modifiche'>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>   
-        </div>
+        <!-- Modal Form Modifica Tronco -->
+        <%@include file="form/modifica-tronco.jsp"%>
         
         <!-- Modal Conferma Eliminazione Tronco -->
         <div id="modal-elimina-tronco" class="modal fade">
@@ -399,110 +237,11 @@
             </div>
         </div>
         
-        <!-- Finestra popup aggiunta di un PDI-->
-        <div id="modal-agg-pdi" class="modal fade">
-            <div class="modal-dialog ">
-                <div class="modal-content ">
-                    <div class="modal-header" >
-                        <h5 class="modal-title">Aggiungi PDI</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button> 
-                    </div>
-                    <!-- text area per inserire i dati dei nodi da caricare -->
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <p class="warning">
-                                Devono essere compilati tutti i campi, altrimenti l'inserimento
-                                non verrà portato a termine.</p>
-                        </div>
-                        <div  class="col-md-12">
-                            <form action="DBModify" method="post">
-                                <table class="table table-borderless">
-                                    <tr><td>Codice:</td><td>
-                                            <input type="text" name="codice" placeholder="Inserisci Codice"
-                                                   size="30" autofocus="true"></td></tr>
-                                    <tr><td>Coord. X:</td>
-                                        <td><input type="text" name="coord-x" placeholder=" es."
-                                                   size="30"></td></tr>
-                                    <tr><td>Coord. Y:</td><td>
-                                            <input type="text" name="coord-y" placeholder=" es."
-                                                   size="30"></td></tr>
-                                    <tr><td>Lunghezza:</td><td>
-                                            <input type="text" name="lunghezza" placeholder=" es."
-                                                   size="30"></td></tr>
-                                    <tr><td>Larghezza:</td><td>
-                                            <input type="text" name="larghezza" placeholder=" es."
-                                                   size="30"></td></tr>
-                                    <tr><td>Tipo:</td><td>
-                                            <select name='tipo'>
-                                                <option selected value="Aula">Aula</option>
-                                                <option value="Punto Di Ritrovo">Punto di Ritrovo</option>
-                                            </select></td></tr>
-                                </table>
-                                <!-- Bottoni per tornare alla schermata precedente o per aggiungere il PDI-->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                    <input class="btn btn-outline-success" type='submit' 
-                                        style="font-weight: bold" value='Aggiungi PDI'>
-                                    <input type="hidden" name="azione" value="aggiungi-pdi">
-                                    <input type="hidden" name="nm" value="${nome_mappa}">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Modal Form Aggiungi PDI -->
+        <%@include file="form/aggiungi-pdi.jsp"%>
         
-        <!-- Finestra popup per la modifica di un PDI-->
-        <div id="modal-mod-pdi" class="modal fade">
-            <div class="modal-dialog " >
-                <div class="modal-content ">
-                    <div class="modal-header" >
-                        <h5 class="modal-title">Modifica PDI</h5>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button> 
-                    </div>
-                    <div class="modal-body">
-                        <div  class="col-md-12">
-                            <form action="DBModify" method="post" id="form-mod-pdi">
-                                <table class="table table-borderless">
-                                    <tr><td>Codice:</td><td>
-                                            <input type="text" name="codice" size="30"
-                                                   placeholder=" (invariato)" autofocus="true"></td></tr>
-                                    <tr><td>Coord. X:</td>
-                                        <td><input type="text" name="coord-x" size="30"
-                                                   placeholder=" (invariato)"></td></tr>
-                                    <tr><td>Coord. Y:</td><td>
-                                            <input type="text" name="coord-y" size="30"
-                                                   placeholder=" (invariato)"></td></tr>
-                                    <tr><td>Lunghezza:</td><td>
-                                            <input type="text" name="lunghezza" size="30"
-                                                   placeholder=" (invariato)"></td></tr>
-                                    <tr><td>Larghezza:</td><td>
-                                            <input type="text" name="larghezza" size="30"
-                                                   placeholder=" (invariato)"></td></tr>
-                                    <tr><td>Tipo:</td><td>
-                                        <select name="tipo">
-                                            <option selected hidden value="invariato">(invariato)</option>
-                                            <option value="Aula">Aula</option>
-                                            <option value="Punto Di Ritrovo">Punto di Ritrovo</option>
-                                        </select></td></tr>
-                                </table>
-                                <!-- Bottoni per tornare alla schermata precedente o per aggiornare il PDI-->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-dark" data-dismiss="modal">
-                                        Annulla</button>
-                                    <input class="btn btn-outline-success" type='submit' 
-                                        style="font-weight: bold" value='Conferma modifiche'>
-                                    <input type="hidden" name="id_pdi" value="">
-                                    <input type="hidden" name="azione" value="modifica-pdi">
-                                    <input type="hidden" name="nm" value="${nome_mappa}">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Modal Form Modifica PDI -->
+        <%@include file="form/modifica-pdi.jsp"%>
         
         <!-- Modal Conferma Eliminazione Pdi -->
         <div id="modal-elimina-pdi" class="modal fade">
