@@ -51,9 +51,10 @@ public class ObjectAccess extends HttpServlet {
 
         oggetto = request.getParameter("obj");
         identificatore = request.getParameter("nm");
-        int id_piano = 0;
-        int id_mappa = 0;
-        String quota = null;
+        int id_piano;
+        int id_mappa;
+        String quota;
+        String url_immagine;
         RequestDispatcher rd;
         
         try {
@@ -82,12 +83,14 @@ public class ObjectAccess extends HttpServlet {
                     ArrayList<Beacon> al_beacon = beacon_resource.findAll();
                     Mappa mappa_search1 = mappa_resource_2.findByNome(identificatore);
                     id_mappa = mappa_search1.getID_piano();
+                    url_immagine = mappa_search1.getUrlImmagine();
                     quota = piano_resource2.findById(id_mappa).getQuota();
                     
                     request.setAttribute("nome", identificatore);
                     request.setAttribute("beacons", al_beacon);
                     request.setAttribute("quota", quota);
                     request.setAttribute("id_mappa", id_mappa);
+                    request.setAttribute("url_immagine", url_immagine);
                     
                     rd = request.getRequestDispatcher("gestione-mappa.jsp");
                     rd.forward(request, response);

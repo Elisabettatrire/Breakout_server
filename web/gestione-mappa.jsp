@@ -87,9 +87,10 @@
                     </div>
                 </div>
                 <!--Immagine dell mappa fs:990x1572-->
-                <c:set var = "nome_img" value = "${fn:replace(requestScope.nome, '/', '-')}" />
-                <div class="col-md-4" >  
-                    <img src="/Immagini/${nome_img}.jpg" width="396" height="630">
+                <c:set var = "url_img" value = "${requestScope.url_immagine}" />
+                <div class="col-md-6" >  
+                    <!-- Immagine scalata al 50% -->
+                    <img src="images/${url_img}" width="495" height="786">
                 </div>
             </div>
             

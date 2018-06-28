@@ -22,7 +22,7 @@ import it.breakout.models.Mappa;
 import it.breakout.models.Nodo;
 import it.breakout.models.Pdi;
 import it.breakout.models.Beacon;
-import static it.breakout.utility.Constants.*;
+import static it.breakout.utility.EnvVariables.*;
 import java.util.Objects;
 
 /**
@@ -227,7 +227,7 @@ public class DBModify extends HttpServlet {
                     }
                     
                     /* Invio query */
-                    mappa_resource.update(mappa, mappa.getID_mappa());
+                    mappa_resource.update(mappa, id_mappa);
                     
                     exists = null;
                     

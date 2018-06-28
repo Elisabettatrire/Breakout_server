@@ -15,9 +15,9 @@ import java.sql.PreparedStatement;
 
 import it.breakout.models.Beacon;
 
-import static it.breakout.utility.Constants.DB_PSW;
-import static it.breakout.utility.Constants.DB_URL;
-import static it.breakout.utility.Constants.DB_USR;
+import static it.breakout.utility.EnvVariables.DB_PSW;
+import static it.breakout.utility.EnvVariables.DB_URL;
+import static it.breakout.utility.EnvVariables.DB_USR;
 
 /**
  *

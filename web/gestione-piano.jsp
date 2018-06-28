@@ -45,7 +45,7 @@
                                     <i data-toggle="tooltip" data-placement="top"
                                        title="Clicca sul nome della mappa per aprire la pagina di gestione"
                                        class="fas fa-info-circle" style="color: #007bff;"></i>
-                                <th>Percorso immagine</th>
+                                <th>Nome immagine</th>
                                 </th><th>Modifica</th><th>Elimina</th>
                             </tr>
                         </thead>

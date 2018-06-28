@@ -65,6 +65,7 @@
                                     style="font-weight: bold; margin-top: 10px" value='Carica dati'></td></tr>
                             </form>
                         </table>
+                        <%@include file="form/aggiungi-immagine.jsp" %>
                     </center>
                 </div>
             </div>
@@ -92,6 +93,8 @@
                 </div>
             </div>
         </div>
+        
+        
         
         <!-- Footer -->
         <%@include file="footer.html" %>

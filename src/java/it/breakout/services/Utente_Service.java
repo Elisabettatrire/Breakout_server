@@ -14,9 +14,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static it.breakout.utility.Constants.DB_PSW;
-import static it.breakout.utility.Constants.DB_URL;
-import static it.breakout.utility.Constants.DB_USR;
+import static it.breakout.utility.EnvVariables.DB_PSW;
+import static it.breakout.utility.EnvVariables.DB_URL;
+import static it.breakout.utility.EnvVariables.DB_USR;
 
 /**
  *

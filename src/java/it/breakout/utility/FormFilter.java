@@ -5,7 +5,7 @@
  */
 package it.breakout.utility;
 
-import static it.breakout.utility.Constants.*;
+import static it.breakout.utility.EnvVariables.*;
 
 /**
  *

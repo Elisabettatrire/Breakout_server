@@ -9,7 +9,7 @@ package it.breakout.utility;
  *
  * @author Giovanni
  */
-public class Constants {
+public class EnvVariables {
     
     /* Parametri del database */
     public static final String DB_URL = "jdbc:derby://localhost:1527/breakout2";

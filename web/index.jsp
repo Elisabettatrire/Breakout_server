@@ -49,12 +49,6 @@
             </div>
         </div>
         
-        <script>
-            $(function(){
-                $("input").not("[type=submit]").jqBootstrapValidation();
-            });
-        </script>
-        
         <!-- Footer -->
         <%@include file="footer.html" %>
     </body>

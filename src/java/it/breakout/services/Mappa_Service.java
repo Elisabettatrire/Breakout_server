@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 import it.breakout.models.Mappa;
 
-import static it.breakout.utility.Constants.DB_PSW;
-import static it.breakout.utility.Constants.DB_URL;
-import static it.breakout.utility.Constants.DB_USR;
+import static it.breakout.utility.EnvVariables.DB_PSW;
+import static it.breakout.utility.EnvVariables.DB_URL;
+import static it.breakout.utility.EnvVariables.DB_USR;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -209,7 +209,7 @@ public class Mappa_Service {
             st = conn.prepareStatement(query);
             st.setString(1, mappa.getNome());
             st.setString(2, mappa.getUrlImmagine());
-            st.setInt(3, mappa.getID_mappa());
+            st.setInt(3, id_mappa);
             st.executeUpdate();
             
         } catch (SQLException e) {
