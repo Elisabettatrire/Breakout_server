@@ -24,7 +24,7 @@
         <script src="static/js/datatables.min.js" type="text/javascript"></script>
         <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
-        <script src="static/js/scroll-table.js" type="text/javascript"></script>
+        <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <!-- Tabella dei Nodi della mappa -->
                     <h4>Lista Nodi</h4>
                         <table class="display" style="width:100%; text-align: center">
@@ -77,7 +77,7 @@
                         </div>
                     <hr>
                     <!-- Tabella dei Tronchi della mappa -->
-                    <h4>Lista Tronchi MI SERVE LA TABELLA TRONCHI COMPLETA</h4>
+                    <h4>Lista Tronchi</h4>
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
@@ -88,13 +88,14 @@
                         <c:forEach items="${requestScope.tronchi}" var="tronco">
                             <c:set var="codice_tronco" value="${tronco.getCodice()}"/>
                             <c:set var="lunghezza" value="${tronco.getLunghezza()}"/>
-                            <c:set var="nodi" value="${tronco.getNodiLong()}"/>
+                            <c:set var="nodi" value="${tronco.getNodiInteger()}"/>
+                            <c:set var="id_tronco" value="${tronco.getID()}"/>
                             <tr><td>${codice_tronco}</td><td>${lunghezza}</td><td>${nodi[0]}</td>
                                 <td>${nodi[1]}</td>
-                                <td><button id="mod-${codice_tronco}" class="btn btn-outline-dark btn-sm"
+                                <td><button id="mod-${id_tronco}" class="btn btn-outline-dark btn-sm"
                                             data-toggle="modal" data-target="#modal-mod-tronco">
                                         <span class="fas fa-cog"></span></button></td>
-                                <td><button id="del-${codice_tronco}" class="btn btn-outline-danger btn-sm"
+                                <td><button id="del-${id_tronco}" class="btn btn-outline-danger btn-sm"
                                             data-toggle="modal" data-target="#modal-elimina-tronco">
                                         <span class="fas fa-trash-alt"></span></button></td></tr>
                         </c:forEach>
@@ -107,15 +108,8 @@
                     </div>
                     <hr>
                 </div>
-                <!-- Immagine della mappa fs:990x1572 -->
-                <c:set var = "nome_img" value = "${fn:replace(requestScope.nome, '/', '-')}" />
-                <div class="col-md-4" >  
-                    <img src="/Immagini/${nome_img}.jpg" width="396" height="630">
-                </div>
-            </div>
                     
-            <!-- Tabella dei Punti di Interesse-->
-            <div class="row">
+                <!-- Tabella dei Punti di Interesse-->
                 <div class="col-md-12">
                     <br><br>
                     <h4>Lista punti di interesse</h4>
@@ -224,12 +218,15 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <form action='#'>
+                        <form action="DBModify" method="post" id="form-del-tronco">
                             <p>Sicuro di voler rimuovere il tronco selezionato?
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
                                 <input class="btn btn-danger" type='submit' value='Elimina'>
+                                <input type="hidden" name="id_tronco" value="">
+                                <input type="hidden" name="azione" value="elimina-tronco">
+                                <input type="hidden" name="nm" value="${nome_mappa}">
                             </div>
                         </form>                    
                     </div>

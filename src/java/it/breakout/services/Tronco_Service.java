@@ -64,7 +64,8 @@ public class Tronco_Service {
         try {
             open();
             
-            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + "=? order by id_tronco";
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + "=?";
+
             st = conn.prepareStatement(query);
             st.setInt(1, id_mappa);
             rs = st.executeQuery();
@@ -75,15 +76,13 @@ public class Tronco_Service {
                 tronco.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
                 tronco.setID_beacon(rs.getInt(FIELD_ID_BEACON));
                 tronco.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
-                tronco.setID_piano(rs.getInt(FIELD_ID_PIANO));
+                //tronco.setID_piano(rs.getInt(FIELD_ID_PIANO));
                 tronco.setCodice();
                 tronchi.add(tronco);
             }
-        } 
-        catch (SQLException e) {
+        } catch (SQLException e) {
         	e.getMessage();
-        }
-        finally {
+        } finally {
             close();
         }
         
