@@ -25,4 +25,12 @@ public class Tronco_Resource {
 	return tronco_service.findAllLinks();
     }
     
+    public Tronco findArcByNodi(Integer codice_nodo_1, Integer codice_nodo_2) {
+        return tronco_service.findArcByNodi(codice_nodo_1, codice_nodo_2);
+    }
+    
+    public void delete(Integer id_tronco) {
+        tronco_service.delete(id_tronco);
+    }
+    
 }

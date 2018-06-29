@@ -4,6 +4,7 @@
     Author     : Giovanni
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -26,16 +27,23 @@
                     <form>
                         <table class="table table-borderless">
                             <tr><td>Codice Nodo 1:</td><td>
+                                
                                 <select name="codice-1" required>
                                     <option selected disabled hidden>Seleziona</option>
-                                    <option>150G1G2</option>
-                                    <option>150G2</option>
+                                    <c:forEach items="${requestScope.al_beacon}" var="beacon">
+                                        <c:set var="codice_beacon" value="${beacon.getCodice()}" />
+                                        <c:set var="id_beacon" value="${beacon.getID_beacon()}" />
+                                        <option value="${id_beacon}">${codice_beacon}</option>
+                                    </c:forEach>
                                 </select></td></tr>
                             <tr><td>Codice Nodo 2:</td><td>
                                 <select name="codice-2" required>
                                     <option selected disabled hidden>Seleziona</option>
-                                    <option>150G1G2</option>
-                                    <option>150G2</option>
+                                    <c:forEach items="${requestScope.al_beacon}" var="beacon">
+                                        <c:set var="codice_beacon" value="${beacon.getCodice()}" />
+                                        <c:set var="id_beacon" value="${beacon.getID_beacon()}" />
+                                        <option value="${id_beacon}">${codice_beacon}</option>
+                                    </c:forEach>
                                 </select></td></tr> 
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere il tronco -->
@@ -43,7 +51,9 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                 Annulla</button>
                             <input class="btn btn-outline-success" type='submit' 
-                                style="font-weight: bold" value='Aggiungi tronco' name='aggiungi-tronco'>
+                                style="font-weight: bold" value='Aggiungi tronco'>
+                            <input type="hidden" name="azione" value="aggiungi-tronco">
+                            <input type="hidden" name="nm" value="${nome_mappa}">
                         </div>
                     </form>
                 </div>

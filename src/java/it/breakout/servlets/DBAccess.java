@@ -83,8 +83,8 @@ public class DBAccess extends HttpServlet{
                     break;
 
             }
-        } catch (IOException | ServletException f) {
-            f.getMessage();
+        } catch (IOException | ServletException e) {
+            System.out.println(e.getMessage());
             response.sendRedirect("500.jsp");
         }
 

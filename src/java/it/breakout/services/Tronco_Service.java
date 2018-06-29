@@ -53,7 +53,7 @@ public class Tronco_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ public class Tronco_Service {
                 tronchi.add(tronco);
             }
         } catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -112,7 +112,7 @@ public class Tronco_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -149,13 +149,49 @@ public class Tronco_Service {
                 i++;
             }
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         finally {
             close();
         }
         
         return arcs;
+    }
+    
+    public Tronco findArcByNodi(Integer id_nodo_1, Integer id_nodo_2) {
+        
+        ResultSet rs = null;
+        Tronco tronco = new Tronco();
+
+        try {
+
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where "
+                    + FIELD_ID_N1 + "= ? and " + FIELD_ID_N2 + "=?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, id_nodo_1);
+            st.setInt(2, id_nodo_2);
+            rs = st.executeQuery();
+            
+            while(rs.next()) {
+                tronco.setID(rs.getInt(FIELD_ID));
+                Integer[] nodi = null;
+                nodi[0] = rs.getInt(FIELD_ID_N1);
+                nodi[1] = rs.getInt(FIELD_ID_N2);
+                tronco.setNodiInteger(nodi[0], nodi[1]);
+                tronco.setLarghezza_media();
+                tronco.setBeacon(getBeacon(rs.getInt(FIELD_ID_BEACON)));
+                tronco.setCosto_totale();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+        
+        return tronco;
+
     }
     
     private Beacon getBeacon(Integer id_beacon) {
@@ -190,7 +226,7 @@ public class Tronco_Service {
         }
 
         catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
 
         finally {
@@ -199,5 +235,22 @@ public class Tronco_Service {
         
         return arc;
 
+    }
+    
+    public void delete(Integer id_tronco) {
+        
+        try {
+            open();
+            
+            String query = "delete from " + TBL_NAME + " where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, id_tronco);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
     }
 }

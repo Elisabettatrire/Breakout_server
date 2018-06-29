@@ -103,6 +103,7 @@ public class ObjectAccess extends HttpServlet {
                     Nodo_Resource nodo_resource = new Nodo_Resource();
                     Piano_Resource piano_resource_1 = new Piano_Resource();
                     Tronco_Resource tronco_resource = new Tronco_Resource();
+                    Beacon_Resource beacon_resource_2 = new Beacon_Resource();
                     
                     Mappa mappa_search = mappa_resource_1.findByNome(identificatore);
                     id_mappa = mappa_search.getID_mappa();
@@ -111,12 +112,14 @@ public class ObjectAccess extends HttpServlet {
                     ArrayList<Tronco> al_tronchi = tronco_resource.findAllArcs(id_mappa);
                     ArrayList<Nodo> al_nodi = nodo_resource.findByIDMappa(id_mappa);
                     ArrayList<Pdi> al_pdis = nodo_resource.findPoisByIDMappa(id_mappa);
+                    ArrayList<Beacon> al_beacon_2 = beacon_resource_2.findByIDMappa(id_mappa);
                     
                     request.setAttribute("nome", identificatore);
                     request.setAttribute("tronchi", al_tronchi);
                     request.setAttribute("nodi", al_nodi);
                     request.setAttribute("pdis", al_pdis);
                     request.setAttribute("quota", quota);
+                    request.setAttribute("al_beacon", al_beacon_2);
                     
                     rd = request.getRequestDispatcher("gestione-grafo.jsp");
                     rd.forward(request, response);
@@ -142,8 +145,8 @@ public class ObjectAccess extends HttpServlet {
                     
                     break;
             }
-        } catch (IOException | ServletException f) {
-            f.getMessage();
+        } catch (IOException | ServletException e) {
+            System.out.println(e.getMessage());
             response.sendRedirect("500.jsp");
         }
 

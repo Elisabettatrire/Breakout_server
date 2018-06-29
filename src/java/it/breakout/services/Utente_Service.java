@@ -48,7 +48,7 @@ public class Utente_Service {
                 st.close();
             }
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
     }
     
@@ -73,7 +73,7 @@ public class Utente_Service {
                 utenti.add(utente);
             }
         } catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -92,7 +92,7 @@ public class Utente_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -109,7 +109,7 @@ public class Utente_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }

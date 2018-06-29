@@ -25,6 +25,7 @@
         <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
         <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
+        <script src="static/js/disable-select.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -266,7 +267,7 @@
                 </div>
             </div>
         </div>
-        
+                            
         <!-- Footer -->
         <%@include file="footer.html" %>
     </body>

@@ -44,7 +44,7 @@ public class Piano_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());
         }
     }
     
@@ -66,7 +66,7 @@ public class Piano_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -92,7 +92,7 @@ public class Piano_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -119,7 +119,7 @@ public class Piano_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -140,7 +140,7 @@ public class Piano_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -160,7 +160,7 @@ public class Piano_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -178,7 +178,7 @@ public class Piano_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         finally {
             close();

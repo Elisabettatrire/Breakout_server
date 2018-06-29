@@ -49,7 +49,7 @@ public class Mappa_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());
         }
     }
     
@@ -75,7 +75,7 @@ public class Mappa_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -107,7 +107,7 @@ public class Mappa_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -136,7 +136,7 @@ public class Mappa_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -165,7 +165,7 @@ public class Mappa_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -191,7 +191,7 @@ public class Mappa_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -213,7 +213,7 @@ public class Mappa_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -231,7 +231,7 @@ public class Mappa_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }

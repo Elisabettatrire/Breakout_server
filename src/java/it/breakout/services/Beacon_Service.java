@@ -30,12 +30,12 @@ public class Beacon_Service {
     
     public static final String TBL_NAME = "beacon";
     public static final String FIELD_ID = "id_beacon";
-    public static final String FIELD_CODICE = "nome";
+    public static final String FIELD_CODICE = "codice";
     public static final String FIELD_COORD_X = "coordinata_x";
     public static final String FIELD_COORD_Y = "coordinata_y";
     public static final String FIELD_FUOCO = "fuoco";
     public static final String FIELD_FUMI = "fumi";
-    public static final String FIELD_NDC = "los";
+    public static final String FIELD_NDC = "ncd";
     public static final String FIELD_RISCHIO = "rischio";
     public static final String FIELD_ID_PDI = "id_pdi";
     public static final String FIELD_ID_MAPPA = "id_mappa";
@@ -54,7 +54,7 @@ public class Beacon_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());
         }
     }
 
@@ -86,7 +86,7 @@ public class Beacon_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+            System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -120,7 +120,7 @@ public class Beacon_Service {
                 beacon.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
             }
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -154,7 +154,7 @@ public class Beacon_Service {
                 beacon.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
             }
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -192,7 +192,7 @@ public class Beacon_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -207,7 +207,7 @@ public class Beacon_Service {
             
             open();
             
-            String query = "insert into " + TBL_NAME + " (nome,coordinata_x,coordinata_y,fuoco,fumi,los,"
+            String query = "insert into " + TBL_NAME + " (codice,coordinata_x,coordinata_y,fuoco,fumi,los,"
                     + "rischio,id_pdi,id_mappa) values(?,?,?,?,?,?,?,?,?)";
             
             st = conn.prepareStatement(query);
@@ -228,7 +228,7 @@ public class Beacon_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -260,7 +260,7 @@ public class Beacon_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -277,7 +277,7 @@ public class Beacon_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }

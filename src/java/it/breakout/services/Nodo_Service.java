@@ -52,7 +52,7 @@ public class Nodo_Service {
                 st.close();
             }
         } catch (SQLException e) {
-                e.getMessage();
+                System.out.println(e.getMessage());
         }
     }
     
@@ -79,7 +79,7 @@ public class Nodo_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -111,7 +111,7 @@ public class Nodo_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -148,7 +148,7 @@ public class Nodo_Service {
                 nodo.setLarghezza(rs.getDouble(FIELD_WIDTH));
             }
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -182,7 +182,7 @@ public class Nodo_Service {
                 
             }
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -213,7 +213,7 @@ public class Nodo_Service {
                 nodo.setLarghezza(rs.getDouble(FIELD_WIDTH));
             }
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -244,7 +244,7 @@ public class Nodo_Service {
             }
         } 
         catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -277,7 +277,7 @@ public class Nodo_Service {
                 pdis.add(pdi);
             }
         } catch (SQLException e) {
-        	e.getMessage();
+        	System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -301,7 +301,7 @@ public class Nodo_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -326,7 +326,7 @@ public class Nodo_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -343,7 +343,7 @@ public class Nodo_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -368,7 +368,7 @@ public class Nodo_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }
@@ -397,7 +397,7 @@ public class Nodo_Service {
             st.executeUpdate();
             
         } catch (SQLException e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
         } finally {
             close();
         }

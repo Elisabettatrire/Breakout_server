@@ -16,10 +16,12 @@ import it.breakout.resources.Piano_Resource;
 import it.breakout.resources.Mappa_Resource;
 import it.breakout.resources.Utente_Resource;
 import it.breakout.resources.Nodo_Resource;
+import it.breakout.resources.Tronco_Resource;
 import it.breakout.resources.Beacon_Resource;
 import it.breakout.utility.FormFilter;
 import it.breakout.models.Mappa;
 import it.breakout.models.Nodo;
+import it.breakout.models.Tronco;
 import it.breakout.models.Pdi;
 import it.breakout.models.Beacon;
 import static it.breakout.utility.EnvVariables.*;
@@ -53,12 +55,21 @@ public class DBModify extends HttpServlet {
     private String nome_mappa_filtered;
     private String url_immagine;
  
-    /* Variabili per inserimento-modifica-eliminazione utente */
+    /* Variabili per modifica-eliminazione utente */
     private Utente_Resource utente_resource = new Utente_Resource();
     private Integer id_utente;
     private String psw;
     private String psw_confirm;
- 
+    
+    /* Variabili per inserimento-modifica-eliminazione tronco */
+    private Tronco_Resource tronco_resource = new Tronco_Resource();
+    private Tronco tronco = new Tronco();
+    private Tronco tronco_old = new Tronco();
+    private String codice_nodo_1;
+    private String codice_nodo_2;
+    private Integer id_nodo_1;
+    private Integer id_nodo_2;
+    
     /* Variabili per inserimento-modifica-eliminazione nodo-pdi */
     private Nodo_Resource nodo_resource = new Nodo_Resource();
     private Nodo nodo = new Nodo();
@@ -375,6 +386,55 @@ public class DBModify extends HttpServlet {
                     rd.forward(request, response);
                     
                     break;
+                    
+                /* Azioni relative alla tabella dei tronchi */
+                case "aggiungi-tronco":
+                    
+                    nome_mappa = request.getParameter("nm");
+                    codice_nodo_1 = request.getParameter("codice-1");
+                    codice_nodo_2 = request.getParameter("codice-2");
+                    
+                    id_nodo_1 = nodo_resource.findByCodice(codice_nodo_1).getID();
+                    id_nodo_2 = nodo_resource.findByCodice(codice_nodo_2).getID();
+                    
+                    exists = tronco_resource.findArcByNodi(id_nodo_1, id_nodo_2).getID();
+                    
+                    if(!codice_nodo_1.isEmpty()
+                            && !codice_nodo_2.isEmpty()
+                            && exists == null){
+                        
+                        id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
+                        
+                        nodo.setCodice(codice_nodo_filtered);
+                        nodo.setCoord_X(coord_x_filtered);
+                        nodo.setCoord_Y(coord_y_filtered);
+                        nodo.setLarghezza(larghezza_filtered);
+                        nodo.setID_mappa(id_mappa);
+                        
+                        nodo_resource.insertNodo(nodo);
+                        
+                    }
+                    
+                    exists = null;
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                    rd.forward(request, response);
+                    
+                    break;
+                    
+                case "modifica-tronco":
+                    
+                    break;
+                    
+                case "elimina-tronco":
+                    
+                    tronco_resource.delete(Integer.parseInt(request.getParameter("id_tronco")));
+                    nome_mappa = request.getParameter("nm");
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                    rd.forward(request, response);
+                    
+                    break;
                 
                 /* Azioni relative alla tabella dei pdi */
                 case "aggiungi-pdi":
@@ -646,9 +706,16 @@ public class DBModify extends HttpServlet {
                     
                     break;
                 
+                /* Default case -> errore */
+                default:
+                    
+                    response.sendRedirect("500.jsp");
+                    
+                    break;
+                
             }
-        } catch (IOException | ServletException f) {
-            f.getMessage();
+        } catch (IOException | ServletException e) {
+            System.out.println(e.getMessage());
             response.sendRedirect("500.jsp");
         }
                  
