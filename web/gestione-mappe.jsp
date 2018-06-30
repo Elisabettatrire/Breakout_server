@@ -1,5 +1,5 @@
 <%-- 
-    Document   : home
+    Document   : gestione-mappe
     Created on : 15-mag-2018, 14.31.24
     Author     : Giovanni
 --%>
@@ -45,9 +45,8 @@
                         </thead>
                         <tbody>
                         <!-- Get data from request object -->
-                        <c:forEach items="${requestScope.piani}" var="piano" varStatus="i">
+                        <c:forEach items="${requestScope.piani}" var="piano">
                             <c:set var="quota" value="${piano.getQuota()}"/>
-                            <c:set var="indice" value="${i.index}"/>
                             <c:set var="id_piano" value="${piano.getID_piano()}"/>                            
                             <tr><td><a href='ObjectAccess?obj=piano&nm=${quota}'>${quota}</a></td>
                                 <td><button id="mod-${id_piano}" class="btn btn-outline-dark btn-sm"

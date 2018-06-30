@@ -391,28 +391,24 @@ public class DBModify extends HttpServlet {
                 case "aggiungi-tronco":
                     
                     nome_mappa = request.getParameter("nm");
-                    codice_nodo_1 = request.getParameter("codice-1");
-                    codice_nodo_2 = request.getParameter("codice-2");
-                    
-                    id_nodo_1 = nodo_resource.findByCodice(codice_nodo_1).getID();
-                    id_nodo_2 = nodo_resource.findByCodice(codice_nodo_2).getID();
+                    id_nodo_1 = Integer.parseInt(request.getParameter("codice-1"));
+                    id_nodo_2 = Integer.parseInt(request.getParameter("codice-2"));
+                    id_beacon = Integer.parseInt(request.getParameter("codice-beacon"));
                     
                     exists = tronco_resource.findArcByNodi(id_nodo_1, id_nodo_2).getID();
                     
-                    if(!codice_nodo_1.isEmpty()
-                            && !codice_nodo_2.isEmpty()
+                    if(id_nodo_1 != null
+                            && id_nodo_2 != null
+                            && id_beacon != null
                             && exists == null){
                         
                         id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
                         
-                        nodo.setCodice(codice_nodo_filtered);
-                        nodo.setCoord_X(coord_x_filtered);
-                        nodo.setCoord_Y(coord_y_filtered);
-                        nodo.setLarghezza(larghezza_filtered);
-                        nodo.setID_mappa(id_mappa);
+                        tronco.setNodiInteger(id_nodo_1, id_nodo_2);
+                        tronco.setID_beacon(id_beacon);
+                        tronco.setID_mappa(id_mappa);
                         
-                        nodo_resource.insertNodo(nodo);
-                        
+                        tronco_resource.insert(tronco);
                     }
                     
                     exists = null;

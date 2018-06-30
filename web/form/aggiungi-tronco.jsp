@@ -24,27 +24,35 @@
                         non verrà portato a termine.</p>
                 </div>
                 <div  class="col-md-12">
-                    <form>
+                    <form action="DBModify" method="post">
                         <table class="table table-borderless">
                             <tr><td>Codice Nodo 1:</td><td>
-                                
                                 <select name="codice-1" required>
-                                    <option selected disabled hidden>Seleziona</option>
+                                    <option selected disabled hidden value="">Seleziona</option>
+                                    <c:forEach items="${requestScope.nodi}" var="nodo">
+                                        <c:set var="codice_nodo" value="${nodo.getCodice()}" />
+                                        <c:set var="id_nodo" value="${nodo.getID()}" />
+                                        <option value="${id_nodo}">${codice_nodo}</option>
+                                    </c:forEach>
+                                </select></td></tr>
+                            <tr><td>Codice Nodo 2:</td><td>
+                                <select name="codice-2" required>
+                                    <option selected disabled hidden value="">Seleziona</option>
+                                    <c:forEach items="${requestScope.nodi}" var="nodo">
+                                        <c:set var="codice_nodo" value="${nodo.getCodice()}" />
+                                        <c:set var="id_nodo" value="${nodo.getID()}" />
+                                        <option value="${id_nodo}">${codice_nodo}</option>
+                                    </c:forEach>
+                                </select></td></tr>
+                            <tr><td>Codice Beacon:</td><td>
+                                <select name="codice-beacon" required>
+                                    <option selected disabled hidden value="">Seleziona</option>
                                     <c:forEach items="${requestScope.al_beacon}" var="beacon">
                                         <c:set var="codice_beacon" value="${beacon.getCodice()}" />
                                         <c:set var="id_beacon" value="${beacon.getID_beacon()}" />
                                         <option value="${id_beacon}">${codice_beacon}</option>
                                     </c:forEach>
                                 </select></td></tr>
-                            <tr><td>Codice Nodo 2:</td><td>
-                                <select name="codice-2" required>
-                                    <option selected disabled hidden>Seleziona</option>
-                                    <c:forEach items="${requestScope.al_beacon}" var="beacon">
-                                        <c:set var="codice_beacon" value="${beacon.getCodice()}" />
-                                        <c:set var="id_beacon" value="${beacon.getID_beacon()}" />
-                                        <option value="${id_beacon}">${codice_beacon}</option>
-                                    </c:forEach>
-                                </select></td></tr> 
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere il tronco -->
                         <div class="modal-footer">

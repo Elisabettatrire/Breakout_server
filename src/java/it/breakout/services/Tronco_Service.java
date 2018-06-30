@@ -237,6 +237,37 @@ public class Tronco_Service {
 
     }
     
+    public void insert(Tronco tronco) {
+        
+        try {
+            
+            open();
+            
+            String query = "insert into " + TBL_NAME
+                    + "(" + FIELD_LUNGHEZZA + ","
+                    + FIELD_ID_N1 + ","
+                    + FIELD_ID_N2 + ","
+                    + FIELD_ID_BEACON + ","
+                    + FIELD_ID_MAPPA + ") values (?,?,?,?,?)";
+            
+            Integer[] nodi = tronco.getNodiInteger();
+            
+            st = conn.prepareStatement(query);
+            st.setDouble(1, 999);
+            st.setInt(2, nodi[0]);
+            st.setInt(3, nodi[1]);
+            st.setInt(4, tronco.getID_beacon());
+            st.setInt(5, tronco.getID_mappa());            
+
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
     public void delete(Integer id_tronco) {
         
         try {

@@ -207,9 +207,17 @@ public class Beacon_Service {
             
             open();
             
-            String query = "insert into " + TBL_NAME + " (codice,coordinata_x,coordinata_y,fuoco,fumi,los,"
-                    + "rischio,id_pdi,id_mappa) values(?,?,?,?,?,?,?,?,?)";
-            
+            String query = "insert into " + TBL_NAME
+                    + " (" + FIELD_CODICE + ","
+                    + FIELD_COORD_X + ","
+                    + FIELD_COORD_Y + ","
+                    + FIELD_FUOCO + ","
+                    + FIELD_FUMI + ","
+                    + FIELD_NDC + ","
+                    + FIELD_RISCHIO + ","
+                    + FIELD_ID_PDI + ","
+                    + FIELD_ID_MAPPA + ") values(?,?,?,?,?,?,?,?,?)";
+
             st = conn.prepareStatement(query);
             st.setString(1, beacon.getCodice());
             st.setDouble(2, beacon.getCoord_X());

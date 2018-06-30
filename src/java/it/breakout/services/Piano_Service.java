@@ -55,7 +55,7 @@ public class Piano_Service {
         try {
             open();
             
-            String query = "select * from " + TBL_NAME + " order by quota";
+            String query = "select * from " + TBL_NAME + " order by " + FIELD_QUOTA;
             st = conn.prepareStatement(query);
             rs = st.executeQuery();
             while(rs.next()) {
@@ -64,11 +64,9 @@ public class Piano_Service {
                 piano.setID_piano(rs.getInt(FIELD_ID));
                 piani.add(piano);
             }
-        } 
-        catch (SQLException e) {
+        } catch (SQLException e) {
         	System.out.println(e.getMessage());
-        }
-        finally {
+        } finally {
             close();
         }
         
@@ -134,7 +132,8 @@ public class Piano_Service {
         try {
             open();
             
-            String query = "insert into " + TBL_NAME + " (quota) values(?)";
+            String query = "insert into " + TBL_NAME
+                    + " (" + FIELD_QUOTA + ") values(?)";
             st = conn.prepareStatement(query);
             st.setString(1, quota);
             st.executeUpdate();

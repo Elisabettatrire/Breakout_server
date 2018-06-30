@@ -64,7 +64,8 @@ public class Nodo_Service {
         try {
             open();
             
-            String query = "select * from " + TBL_NAME + " where " + FIELD_IS_PDI + "=false order by codice";
+            String query = "select * from " + TBL_NAME + " where " + FIELD_IS_PDI + "=false "
+                    + "order by " + FIELD_CODICE;
             st = conn.prepareStatement(query);
             rs = st.executeQuery();
             while(rs.next()) {
@@ -94,7 +95,8 @@ public class Nodo_Service {
         try {
             open();
             
-            String query = "select * from " + TBL_NAME + " where " + FIELD_IS_PDI + "=true order by codice";
+            String query = "select * from " + TBL_NAME + " where " + FIELD_IS_PDI + "=true"
+                    + "order by " + FIELD_CODICE;
             st = conn.prepareStatement(query);
             rs = st.executeQuery();
             while(rs.next()) {
@@ -228,7 +230,7 @@ public class Nodo_Service {
             open();
             
             String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + "=? AND "
-                    + FIELD_IS_PDI + "=false order by codice";
+                    + FIELD_IS_PDI + "=false order by " + FIELD_CODICE;
             st = conn.prepareStatement(query);
             st.setInt(1, search_id);
             rs = st.executeQuery();
@@ -260,7 +262,7 @@ public class Nodo_Service {
             open();
             
             String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + "=? AND "
-                    + FIELD_IS_PDI + "=true order by codice";
+                    + FIELD_IS_PDI + "=true order by " + FIELD_CODICE;;
             st = conn.prepareStatement(query);
             st.setInt(1, search_id);
             rs = st.executeQuery();
@@ -290,7 +292,12 @@ public class Nodo_Service {
         try {
             open();
             
-            String query = "insert into " + TBL_NAME + " (codice,coordinata_x,coordinata_y,larghezza,id_mappa)"
+            String query = "insert into " + TBL_NAME
+                    + " (" + FIELD_CODICE + ","
+                    + FIELD_COORD_X + ","
+                    + FIELD_COORD_Y + ","
+                    + FIELD_WIDTH + ","
+                    + FIELD_ID_MAPPA + ") "
                     + "values(?,?,?,?,?)";
             st = conn.prepareStatement(query);
             st.setString(1, nodo.getCodice());
@@ -354,8 +361,15 @@ public class Nodo_Service {
         try {
             open();
             
-            String query = "insert into " + TBL_NAME + " (codice,is_pdi,tipo,coordinata_x,coordinata_y,"
-                    + "larghezza,lunghezza,id_mappa) values(?,?,?,?,?,?,?,?)";
+            String query = "insert into " + TBL_NAME
+                    + " (" + FIELD_CODICE + ","
+                    + FIELD_IS_PDI + ","
+                    + FIELD_TIPO + ","
+                    + FIELD_COORD_X + ","
+                    + FIELD_COORD_Y + ","
+                    + FIELD_WIDTH + ","
+                    + FIELD_LENGTH + ","
+                    + FIELD_ID_MAPPA + ") values(?,?,?,?,?,?,?,?)";
             st = conn.prepareStatement(query);
             st.setString(1, pdi.getCodice());
             st.setBoolean(2, true);

@@ -59,7 +59,7 @@ public class Utente_Service {
         try {
             open();
             
-            String query = "select * from " + TBL_NAME + " order by username";
+            String query = "select * from " + TBL_NAME + " order by " + FIELD_USR;
             st = conn.prepareStatement(query);
             rs = st.executeQuery();
             while(rs.next()) {

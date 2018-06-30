@@ -61,7 +61,7 @@ public class Mappa_Service {
         try {
             open();
             
-            String query = "select * from " + TBL_NAME + " order by nome";
+            String query = "select * from " + TBL_NAME + " order by " + FIELD_NOME;
             st = conn.prepareStatement(query);
             rs = st.executeQuery();
             while(rs.next()) {
@@ -92,7 +92,8 @@ public class Mappa_Service {
         try {
             open();
             
-            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_PIANO + "=? order by nome";
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_PIANO + "=?"
+                    + " order by " + FIELD_NOME;
             st = conn.prepareStatement(query);
             st.setInt(1, search_id);
             rs = st.executeQuery();
@@ -182,7 +183,10 @@ public class Mappa_Service {
             
             open();
             
-            String query = "insert into " + TBL_NAME + " (img,nome,id_piano) values(?,?,?)";
+            String query = "insert into " + TBL_NAME
+                    + " (" + FIELD_IMG + ","
+                    + FIELD_NOME + ","
+                    + FIELD_ID_PIANO + ") values(?,?,?)";
             st = conn.prepareStatement(query);
             st.setString(1, url_immagine);
             st.setString(2, mappa.getNome());
