@@ -82,9 +82,9 @@ public class ObjectAccess extends HttpServlet {
                     
                     ArrayList<Beacon> al_beacon = beacon_resource.findAll();
                     Mappa mappa_search1 = mappa_resource_2.findByNome(identificatore);
-                    id_mappa = mappa_search1.getID_piano();
+                    id_mappa = mappa_search1.getID_mappa();
                     url_immagine = mappa_search1.getUrlImmagine();
-                    quota = piano_resource2.findById(id_mappa).getQuota();
+                    quota = piano_resource2.findById(mappa_search1.getID_piano()).getQuota();
                     
                     request.setAttribute("nome", identificatore);
                     request.setAttribute("beacons", al_beacon);
@@ -136,7 +136,7 @@ public class ObjectAccess extends HttpServlet {
                     //quota = piano_resource_1.findById(mappa_search.getID_piano()).getQuota();
                     ArrayList<Beacon> al_beacon_1 = beacon_resource_1.findByIDMappa(id_mappa);
                     
-                    request.setAttribute("id_mappa", identificatore);
+                    request.setAttribute("id_mappa", id_mappa);
                     request.setAttribute("al_beacon", al_beacon_1);
                     request.setAttribute("nome_mappa", mappa_search_2.getNome());
                     

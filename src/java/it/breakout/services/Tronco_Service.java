@@ -8,14 +8,13 @@ package it.breakout.services;
 import it.breakout.models.Collegamento;
 import it.breakout.models.Scala;
 import it.breakout.models.Tronco;
+import it.breakout.models.Beacon;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
-import it.breakout.models.Beacon;
 
 import static it.breakout.utility.EnvVariables.DB_PSW;
 import static it.breakout.utility.EnvVariables.DB_URL;
@@ -158,6 +157,39 @@ public class Tronco_Service {
         return arcs;
     }
     
+    public Tronco findArcByID(Integer search_id) {
+        
+        ResultSet rs = null;
+        Tronco tronco = new Tronco();
+
+        try {
+
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where "
+                    + FIELD_ID + "= ?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, search_id);
+            rs = st.executeQuery();
+            
+            while(rs.next()) {
+                tronco.setID(rs.getInt(FIELD_ID));
+                tronco.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
+                tronco.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                tronco.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
+                tronco.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
+                tronco.setCodice();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+        
+        return tronco;
+
+    }
+    
     public Tronco findArcByNodi(Integer id_nodo_1, Integer id_nodo_2) {
         
         ResultSet rs = null;
@@ -176,13 +208,11 @@ public class Tronco_Service {
             
             while(rs.next()) {
                 tronco.setID(rs.getInt(FIELD_ID));
-                Integer[] nodi = null;
-                nodi[0] = rs.getInt(FIELD_ID_N1);
-                nodi[1] = rs.getInt(FIELD_ID_N2);
-                tronco.setNodiInteger(nodi[0], nodi[1]);
-                tronco.setLarghezza_media();
-                tronco.setBeacon(getBeacon(rs.getInt(FIELD_ID_BEACON)));
-                tronco.setCosto_totale();
+                tronco.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
+                tronco.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                tronco.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
+                tronco.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
+                tronco.setCodice();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -258,6 +288,37 @@ public class Tronco_Service {
             st.setInt(3, nodi[1]);
             st.setInt(4, tronco.getID_beacon());
             st.setInt(5, tronco.getID_mappa());            
+
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
+    public void update(Tronco tronco, Integer id_tronco) {
+        
+        try {
+            
+            open();
+            
+            String query = "update " + TBL_NAME + " set "
+                    + FIELD_LUNGHEZZA + "=?, "
+                    + FIELD_ID_N1 + "=?, "
+                    + FIELD_ID_N2 + "=?, "
+                    + FIELD_ID_BEACON + "=? "
+                    + "where " + FIELD_ID + "=?";
+            
+            Integer[] nodi = tronco.getNodiInteger();
+            
+            st = conn.prepareStatement(query);
+            st.setDouble(1, 999);
+            st.setInt(2, nodi[0]);
+            st.setInt(3, nodi[1]);
+            st.setInt(4, tronco.getID_beacon());
+            st.setInt(5, id_tronco);            
 
             st.executeUpdate();
             

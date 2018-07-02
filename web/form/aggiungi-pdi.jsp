@@ -26,7 +26,7 @@
                     <form action="DBModify" method="post">
                         <table class="table table-borderless">
                             <tr><td>Codice:</td><td>
-                                    <input type="text" name="codice" placeholder="Inserisci Codice"
+                                    <input type="text" name="codice" placeholder=" es. 155DICEA"
                                            size="30" autofocus="true" required></td></tr>
                             <tr><td>Coord. X:</td>
                                 <td><input type="text" name="coord-x" placeholder=" es."
@@ -41,10 +41,9 @@
                                     <input type="text" name="larghezza" placeholder=" es."
                                            size="30" required></td></tr>
                             <tr><td>Tipo:</td><td>
-                                    <select name='tipo' required>
-                                        <option selected value="Aula">Aula</option>
-                                        <option value="Punto Di Ritrovo">Punto di Ritrovo</option>
-                                    </select></td></tr>
+                                    <textarea rows="2" cols="32" name="tipo"
+                                              required placeholder=" Breve descrizione"
+                                              style="resize: none"></textarea></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere il PDI-->
                         <div class="modal-footer">

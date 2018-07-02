@@ -130,7 +130,7 @@
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-danger" type='submit' value='Elimina piano' name='elimina-piano'>
+                                <input class="btn btn-danger" type='submit' value='Elimina piano'>
                                 <input type="hidden" name="id_piano" value="">
                                 <input type="hidden" name="azione" value="elimina-piano">
                                 <input type="hidden" name="modalita" value="mappe">

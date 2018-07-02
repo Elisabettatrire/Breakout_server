@@ -65,10 +65,12 @@ public class DBModify extends HttpServlet {
     private Tronco_Resource tronco_resource = new Tronco_Resource();
     private Tronco tronco = new Tronco();
     private Tronco tronco_old = new Tronco();
-    private String codice_nodo_1;
-    private String codice_nodo_2;
     private Integer id_nodo_1;
     private Integer id_nodo_2;
+    private String id_n1_str;
+    private String id_n2_str;
+    private String id_beac_str;
+    private Integer id_tronco;
     
     /* Variabili per inserimento-modifica-eliminazione nodo-pdi */
     private Nodo_Resource nodo_resource = new Nodo_Resource();
@@ -167,6 +169,8 @@ public class DBModify extends HttpServlet {
                     
                     rd = request.getRequestDispatcher("/DBAccess");
                     rd.forward(request, response);
+                    
+                    break;
 
                 case "elimina-piano":
 
@@ -391,16 +395,26 @@ public class DBModify extends HttpServlet {
                 case "aggiungi-tronco":
                     
                     nome_mappa = request.getParameter("nm");
-                    id_nodo_1 = Integer.parseInt(request.getParameter("codice-1"));
-                    id_nodo_2 = Integer.parseInt(request.getParameter("codice-2"));
-                    id_beacon = Integer.parseInt(request.getParameter("codice-beacon"));
+                    
+                    id_n1_str = request.getParameter("codice-1");
+                    id_n2_str = request.getParameter("codice-2");
+                    id_beac_str = request.getParameter("codice-beacon");
+                    
+                    /* Se la validazione lato client non dovesse funzionare si
+                    viene reindirizzati alla pagina di gestione del grafo
+                    */
+                    if(id_n1_str.equals("") || id_n2_str.equals("") || id_beac_str.equals("")) {
+                        rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                        rd.forward(request, response);
+                    }
+                    
+                    id_nodo_1 = Integer.parseInt(id_n1_str);
+                    id_nodo_2 = Integer.parseInt(id_n2_str);
+                    id_beacon = Integer.parseInt(id_beac_str);
                     
                     exists = tronco_resource.findArcByNodi(id_nodo_1, id_nodo_2).getID();
                     
-                    if(id_nodo_1 != null
-                            && id_nodo_2 != null
-                            && id_beacon != null
-                            && exists == null){
+                    if(exists == null){
                         
                         id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
                         
@@ -419,6 +433,40 @@ public class DBModify extends HttpServlet {
                     break;
                     
                 case "modifica-tronco":
+                    
+                    nome_mappa = request.getParameter("nm");
+                    id_n1_str = request.getParameter("codice-1");
+                    id_n2_str = request.getParameter("codice-2");
+                    id_beac_str = request.getParameter("codice-beacon");
+                    
+                    id_tronco = Integer.parseInt(request.getParameter("id_tronco"));
+                    
+                    /* Visto che i campi da controllare sono più di uno ho bisogno
+                    di un oggetto che contenga i vecchi valori
+                    */
+                    tronco_old = tronco_resource.findArcByID(id_tronco);
+                    Integer[] nodi_old = tronco_old.getNodiInteger();
+                    
+                    /* Controllo campi */
+                    //exists = tronco_resource.findArcByNodi(id_nodo_1, id_nodo_2).getID();
+                    if(!id_n1_str.equals("invariato") && !id_n1_str.equals("invariato")) {
+                        tronco.setNodiInteger(Integer.parseInt(id_n1_str), Integer.parseInt(id_n2_str));
+                    } else{
+                        tronco.setNodiInteger(nodi_old[0], nodi_old[1]);
+                    }
+                    
+                    if(!id_beac_str.equals("invariato")) {
+                        tronco.setID_beacon(Integer.parseInt(id_beac_str));
+                    } else {
+                        tronco.setID_beacon(tronco_old.getID_beacon());
+                    }
+                    
+                    tronco_resource.update(tronco, id_tronco);
+                    
+                    exists = null;
+                    
+                    rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                    rd.forward(request, response);
                     
                     break;
                     

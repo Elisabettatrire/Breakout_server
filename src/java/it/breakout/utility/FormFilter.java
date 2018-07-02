@@ -5,7 +5,8 @@
  */
 package it.breakout.utility;
 
-import static it.breakout.utility.EnvVariables.*;
+import static it.breakout.utility.EnvVariables.DEFAULT_STRING;
+import static it.breakout.utility.EnvVariables.DEFAULT_DOUBLE;
 
 /**
  *
@@ -75,6 +76,12 @@ public class FormFilter {
         if(filtered != null && !filtered.isEmpty()) {
             return filtered; // Lettere maiuscole
         } else return DEFAULT_STRING;
+    }
+    
+    public String filtraStringaVuota(String input_string) {
+        if(input_string.equals("")) {
+            return DEFAULT_STRING;
+        } else return input_string;
     }
     
 }

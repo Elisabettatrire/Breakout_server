@@ -35,11 +35,9 @@
                                     <input type="text" name="larghezza" size="30"
                                            placeholder=" (invariato)"></td></tr>
                             <tr><td>Tipo:</td><td>
-                                <select name="tipo">
-                                    <option selected hidden value="invariato">(invariato)</option>
-                                    <option value="Aula">Aula</option>
-                                    <option value="Punto Di Ritrovo">Punto di Ritrovo</option>
-                                </select></td></tr>
+                                <textarea rows="2" cols="32" name="tipo"
+                                          placeholder=" (invariato)"
+                                          style="resize: none"></textarea></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiornare il PDI-->
                         <div class="modal-footer">

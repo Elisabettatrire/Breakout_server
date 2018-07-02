@@ -26,6 +26,7 @@
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
         <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
         <script src="static/js/disable-select.js" type="text/javascript"></script>
+        <script src="static/js/select-old-value.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -91,6 +92,7 @@
                             <c:set var="lunghezza" value="${tronco.getLunghezza()}"/>
                             <c:set var="nodi" value="${tronco.getNodiInteger()}"/>
                             <c:set var="id_tronco" value="${tronco.getID()}"/>
+                            <c:set var="bundle" value="${id_tronco}-${nodi[0]}-${nodi[1]}-${tronco.getID_beacon()}"/>
                             <tr><td>${codice_tronco}</td><td>${lunghezza}</td><td>${nodi[0]}</td>
                                 <td>${nodi[1]}</td>
                                 <td><button id="mod-${id_tronco}" class="btn btn-outline-dark btn-sm"
@@ -99,6 +101,9 @@
                                 <td><button id="del-${id_tronco}" class="btn btn-outline-danger btn-sm"
                                             data-toggle="modal" data-target="#modal-elimina-tronco">
                                         <span class="fas fa-trash-alt"></span></button></td></tr>
+                                <!-- Questo paragrafo nascosta serve per il js che
+                                disabilita le select -->
+                                <p style="display: none" id="${bundle}"></p>
                         </c:forEach>
                     </table>
                     <div style="text-align: right; margin-top: 10px">
