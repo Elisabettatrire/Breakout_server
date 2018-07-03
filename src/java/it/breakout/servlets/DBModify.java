@@ -93,6 +93,7 @@ public class DBModify extends HttpServlet {
     private String lunghezza;
     private Double lunghezza_filtered;
     private String tipo;
+    private String tipo_filtered;
  
     /* Variabili per inserimento-modifica-eliminazione beacon */
     private Beacon_Resource beacon_resource = new Beacon_Resource();
@@ -496,6 +497,7 @@ public class DBModify extends HttpServlet {
                     coord_y_filtered = form_filter.filtraCoordinata(coord_y);
                     larghezza_filtered = form_filter.filtraMisura(larghezza);
                     lunghezza_filtered = form_filter.filtraMisura(lunghezza);
+                    tipo_filtered = form_filter.filtraTextArea(tipo);
                     
                     exists = nodo_resource.findByCodice(codice_pdi_filtered).getID();
                     
@@ -504,6 +506,7 @@ public class DBModify extends HttpServlet {
                             && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
                             && !Objects.equals(larghezza_filtered, DEFAULT_DOUBLE)
                             && !Objects.equals(lunghezza_filtered, DEFAULT_DOUBLE)
+                            && !Objects.equals(tipo_filtered, DEFAULT_STRING)
                             && exists == null){
                         
                         id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
@@ -514,7 +517,7 @@ public class DBModify extends HttpServlet {
                         pdi.setLarghezza(larghezza_filtered);
                         pdi.setLunghezza(lunghezza_filtered);
                         pdi.setID_mappa(id_mappa);
-                        pdi.setTipo(tipo);
+                        pdi.setTipo(tipo_filtered);
                         
                         nodo_resource.insertPdi(pdi);
                         
@@ -548,6 +551,7 @@ public class DBModify extends HttpServlet {
                     coord_y_filtered = form_filter.filtraCoordinata(coord_y);
                     larghezza_filtered = form_filter.filtraMisura(larghezza);
                     lunghezza_filtered = form_filter.filtraMisura(lunghezza);
+                    tipo_filtered = form_filter.filtraTextArea(tipo);
                     
                     /* Controllo campi */
                     exists = nodo_resource.findByCodice(codice_pdi_filtered).getID();
@@ -581,8 +585,8 @@ public class DBModify extends HttpServlet {
                         pdi.setLunghezza(pdi_old.getLunghezza());
                     }
                     
-                    if(tipo.equals(TIPO_INV)) {
-                        pdi.setTipo(tipo);
+                    if(!tipo_filtered.equals(DEFAULT_STRING)) {
+                        pdi.setTipo(tipo_filtered);
                     } else {
                         pdi.setTipo(pdi_old.getTipo());
                     }

@@ -262,7 +262,7 @@ public class Nodo_Service {
             open();
             
             String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + "=? AND "
-                    + FIELD_IS_PDI + "=true order by " + FIELD_CODICE;;
+                    + FIELD_IS_PDI + "=true order by " + FIELD_CODICE;
             st = conn.prepareStatement(query);
             st.setInt(1, search_id);
             rs = st.executeQuery();
@@ -275,7 +275,7 @@ public class Nodo_Service {
                 pdi.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 pdi.setLarghezza(rs.getDouble(FIELD_WIDTH));
                 pdi.setLunghezza(rs.getDouble(FIELD_LENGTH));
-                pdi.setID_mappa(rs.getInt(search_id));
+                pdi.setID_mappa(search_id);
                 pdis.add(pdi);
             }
         } catch (SQLException e) {

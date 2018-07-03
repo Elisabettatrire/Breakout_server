@@ -34,6 +34,11 @@
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
                                         <option value="${id_nodo}">${codice_nodo}</option>
                                     </c:forEach>
+                                    <c:forEach items="${requestScope.pdis}" var="pdi">
+                                        <c:set var="codice_pdi" value="${pdi.getCodice()}" />
+                                        <c:set var="id_pdi" value="${pdi.getID()}" />
+                                        <option value="${id_pdi}">${codice_pdi}</option>
+                                    </c:forEach>
                                 </select></td></tr>
                             <tr><td>Codice Nodo 2:</td><td>
                                 <select name="codice-2" required>
@@ -42,6 +47,11 @@
                                         <c:set var="codice_nodo" value="${nodo.getCodice()}" />
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
                                         <option value="${id_nodo}">${codice_nodo}</option>
+                                    </c:forEach>
+                                    <c:forEach items="${requestScope.pdis}" var="pdi">
+                                        <c:set var="codice_pdi" value="${pdi.getCodice()}" />
+                                        <c:set var="id_pdi" value="${pdi.getID()}" />
+                                        <option value="${id_pdi}">${codice_pdi}</option>
                                     </c:forEach>
                                 </select></td></tr>
                             <tr><td>Codice Beacon:</td><td>

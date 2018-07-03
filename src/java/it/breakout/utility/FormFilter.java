@@ -24,6 +24,18 @@ public class FormFilter {
         } else return DEFAULT_STRING;
     }
     
+    public String filtraTextArea(String input_text) {
+        
+        /* Rimozione caratteri speciali */
+        String filtered = input_text.replaceAll("[^\\sA-Za-z0-9.,:;]","");
+        /* Rimozione spazi all'inizio e alla fine */
+        String trimmed = filtered.trim();
+        
+        if(trimmed != null && !trimmed.isEmpty()) {
+            return trimmed;
+        } else return DEFAULT_STRING;
+    }
+    
     public String filtraQuota(String input_quota) {
         
         /* Rimozione caratteri speciali e lettere*/
