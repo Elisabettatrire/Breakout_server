@@ -27,23 +27,24 @@
                         <table class="table table-borderless">
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" placeholder=" es. 155DICEA"
-                                           size="30" autofocus="true" required></td></tr>
+                                           size="30" autofocus="true" required maxlength="15"></td></tr>
                             <tr><td>Coord. X:</td>
                                 <td><input type="text" name="coord-x" placeholder=" es."
                                            size="30" required></td></tr>
                             <tr><td>Coord. Y:</td><td>
                                     <input type="text" name="coord-y" placeholder=" es."
-                                           size="30" required></td></tr>
+                                           size="30" maxlength="15" required></td></tr>
                             <tr><td>Lunghezza:</td><td>
                                     <input type="text" name="lunghezza" placeholder=" es."
-                                           size="30" required></td></tr>
+                                           size="30" maxlength="15" required></td></tr>
                             <tr><td>Larghezza:</td><td>
                                     <input type="text" name="larghezza" placeholder=" es."
-                                           size="30" required></td></tr>
+                                           size="30" maxlength="15" required></td></tr>
                             <tr><td>Tipo:</td><td>
                                     <textarea rows="2" cols="32" name="tipo"
                                               required placeholder=" Breve descrizione"
-                                              style="resize: none"></textarea></td></tr>
+                                              style="resize: none" maxlength="70">
+                                    </textarea></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere il PDI-->
                         <div class="modal-footer">

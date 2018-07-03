@@ -7,7 +7,7 @@ package it.breakout.models;
 
 import java.util.ArrayList;
 
-import it.breakout.services.Nodo_Service;
+import it.breakout.resources.Nodo_Resource;
 
 /**
  *
@@ -41,6 +41,20 @@ public class Scala {
 
     public Integer[] getNodiInteger() {
         return nodi_int;
+    }
+    
+    public String[] getCodiciNodi() {
+        
+        String[] codici = new String[2];
+        Nodo_Resource nodo_resource = new Nodo_Resource();
+        
+        Nodo nodo1 = nodo_resource.findByID(this.nodi_int[0]);
+        Nodo nodo2 = nodo_resource.findByID(this.nodi_int[1]);
+        
+        codici[0] = nodo1.getCodice();
+        codici[1] = nodo2.getCodice();
+        
+        return codici;
     }
 
     public void setNodiInteger(Integer nodo_1, Integer nodo_2) {
@@ -119,7 +133,7 @@ public class Scala {
     }
 
     private void setNodi() {
-        Nodo_Service nodoSrv = new Nodo_Service();
+        Nodo_Resource nodoSrv = new Nodo_Resource();
         nodi.add(nodoSrv.findByID(nodi_int[0]));
         nodi.add(nodoSrv.findByID(nodi_int[1]));
     }

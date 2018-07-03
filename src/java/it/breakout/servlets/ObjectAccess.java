@@ -76,18 +76,18 @@ public class ObjectAccess extends HttpServlet {
                     
                 case "mappa":
                     /* Reindirizzamento pagina di gestione mappa */
-                    Beacon_Resource beacon_resource = new Beacon_Resource();
+                    //Beacon_Resource beacon_resource = new Beacon_Resource();
                     Mappa_Resource mappa_resource_2 = new Mappa_Resource();
                     Piano_Resource piano_resource2 = new Piano_Resource();
                     
-                    ArrayList<Beacon> al_beacon = beacon_resource.findAll();
+                    //ArrayList<Beacon> al_beacon = beacon_resource.findAll();
                     Mappa mappa_search1 = mappa_resource_2.findByNome(identificatore);
                     id_mappa = mappa_search1.getID_mappa();
                     url_immagine = mappa_search1.getUrlImmagine();
                     quota = piano_resource2.findById(mappa_search1.getID_piano()).getQuota();
                     
                     request.setAttribute("nome", identificatore);
-                    request.setAttribute("beacons", al_beacon);
+                    //request.setAttribute("beacons", al_beacon);
                     request.setAttribute("quota", quota);
                     request.setAttribute("id_mappa", id_mappa);
                     request.setAttribute("url_immagine", url_immagine);
@@ -120,6 +120,7 @@ public class ObjectAccess extends HttpServlet {
                     request.setAttribute("pdis", al_pdis);
                     request.setAttribute("quota", quota);
                     request.setAttribute("al_beacon", al_beacon_2);
+                    request.setAttribute("nodo_resource", nodo_resource);
                     
                     rd = request.getRequestDispatcher("gestione-grafo.jsp");
                     rd.forward(request, response);

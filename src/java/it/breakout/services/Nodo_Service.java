@@ -146,7 +146,7 @@ public class Nodo_Service {
                 nodo.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 nodo.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 nodo.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
-                nodo.setTronchi_stella_int(getStar_Integer(search_id));
+                //nodo.setTronchi_stella_int(getStar_Integer(search_id));
                 nodo.setLarghezza(rs.getDouble(FIELD_WIDTH));
             }
         } catch (SQLException e) {
@@ -178,7 +178,7 @@ public class Nodo_Service {
                 pdi.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 pdi.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 pdi.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
-                pdi.setTronchi_stella_int(getStar_Integer(search_id));
+                //pdi.setTronchi_stella_int(getStar_Integer(search_id));
                 pdi.setLarghezza(rs.getDouble(FIELD_WIDTH));
                 pdi.setLunghezza(rs.getDouble(FIELD_LENGTH));
                 
@@ -211,7 +211,7 @@ public class Nodo_Service {
                 nodo.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 nodo.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 nodo.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
-                nodo.setTronchi_stella_int(getStar_Integer(rs.getInt(FIELD_ID)));
+                //nodo.setTronchi_stella_int(getStar_Integer(rs.getInt(FIELD_ID)));
                 nodo.setLarghezza(rs.getDouble(FIELD_WIDTH));
             }
         } catch (SQLException e) {

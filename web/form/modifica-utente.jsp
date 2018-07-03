@@ -19,10 +19,12 @@
             <div class="modal-body">
                 <form action="DBModify" method="post" id="form-mod-piano">
                     <table class="table table-borderless">
-                        <tr><td>Nuova password:</td><td><input type="password" name="psw" size="30"
-                                                              autofocus="true"></td></tr>
-                        <tr><td>Conferma password:</td><td><input type="password" name="psw-confirm"
-                                                                 size="30"></td></tr>
+                        <tr><td>Nuova password:</td>
+                            <td><input type="password" name="psw" size="30"
+                                        maxlength="15" autofocus="true"></td></tr>
+                        <tr><td>Conferma password:</td>
+                            <td><input type="password" name="psw-confirm"
+                                        maxlength="15" size="30"></td></tr>
                         <input type="hidden" name="id_utente" value="">
                         <input type="hidden" name="azione" value="modifica-utente">
                         <input type="hidden" name="modalita" value="utenti">

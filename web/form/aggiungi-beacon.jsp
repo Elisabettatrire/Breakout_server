@@ -27,25 +27,25 @@
                         <table class="table table-borderless">
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" placeholder=" es. 150G2"
-                                           size="30" autofocus="true" required></td></tr>
+                                           size="30" autofocus="true" maxlength="15" required></td></tr>
                             <tr><td>Coord. X:</td><td>
                                     <input type="text" name="coord-x" required
-                                            placeholder=" es. 129" size="30"></td></tr>
+                                            placeholder=" es. 129" size="30" maxlength="15"></td></tr>
                             <tr><td>Coord. Y:</td><td>
                                     <input type="text" name="coord-y" required
-                                            placeholder=" es. 465" size="30"></td></tr>
+                                            placeholder=" es. 465" size="30" maxlength="15"></td></tr>
                             <tr><td>Fuoco?:</td><td>
                                     <input type="text" name="fuoco" placeholder=""
-                                            size="30" required></td></tr>
+                                            size="30" maxlength="15" required></td></tr>
                             <tr><td>Fumi?:</td><td>
                                     <input type="text" name="fumi" placeholder=""
-                                            size="30" required></td></tr>
+                                            size="30" maxlength="15" required></td></tr>
                             <tr><td>NDC?:</td><td>
                                     <input type="text" name="ndc" placeholder=""
-                                            size="30" required></td></tr>
+                                            size="30" maxlength="15" required></td></tr>
                             <tr><td>Rischio?:</td><td>
                                     <input type="text" name="rischio" placeholder=""
-                                            size="30" required></td></tr>
+                                            size="30" maxlength="15" required></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere il nodo -->
                         <div class="modal-footer">

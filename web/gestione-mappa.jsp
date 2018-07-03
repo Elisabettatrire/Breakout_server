@@ -37,68 +37,45 @@
                     <c:set var="nome" value="${requestScope.nome}" />
                     <h2>Gestione Mappa ${nome}</h2>
                     <br>
-                    <br>
-                    <!--Bottoni per la gestione dei beacon e dei grafi-->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <form action="ObjectAccess" method="POST">
-                                <input type="submit" value="Gestione Beacon" class="btn btn-outline-dark"
-                                       style="font-weight: bold">
-                                <input type="hidden" name="obj" value="beacon">
-                                <input type="hidden" name="nm" value="${requestScope.id_mappa}">
-                            </form>
-                        </div>
-                        <div class="col-md-6" style="text-align: right">
-                            <form action="ObjectAccess" method="POST">
-                                <input type="submit" value="Gestione Grafo" class="btn btn-outline-dark"
-                                       style="font-weight: bold">
-                                <input type="hidden" name="obj" value="grafo">
-                                <input type="hidden" name="nm" value="${nome}">
-                            </form>
-                        </div>
-                    </div>
-                    <br><br>
-                    <!--Tabella dei beacon e dei tronchi presenti nella mappa-->
-                    <table class="table table-bordered table-striped" style="text-align: center">
-                        <thead>
-                            <tr><th>Nome beacon</th><th>Codice Tronco/codice PDI</th></tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${requestScope.al_beacon}" var="beacon">
-                                <c:set var="id_beacon" value="${beacon.getID_beacon()}"/>
-                                <tr><td>Beacon B${id_beacon}</td><td><i>Codice tronco</i></td></tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
-                    <div style="text-align: right">
-                        <button  id="agg-collegamento" type="button" class="btn btn-outline-success"
-                                 data-toggle="modal" data-target="#agg-coll">
-                            <b>Aggiungi collegamento</b></button>
-                    </div>
-                    <c:set var="quota" value="${requestScope.quota}" />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-secondary">
-                                <a href="ObjectAccess?obj=piano&nm=${quota}"
-                                   style="color: inherit; text-decoration: none">
-                                    < Gestione Piano</a>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <!--Immagine dell mappa fs:990x1572-->
-                <c:set var = "url_img" value = "${requestScope.url_immagine}" />
-                <div class="col-md-6" >  
-                    <!-- Immagine scalata al 50% -->
-                    <img src="images/${url_img}" width="495" height="786">
                 </div>
             </div>
+            <!--Bottoni per la gestione dei beacon e dei grafi-->
+            <div class="row">
+                <c:set var="quota" value="${requestScope.quota}" />
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-secondary" style="margin-bottom: 20px">
+                        <a href="ObjectAccess?obj=piano&nm=${quota}"
+                           style="color: inherit; text-decoration: none">
+                            < Gestione Piano</a>
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <form action="ObjectAccess" method="POST">
+                        <input type="submit" value="Gestione Beacon" class="btn btn-outline-dark"
+                               style="font-weight: bold">
+                        <input type="hidden" name="obj" value="beacon">
+                        <input type="hidden" name="nm" value="${requestScope.id_mappa}">
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <form action="ObjectAccess" method="POST">
+                        <input type="submit" value="Gestione Grafo" class="btn btn-outline-dark"
+                               style="font-weight: bold">
+                        <input type="hidden" name="obj" value="grafo">
+                        <input type="hidden" name="nm" value="${nome}">
+                    </form>
+                </div>
+            </div>
+            <br>
             
-            
+            <!--Immagine della mappa fs:990x1572-->
+            <div class="row">
+                <c:set var = "url_img" value = "${requestScope.url_immagine}" />
+                <div class="col-md-12" style="text-align: center; margin-bottom: 20px">
+                    <img src="images/${url_img}" width="990" height="1572">
+                </div>
+            </div>
         </div>
-        
-        <!-- Modal Form Aggiungi Collegamento -->
-        <%@include file="form/aggiungi-collegamento.jsp"%>
         
         <!-- Footer -->
         <%@include file="footer.html" %>

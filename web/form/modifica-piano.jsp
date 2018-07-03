@@ -26,7 +26,8 @@
                     <form action="DBModify" method="post" id="form-mod-piano">
                         <table class='table table-borderless'><tr><td>Quota:</td>
                                 <td><input autofocus="true" type='text' name='quota'
-                                           size="30" placeholder="&nbsp;(invariato)">
+                                           maxlength="15" size="30"
+                                           placeholder="&nbsp;(invariato)">
                         </td></table>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>

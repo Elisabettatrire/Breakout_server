@@ -28,7 +28,7 @@
                         <table class='table table-borderless'>
                             <tr><td>Lunghezza (m):</td>
                                 <td><input type='text' name='lunghezza' size="30" required
-                                    autofocus="true" placeholder='&nbsp;es. 25'></td>
+                                    autofocus="true" maxlength="15" placeholder='&nbsp;es. 25'></td>
                             <tr><td>Cod. Nodo 1:</td><td><input type='text' required
                                     placeholder='&nbsp;es. 145UA5' name='nodo_1' size="30"></td>
                             <tr><td>Cod. Nodo 2:</td><td><input type='text' required

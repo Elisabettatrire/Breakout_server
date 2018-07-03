@@ -24,19 +24,19 @@
                                            placeholder=" (invariato)" autofocus="true"></td></tr>
                             <tr><td>Coord. X:</td>
                                 <td><input type="text" name="coord-x" size="30"
-                                           placeholder=" (invariato)"></td></tr>
+                                           maxlength="15" placeholder=" (invariato)"></td></tr>
                             <tr><td>Coord. Y:</td><td>
                                     <input type="text" name="coord-y" size="30"
-                                           placeholder=" (invariato)"></td></tr>
+                                           maxlength="15" placeholder=" (invariato)"></td></tr>
                             <tr><td>Lunghezza:</td><td>
                                     <input type="text" name="lunghezza" size="30"
-                                           placeholder=" (invariato)"></td></tr>
+                                           maxlength="15" placeholder=" (invariato)"></td></tr>
                             <tr><td>Larghezza:</td><td>
                                     <input type="text" name="larghezza" size="30"
-                                           placeholder=" (invariato)"></td></tr>
+                                           maxlength="15" placeholder=" (invariato)"></td></tr>
                             <tr><td>Tipo:</td><td>
                                 <textarea rows="2" cols="32" name="tipo"
-                                          placeholder=" (invariato)"
+                                          placeholder=" (invariato)" maxlength="70"
                                           style="resize: none"></textarea></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiornare il PDI-->

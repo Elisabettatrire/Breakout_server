@@ -21,16 +21,16 @@
                     <form action="DBModify" method="post" id="form-mod-nodo">
                         <table class="table table-borderless" style="margin-left: auto; margin-right: auto">
                             <tr><td>Codice:</td><td>
-                                    <input type="text" name="codice" size="30"
+                                    <input type="text" name="codice" maxlength="15" size="30"
                                            placeholder="&nbsp;(invariato)" autofocus="true"></td></tr>
                             <tr><td>Coord. X:</td><td>
-                                    <input type="text" name="coord-x" size="30"
+                                    <input type="text" name="coord-x" maxlength="15" size="30"
                                             autofocus="true" placeholder="&nbsp;(invariato)"></td></tr>
                             <tr><td>Coord. Y:</td><td>
-                                    <input type="text" name="coord-y" size="30"
+                                    <input type="text" name="coord-y" maxlength="15" size="30"
                                                 placeholder="&nbsp;(invariato)"></td></tr>
                             <tr><td>Larghezza (m):</td>
-                                <td><input type="text" name="larghezza"size="30"
+                                <td><input type="text" name="larghezza" maxlength="15" size="30"
                                                 placeholder="&nbsp;(invariato)"></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->

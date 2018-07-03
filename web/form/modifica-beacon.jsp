@@ -22,25 +22,25 @@
                         <table class="table table-borderless">
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" placeholder=" es. 150G2"
-                                           size="30" autofocus="true"></td></tr>
+                                           size="30" maxlength="15" autofocus="true"></td></tr>
                             <tr><td>Coord. X:</td><td>
-                                    <input type="text" name="coord-x"
+                                    <input type="text" name="coord-x" maxlength="15" 
                                             placeholder=" (invariato)" size="30"></td></tr>
                             <tr><td>Coord. Y:</td><td>
-                                    <input type="text" name="coord-y"
+                                    <input type="text" name="coord-y" maxlength="15" 
                                             placeholder=" (invariato)" size="30"></td></tr>
                             <tr><td>Fuoco?:</td><td>
                                     <input type="text" name="fuoco" placeholder=" (invariato)"
-                                            size="30"></td></tr>
+                                            maxlength="15" size="30"></td></tr>
                             <tr><td>Fumi?:</td><td>
                                     <input type="text" name="fumi" placeholder=" (invariato)"
-                                            size="30"></td></tr>
+                                            maxlength="15" size="30"></td></tr>
                             <tr><td>NDC?:</td><td>
                                     <input type="text" name="ndc" placeholder=" (invariato)"
-                                            size="30"></td></tr>
+                                            maxlength="15" size="30"></td></tr>
                             <tr><td>Rischio?:</td><td>
                                     <input type="text" name="rischio" placeholder=" (invariato)"
-                                            size="30"></td></tr>
+                                            maxlength="15" size="30"></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
                         <div class="modal-footer">

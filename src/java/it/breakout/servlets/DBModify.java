@@ -404,7 +404,10 @@ public class DBModify extends HttpServlet {
                     /* Se la validazione lato client non dovesse funzionare si
                     viene reindirizzati alla pagina di gestione del grafo
                     */
-                    if(id_n1_str.equals("") || id_n2_str.equals("") || id_beac_str.equals("")) {
+                    if(id_n1_str.equals("")
+                            || id_n2_str.equals("")
+                            || id_beac_str.equals("")
+                            || id_n1_str.equals(id_n2_str)) {
                         rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
                         rd.forward(request, response);
                     }
@@ -414,6 +417,7 @@ public class DBModify extends HttpServlet {
                     id_beacon = Integer.parseInt(id_beac_str);
                     
                     exists = tronco_resource.findArcByNodi(id_nodo_1, id_nodo_2).getID();
+                    exists = tronco_resource.findArcByNodi(id_nodo_2, id_nodo_1).getID();
                     
                     if(exists == null){
                         
@@ -448,19 +452,31 @@ public class DBModify extends HttpServlet {
                     tronco_old = tronco_resource.findArcByID(id_tronco);
                     Integer[] nodi_old = tronco_old.getNodiInteger();
                     
+                    /* Se la validazione lato client non dovesse funzionare si
+                    viene reindirizzati alla pagina di gestione del grafo
+                    */
+                    if(id_n1_str.equals("")
+                            || id_n2_str.equals("")
+                            || id_beac_str.equals("")
+                            || id_n1_str.equals(id_n2_str)) {
+                        rd = request.getRequestDispatcher("/ObjectAccess?obj=grafo&nm="+nome_mappa);
+                        rd.forward(request, response);
+                    }
+                    
+                    id_nodo_1 = Integer.parseInt(id_n1_str);
+                    id_nodo_2 = Integer.parseInt(id_n2_str);
+                    id_beacon = Integer.parseInt(id_beac_str);
+                    
+                    exists = tronco_resource.findArcByNodi(id_nodo_1, id_nodo_2).getID();
+                    exists = tronco_resource.findArcByNodi(id_nodo_2, id_nodo_1).getID();
                     /* Controllo campi */
-                    //exists = tronco_resource.findArcByNodi(id_nodo_1, id_nodo_2).getID();
-                    if(!id_n1_str.equals("invariato") && !id_n1_str.equals("invariato")) {
-                        tronco.setNodiInteger(Integer.parseInt(id_n1_str), Integer.parseInt(id_n2_str));
+                    if(exists == null) {
+                        tronco.setNodiInteger(id_nodo_1, id_nodo_2);
                     } else{
                         tronco.setNodiInteger(nodi_old[0], nodi_old[1]);
                     }
                     
-                    if(!id_beac_str.equals("invariato")) {
-                        tronco.setID_beacon(Integer.parseInt(id_beac_str));
-                    } else {
-                        tronco.setID_beacon(tronco_old.getID_beacon());
-                    }
+                    tronco.setID_beacon(id_beacon);
                     
                     tronco_resource.update(tronco, id_tronco);
                     

@@ -28,7 +28,8 @@
                         <table class="table table-borderless">
                             <tr><td><label>Quota:</label></td>
                                 <td><input autofocus="true" type='text' name='quota'
-                                           size="30" placeholder='&nbsp;es. 155' required>
+                                           size="30" placeholder='&nbsp;es. 155'
+                                           maxlength="15" required>
                         </td></table>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>

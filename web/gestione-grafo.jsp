@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html>
 <html lang="it-IT">
@@ -38,63 +38,92 @@
                 <div class="col-md-12">
                     <c:set var="nome_mappa" value="${requestScope.nome}" />
                     <h2>Mappa ${nome_mappa} - Gestione Grafo</h2>
-                    <br><br>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <form action="ObjectAccess" method="POST">
+                                <input type="submit" value="< Gestione Mappa" class="btn btn-secondary">
+                                <input type="hidden" name="obj" value="mappa">
+                                <input type="hidden" name="nm" value="${requestScope.nome}">
+                            </form>
+                        </div>
+                        <div class="col-md-2">
+                            <form action="ObjectAccess" method="POST">
+                                <input type="submit" value="Gestione Piano" class="btn btn-secondary">
+                                <input type="hidden" name="obj" value="piano">
+                                <input type="hidden" name="nm" value="${requestScope.quota}">
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                    <p>Da questa pagina è possibile gestire i nodi, i tronchi e i punti di interesse relativi
+                    alla mappa.</p>
                 </div>
             </div>
+            <br>
             <div class="row">
                 <div class="col-md-12">
                     <!-- Tabella dei Nodi della mappa -->
-                    <h4>Lista Nodi</h4>
-                        <table class="display" style="width:100%; text-align: center">
-                            <thead>
-                                <tr><th scope="col">Codice</th>
-                                    <th scope="col">Coord. X</th>
-                                    <th scope="col">Coord. Y</th>
-                                    <th scope="col">Larghezza</th>
-                                    <th scope="col">Modifica</th>
-                                    <th scope="col">Elimina</th>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${requestScope.nodi}" var="nodo">
-                                    <c:set var="codice_nodo" value="${nodo.getCodice()}"/>
-                                    <c:set var="id_nodo" value="${nodo.getID()}"/>
-                                    <c:set var="x" value="${nodo.getCoord_X()}"/>
-                                    <c:set var="y" value="${nodo.getCoord_Y()}"/>
-                                    <c:set var="larghezza" value="${nodo.getLarghezza()}"/>
-                                    <tr><td>${codice_nodo}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
-                                        <td><button id="mod-${id_nodo}" class="btn btn-outline-dark btn-sm"
-                                                    data-toggle="modal" data-target="#modal-mod-nodo">
-                                                <span class="fas fa-cog"></span></button></td>
-                                        <td><button id="del-${id_nodo}" class="btn btn-outline-danger btn-sm"
-                                                    data-toggle="modal" data-target="#modal-elimina-nodo">
-                                                <span class="fas fa-trash-alt"></span></button></td></tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                        <div style="text-align: right; margin-top: 10px">
-                            <button type="button" class="btn btn-outline-success"
-                                    data-toggle="modal" data-target="#modal-agg-nodo">
-                                <b>Aggiungi nodo</b>
-                            </button>
-                        </div>
+                    <h4>Lista Nodi&nbsp;&nbsp;
+                        <i data-toggle="tooltip" data-placement="top" style="color: #007bff; font-size: medium"
+                            title="I nodi sono i punti della mappa in cui si incontrano diversi tronchi"
+                            class="fas fa-info-circle" ></i></h4>
+                    <table class="display" style="width:100%; text-align: center">
+                        <thead>
+                            <tr><th scope="col">Codice</th>
+                                <th scope="col">Coord. X</th>
+                                <th scope="col">Coord. Y</th>
+                                <th scope="col">Larghezza</th>
+                                <th scope="col">Modifica</th>
+                                <th scope="col">Elimina</th>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.nodi}" var="nodo">
+                                <c:set var="codice_nodo" value="${nodo.getCodice()}"/>
+                                <c:set var="id_nodo" value="${nodo.getID()}"/>
+                                <c:set var="x" value="${nodo.getCoord_X()}"/>
+                                <c:set var="y" value="${nodo.getCoord_Y()}"/>
+                                <c:set var="larghezza" value="${nodo.getLarghezza()}"/>
+                                <tr><td>${codice_nodo}</td><td>${x}</td><td>${y}</td><td>${larghezza}</td>
+                                    <td><button id="mod-${id_nodo}" class="btn btn-outline-dark btn-sm"
+                                                data-toggle="modal" data-target="#modal-mod-nodo">
+                                            <span class="fas fa-cog"></span></button></td>
+                                    <td><button id="del-${id_nodo}" class="btn btn-outline-danger btn-sm"
+                                                data-toggle="modal" data-target="#modal-elimina-nodo">
+                                            <span class="fas fa-trash-alt"></span></button></td></tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                    <div style="text-align: right; margin-top: 10px">
+                        <button type="button" class="btn btn-outline-success"
+                                data-toggle="modal" data-target="#modal-agg-nodo">
+                            <b>Aggiungi nodo</b>
+                        </button>
+                    </div>
                     <hr>
                     <!-- Tabella dei Tronchi della mappa -->
-                    <h4>Lista Tronchi</h4>
+                    <h4>Lista Tronchi&nbsp;&nbsp;
+                        <i data-toggle="tooltip" data-placement="top" style="color: #007bff; font-size: medium"
+                            title="I tronchi sono i segmenti della mappa che identificano delle porzioni di percorso"
+                            class="fas fa-info-circle" ></i></h4>
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
                                 <th>Codice</th><th>Lunghezza</th><th>Cod. Nodo 1</th>
-                                <th>Cod. Nodo 2</th><th>Modifica</th><th>Elimina</th>
+                                <th>Cod. Nodo 2</th><th>Cod. Beacon</th><th>Modifica</th><th>Elimina</th>
                             </tr>
                         </thead>
+                        
                         <c:forEach items="${requestScope.tronchi}" var="tronco">
                             <c:set var="codice_tronco" value="${tronco.getCodice()}"/>
                             <c:set var="lunghezza" value="${tronco.getLunghezza()}"/>
                             <c:set var="nodi" value="${tronco.getNodiInteger()}"/>
+                            <c:set var="codici_nodi" value="${tronco.getCodiciNodi()}"/>
                             <c:set var="id_tronco" value="${tronco.getID()}"/>
+                            <c:set var="id_beacon" value="${tronco.getID_beacon()}"/>
                             <c:set var="bundle" value="${id_tronco}-${nodi[0]}-${nodi[1]}-${tronco.getID_beacon()}"/>
-                            <tr><td>${codice_tronco}</td><td>${lunghezza}</td><td>${nodi[0]}</td>
-                                <td>${nodi[1]}</td>
+                            <tr><td>${codice_tronco}</td><td>${lunghezza}</td><td>${codici_nodi[0]}</td>
+                                <td>${codici_nodi[1]}</td><td>${id_beacon}</td>
                                 <td><button id="mod-${id_tronco}" class="btn btn-outline-dark btn-sm"
                                             data-toggle="modal" data-target="#modal-mod-tronco">
                                         <span class="fas fa-cog"></span></button></td>
@@ -114,11 +143,12 @@
                     </div>
                     <hr>
                 </div>
-                    
                 <!-- Tabella dei Punti di Interesse-->
                 <div class="col-md-12">
-                    <br><br>
-                    <h4>Lista punti di interesse</h4>
+                    <h4>Lista punti di interesse&nbsp;&nbsp;
+                        <i data-toggle="tooltip" data-placement="top" style="color: #007bff; font-size: medium"
+                            title="I punti di interesse (PDI) sono dei nodi che hanno un'importanza particolare; per questo sono corredati di una breve descrizione"
+                            class="fas fa-info-circle" ></i></h4>
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
@@ -153,22 +183,6 @@
                         data-toggle="modal" data-target="#modal-agg-pdi">
                         <b>Aggiungi PDI</b>
                     </button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <form action="ObjectAccess" method="POST">
-                        <input type="submit" value="< Gestione Mappa" class="btn btn-secondary">
-                        <input type="hidden" name="obj" value="mappa">
-                        <input type="hidden" name="nm" value="${requestScope.nome}">
-                    </form>
-                </div>
-                <div class="col-md-2">
-                    <form action="ObjectAccess" method="POST">
-                        <input type="submit" value="Gestione Piano" class="btn btn-secondary">
-                        <input type="hidden" name="obj" value="piano">
-                        <input type="hidden" name="nm" value="${requestScope.quota}">
-                    </form>
                 </div>
             </div>
         </div>
