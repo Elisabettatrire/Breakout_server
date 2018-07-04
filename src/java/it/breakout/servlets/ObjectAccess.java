@@ -131,14 +131,16 @@ public class ObjectAccess extends HttpServlet {
                     /* Reindirizzamento pagina di gestione beacon della mappa */
                     Mappa_Resource mappa_resource_3 = new Mappa_Resource();
                     Beacon_Resource beacon_resource_1 = new Beacon_Resource();
+                    Piano_Resource piano_resource_2 = new Piano_Resource();
                     
                     id_mappa = Integer.parseInt(identificatore);
                     Mappa mappa_search_2 = mappa_resource_3.findByID(id_mappa);
-                    //quota = piano_resource_1.findById(mappa_search.getID_piano()).getQuota();
+                    quota = piano_resource_2.findById(mappa_search_2.getID_piano()).getQuota();
                     ArrayList<Beacon> al_beacon_1 = beacon_resource_1.findByIDMappa(id_mappa);
                     
                     request.setAttribute("id_mappa", id_mappa);
                     request.setAttribute("al_beacon", al_beacon_1);
+                    request.setAttribute("quota", quota);
                     request.setAttribute("nome_mappa", mappa_search_2.getNome());
                     
                     rd = request.getRequestDispatcher("gestione-beacon.jsp");

@@ -119,11 +119,12 @@
                             <c:set var="lunghezza" value="${tronco.getLunghezza()}"/>
                             <c:set var="nodi" value="${tronco.getNodiInteger()}"/>
                             <c:set var="codici_nodi" value="${tronco.getCodiciNodi()}"/>
+                            <c:set var="codice_beacon" value="${tronco.getCodiceBeacon()}"/>
                             <c:set var="id_tronco" value="${tronco.getID()}"/>
                             <c:set var="id_beacon" value="${tronco.getID_beacon()}"/>
-                            <c:set var="bundle" value="${id_tronco}-${nodi[0]}-${nodi[1]}-${tronco.getID_beacon()}"/>
+                            <c:set var="bundle" value="${id_tronco}-${nodi[0]}-${nodi[1]}-${id_beacon}"/>
                             <tr><td>${codice_tronco}</td><td>${lunghezza}</td><td>${codici_nodi[0]}</td>
-                                <td>${codici_nodi[1]}</td><td>${id_beacon}</td>
+                                <td>${codici_nodi[1]}</td><td>${codice_beacon}</td>
                                 <td><button id="mod-${id_tronco}" class="btn btn-outline-dark btn-sm"
                                             data-toggle="modal" data-target="#modal-mod-tronco">
                                         <span class="fas fa-cog"></span></button></td>
