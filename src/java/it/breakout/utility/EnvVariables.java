@@ -16,6 +16,11 @@ public class EnvVariables {
     public static final String DB_USR = "app";
     public static final String DB_PSW = "app";
     
+    /* URL predefiniti */
+    public static final String URL_PIANO = "ObjectAccess?obj=piano&nm=";
+    public static final String URL_GRAFO = "ObjectAccess?obj=grafo&nm=";
+    public static final String URL_BEACON = "ObjectAccess?obj=beacon&nm=";
+    
     /* Parametri per il filtro form */
     public static final String DEFAULT_STRING = "%empty%";
     public static final Double DEFAULT_DOUBLE = -1e-10;
