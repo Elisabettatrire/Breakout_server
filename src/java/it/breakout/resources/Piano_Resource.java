@@ -16,7 +16,7 @@ public class Piano_Resource {
 	return piano_service.findAll();
     }
     
-    public Piano findById(int search_id) {
+    public Piano findById(Integer search_id) {
         return piano_service.findById(search_id);
     }
     

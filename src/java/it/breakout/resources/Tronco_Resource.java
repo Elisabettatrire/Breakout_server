@@ -29,16 +29,40 @@ public class Tronco_Resource {
         return tronco_service.findArcByID(search_id);
     }
     
-    public Tronco findArcByNodi(Integer codice_nodo_1, Integer codice_nodo_2) {
-        return tronco_service.findArcByNodi(codice_nodo_1, codice_nodo_2);
+    public Scala findStairByID(Integer search_id) {
+        return tronco_service.findStairByID(search_id);
+    }
+    
+    public Collegamento findLinkByID(Integer search_id) {
+        return tronco_service.findLinkByID(search_id);
+    }
+    
+    public Tronco findByNodi(Integer codice_nodo_1, Integer codice_nodo_2) {
+        return tronco_service.findByNodi(codice_nodo_1, codice_nodo_2);
     }
     
     public void insertTronco(Tronco tronco) {
         tronco_service.insertTronco(tronco);
     }
     
+    public void insertScala(Scala scala) {
+        tronco_service.insertScala(scala);
+    }
+    
+    public void insertCollegamento(Collegamento collegamento) {
+        tronco_service.insertCollegamento(collegamento);
+    }
+    
     public void updateTronco(Tronco tronco, Integer id_tronco) {
         tronco_service.updateTronco(tronco, id_tronco);
+    }
+    
+    public void updateScala(Scala scala, Integer id_scala) {
+        tronco_service.updateScala(scala, id_scala);
+    }
+    
+    public void updateCollegamento(Collegamento collegamento, Integer id_collegamento) {
+        tronco_service.updateCollegamento(collegamento, id_collegamento);
     }
     
     public void delete(Integer id_del) {

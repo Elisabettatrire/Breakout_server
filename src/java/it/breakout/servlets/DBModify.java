@@ -23,11 +23,14 @@ import it.breakout.utility.FormFilter;
 import it.breakout.models.Mappa;
 import it.breakout.models.Nodo;
 import it.breakout.models.Tronco;
+import it.breakout.models.Scala;
+import it.breakout.models.Collegamento;
 import it.breakout.models.Pdi;
 import it.breakout.models.Beacon;
 
 import static it.breakout.utility.EnvVariables.DEFAULT_DOUBLE;
 import static it.breakout.utility.EnvVariables.DEFAULT_STRING;
+import static it.breakout.utility.EnvVariables.URL_MAPPE;
 import static it.breakout.utility.EnvVariables.URL_BEACON;
 import static it.breakout.utility.EnvVariables.URL_GRAFO;
 import static it.breakout.utility.EnvVariables.URL_PIANO;
@@ -68,7 +71,7 @@ public class DBModify extends HttpServlet {
                     aggiungiPiano(request);
                     
                     /* Ritorno alla lista dei piani che sarà aggiornata */
-                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd = request.getRequestDispatcher(URL_MAPPE);
                     rd.forward(request, response);
 
                     break;
@@ -77,7 +80,7 @@ public class DBModify extends HttpServlet {
 
                     modificaPiano(request);
                     
-                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd = request.getRequestDispatcher(URL_MAPPE);
                     rd.forward(request, response);
                     
                     break;
@@ -86,7 +89,7 @@ public class DBModify extends HttpServlet {
 
                     eliminaPiano(request);
 
-                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd = request.getRequestDispatcher(URL_MAPPE);
                     rd.forward(request, response);
 
                     break;
@@ -94,17 +97,31 @@ public class DBModify extends HttpServlet {
                 /* Azioni relative alla tabella delle scale */
                 case "aggiungi-scala":
                     
+                    aggiungiScala(request, response);
+                    
+                    rd = request.getRequestDispatcher(URL_MAPPE);
+                    rd.forward(request, response);
+                    
                     break;
                     
                 case "modifica-scala":
+                    
+                    modificaScala(request, response);
+                    
+                    rd = request.getRequestDispatcher(URL_MAPPE);
+                    rd.forward(request, response);
                     
                     break;
                     
                 case "elimina-scala":
                 
+                    eliminaScala(request);
+                    
+                    rd = request.getRequestDispatcher(URL_MAPPE);
+                    rd.forward(request, response);
+                    
                     break;
-                    
-                    
+                     
                 /* Azioni relative alla tabella delle mappe */
                 case "aggiungi-mappa":
 
@@ -142,14 +159,35 @@ public class DBModify extends HttpServlet {
                 /* Azioni relative alla tabella dei collegamenti */
                 case "aggiungi-collegamento":
                     
+                    quota = request.getParameter("nm");
+                    
+                    aggiungiCollegamento(request, response);
+                    
+                    rd = request.getRequestDispatcher(URL_PIANO+quota);
+                    rd.forward(request, response);
+                    
                     break;
                     
                 case "modifica-collegamento":
+                    
+                    quota = request.getParameter("nm");
+                    
+                    modificaCollegamento(request, response);
+                    
+                    rd = request.getRequestDispatcher(URL_PIANO+quota);
+                    rd.forward(request, response);
                     
                     break;
                     
                 case "elimina-collegamento":
                 
+                    quota = request.getParameter("nm");
+
+                    eliminaCollegamento(request);
+                    
+                    rd = request.getRequestDispatcher(URL_PIANO+quota);
+                    rd.forward(request, response);
+                    
                     break;
                     
                 /* Azioni relative alla tabella degli utenti (Pericolo SQLInjection?) */
@@ -157,7 +195,7 @@ public class DBModify extends HttpServlet {
                     
                     modificaUtente(request);
                     
-                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd = request.getRequestDispatcher(URL_MAPPE);
                     rd.forward(request, response);
 
                     break;
@@ -166,7 +204,7 @@ public class DBModify extends HttpServlet {
                     
                     eliminaUtente(request);
 
-                    rd = request.getRequestDispatcher("/DBAccess");
+                    rd = request.getRequestDispatcher(URL_MAPPE);
                     rd.forward(request, response);
 
                     break;
@@ -377,6 +415,115 @@ public class DBModify extends HttpServlet {
         
     }
     
+    public void aggiungiScala(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        Tronco_Resource tronco_resource = new Tronco_Resource();
+        Scala scala = new Scala();
+        
+        String id_n1_str = request.getParameter("codice-1");
+        String id_n2_str = request.getParameter("codice-2");
+        String id_beac_str = request.getParameter("codice-beacon");
+
+        /* Se la validazione lato client non dovesse funzionare si
+        viene reindirizzati alla pagina di gestione del grafo
+        */
+        if(id_n1_str.equals("")
+                || id_n2_str.equals("")
+                || id_beac_str.equals("")
+                || id_n1_str.equals(id_n2_str)) {
+            RequestDispatcher rd = request.getRequestDispatcher(URL_MAPPE);
+            rd.forward(request, response);
+        }
+
+        Integer id_nodo_1 = Integer.parseInt(id_n1_str);
+        Integer id_nodo_2 = Integer.parseInt(id_n2_str);
+        Integer id_beacon = Integer.parseInt(id_beac_str);
+        
+        /* Controllo se esiste già un collegamento che abbia come estremi i nodi selezionati */
+        Integer exists = tronco_resource.findByNodi(id_nodo_1, id_nodo_2).getID();
+        if(exists == null) {
+            exists = tronco_resource.findByNodi(id_nodo_2, id_nodo_1).getID();
+        }
+        
+        if(exists == null){
+
+            scala.setNodiInteger(id_nodo_1, id_nodo_2);
+            scala.setID_beacon(id_beacon);
+
+            tronco_resource.insertScala(scala);
+        }
+
+        exists = null;
+        
+    }
+    
+    public void modificaScala(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        Tronco_Resource tronco_resource = new Tronco_Resource();
+        Scala scala = new Scala();
+        Scala scala_old = new Scala();
+        
+        String id_n1_str = request.getParameter("codice-1");
+        String id_n2_str = request.getParameter("codice-2");
+        String id_beac_str = request.getParameter("codice-beacon");
+
+        Integer id_scala = Integer.parseInt(request.getParameter("id_scala"));
+
+        /* Visto che i campi da controllare sono più di uno ho bisogno
+        di un oggetto che contenga i vecchi valori
+        */
+        scala_old = tronco_resource.findStairByID(id_scala);
+        Integer[] nodi_old = scala_old.getNodiInteger();
+
+        /* Se la validazione lato client non dovesse funzionare si
+        viene reindirizzati alla pagina di gestione del grafo
+        */
+        if(id_n1_str.equals("")
+                || id_n2_str.equals("")
+                || id_beac_str.equals("")
+                || id_n1_str.equals(id_n2_str)) {
+            RequestDispatcher rd;
+            rd = request.getRequestDispatcher(URL_MAPPE);
+            rd.forward(request, response);
+        }
+
+        Integer id_nodo_1 = Integer.parseInt(id_n1_str);
+        Integer id_nodo_2 = Integer.parseInt(id_n2_str);
+        Integer id_beacon = Integer.parseInt(id_beac_str);
+
+        /* Controllo se esiste già un collegamento che abbia come estremi i nodi selezionati
+         * (posso usare la funzione per i tronchi tanto è uguale)
+         */
+        Integer exists = tronco_resource.findByNodi(id_nodo_1, id_nodo_2).getID();
+        if(exists == null) {
+            exists = tronco_resource.findByNodi(id_nodo_2, id_nodo_1).getID();
+        }
+        
+        /* Controllo campi */
+        if(exists == null) {
+            scala.setNodiInteger(id_nodo_1, id_nodo_2);
+        } else{
+            scala.setNodiInteger(nodi_old[0], nodi_old[1]);
+        }
+
+        scala.setID_beacon(id_beacon);
+
+        tronco_resource.updateScala(scala, id_scala);
+
+        exists = null;
+        
+    }
+    
+    public void eliminaScala(HttpServletRequest request) {
+        
+        Tronco_Resource tronco_resource = new Tronco_Resource();
+        
+        tronco_resource.delete(Integer.parseInt(request.getParameter("id_scala")));
+        
+    }
+    
     public void aggiungiMappa(HttpServletRequest request, String quota) {
         
         FormFilter form_filter = new FormFilter();
@@ -435,7 +582,7 @@ public class DBModify extends HttpServlet {
         }
 
         /* Invio query */
-        mappa_resource.update(mappa, id_mappa);
+        mappa_resource.update(mappa, id_mappa_local);
 
         exists = null;
         
@@ -446,6 +593,118 @@ public class DBModify extends HttpServlet {
         Mappa_Resource mappa_resource = new Mappa_Resource();
         
         mappa_resource.delete(Integer.parseInt(request.getParameter("id_mappa")));
+        
+    }
+    
+    public void aggiungiCollegamento(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        Tronco_Resource tronco_resource = new Tronco_Resource();
+        Nodo_Resource nodo_resource = new Nodo_Resource();
+        Collegamento collegamento = new Collegamento();
+        
+        String id_n1_str = request.getParameter("codice-1");
+        String id_n2_str = request.getParameter("codice-2");
+        String id_beac_str = request.getParameter("codice-beacon");
+
+        /* Se la validazione lato client non dovesse funzionare si
+        viene reindirizzati alla pagina di gestione del grafo
+        */
+        if(id_n1_str.equals("")
+                || id_n2_str.equals("")
+                || id_beac_str.equals("")
+                || id_n1_str.equals(id_n2_str)) {
+            RequestDispatcher rd = request.getRequestDispatcher(URL_MAPPE);
+            rd.forward(request, response);
+        }
+
+        Integer id_nodo_1 = Integer.parseInt(id_n1_str);
+        Integer id_nodo_2 = Integer.parseInt(id_n2_str);
+        Integer id_beacon = Integer.parseInt(id_beac_str);
+        Integer id_piano = nodo_resource.findByID(id_nodo_1).getID_piano();
+        
+        /* Controllo se esiste già un collegamento che abbia come estremi i nodi selezionati */
+        Integer exists = tronco_resource.findByNodi(id_nodo_1, id_nodo_2).getID();
+        if(exists == null) {
+            exists = tronco_resource.findByNodi(id_nodo_2, id_nodo_1).getID();
+        }
+        
+        if(exists == null){
+
+            collegamento.setNodiInteger(id_nodo_1, id_nodo_2);
+            collegamento.setID_beacon(id_beacon);
+            collegamento.setID_piano(id_piano);
+
+            tronco_resource.insertCollegamento(collegamento);
+        }
+
+        exists = null;
+        
+    }
+    
+    public void modificaCollegamento(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        Tronco_Resource tronco_resource = new Tronco_Resource();
+        Collegamento collegamento = new Collegamento();
+        Collegamento collegamento_old = new Collegamento();
+        
+        String id_n1_str = request.getParameter("codice-1");
+        String id_n2_str = request.getParameter("codice-2");
+        String id_beac_str = request.getParameter("codice-beacon");
+
+        Integer id_collegamento = Integer.parseInt(request.getParameter("id_collegamento"));
+
+        /* Visto che i campi da controllare sono più di uno ho bisogno
+        di un oggetto che contenga i vecchi valori
+        */
+        collegamento_old = tronco_resource.findLinkByID(id_collegamento);
+        Integer[] nodi_old = collegamento_old.getNodiInteger();
+
+        /* Se la validazione lato client non dovesse funzionare si
+        viene reindirizzati alla pagina di gestione del grafo
+        */
+        if(id_n1_str.equals("")
+                || id_n2_str.equals("")
+                || id_beac_str.equals("")
+                || id_n1_str.equals(id_n2_str)) {
+            RequestDispatcher rd;
+            rd = request.getRequestDispatcher(URL_MAPPE);
+            rd.forward(request, response);
+        }
+
+        Integer id_nodo_1 = Integer.parseInt(id_n1_str);
+        Integer id_nodo_2 = Integer.parseInt(id_n2_str);
+        Integer id_beacon = Integer.parseInt(id_beac_str);
+
+        /* Controllo se esiste già un collegamento che abbia come estremi i nodi selezionati
+         * (posso usare la funzione per i tronchi tanto è uguale)
+         */
+        Integer exists = tronco_resource.findByNodi(id_nodo_1, id_nodo_2).getID();
+        if(exists == null) {
+            exists = tronco_resource.findByNodi(id_nodo_2, id_nodo_1).getID();
+        }
+        
+        /* Controllo campi */
+        if(exists == null) {
+            collegamento.setNodiInteger(id_nodo_1, id_nodo_2);
+        } else{
+            collegamento.setNodiInteger(nodi_old[0], nodi_old[1]);
+        }
+
+        collegamento.setID_beacon(id_beacon);
+
+        tronco_resource.updateCollegamento(collegamento, id_collegamento);
+
+        exists = null;
+        
+    }
+    
+    public void eliminaCollegamento(HttpServletRequest request) {
+        
+        Tronco_Resource tronco_resource = new Tronco_Resource();
+        
+        tronco_resource.delete(Integer.parseInt(request.getParameter("id_collegamento")));
         
     }
     
@@ -480,7 +739,7 @@ public class DBModify extends HttpServlet {
         
         String codice_nodo_filtered = form_filter.filtraCodice(request.getParameter("codice"));
         Double coord_x_filtered = form_filter.filtraCoordinata(request.getParameter("coord-x"));
-        Double coord_y_filtered = form_filter.filtraCoordinata(request.getParameter("coord-Y"));
+        Double coord_y_filtered = form_filter.filtraCoordinata(request.getParameter("coord-y"));
         Double larghezza_filtered = form_filter.filtraMisura(request.getParameter("larghezza"));
 
         Integer exists = nodo_resource.findByCodice(codice_nodo_filtered).getID();
@@ -491,13 +750,14 @@ public class DBModify extends HttpServlet {
                 && !Objects.equals(larghezza_filtered, DEFAULT_DOUBLE)
                 && exists == null){
 
-            Integer id_mappa_local = mappa_resource.findByNome(nome_mappa).getID_mappa();
+            Mappa mappa_local = mappa_resource.findByNome(nome_mappa);
 
             nodo.setCodice(codice_nodo_filtered);
             nodo.setCoord_X(coord_x_filtered);
             nodo.setCoord_Y(coord_y_filtered);
             nodo.setLarghezza(larghezza_filtered);
-            nodo.setID_mappa(id_mappa_local);
+            nodo.setID_mappa(mappa_local.getID_mappa());
+            nodo.setID_piano(mappa_local.getID_piano());
 
             nodo_resource.insertNodo(nodo);
 
@@ -570,6 +830,7 @@ public class DBModify extends HttpServlet {
         
         Tronco_Resource tronco_resource = new Tronco_Resource();
         Mappa_Resource mappa_resource = new Mappa_Resource();
+        Piano_Resource piano_resource = new Piano_Resource();
         Tronco tronco = new Tronco();
         
         String id_n1_str = request.getParameter("codice-1");
@@ -591,19 +852,20 @@ public class DBModify extends HttpServlet {
         Integer id_nodo_2 = Integer.parseInt(id_n2_str);
         Integer id_beacon = Integer.parseInt(id_beac_str);
         
-        /* Controllo se esiste già un tronco che abbia come estremi i nodi selezionati */
-        Integer exists = tronco_resource.findArcByNodi(id_nodo_1, id_nodo_2).getID();
+        /* Controllo se esiste già un collegamento che abbia come estremi i nodi selezionati */
+        Integer exists = tronco_resource.findByNodi(id_nodo_1, id_nodo_2).getID();
         if(exists == null) {
-            exists = tronco_resource.findArcByNodi(id_nodo_2, id_nodo_1).getID();
+            exists = tronco_resource.findByNodi(id_nodo_2, id_nodo_1).getID();
         }
         
         if(exists == null){
 
-            Integer id_mappa_local = mappa_resource.findByNome(nome_mappa).getID_mappa();
-
+            Mappa mappa_local = mappa_resource.findByNome(nome_mappa);
+            
             tronco.setNodiInteger(id_nodo_1, id_nodo_2);
             tronco.setID_beacon(id_beacon);
-            tronco.setID_mappa(id_mappa_local);
+            tronco.setID_mappa(mappa_local.getID_mappa());
+            tronco.setID_piano(mappa_local.getID_piano());
 
             tronco_resource.insertTronco(tronco);
         }
@@ -647,10 +909,10 @@ public class DBModify extends HttpServlet {
         Integer id_nodo_2 = Integer.parseInt(id_n2_str);
         Integer id_beacon = Integer.parseInt(id_beac_str);
 
-        /* Controllo se esiste già un tronco che abbia come estremi i nodi selezionati */
-        Integer exists = tronco_resource.findArcByNodi(id_nodo_1, id_nodo_2).getID();
+        /* Controllo se esiste già un collegamento che abbia come estremi i nodi selezionati */
+        Integer exists = tronco_resource.findByNodi(id_nodo_1, id_nodo_2).getID();
         if(exists == null) {
-            exists = tronco_resource.findArcByNodi(id_nodo_2, id_nodo_1).getID();
+            exists = tronco_resource.findByNodi(id_nodo_2, id_nodo_1).getID();
         }
         
         /* Controllo campi */
@@ -700,14 +962,15 @@ public class DBModify extends HttpServlet {
                 && !Objects.equals(tipo_filtered, DEFAULT_STRING)
                 && exists == null){
 
-            Integer id_mappa_local = mappa_resource.findByNome(nome_mappa).getID_mappa();
+            Mappa mappa_local = mappa_resource.findByNome(nome_mappa);
 
             pdi.setCodice(codice_pdi_filtered);
             pdi.setCoord_X(coord_x_filtered);
             pdi.setCoord_Y(coord_y_filtered);
             pdi.setLarghezza(larghezza_filtered);
             pdi.setLunghezza(lunghezza_filtered);
-            pdi.setID_mappa(id_mappa_local);
+            pdi.setID_mappa(mappa_local.getID_mappa());
+            pdi.setID_piano(mappa_local.getID_piano());
             pdi.setTipo(tipo_filtered);
 
             nodo_resource.insertPdi(pdi);
@@ -806,7 +1069,7 @@ public class DBModify extends HttpServlet {
         Double rischio_filtered = form_filter.filtraMisura(request.getParameter("rischio"));
 
         Integer exists = beacon_resource.findByCodice(codice_beacon_filtered).getID_beacon();
-        Integer id_mappa_local = mappa_resource.findByNome(nome_mappa).getID_mappa();
+        Mappa mappa_local = mappa_resource.findByNome(nome_mappa);
 
         if(!codice_beacon_filtered.equals(DEFAULT_STRING)
                 && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
@@ -824,7 +1087,8 @@ public class DBModify extends HttpServlet {
             beacon.setInd_fumi(fumi_filtered);
             beacon.setInd_NDC(ndc_filtered);
             beacon.setInd_rischio(rischio_filtered);                        
-            beacon.setID_mappa(id_mappa_local);                        
+            beacon.setID_mappa(mappa_local.getID_mappa());
+            beacon.setID_piano(mappa_local.getID_piano());
 
             beacon_resource.insert(beacon);
 
@@ -832,7 +1096,7 @@ public class DBModify extends HttpServlet {
 
         exists = null;
         
-        return id_mappa;
+        return mappa_local.getID_mappa();
         
     }
     
@@ -904,11 +1168,11 @@ public class DBModify extends HttpServlet {
 
         beacon_resource.update(beacon, id_beacon);
 
-        id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
+        Integer id_mappa_local = mappa_resource.findByNome(nome_mappa).getID_mappa();
 
         exists = null;
         
-        return id_mappa;
+        return id_mappa_local;
     }
     
     
@@ -919,9 +1183,9 @@ public class DBModify extends HttpServlet {
         
         beacon_resource.delete(Integer.parseInt(request.getParameter("id_beacon")));
 
-        id_mappa = mappa_resource.findByNome(nome_mappa).getID_mappa();
+        Integer id_mappa_local = mappa_resource.findByNome(nome_mappa).getID_mappa();
         
-        return id_mappa;
+        return id_mappa_local;
         
     }
     

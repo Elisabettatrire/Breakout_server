@@ -105,7 +105,7 @@
                             </tr>
                         </thead>
                         <c:forEach items="${requestScope.collegamenti}" var="collegamento">
-                            <c:set var="codice_tronco" value="${collegamento.getCodice()}"/>
+                            <c:set var="codice_collegamento" value="${collegamento.getCodice()}"/>
                             <c:set var="lunghezza" value="${collegamento.getLunghezza()}"/>
                             <c:set var="nodi" value="${collegamento.getNodiInteger()}"/>
                             <c:set var="codici_nodi" value="${collegamento.getCodiciNodi()}"/>

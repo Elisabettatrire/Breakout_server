@@ -23,7 +23,7 @@
         <script src="static/js/datatables.min.js" type="text/javascript"></script>
         <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
-        <script src="static/js/scroll-table.js" type="text/javascript"></script>
+        <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
         <script src="static/js/disable-select.js" type="text/javascript"></script>
         <script src="static/js/select-old-value.js" type="text/javascript"></script>
     </head>
@@ -47,7 +47,7 @@
                 <!-- Table Piani -->
                 <div class="col-md-12">
                     <h4>Lista Piani</h4>
-                    <table class="display" style="width:100%; text-align: center">
+                    <table id="tabella-piani" class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr><th>Quota&nbsp;&nbsp;
                                 <i data-toggle="tooltip" data-placement="top"

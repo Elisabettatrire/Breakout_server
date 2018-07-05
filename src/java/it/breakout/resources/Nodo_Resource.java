@@ -34,6 +34,10 @@ public class Nodo_Resource {
 	return nodo_service.findPoisByIDMappa(search_id);
     }
     
+    public ArrayList<Nodo> findByIDPiano(Integer search_id) {
+        return nodo_service.findByIDPiano(search_id);
+    }
+    
     public ArrayList<Nodo> findByIDMappa(Integer search_id) {
         return nodo_service.findByIDMappa(search_id);
     }

@@ -71,7 +71,7 @@
                             <input class="btn btn-outline-success" type='submit'
                                    style="font-weight: bold" value='Aggiungi scala'>
                             <input type="hidden" name="azione" value="aggiungi-scala">
-                            <input type="hidden" name="nm" value="${nome_mappa}">
+                            <input type="hidden" name="modalita" value="mappe">
                         </div>
                     </form>
                 </div>

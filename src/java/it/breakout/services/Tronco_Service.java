@@ -20,7 +20,6 @@ import static it.breakout.utility.EnvVariables.DB_PSW;
 import static it.breakout.utility.EnvVariables.DB_URL;
 import static it.breakout.utility.EnvVariables.DB_USR;
 import java.sql.Types;
-import javafx.animation.KeyValue;
 
 /**
  *
@@ -137,7 +136,7 @@ public class Tronco_Service {
             open();
             
             String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + " is null and "
-                    + FIELD_ID_PIANO + "=?";
+                    + FIELD_ID_PIANO + " is not null";
             st = conn.prepareStatement(query);
             rs = st.executeQuery();
             while(rs.next()) {
@@ -189,6 +188,10 @@ public class Tronco_Service {
         return arcs;
     }
     
+    /* Anche se tronchi, scale e collegamenti si trovano nella stessa tabella
+     * del DB, vanno trattati diversamente, per questo abbiamo creato diverse
+     * funzioni per la ricerca
+     */
     public Tronco findArcByID(Integer search_id) {
         
         ResultSet rs = null;
@@ -199,7 +202,8 @@ public class Tronco_Service {
             open();
             
             String query = "select * from " + TBL_NAME + " where "
-                    + FIELD_ID + "= ?";
+                    + FIELD_ID + "= ? and " + FIELD_ID_MAPPA + " is not null and "
+                    + FIELD_ID_PIANO + " si not null";
             st = conn.prepareStatement(query);
             st.setInt(1, search_id);
             rs = st.executeQuery();
@@ -222,7 +226,73 @@ public class Tronco_Service {
 
     }
     
-    public Tronco findArcByNodi(Integer id_nodo_1, Integer id_nodo_2) {
+    public Scala findStairByID(Integer search_id) {
+        
+        ResultSet rs = null;
+        Scala scala = new Scala();
+
+        try {
+
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + " is null and "
+                    + FIELD_ID_PIANO + " is null and " + FIELD_ID + "= ?";
+                    
+            st = conn.prepareStatement(query);
+            st.setInt(1, search_id);
+            rs = st.executeQuery();
+            
+            while(rs.next()) {
+                scala.setID(rs.getInt(FIELD_ID));
+                scala.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
+                scala.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                scala.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
+                scala.setCodice();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+        
+        return scala;
+
+    }
+    
+    public Collegamento findLinkByID(Integer search_id) {
+        
+        ResultSet rs = null;
+        Collegamento collegamento = new Collegamento();
+
+        try {
+
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + " is null and "
+                    + FIELD_ID_PIANO + " is not null and " + FIELD_ID + "= ?";
+                    
+            st = conn.prepareStatement(query);
+            st.setInt(1, search_id);
+            rs = st.executeQuery();
+            
+            while(rs.next()) {
+                collegamento.setID(rs.getInt(FIELD_ID));
+                collegamento.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
+                collegamento.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                collegamento.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
+                collegamento.setCodice();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+        
+        return collegamento;
+
+    }
+    
+    public Tronco findByNodi(Integer id_nodo_1, Integer id_nodo_2) {
         
         ResultSet rs = null;
         Tronco tronco = new Tronco();
@@ -354,7 +424,7 @@ public class Tronco_Service {
             st.setInt(3, nodi[1]);
             st.setInt(4, scala.getID_beacon());
             st.setNull(5, Types.INTEGER);
-             st.setNull(6, Types.INTEGER);
+            st.setNull(6, Types.INTEGER);
 
             st.executeUpdate();
             
@@ -429,6 +499,67 @@ public class Tronco_Service {
         }
     }
     
+    public void updateScala(Scala scala, Integer id_scala) {
+        
+        try {
+            
+            open();
+            
+            String query = "update " + TBL_NAME + " set "
+                    + FIELD_LUNGHEZZA + "=?, "
+                    + FIELD_ID_N1 + "=?, "
+                    + FIELD_ID_N2 + "=?, "
+                    + FIELD_ID_BEACON + "=? "
+                    + "where " + FIELD_ID + "=?";
+            
+            Integer[] nodi = scala.getNodiInteger();
+            
+            st = conn.prepareStatement(query);
+            st.setDouble(1, 999);
+            st.setInt(2, nodi[0]);
+            st.setInt(3, nodi[1]);
+            st.setInt(4, scala.getID_beacon());
+            st.setInt(5, id_scala);            
+
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
+    public void updateCollegamento(Collegamento collegamento, Integer id_collegamento) {
+        
+        try {
+            
+            open();
+            
+            String query = "update " + TBL_NAME + " set "
+                    + FIELD_LUNGHEZZA + "=?, "
+                    + FIELD_ID_N1 + "=?, "
+                    + FIELD_ID_N2 + "=?, "
+                    + FIELD_ID_BEACON + "=? "
+                    + "where " + FIELD_ID + "=?";
+            
+            Integer[] nodi = collegamento.getNodiInteger();
+            
+            st = conn.prepareStatement(query);
+            st.setDouble(1, 999);
+            st.setInt(2, nodi[0]);
+            st.setInt(3, nodi[1]);
+            st.setInt(4, collegamento.getID_beacon());
+            st.setInt(5, id_collegamento);            
+
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }    
     
     /* Il metodo elimina è identico sia per i tronchi che per le scale
      * che per i collegamenti

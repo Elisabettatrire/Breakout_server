@@ -21,6 +21,7 @@ public class Beacon {
     private Double ind_rischio;
     private Integer ID_pdi;
     private Integer ID_mappa;
+    private Integer ID_piano;
 
     public Beacon() {
     }
@@ -103,5 +104,13 @@ public class Beacon {
 
     public void setID_mappa(Integer ID_mappa) {
         this.ID_mappa = ID_mappa;
+    }
+    
+    public Integer getID_piano() {
+        return ID_piano;
+    }
+
+    public void setID_piano(Integer ID_piano) {
+        this.ID_piano = ID_piano;
     }
 }

@@ -71,7 +71,7 @@
                             <input class="btn btn-outline-success" type='submit' 
                                 style="font-weight: bold" value='Aggiungi collegamento'>
                             <input type="hidden" name="azione" value="aggiungi-collegamento">
-                            <input type="hidden" name="nm" value="${nome_mappa}">
+                            <input type="hidden" name="nm" value="${quota}">
                         </div>
                     </form>
                 </div>

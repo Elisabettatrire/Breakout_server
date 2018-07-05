@@ -21,6 +21,7 @@ import it.breakout.models.Nodo;
 import it.breakout.models.Pdi;
 import it.breakout.models.Beacon;
 import it.breakout.models.Tronco;
+import it.breakout.models.Collegamento;
 import it.breakout.resources.Mappa_Resource;
 import it.breakout.resources.Piano_Resource;
 import it.breakout.resources.Nodo_Resource;
@@ -57,7 +58,7 @@ public class ObjectAccess extends HttpServlet {
             switch(oggetto) {
                 case "piano":
                     
-                    FillPianoData(request);
+                    fillPianoData(request);
                     
                     /* Reindirizzamento pagina di gestione piano */
                     rd = request.getRequestDispatcher("gestione-piano.jsp");
@@ -67,7 +68,7 @@ public class ObjectAccess extends HttpServlet {
                     
                 case "mappa":
                     
-                    FillMappaData(request);
+                    fillMappaData(request);
                     
                     /* Reindirizzamento pagina di gestione mappa */
                     rd = request.getRequestDispatcher("gestione-mappa.jsp");
@@ -77,7 +78,7 @@ public class ObjectAccess extends HttpServlet {
                     
                 case "grafo":
                     
-                    FillGrafoData(request);
+                    fillGrafoData(request);
                     
                     /* Reindirizzamento pagina di gestione grafo */
                     rd = request.getRequestDispatcher("gestione-grafo.jsp");
@@ -87,7 +88,7 @@ public class ObjectAccess extends HttpServlet {
                     
                 case "beacon":
                     
-                    FillBeaconData(request);
+                    fillBeaconData(request);
                     
                     /* Reindirizzamento pagina di gestione beacon della mappa */
                     rd = request.getRequestDispatcher("gestione-beacon.jsp");
@@ -110,23 +111,32 @@ public class ObjectAccess extends HttpServlet {
      * @param request servlet request
      *
      */
-    public void FillPianoData(HttpServletRequest request) {
+    public void fillPianoData(HttpServletRequest request) {
         
         Mappa_Resource mappa_resource = new Mappa_Resource();
         Piano_Resource piano_resource = new Piano_Resource();
+        Nodo_Resource nodo_resource = new Nodo_Resource();
+        Beacon_Resource beacon_resource = new Beacon_Resource();
+        Tronco_Resource tronco_resource = new Tronco_Resource();
         
         Piano piano_search = piano_resource.findByQuota(identificatore);
         Integer id_piano = piano_search.getID_piano();
         
+        ArrayList<Collegamento> al_collegamenti = tronco_resource.findAllLinks();
+        ArrayList<Nodo> al_nodi = nodo_resource.findByIDPiano(id_piano);
         ArrayList<Mappa> al_mappe = mappa_resource.findByIDPiano(id_piano);
+        ArrayList<Beacon> al_beacon = beacon_resource.findByIDPiano(id_piano);
         
         /* Invio alla view i dati da visualizzare */
         request.setAttribute("quota", identificatore);
         request.setAttribute("mappe", al_mappe);
+        request.setAttribute("nodi", al_nodi);
+        request.setAttribute("al_beacon", al_beacon);
+        request.setAttribute("collegamenti", al_collegamenti);
         
     }
     
-    public void FillMappaData(HttpServletRequest request) {
+    public void fillMappaData(HttpServletRequest request) {
         
         //Beacon_Resource beacon_resource = new Beacon_Resource();
         Mappa_Resource mappa_resource_2 = new Mappa_Resource();
@@ -147,7 +157,7 @@ public class ObjectAccess extends HttpServlet {
         
     }
     
-    public void FillGrafoData(HttpServletRequest request) {
+    public void fillGrafoData(HttpServletRequest request) {
         
         Mappa_Resource mappa_resource = new Mappa_Resource();
         Nodo_Resource nodo_resource = new Nodo_Resource();
@@ -175,7 +185,7 @@ public class ObjectAccess extends HttpServlet {
         
     }
     
-    public void FillBeaconData(HttpServletRequest request) {
+    public void fillBeaconData(HttpServletRequest request) {
         
         Mappa_Resource mappa_resource = new Mappa_Resource();
         Beacon_Resource beacon_resource = new Beacon_Resource();

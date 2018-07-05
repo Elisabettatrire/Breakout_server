@@ -36,7 +36,28 @@
                 <div class="col-md-12">
                     <c:set var="nome_mappa" value="${requestScope.nome_mappa}"/>
                     <h2>Mappa ${nome_mappa} - Gestione Beacon</h2>
-                    <br><br>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <form action="ObjectAccess" method="POST">
+                                <input type="submit" value="< Gestione Mappa" class="btn btn-secondary">
+                                <input type="hidden" name="obj" value="mappa">
+                                <input type="hidden" name="nm" value="${nome_mappa}">
+                            </form>
+                        </div>
+                        <div class="col-md-2">
+                            <form action="ObjectAccess" method="POST">
+                                <input type="submit" value="Gestione Piano" class="btn btn-secondary">
+                                <input type="hidden" name="obj" value="piano">
+                                <input type="hidden" name="nm" value="${requestScope.quota}">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
                     <h4>Lista Beacon</h4>
                     <!--Tabella dei beacon della mappa-->
                     <table class="table-striped display" style="text-align: center; width:100%;">
@@ -75,22 +96,7 @@
                             <b>Aggiungi beacon</b>
                         </button>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <form action="ObjectAccess" method="POST">
-                                <input type="submit" value="< Gestione Mappa" class="btn btn-secondary">
-                                <input type="hidden" name="obj" value="mappa">
-                                <input type="hidden" name="nm" value="${nome_mappa}">
-                            </form>
-                        </div>
-                        <div class="col-md-2">
-                            <form action="ObjectAccess" method="POST">
-                                <input type="submit" value="Gestione Piano" class="btn btn-secondary">
-                                <input type="hidden" name="obj" value="piano">
-                                <input type="hidden" name="nm" value="${requestScope.quota}">
-                            </form>
-                        </div>
-                    </div>
+                </div>
                 </div>
             </div>
             

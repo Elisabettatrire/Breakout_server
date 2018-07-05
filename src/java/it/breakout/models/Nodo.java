@@ -21,7 +21,8 @@ public class Nodo {
     private Integer[] tronchi_stella_int;
     private ArrayList<Scala> tronchi_stella; // tra i tronchi vanno messe anche le scale e i collegamenti
     private Integer ID_mappa;
-    
+    private Integer ID_piano;
+
     public Nodo() {
     }
 
@@ -88,4 +89,13 @@ public class Nodo {
     public void setCoord_Y(Double coord_Y) {
         this.coord_Y = coord_Y;
     }
+    
+    public Integer getID_piano() {
+        return ID_piano;
+    }
+
+    public void setID_piano(Integer ID_piano) {
+        this.ID_piano = ID_piano;
+    }
+    
 }

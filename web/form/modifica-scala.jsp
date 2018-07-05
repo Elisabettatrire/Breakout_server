@@ -8,7 +8,7 @@
 
 <!DOCTYPE html>
 <!-- Modal Form Modifica Scala -->
-<div id="modal-mod-tronco" class="modal fade">
+<div id="modal-mod-scala" class="modal fade">
     <div class="modal-dialog ">
         <div class="modal-content ">
             <div class="modal-header" >
@@ -63,7 +63,7 @@
                                 style="font-weight: bold" value='Conferma modifiche'>
                             <input type="hidden" name="id_scala" value="">
                             <input type="hidden" name="azione" value="modifica-scala">
-                            <input type="hidden" name="nm" value="${nome_mappa}">
+                            <input type="hidden" name="modalita" value="mappe">
                         </div>
                     </form>
                 </div>

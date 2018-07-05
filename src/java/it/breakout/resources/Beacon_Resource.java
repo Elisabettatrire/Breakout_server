@@ -31,6 +31,10 @@ public class Beacon_Resource {
         return beacon_service.findByIDMappa(id_mappa);
     }
     
+    public ArrayList<Beacon> findByIDPiano(Integer search_id) {
+        return beacon_service.findByIDPiano(search_id);
+    }
+    
     public Beacon findByCodice(String search_code) {
         return beacon_service.findByCodice(search_code);
     }
