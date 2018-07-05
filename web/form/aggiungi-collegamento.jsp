@@ -1,22 +1,22 @@
 <%-- 
-    Document   : aggiungi-scala
-    Created on : 28-giu-2018, 10.18.35
+    Document   : aggiungi-collegamento
+    Created on : 5-lug-2018, 12.20.20
     Author     : Giovanni
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<!-- Modal Form Aggiungi Scala -->
-<div id="modal-agg-scala" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title">Aggiungi scala</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+<!-- Modal Form Aggiungi Collegamento -->
+<div id="modal-agg-collegamento" class="modal fade">
+    <div class="modal-dialog " >
+        <div class="modal-content ">
+            <div class="modal-header" >
+                <h5 class="modal-title">Aggiungi collegamento</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button> 
             </div>
+            <!-- text area per inserire i dati del collegamento da caricare -->
             <div class="modal-body">
                 <div class="col-md-12">
                     <p class="warning">
@@ -64,13 +64,13 @@
                                     </c:forEach>
                                 </select></td></tr>
                         </table>
-                        <!-- Bottoni per tornare alla schermata precedente o per aggiungere la scala -->
+                        <!-- Bottoni per tornare alla schermata precedente o per aggiungere il collegamento -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                 Annulla</button>
-                            <input class="btn btn-outline-success" type='submit'
-                                   style="font-weight: bold" value='Aggiungi scala'>
-                            <input type="hidden" name="azione" value="aggiungi-scala">
+                            <input class="btn btn-outline-success" type='submit' 
+                                style="font-weight: bold" value='Aggiungi collegamento'>
+                            <input type="hidden" name="azione" value="aggiungi-collegamento">
                             <input type="hidden" name="nm" value="${nome_mappa}">
                         </div>
                     </form>
@@ -79,4 +79,3 @@
         </div>
     </div>
 </div>
-<!-- End Modal Form Aggiungi Scala -->

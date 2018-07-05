@@ -24,6 +24,8 @@
         <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
         <script src="static/js/scroll-table.js" type="text/javascript"></script>
+        <script src="static/js/disable-select.js" type="text/javascript"></script>
+        <script src="static/js/select-old-value.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -32,8 +34,18 @@
         <!-- Page Content -->        
         <div class="container">
             <div class="row">
-                <!-- Table Piani -->
                 <div class="col-md-6">
+                    <button type="button" class="btn btn-secondary">
+                        <a href="home.jsp" style="color: inherit; text-decoration: none">
+                        < Home
+                        </a>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <!-- Table Piani -->
+                <div class="col-md-12">
                     <h4>Lista Piani</h4>
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
@@ -44,67 +56,74 @@
                                 </th><th>Modifica</th><th>Elimina</th>
                         </thead>
                         <tbody>
-                        <!-- Get data from request object -->
-                        <c:forEach items="${requestScope.piani}" var="piano">
-                            <c:set var="quota" value="${piano.getQuota()}"/>
-                            <c:set var="id_piano" value="${piano.getID_piano()}"/>                            
-                            <tr><td><a href='ObjectAccess?obj=piano&nm=${quota}'>${quota}</a></td>
-                                <td><button id="mod-${id_piano}" class="btn btn-outline-dark btn-sm"
-                                        data-toggle="modal" data-target="#modal-mod-piano">
-                                        <span class="fas fa-cog"></span></button></td>
-                                <td><button id="del-${id_piano}" class="btn btn-outline-danger btn-sm"
-                                            data-toggle="modal" data-target="#modal-elimina-piano">
-                                    <span class="fas fa-trash-alt"></span></button></td>
-                                </td></tr>
-                        </c:forEach>
+                            <!-- Get data from request object -->
+                            <c:forEach items="${requestScope.piani}" var="piano">
+                                <c:set var="quota" value="${piano.getQuota()}"/>
+                                <c:set var="id_piano" value="${piano.getID_piano()}"/>                            
+                                <tr><td><a href='ObjectAccess?obj=piano&nm=${quota}'>${quota}</a></td>
+                                    <td><button id="mod-${id_piano}" class="btn btn-outline-dark btn-sm"
+                                            data-toggle="modal" data-target="#modal-mod-piano">
+                                            <span class="fas fa-cog"></span></button></td>
+                                    <td><button id="del-${id_piano}" class="btn btn-outline-danger btn-sm"
+                                                data-toggle="modal" data-target="#modal-elimina-piano">
+                                        <span class="fas fa-trash-alt"></span></button></td>
+                                    </td></tr>
+                            </c:forEach>
                         </tbody>
                         <!-- -->
                     </table>
-                    
                     <div style="text-align: right; margin-top: 10px">
                         <button id="aggiungiPiano" data-toggle="modal" data-target="#modal-piano"
                                 class="btn btn-outline-success"><b>Aggiungi Piano</b></button>
                     </div>
-                </div>
-                <!-- End Table Piani -->
-                
-                <!-- Table Scale scrollabile-->
-                <div class="col-md-6">
+                    <!-- End Table Piani -->
+                    
+                    <hr>
+                    
+                    <!-- Table Scale scrollabile-->
                     <h4>Lista Scale</h4>
                     <table class="table-striped display" style="text-align: center; width:100%;">
                         <thead>
-                        <tr><th>Codice</th>
-                            <th>Lunghezza</th>
-                            <th>Codice Nodo 1</th>
-                            <th>Codice Nodo 2</th>
+                        <th>Codice</th><th>Lunghezza</th><th>Cod. Nodo 1</th>
+                            <th>Cod. Nodo 2</th><th>Cod. Beacon</th>
+                            <th>Modifica</th><th>Elimina</th>
                         </thead>
                         <tbody>
                             <c:forEach items="${requestScope.scale}" var="scala">
-                                <c:set var="codice" value="${scala.getCodice()}"/>
+                                <c:set var="codice_scala" value="${scala.getCodice()}"/>
                                 <c:set var="lunghezza" value="${scala.getLunghezza()}"/>
                                 <c:set var="nodi" value="${scala.getNodiInteger()}"/>
-                                <tr><td>${codice}</td><td>${lunghezza}</td><td>${nodi[0]}</td><td>${nodi[1]}</td></tr>
+                                <c:set var="codici_nodi" value="${scala.getCodiciNodi()}"/>
+                                <c:set var="codice_beacon" value="${scala.getCodiceBeacon()}"/>
+                                <c:set var="id_scala" value="${scala.getID()}"/>
+                                <c:set var="id_beacon" value="${scala.getID_beacon()}"/>
+                                <c:set var="bundle" value="${id_scala}-${nodi[0]}-${nodi[1]}-${id_beacon}"/>
+                                <tr><td>${codice_scala}</td><td>${lunghezza}</td>
+                                    <td>${codici_nodi[0]}</td><td>${codici_nodi[1]}</td>
+                                    <td>${codice_beacon}</td>
+                                    <td><button id="mod-${id_scala}" class="btn btn-outline-dark btn-sm"
+                                            data-toggle="modal" data-target="#modal-mod-scala">
+                                        <span class="fas fa-cog"></span></button></td>
+                                    <td><button id="del-${id_scala}" class="btn btn-outline-danger btn-sm"
+                                            data-toggle="modal" data-target="#modal-elimina-scala">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                                <!-- Questo paragrafo nascosta serve per il js che
+                                disabilita le select -->
+                                <p style="display: none" id="${bundle}"></p>
+                                </tr>
                             </c:forEach>
                         </tbody>
                     </table>
                     <div style="text-align: right; margin-top: 10px">
-                        <button id="aggiungiScala" data-toggle="modal" data-target="#modal-scala"
+                        <button id="aggiungiScala" data-toggle="modal" data-target="#modal-agg-scala"
                                 class="btn btn-outline-success"><b>Aggiungi Scala</b></button>
                     </div>
                 </div>
                 <!-- End Table Scale -->
+                
             </div>
             <!-- End Row -->
             
-            <div class="row">
-                <div class="col-md-6">
-                    <button type="button" class="btn btn-secondary">
-                        <a href="home.jsp" style="color: inherit; text-decoration: none">
-                        < Home
-                        </a>
-                    </button>
-                </div>
-            </div>
         </div>
         <!-- End Page Content -->        
         
@@ -145,9 +164,36 @@
         <!-- Modal Form Aggiungi Scala -->
         <%@include file="form/aggiungi-scala.jsp"%>
         
-        <script>   
-            $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
-        </script>
+        <!-- Modal Form Modifica Scala -->
+        <%@include file="form/modifica-scala.jsp"%>
+        
+        <!-- Modal Conferma Eliminazione Scala -->
+        <div id="modal-elimina-scala" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Conferma eliminazione scala</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action='DBModify' method="post" id="form-del-piano">
+                            <p>Sicuro di voler rimuovere la scala selezioniata?
+                                Questa azione non può essere annullata.</p>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                                <input class="btn btn-danger" type='submit' value='Elimina scala'>
+                                <input type="hidden" name="id_scala" value="">
+                                <input type="hidden" name="azione" value="elimina-scala">
+                                <input type="hidden" name="modalita" value="mappe">
+                            </div>
+                        </form>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Conferma Eliminazione Scala -->
         
     </body>
 </html>

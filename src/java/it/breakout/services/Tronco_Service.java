@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import static it.breakout.utility.EnvVariables.DB_PSW;
 import static it.breakout.utility.EnvVariables.DB_URL;
 import static it.breakout.utility.EnvVariables.DB_USR;
+import java.sql.Types;
+import javafx.animation.KeyValue;
 
 /**
  *
@@ -75,7 +77,7 @@ public class Tronco_Service {
                 tronco.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
                 tronco.setID_beacon(rs.getInt(FIELD_ID_BEACON));
                 tronco.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
-                //tronco.setID_piano(rs.getInt(FIELD_ID_PIANO));
+                tronco.setID_piano(rs.getInt(FIELD_ID_PIANO));
                 tronco.setCodice();
                 tronchi.add(tronco);
             }
@@ -88,14 +90,17 @@ public class Tronco_Service {
         return tronchi;
     }
 
-    /* Le scale sono i segmenti che collegano i nodi di due piani diversi */
+    /* Le scale sono i segmenti che collegano i nodi di due piani diversi, pertanto
+     * sono i tronchi che nella tabella del DB hanno ID mappa e ID piano settati a 
+     * NULL
+     */
     public ArrayList<Scala> findAllStairs() {
         ResultSet rs = null;
         ArrayList<Scala> scale = new ArrayList<>();
         try {
+            
             open();
             
-            /* Qui invece vengono selezionati i segmenti che non hanno piano e mappa (?) */
             String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + " is null and "
                     + FIELD_ID_PIANO + " is null";
             st = conn.prepareStatement(query);
@@ -111,7 +116,7 @@ public class Tronco_Service {
             }
         } 
         catch (SQLException e) {
-        	System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -120,11 +125,38 @@ public class Tronco_Service {
         return scale;
     }
     
-    /* I collegamenti sono i segmenti che collegano due nodi di due mappe diverse
-     * ma dello stesso piano
+    /* I collegamenti sono i segmenti che collegano i nodi di due mappe diversi,
+     * dello stesso piano, pertanto sono i tronchi che nella tabella del DB hanno
+     * ID mappa settato a NULL 
      */
     public ArrayList<Collegamento> findAllLinks() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ResultSet rs = null;
+        ArrayList<Collegamento> collegamenti = new ArrayList<>();
+        try {
+            
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID_MAPPA + " is null and "
+                    + FIELD_ID_PIANO + "=?";
+            st = conn.prepareStatement(query);
+            rs = st.executeQuery();
+            while(rs.next()) {
+                Collegamento collegamento = new Collegamento();
+                collegamento.setID(rs.getInt(FIELD_ID));
+                collegamento.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
+                collegamento.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
+                collegamento.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                collegamento.setID_piano(rs.getInt(FIELD_ID_PIANO));
+                collegamento.setCodice();
+                collegamenti.add(collegamento);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+        
+        return collegamenti;
     }
     
     public Integer[] getArcsByNode_Integer(Integer id_nodo) {
@@ -267,7 +299,7 @@ public class Tronco_Service {
 
     }
     
-    public void insert(Tronco tronco) {
+    public void insertTronco(Tronco tronco) {
         
         try {
             
@@ -278,7 +310,8 @@ public class Tronco_Service {
                     + FIELD_ID_N1 + ","
                     + FIELD_ID_N2 + ","
                     + FIELD_ID_BEACON + ","
-                    + FIELD_ID_MAPPA + ") values (?,?,?,?,?)";
+                    + FIELD_ID_MAPPA + ","
+                    + FIELD_ID_PIANO + ") values (?,?,?,?,?,?)";
             
             Integer[] nodi = tronco.getNodiInteger();
             
@@ -287,7 +320,8 @@ public class Tronco_Service {
             st.setInt(2, nodi[0]);
             st.setInt(3, nodi[1]);
             st.setInt(4, tronco.getID_beacon());
-            st.setInt(5, tronco.getID_mappa());            
+            st.setInt(5, tronco.getID_mappa());
+            st.setInt(6, tronco.getID_piano());
 
             st.executeUpdate();
             
@@ -298,7 +332,73 @@ public class Tronco_Service {
         }
     }
     
-    public void update(Tronco tronco, Integer id_tronco) {
+    public void insertScala(Scala scala) {
+        
+        try {
+            
+            open();
+            
+            String query = "insert into " + TBL_NAME
+                    + "(" + FIELD_LUNGHEZZA + ","
+                    + FIELD_ID_N1 + ","
+                    + FIELD_ID_N2 + ","
+                    + FIELD_ID_BEACON + ","
+                    + FIELD_ID_MAPPA + ","
+                    + FIELD_ID_PIANO + ") values (?,?,?,?,?,?)";
+            
+            Integer[] nodi = scala.getNodiInteger();
+            
+            st = conn.prepareStatement(query);
+            st.setDouble(1, 999);
+            st.setInt(2, nodi[0]);
+            st.setInt(3, nodi[1]);
+            st.setInt(4, scala.getID_beacon());
+            st.setNull(5, Types.INTEGER);
+             st.setNull(6, Types.INTEGER);
+
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
+    public void insertCollegamento(Collegamento collegamento) {
+        
+        try {
+            
+            open();
+            
+            String query = "insert into " + TBL_NAME
+                    + "(" + FIELD_LUNGHEZZA + ","
+                    + FIELD_ID_N1 + ","
+                    + FIELD_ID_N2 + ","
+                    + FIELD_ID_BEACON + ","
+                    + FIELD_ID_MAPPA + ","
+                    + FIELD_ID_PIANO + ") values (?,?,?,?,?,?)";
+            
+            Integer[] nodi = collegamento.getNodiInteger();
+            
+            st = conn.prepareStatement(query);
+            st.setDouble(1, 999);
+            st.setInt(2, nodi[0]);
+            st.setInt(3, nodi[1]);
+            st.setInt(4, collegamento.getID_beacon());
+            st.setNull(5, Types.INTEGER);
+            st.setInt(6, collegamento.getID_piano());
+
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
+    public void updateTronco(Tronco tronco, Integer id_tronco) {
         
         try {
             
@@ -329,14 +429,18 @@ public class Tronco_Service {
         }
     }
     
-    public void delete(Integer id_tronco) {
+    
+    /* Il metodo elimina è identico sia per i tronchi che per le scale
+     * che per i collegamenti
+     */
+    public void delete(Integer id_del) {
         
         try {
             open();
             
             String query = "delete from " + TBL_NAME + " where " + FIELD_ID + "=?";
             st = conn.prepareStatement(query);
-            st.setInt(1, id_tronco);
+            st.setInt(1, id_del);
             st.executeUpdate();
             
         } catch (SQLException e) {

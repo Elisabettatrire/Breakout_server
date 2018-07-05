@@ -92,7 +92,19 @@ public class DBModify extends HttpServlet {
                     break;
 
                 /* Azioni relative alla tabella delle scale */
-
+                case "aggiungi-scala":
+                    
+                    break;
+                    
+                case "modifica-scala":
+                    
+                    break;
+                    
+                case "elimina-scala":
+                
+                    break;
+                    
+                    
                 /* Azioni relative alla tabella delle mappe */
                 case "aggiungi-mappa":
 
@@ -125,6 +137,19 @@ public class DBModify extends HttpServlet {
                     rd = request.getRequestDispatcher(URL_PIANO+quota);
                     rd.forward(request, response);
 
+                    break;
+                    
+                /* Azioni relative alla tabella dei collegamenti */
+                case "aggiungi-collegamento":
+                    
+                    break;
+                    
+                case "modifica-collegamento":
+                    
+                    break;
+                    
+                case "elimina-collegamento":
+                
                     break;
                     
                 /* Azioni relative alla tabella degli utenti (Pericolo SQLInjection?) */
@@ -580,7 +605,7 @@ public class DBModify extends HttpServlet {
             tronco.setID_beacon(id_beacon);
             tronco.setID_mappa(id_mappa_local);
 
-            tronco_resource.insert(tronco);
+            tronco_resource.insertTronco(tronco);
         }
 
         exists = null;
@@ -637,7 +662,7 @@ public class DBModify extends HttpServlet {
 
         tronco.setID_beacon(id_beacon);
 
-        tronco_resource.update(tronco, id_tronco);
+        tronco_resource.updateTronco(tronco, id_tronco);
 
         exists = null;
         

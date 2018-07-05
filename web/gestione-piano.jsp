@@ -24,6 +24,8 @@
         <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
         <script src="static/js/scroll-table.js" type="text/javascript"></script>
+        <script src="static/js/disable-select.js" type="text/javascript"></script>
+        <script src="static/js/select-old-value.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -35,8 +37,28 @@
                 <div class="col-md-12">
                     <c:set var="quota" value="${requestScope.quota}" />
                     <h2>Piano Q${quota} - Mappe</h2>
-                    <br><br>
-                    <!-- Tabella delle mappe del piano -->
+                    <br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <form action="DBAccess" method="POST">
+                        <input type="submit" value="< Gestione Mappe" class="btn btn-secondary">
+                        <input type="hidden" name="modalita" value="mappe">
+                    </form>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-secondary">
+                        <a href="home.jsp" style="color: inherit; text-decoration: none">
+                        Home
+                        </a>
+                    </button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <!-- Tabella delle mappe del piano -->
+                <div class="col-md-12">
                     <h4>Lista Mappe</h4>
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
@@ -63,25 +85,59 @@
                                         <span class="fas fa-trash-alt"></span></button></td></tr>
                         </c:forEach>
                     </table>
-                </div>
-            </div>
-            <div class="row" style=" margin-top: 30px">
-                <div class="col-md-12" style="text-align: right">
-                    <button type="button" class="btn btn-outline-success"
+                    
+                    <div style="text-align: right; margin-top: 10px">
+                        <button type="button" class="btn btn-outline-success"
                             data-toggle="modal" data-target="#modal-aggiungi-mappa">
                         <b>Aggiungi mappa</b>
-                    </button>
+                        </button>
+                    </div> 
+                    <!-- End of Table Mappe -->
+                    <hr>
+                    <!-- Tabella dei collegamenti tra le mappe -->
+                    <h4>Lista Collegamenti</h4>
+                    <table class="display" style="width:100%; text-align: center">
+                        <thead>
+                            <tr>
+                               <th>Codice</th><th>Lunghezza</th><th>Cod. Nodo 1</th>
+                                <th>Cod. Nodo 2</th><th>Cod. Beacon</th>
+                                <th>Modifica</th><th>Elimina</th>
+                            </tr>
+                        </thead>
+                        <c:forEach items="${requestScope.collegamenti}" var="collegamento">
+                            <c:set var="codice_tronco" value="${collegamento.getCodice()}"/>
+                            <c:set var="lunghezza" value="${collegamento.getLunghezza()}"/>
+                            <c:set var="nodi" value="${collegamento.getNodiInteger()}"/>
+                            <c:set var="codici_nodi" value="${collegamento.getCodiciNodi()}"/>
+                            <c:set var="codice_beacon" value="${collegamento.getCodiceBeacon()}"/>
+                            <c:set var="id_collegamento" value="${collegamento.getID()}"/>
+                            <c:set var="id_beacon" value="${collegamento.getID_beacon()}"/>
+                            <c:set var="bundle" value="${id_collegamento}-${nodi[0]}-${nodi[1]}-${id_beacon}"/>
+                            <tr><td>${codice_collegamento}</td><td>${lunghezza}</td><td>${codici_nodi[0]}</td>
+                                <td>${codici_nodi[1]}</td><td>${codice_beacon}</td>
+                                <td><button id="mod-${id_collegamento}" class="btn btn-outline-dark btn-sm"
+                                            data-toggle="modal" data-target="#modal-mod-collegamento">
+                                        <span class="fas fa-cog"></span></button></td>
+                                <td><button id="del-${id_collegamento}" class="btn btn-outline-danger btn-sm"
+                                            data-toggle="modal" data-target="#modal-elimina-collegamento">
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                                <!-- Questo paragrafo nascosta serve per il js che
+                                disabilita le select -->
+                                <p style="display: none" id="${bundle}"></p>
+                        </c:forEach>
+                    </table>
+                    
+                    <div style="text-align: right; margin-top: 10px">
+                        <button type="button" class="btn btn-outline-success"
+                            data-toggle="modal" data-target="#modal-agg-collegamento">
+                        <b>Aggiungi collegamento</b>
+                        </button>
+                    </div> 
                 </div>
-            </div>    
+                <!-- End of Table Collegamenti -->
+                
+            </div>  
              
-            <div class="row">
-                <div class="col-md-6">
-                    <form action="DBAccess" method="POST">
-                        <input type="submit" value="< Gestione Mappe" class="btn btn-secondary">
-                        <input type="hidden" name="modalita" value="mappe">
-                    </form>
-                </div>
-            </div> 
         </div>
                     
         <!-- Modal Form Aggiungi Mappa -->
@@ -106,9 +162,42 @@
                                 Questa azione non può essere annullata.</p>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                                <input class="btn btn-danger" type='submit' value='Elimina mappa' name='elimina-mappa'>
+                                <input class="btn btn-danger" type='submit' value='Elimina mappa'>
                                 <input type="hidden" name="id_mappa" value="">
                                 <input type="hidden" name="azione" value="elimina-mappa">
+                                <input type="hidden" name="nm" value="${quota}">
+                            </div>
+                        </form>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+                            
+        <!-- Modal Form Aggiungi Collegamento -->
+        <%@include file="form/aggiungi-collegamento.jsp"%>
+        
+        <!-- Modal Form Aggiungi Collegamento -->
+        <%@include file="form/modifica-collegamento.jsp"%>
+        
+        <!-- Modal Conferma Eliminazione Collegamento -->
+        <div id="modal-elimina-collegamento" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Conferma eliminazione collegamento</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action='DBModify' method="post" id="form-del-collegamento">
+                            <p>Sicuro di voler rimuovere il collegamento selezioniato?
+                                Questa azione non può essere annullata.</p>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                                <input class="btn btn-danger" type='submit' value='Elimina collegamento'>
+                                <input type="hidden" name="id_collegamento" value="">
+                                <input type="hidden" name="azione" value="elimina-collegamento">
                                 <input type="hidden" name="nm" value="${quota}">
                             </div>
                         </form>                    
