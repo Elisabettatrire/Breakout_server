@@ -830,14 +830,15 @@ public class DBModify extends HttpServlet {
     public void aggiungiTronco(HttpServletRequest request, HttpServletResponse response,
             String nome_mappa) throws ServletException, IOException {
         
+        FormFilter form_filter = new FormFilter();
         Tronco_Resource tronco_resource = new Tronco_Resource();
         Mappa_Resource mappa_resource = new Mappa_Resource();
-        Piano_Resource piano_resource = new Piano_Resource();
         Tronco tronco = new Tronco();
         
         String id_n1_str = request.getParameter("codice-1");
         String id_n2_str = request.getParameter("codice-2");
         String id_beac_str = request.getParameter("codice-beacon");
+        Double lunghezza = form_filter.filtraMisura(request.getParameter("lunghezza"));
 
         /* Se la validazione lato client non dovesse funzionare si
         viene reindirizzati alla pagina di gestione del grafo
@@ -860,12 +861,13 @@ public class DBModify extends HttpServlet {
             exists = tronco_resource.findByNodi(id_nodo_2, id_nodo_1).getID();
         }
         
-        if(exists == null){
+        if(exists == null && !Objects.equals(lunghezza, DEFAULT_DOUBLE)){
 
             Mappa mappa_local = mappa_resource.findByNome(nome_mappa);
             
             tronco.setNodiInteger(id_nodo_1, id_nodo_2);
             tronco.setID_beacon(id_beacon);
+            tronco.setLunghezza(lunghezza);
             tronco.setID_mappa(mappa_local.getID_mappa());
             tronco.setID_piano(mappa_local.getID_piano());
 
@@ -879,20 +881,21 @@ public class DBModify extends HttpServlet {
     public void modificaTronco(HttpServletRequest request, HttpServletResponse response,
             String nome_mappa) throws ServletException, IOException {
         
+        FormFilter form_filter = new FormFilter();
         Tronco_Resource tronco_resource = new Tronco_Resource();
         Tronco tronco = new Tronco();
-        Tronco tronco_old = new Tronco();
         
         String id_n1_str = request.getParameter("codice-1");
         String id_n2_str = request.getParameter("codice-2");
         String id_beac_str = request.getParameter("codice-beacon");
+        Double lunghezza = form_filter.filtraMisura(request.getParameter("lunghezza"));
 
         Integer id_tronco = Integer.parseInt(request.getParameter("id_tronco"));
 
         /* Visto che i campi da controllare sono più di uno ho bisogno
         di un oggetto che contenga i vecchi valori
         */
-        tronco_old = tronco_resource.findArcByID(id_tronco);
+        Tronco tronco_old = tronco_resource.findArcByID(id_tronco);
         Integer[] nodi_old = tronco_old.getNodiInteger();
 
         /* Se la validazione lato client non dovesse funzionare si
@@ -922,6 +925,12 @@ public class DBModify extends HttpServlet {
             tronco.setNodiInteger(id_nodo_1, id_nodo_2);
         } else{
             tronco.setNodiInteger(nodi_old[0], nodi_old[1]);
+        }
+        
+        if(!Objects.equals(lunghezza, DEFAULT_DOUBLE)) {
+            tronco.setLunghezza(lunghezza);
+        } else {
+            tronco.setLunghezza(tronco_old.getLunghezza());
         }
 
         tronco.setID_beacon(id_beacon);
@@ -1069,6 +1078,7 @@ public class DBModify extends HttpServlet {
         Double fumi_filtered = form_filter.filtraMisura(request.getParameter("fumi"));
         Double ndc_filtered = form_filter.filtraMisura(request.getParameter("ndc"));
         Double rischio_filtered = form_filter.filtraMisura(request.getParameter("rischio"));
+        String id_pdi = request.getParameter("codice-pdi");
 
         Integer exists = beacon_resource.findByCodice(codice_beacon_filtered).getID_beacon();
         Mappa mappa_local = mappa_resource.findByNome(nome_mappa);
@@ -1079,7 +1089,7 @@ public class DBModify extends HttpServlet {
                 && !Objects.equals(fuoco_filtered, DEFAULT_DOUBLE)
                 && !Objects.equals(fumi_filtered, DEFAULT_DOUBLE)
                 && !Objects.equals(ndc_filtered, DEFAULT_DOUBLE)
-                && !Objects.equals(rischio_filtered, DEFAULT_DOUBLE)                            
+                && !Objects.equals(rischio_filtered, DEFAULT_DOUBLE)
                 && exists == null){
 
             beacon.setCodice(codice_beacon_filtered);
@@ -1091,6 +1101,9 @@ public class DBModify extends HttpServlet {
             beacon.setInd_rischio(rischio_filtered);                        
             beacon.setID_mappa(mappa_local.getID_mappa());
             beacon.setID_piano(mappa_local.getID_piano());
+            if(!id_pdi.equals("nessuno")) {
+                beacon.setID_pdi(Integer.parseInt(id_pdi));
+            }
 
             beacon_resource.insert(beacon);
 
@@ -1117,6 +1130,7 @@ public class DBModify extends HttpServlet {
         Double fumi_filtered = form_filter.filtraMisura(request.getParameter("fumi"));
         Double ndc_filtered = form_filter.filtraMisura(request.getParameter("ndc"));
         Double rischio_filtered = form_filter.filtraMisura(request.getParameter("rischio"));
+        String id_pdi = request.getParameter("codice-pdi");
         Integer id_beacon = Integer.parseInt(request.getParameter("id_beacon"));
 
         /* Visto che i campi da controllare sono più di uno ho bisogno
@@ -1166,8 +1180,14 @@ public class DBModify extends HttpServlet {
             beacon.setInd_rischio(rischio_filtered);
         } else {
             beacon.setInd_rischio(beacon_old.getInd_rischio());
-        }
+        }   
 
+        if(!id_pdi.equals("nessuno")) {
+            beacon.setID_pdi(Integer.parseInt(id_pdi));
+        } else {
+            beacon.setID_pdi(null);
+        }
+        
         beacon_resource.update(beacon, id_beacon);
 
         Integer id_mappa_local = mappa_resource.findByNome(nome_mappa).getID_mappa();

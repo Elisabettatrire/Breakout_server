@@ -24,6 +24,7 @@
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
         <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
+        <script src="static/js/select-old-pdi.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -63,7 +64,8 @@
                         <thead>
                             <tr><th>Nome</th><th>Coord. X</th><th>Coord. Y</th>
                                 <th>Ind. fuoco</th><th>Ind. fumi</th><th>NDC</th>
-                                <th>Ind. rischio</th><th class="no-sort">Modifica</th>
+                                <th>Ind. rischio</th><th>PDI</th>
+                                <th class="no-sort">Modifica</th>
                                 <th class="no-sort">Elimina</th></tr>
                         </thead>
                         <tbody>
@@ -76,15 +78,19 @@
                                 <c:set var="fumi" value="${beacon.getInd_fumi()}"/>
                                 <c:set var="ndc" value="${beacon.getInd_NDC()}"/>
                                 <c:set var="rischio" value="${beacon.getInd_rischio()}"/>
+                                <c:set var="codice_pdi" value="${beacon.getCodicePdi()}"/>
                                 <tr><td>${codice}</td><td>${x}</td><td>${y}</td>
                                     <td>${fuoco}</td><td>${fumi}</td><td>${ndc}</td>
-                                    <td>${rischio}</td>
+                                    <td>${rischio}</td><td>${codice_pdi}</td>
                                 <td><button id="mod-${id_beacon}" class="btn btn-outline-dark btn-sm"
                                             data-toggle="modal" data-target="#modal-mod-beacon">
                                         <span class="fas fa-cog"></span></button></td>
                                 <td><button id="del-${id_beacon}" class="btn btn-outline-danger btn-sm"
                                             data-toggle="modal" data-target="#modal-elimina-beacon">
-                                        <span class="fas fa-trash-alt"></span></button></td></tr></tr>
+                                        <span class="fas fa-trash-alt"></span></button></td></tr>
+                                <!-- Questo paragrafo nascosta serve per il js che
+                                disabilita le select -->
+                                <p style="display: none" id="${id_beacon}-${beacon.getID_pdi()}"></p>
                             </c:forEach>
                         </tbody>
                     </table>

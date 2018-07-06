@@ -5,6 +5,8 @@
  */
 package it.breakout.models;
 
+import it.breakout.resources.Nodo_Resource;
+
 /**
  *
  * @author costantino
@@ -112,5 +114,12 @@ public class Beacon {
 
     public void setID_piano(Integer ID_piano) {
         this.ID_piano = ID_piano;
+    }
+    
+    public String getCodicePdi() {
+        
+        Nodo_Resource nodo_resource = new Nodo_Resource();
+        
+        return nodo_resource.findPoiByID(this.ID_pdi).getCodice();
     }
 }

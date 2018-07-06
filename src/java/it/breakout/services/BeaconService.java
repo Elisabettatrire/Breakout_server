@@ -300,7 +300,8 @@ public class BeaconService {
                     + FIELD_FUOCO + "=?, "
                     + FIELD_FUMI + "=?, "
                     + FIELD_NDC + "=?, "
-                    + FIELD_RISCHIO + "=? "
+                    + FIELD_RISCHIO + "=?, "
+                    + FIELD_ID_PDI + "=? "
                     + "where " + FIELD_ID + "=?";
             st = conn.prepareStatement(query);
             st.setString(1, beacon.getCodice());
@@ -310,7 +311,12 @@ public class BeaconService {
             st.setDouble(5, beacon.getInd_fumi());
             st.setDouble(6, beacon.getInd_NDC());
             st.setDouble(7, beacon.getInd_rischio());
-            st.setInt(8, id_beacon);
+            if(beacon.getID_pdi() != null) {
+                st.setInt(8, beacon.getID_pdi());
+            } else {
+                st.setNull(8, Types.INTEGER);
+            }
+            st.setInt(9, id_beacon);
             
             st.executeUpdate();
             

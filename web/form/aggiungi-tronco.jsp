@@ -63,6 +63,9 @@
                                         <option value="${id_beacon}">${codice_beacon}</option>
                                     </c:forEach>
                                 </select></td></tr>
+                            <tr><td>Lunghezza:</td>
+                                <td><input type="text" name="lunghezza" placeholder="es. 50"
+                                            size="30" maxlength="15" required></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere il tronco -->
                         <div class="modal-footer">

@@ -4,8 +4,8 @@
 
 $(document).ready(function(){
     $('button[id^="mod"]').on('click', function(){
-        var id_tronco = $(this).attr('id').split('-');
-        var elementi = $('p[id^='+id_tronco[1]+']').attr('id').split('-');
+        var id_mod = $(this).attr('id').split('-');
+        var elementi = $('p[id^='+id_mod[1]+']').attr('id').split('-');
         var nodo1 = elementi[1];
         var nodo2 = elementi[2];
         var beacon = elementi[3];

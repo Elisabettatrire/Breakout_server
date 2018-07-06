@@ -41,6 +41,16 @@
                             <tr><td>Rischio?:</td><td>
                                     <input type="text" name="rischio" placeholder=" (invariato)"
                                             maxlength="15" size="30"></td></tr>
+                            <tr><td>PDI associato</td><td>
+                                    <select name="codice-pdi">
+                                        <option value="nessuno" selected>Nessuno</option>
+                                        <c:forEach items="${requestScope.al_pdi}" var="pdi">
+                                            <c:set var="codice_pdi" value="${pdi.getCodice()}" />
+                                            <c:set var="id_pdi" value="${pdi.getID()}" />
+                                            <option value="${id_pdi}">${codice_pdi}</option>
+                                    </c:forEach>
+                                    </select>
+                                </td>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
                         <div class="modal-footer">

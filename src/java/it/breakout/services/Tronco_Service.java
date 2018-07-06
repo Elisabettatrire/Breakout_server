@@ -203,7 +203,7 @@ public class Tronco_Service {
             
             String query = "select * from " + TBL_NAME + " where "
                     + FIELD_ID + "= ? and " + FIELD_ID_MAPPA + " is not null and "
-                    + FIELD_ID_PIANO + " si not null";
+                    + FIELD_ID_PIANO + " is not null";
             st = conn.prepareStatement(query);
             st.setInt(1, search_id);
             rs = st.executeQuery();
@@ -386,7 +386,7 @@ public class Tronco_Service {
             Integer[] nodi = tronco.getNodiInteger();
             
             st = conn.prepareStatement(query);
-            st.setDouble(1, 999);
+            st.setDouble(1, tronco.getLunghezza());
             st.setInt(2, nodi[0]);
             st.setInt(3, nodi[1]);
             st.setInt(4, tronco.getID_beacon());
@@ -419,7 +419,7 @@ public class Tronco_Service {
             Integer[] nodi = scala.getNodiInteger();
             
             st = conn.prepareStatement(query);
-            st.setDouble(1, 999);
+            st.setDouble(1, scala.getLunghezza());
             st.setInt(2, nodi[0]);
             st.setInt(3, nodi[1]);
             st.setInt(4, scala.getID_beacon());
@@ -452,7 +452,7 @@ public class Tronco_Service {
             Integer[] nodi = collegamento.getNodiInteger();
             
             st = conn.prepareStatement(query);
-            st.setDouble(1, 999);
+            st.setDouble(1, collegamento.getLunghezza());
             st.setInt(2, nodi[0]);
             st.setInt(3, nodi[1]);
             st.setInt(4, collegamento.getID_beacon());
@@ -484,7 +484,7 @@ public class Tronco_Service {
             Integer[] nodi = tronco.getNodiInteger();
             
             st = conn.prepareStatement(query);
-            st.setDouble(1, 999);
+            st.setDouble(1, tronco.getLunghezza());
             st.setInt(2, nodi[0]);
             st.setInt(3, nodi[1]);
             st.setInt(4, tronco.getID_beacon());
@@ -515,7 +515,7 @@ public class Tronco_Service {
             Integer[] nodi = scala.getNodiInteger();
             
             st = conn.prepareStatement(query);
-            st.setDouble(1, 999);
+            st.setDouble(1, scala.getLunghezza());
             st.setInt(2, nodi[0]);
             st.setInt(3, nodi[1]);
             st.setInt(4, scala.getID_beacon());
@@ -546,7 +546,7 @@ public class Tronco_Service {
             Integer[] nodi = collegamento.getNodiInteger();
             
             st = conn.prepareStatement(query);
-            st.setDouble(1, 999);
+            st.setDouble(1, collegamento.getLunghezza());
             st.setInt(2, nodi[0]);
             st.setInt(3, nodi[1]);
             st.setInt(4, collegamento.getID_beacon());

@@ -190,15 +190,18 @@ public class ObjectAccess extends HttpServlet {
         Mappa_Resource mappa_resource = new Mappa_Resource();
         Beacon_Resource beacon_resource = new Beacon_Resource();
         Piano_Resource piano_resource = new Piano_Resource();
+        Nodo_Resource nodo_resource = new Nodo_Resource();
 
         Integer id_mappa = Integer.parseInt(identificatore);
         Mappa mappa_search = mappa_resource.findByID(id_mappa);
         String quota = piano_resource.findById(mappa_search.getID_piano()).getQuota();
         ArrayList<Beacon> al_beacon = beacon_resource.findByIDMappa(id_mappa);
+        ArrayList<Pdi> al_pdi = nodo_resource.findPoisByIDMappa(id_mappa);
 
         /* Invio alla view i dati da visualizzare */
         request.setAttribute("id_mappa", id_mappa);
         request.setAttribute("al_beacon", al_beacon);
+        request.setAttribute("al_pdi", al_pdi);
         request.setAttribute("quota", quota);
         request.setAttribute("nome_mappa", mappa_search.getNome());
         
