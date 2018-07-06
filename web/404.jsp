@@ -21,9 +21,7 @@
         <script src="static/js/bootbox.min.js" type="text/javascript"></script>
         <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="static/js/datatables.min.js" type="text/javascript"></script>
-        <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
-        <script src="static/js/scroll-table.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->

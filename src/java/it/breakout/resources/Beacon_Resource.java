@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.sql.Connection;
 
 import it.breakout.models.Beacon;
-import it.breakout.services.Beacon_Service;
+import it.breakout.services.BeaconService;
 /**
  *
  * @author Giovanni
  */
 public class Beacon_Resource {
     
-    Beacon_Service beacon_service = new Beacon_Service();
+    BeaconService beacon_service = new BeaconService();
     Connection conn = null;
     
     public ArrayList<Beacon> findAll() {

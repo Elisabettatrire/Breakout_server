@@ -15,17 +15,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="static/css/datatables.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
         <link href="static/css/full-height.css" rel="stylesheet" type="text/css"/>
         <link href="static/css/fontawesome/fontawesome-all.css" rel="stylesheet" type="text/css"/>
         <script src="static/js/bootbox.min.js" type="text/javascript"></script>
         <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="static/js/datatables.min.js" type="text/javascript"></script>
-        <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
         <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
-        <script src="static/js/disable-select.js" type="text/javascript"></script>
         <script src="static/js/select-old-value.js" type="text/javascript"></script>
+        <script src="static/js/disable-same-floor.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -53,7 +52,7 @@
                                 <i data-toggle="tooltip" data-placement="top"
                                     title="Clicca sulla quota per aprire la pagina di gestione del piano"
                                     class="fas fa-info-circle" style="color: #007bff;"></i>
-                                </th><th>Modifica</th><th>Elimina</th>
+                                </th><th class="no-sort">Modifica</th><th class="no-sort">Elimina</th>
                         </thead>
                         <tbody>
                             <!-- Get data from request object -->
@@ -86,7 +85,7 @@
                         <thead>
                         <th>Codice</th><th>Lunghezza</th><th>Cod. Nodo 1</th>
                             <th>Cod. Nodo 2</th><th>Cod. Beacon</th>
-                            <th>Modifica</th><th>Elimina</th>
+                            <th class="no-sort">Modifica</th><th class="no-sort">Elimina</th>
                         </thead>
                         <tbody>
                             <c:forEach items="${requestScope.scale}" var="scala">

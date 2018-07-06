@@ -327,7 +327,7 @@ public class Tronco_Service {
     }
     
     private Beacon getBeacon(Integer id_beacon) {
-        Beacon_Service beaconSrv = new Beacon_Service();
+        BeaconService beaconSrv = new BeaconService();
         return beaconSrv.findByID(id_beacon);
     }
 

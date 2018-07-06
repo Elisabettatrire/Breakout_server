@@ -10,7 +10,10 @@ $(document).ready(function() {
         "scrollCollapse":   true,
         "paging":           false,
         "info":             false,
-        "searching":        false
+        "searching":        false,
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+        ]
     } );
 } );
 

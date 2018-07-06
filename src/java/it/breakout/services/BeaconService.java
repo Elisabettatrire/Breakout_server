@@ -23,7 +23,7 @@ import static it.breakout.utility.EnvVariables.DB_USR;
  *
  * @author costantino
  */
-public class Beacon_Service {
+public class BeaconService {
     
     private PreparedStatement st = null;
     private Connection conn = null;

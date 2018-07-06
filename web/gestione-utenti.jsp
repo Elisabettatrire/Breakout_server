@@ -15,15 +15,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="static/css/datatables.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
         <link href="static/css/full-height.css" rel="stylesheet" type="text/css"/>
         <link href="static/css/fontawesome/fontawesome-all.css" rel="stylesheet" type="text/css"/>
         <script src="static/js/bootbox.min.js" type="text/javascript"></script>
         <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="static/js/datatables.min.js" type="text/javascript"></script>
-        <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
-        <script src="static/js/scroll-table.js" type="text/javascript"></script>
+        <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -39,8 +38,11 @@
                     <h4>Lista Utenti</h4>
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
-                            <tr><th>Username</th><th>Password</th><th>Nome</th><th>Cognome</th>
-                                <th>e-mail</th><th>Modifica</th><th>Elimina</th>
+                            <tr><th>Username</th><th class="no-sort">Password</th>
+                                <th>Nome</th><th>Cognome</th>
+                                <th class="no-sort">e-mail</th>
+                                <th class="no-sort">Modifica</th>
+                                <th class="no-sort">Elimina</th>
                         </thead>
                         <tbody>
                             <c:forEach items="${requestScope.utenti}" var="utente">

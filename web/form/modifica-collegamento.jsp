@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <!-- Modal Form Modifica Collegamento -->
@@ -25,12 +26,14 @@
                                     <c:forEach items="${requestScope.nodi}" var="nodo">
                                         <c:set var="codice_nodo" value="${nodo.getCodice()}" />
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
-                                        <option value="${id_nodo}">${codice_nodo}</option>
+                                        <option value="${id_nodo}" data-mappa="${nodo.getID_mappa()}">
+                                            ${codice_nodo}</option>
                                     </c:forEach>
                                     <c:forEach items="${requestScope.pdis}" var="pdi">
                                         <c:set var="codice_pdi" value="${pdi.getCodice()}" />
                                         <c:set var="id_pdi" value="${pdi.getID()}" />
-                                        <option value="${id_pdi}">${codice_pdi}</option>
+                                        <option value="${id_pdi}" data-mappa="${pdi.getID_mappa()}">
+                                            ${codice_pdi}</option>
                                     </c:forEach>
                                 </select></td></tr>
                             <tr><td>Codice Nodo 2:</td><td>
@@ -38,12 +41,14 @@
                                     <c:forEach items="${requestScope.nodi}" var="nodo">
                                         <c:set var="codice_nodo" value="${nodo.getCodice()}" />
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
-                                        <option value="${id_nodo}">${codice_nodo}</option>
+                                        <option value="${id_nodo}" data-mappa="${nodo.getID_mappa()}">
+                                            ${codice_nodo}</option>
                                     </c:forEach>
                                     <c:forEach items="${requestScope.pdis}" var="pdi">
                                         <c:set var="codice_pdi" value="${pdi.getCodice()}" />
                                         <c:set var="id_pdi" value="${pdi.getID()}" />
-                                        <option value="${id_pdi}">${codice_pdi}</option>
+                                        <option value="${id_pdi}" data-mappa="${pdi.getID_mappa()}">
+                                            ${codice_pdi}</option>
                                     </c:forEach>
                                 </select></td></tr>
                             <tr><td>Codice Beacon:</td><td>

@@ -24,6 +24,8 @@
                         non verrà portato a termine.</p>
                 </div>
                 <div  class="col-md-12">
+                    <!-- Le opzioni delle select contengono dei metadati per poterle
+                    disabilitare tramite JS -->
                     <form action="DBModify" method="post">
                         <table class="table table-borderless">
                             <tr><td>Codice Nodo 1:</td><td>
@@ -32,12 +34,14 @@
                                     <c:forEach items="${requestScope.nodi}" var="nodo">
                                         <c:set var="codice_nodo" value="${nodo.getCodice()}" />
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
-                                        <option value="${id_nodo}">${codice_nodo}</option>
+                                        <option value="${id_nodo}" data-piano="${nodo.getID_piano()}"
+                                                ">${codice_nodo}</option>
                                     </c:forEach>
                                     <c:forEach items="${requestScope.pdis}" var="pdi">
                                         <c:set var="codice_pdi" value="${pdi.getCodice()}" />
                                         <c:set var="id_pdi" value="${pdi.getID()}" />
-                                        <option value="${id_pdi}">${codice_pdi}</option>
+                                        <option value="${id_pdi}" data-piano="${pdi.getID_piano()}"
+                                                data-mappa="${pdi.getID_mappa()}">${codice_pdi}</option>
                                     </c:forEach>
                                 </select></td></tr>
                             <tr><td>Codice Nodo 2:</td><td>
@@ -46,12 +50,14 @@
                                     <c:forEach items="${requestScope.nodi}" var="nodo">
                                         <c:set var="codice_nodo" value="${nodo.getCodice()}" />
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
-                                        <option value="${id_nodo}">${codice_nodo}</option>
+                                        <option value="${id_nodo}" data-piano="${nodo.getID_piano()}"
+                                                data-mappa="${nodo.getID_mappa()}">${codice_nodo}</option>
                                     </c:forEach>
                                     <c:forEach items="${requestScope.pdis}" var="pdi">
                                         <c:set var="codice_pdi" value="${pdi.getCodice()}" />
                                         <c:set var="id_pdi" value="${pdi.getID()}" />
-                                        <option value="${id_pdi}">${codice_pdi}</option>
+                                        <option value="${id_pdi}" data-piano="${pdi.getID_piano()}"
+                                                data-mappa="${pdi.getID_mappa()}">${codice_pdi}</option>
                                     </c:forEach>
                                 </select></td></tr>
                             <tr><td>Codice Beacon:</td><td>

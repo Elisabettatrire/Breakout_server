@@ -419,6 +419,7 @@ public class DBModify extends HttpServlet {
             throws ServletException, IOException {
         
         Tronco_Resource tronco_resource = new Tronco_Resource();
+        Nodo_Resource nodo_resource = new Nodo_Resource();
         Scala scala = new Scala();
         
         String id_n1_str = request.getParameter("codice-1");
@@ -447,11 +448,12 @@ public class DBModify extends HttpServlet {
         }
         
         if(exists == null){
-
+                
             scala.setNodiInteger(id_nodo_1, id_nodo_2);
             scala.setID_beacon(id_beacon);
 
             tronco_resource.insertScala(scala);
+
         }
 
         exists = null;

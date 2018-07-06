@@ -19,10 +19,8 @@
         <link href="static/css/fontawesome/fontawesome-all.css" rel="stylesheet" type="text/css"/>
         <script src="static/js/bootbox.min.js" type="text/javascript"></script>
         <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="static/js/datatables.min.js" type="text/javascript"></script>
-        <script src="static/js/jqBootstrapValidation.js" type="text/javascript"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
-        <script src="static/js/scroll-table.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
