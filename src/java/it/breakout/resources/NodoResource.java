@@ -2,13 +2,13 @@ package it.breakout.resources;
 
 import java.util.ArrayList;
 
-import it.breakout.services.Nodo_Service;
+import it.breakout.services.NodoService;
 import it.breakout.models.Nodo;
 import it.breakout.models.Pdi;
 
-public class Nodo_Resource {
+public class NodoResource {
     
-    Nodo_Service nodo_service = new Nodo_Service();
+    NodoService nodo_service = new NodoService();
     
     public ArrayList<Nodo> findAll() {
 	return nodo_service.findAll();

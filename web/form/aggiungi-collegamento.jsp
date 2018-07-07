@@ -28,11 +28,11 @@
                         <table class="table table-borderless">
                             <tr><td>Codice Nodo 1:</td><td>
                                 <select name="codice-1" required>
-                                    <option selected disabled hidden value="">Seleziona</option>
+                                    <option selected hidden disabled value="">Seleziona</option>
                                     <c:forEach items="${requestScope.nodi}" var="nodo">
                                         <c:set var="codice_nodo" value="${nodo.getCodice()}" />
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
-                                        <option value="${id_nodo}" data-mappa="${nodo.getID_mappa()}"
+                                        <option value="${id_nodo}" data-mappa="${nodo.getID_mappa()}">
                                                 ${codice_nodo}</option>
                                     </c:forEach>
                                     <c:forEach items="${requestScope.pdis}" var="pdi">
@@ -67,6 +67,9 @@
                                         <option value="${id_beacon}">${codice_beacon}</option>
                                     </c:forEach>
                                 </select></td></tr>
+                            <tr><td>Lunghezza (m):</td>
+                                <td><input type="text" name="lunghezza" placeholder=" es. 6.3"
+                                            size="30" maxlength="15" required></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere il collegamento -->
                         <div class="modal-footer">

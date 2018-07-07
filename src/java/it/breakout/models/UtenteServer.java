@@ -10,7 +10,7 @@ package it.breakout.models;
  *
  * @author costantino
  */
-public class Utente_Server {
+public class UtenteServer {
     private Integer ID_utente;
     private String username;
     private String password;
@@ -18,7 +18,7 @@ public class Utente_Server {
     private String nome;
     private String cognome;
 
-    public Utente_Server() {
+    public UtenteServer() {
     }
 
     public Integer getID_utente() {

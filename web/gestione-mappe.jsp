@@ -25,6 +25,7 @@
         <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
         <script src="static/js/select-old-value.js" type="text/javascript"></script>
         <script src="static/js/disable-same-floor.js" type="text/javascript"></script>
+        <script src="static/js/clear-selected.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -73,7 +74,8 @@
                     </table>
                     <div style="text-align: right; margin-top: 10px">
                         <button id="aggiungiPiano" data-toggle="modal" data-target="#modal-piano"
-                                class="btn btn-outline-success"><b>Aggiungi Piano</b></button>
+                                class="btn btn-outline-success" id="btn-agg-piano">
+                            <b>Aggiungi Piano</b></button>
                     </div>
                     <!-- End Table Piani -->
                     
@@ -114,8 +116,9 @@
                         </tbody>
                     </table>
                     <div style="text-align: right; margin-top: 10px">
-                        <button id="aggiungiScala" data-toggle="modal" data-target="#modal-agg-scala"
-                                class="btn btn-outline-success"><b>Aggiungi Scala</b></button>
+                        <button data-toggle="modal" data-target="#modal-agg-scala"
+                                class="btn btn-outline-success" id="btn-agg-scala">
+                            <b>Aggiungi Scala</b></button>
                     </div>
                 </div>
                 <!-- End Table Scale -->

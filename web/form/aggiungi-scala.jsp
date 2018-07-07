@@ -34,8 +34,8 @@
                                     <c:forEach items="${requestScope.nodi}" var="nodo">
                                         <c:set var="codice_nodo" value="${nodo.getCodice()}" />
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
-                                        <option value="${id_nodo}" data-piano="${nodo.getID_piano()}"
-                                                ">${codice_nodo}</option>
+                                        <option value="${id_nodo}" data-piano="${nodo.getID_piano()}">
+                                            ${codice_nodo}</option>
                                     </c:forEach>
                                     <c:forEach items="${requestScope.pdis}" var="pdi">
                                         <c:set var="codice_pdi" value="${pdi.getCodice()}" />
@@ -69,6 +69,9 @@
                                         <option value="${id_beacon}">${codice_beacon}</option>
                                     </c:forEach>
                                 </select></td></tr>
+                            <tr><td>Lunghezza (m):</td>
+                                <td><input type="text" name="lunghezza" placeholder=" es. 6.3"
+                                            size="30" maxlength="15" required></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere la scala -->
                         <div class="modal-footer">

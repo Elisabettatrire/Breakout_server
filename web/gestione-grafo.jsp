@@ -26,6 +26,7 @@
         <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
         <script src="static/js/disable-select.js" type="text/javascript"></script>
         <script src="static/js/select-old-value.js" type="text/javascript"></script>
+        <script src="static/js/clear-selected.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -95,7 +96,8 @@
                     </table>
                     <div style="text-align: right; margin-top: 10px">
                         <button type="button" class="btn btn-outline-success"
-                                data-toggle="modal" data-target="#modal-agg-nodo">
+                                data-toggle="modal" data-target="#modal-agg-nodo"
+                                id="btn-agg-nodo">
                             <b>Aggiungi nodo</b>
                         </button>
                     </div>
@@ -138,7 +140,8 @@
                     </table>
                     <div style="text-align: right; margin-top: 10px">
                         <button type="button" class="btn btn-outline-success"
-                                data-toggle="modal" data-target="#modal-agg-tronco">
+                                data-toggle="modal" data-target="#modal-agg-tronco"
+                                id="btn-agg-tronco">
                             <b>Aggiungi tronco</b>
                         </button>
                     </div>
@@ -182,7 +185,8 @@
             <div class="row">
                 <div class="col-md-12" style="text-align: right;  margin-top: 10px">
                     <button type="button" class="btn btn-outline-success"
-                        data-toggle="modal" data-target="#modal-agg-pdi">
+                        data-toggle="modal" data-target="#modal-agg-pdi"
+                        id="btn-agg-pdi">
                         <b>Aggiungi PDI</b>
                     </button>
                 </div>

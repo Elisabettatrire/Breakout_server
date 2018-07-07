@@ -14,7 +14,7 @@ import it.breakout.services.BeaconService;
  *
  * @author Giovanni
  */
-public class Beacon_Resource {
+public class BeaconResource {
     
     BeaconService beacon_service = new BeaconService();
     Connection conn = null;

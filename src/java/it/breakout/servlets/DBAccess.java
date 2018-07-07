@@ -7,14 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.HttpConstraint;;
+import it.breakout.resources.BeaconResource;
+import it.breakout.resources.NodoResource;
+
+import it.breakout.resources.TroncoResource;
+import it.breakout.resources.PianoResource;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import it.breakout.resources.Tronco_Resource;
-import it.breakout.resources.Nodo_Resource;
-import it.breakout.resources.Piano_Resource;
-import it.breakout.resources.Utente_Resource;
-import it.breakout.resources.Beacon_Resource;
+import it.breakout.resources.UtenteResource;
 import it.breakout.models.Scala;
 import it.breakout.models.Nodo;
 import it.breakout.models.Piano;
@@ -81,18 +82,18 @@ public class DBAccess extends HttpServlet{
     public void fillMappeData(HttpServletRequest request) {
         
         /* Riempimento tabella piani */
-        Piano_Resource piano_resource = new Piano_Resource();
+        PianoResource piano_resource = new PianoResource();
         ArrayList<Piano>  al_piani = piano_resource.findAll();
         request.setAttribute("piani", al_piani);
 
         /* Riempimento tabella scale */
-        Tronco_Resource tronco_resource = new Tronco_Resource();
+        TroncoResource tronco_resource = new TroncoResource();
         ArrayList<Scala> al_scale = tronco_resource.findAllStairs();
         request.setAttribute("scale", al_scale);
 
         /* Rimepimento select delle form */
-        Beacon_Resource beacon_resource = new Beacon_Resource();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        BeaconResource beacon_resource = new BeaconResource();
+        NodoResource nodo_resource = new NodoResource();
         ArrayList<Beacon> al_beacon = beacon_resource.findAll();
         ArrayList<Nodo> al_nodi = nodo_resource.findAll();
         request.setAttribute("al_beacon", al_beacon);
@@ -102,7 +103,7 @@ public class DBAccess extends HttpServlet{
     
     public void fillUtentiData(HttpServletRequest request) {
         
-        Utente_Resource utente_resource = new Utente_Resource();
+        UtenteResource utente_resource = new UtenteResource();
         ArrayList<Utente> al_utenti = utente_resource.findAll();
         request.setAttribute("utenti", al_utenti);
         

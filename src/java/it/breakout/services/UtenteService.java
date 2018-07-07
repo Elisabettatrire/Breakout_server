@@ -22,7 +22,7 @@ import static it.breakout.utility.EnvVariables.DB_USR;
  *
  * @author costantino
  */
-public class Utente_Service {
+public class UtenteService {
     
     private PreparedStatement st = null;
     private Connection conn = null;

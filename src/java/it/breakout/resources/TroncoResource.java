@@ -3,14 +3,14 @@ package it.breakout.resources;
 import java.util.ArrayList;
 import java.sql.Connection;
 
-import it.breakout.services.Tronco_Service;
+import it.breakout.services.TroncoService;
 import it.breakout.models.Tronco;
 import it.breakout.models.Scala;
 import it.breakout.models.Collegamento;
 
-public class Tronco_Resource {
+public class TroncoResource {
     
-    Tronco_Service tronco_service = new Tronco_Service();
+    TroncoService tronco_service = new TroncoService();
     Connection conn = null;
     
     public ArrayList<Tronco> findAllArcs(Integer id_mappa) {

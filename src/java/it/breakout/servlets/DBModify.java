@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 
-import it.breakout.resources.Piano_Resource;
-import it.breakout.resources.Mappa_Resource;
-import it.breakout.resources.Utente_Resource;
-import it.breakout.resources.Nodo_Resource;
-import it.breakout.resources.Tronco_Resource;
-import it.breakout.resources.Beacon_Resource;
+import it.breakout.resources.PianoResource;
+import it.breakout.resources.MappaResource;
+import it.breakout.resources.UtenteResource;
+import it.breakout.resources.NodoResource;
+import it.breakout.resources.TroncoResource;
+import it.breakout.resources.BeaconResource;
 import it.breakout.utility.FormFilter;
 import it.breakout.models.Mappa;
 import it.breakout.models.Nodo;
@@ -371,7 +371,7 @@ public class DBModify extends HttpServlet {
     public void aggiungiPiano(HttpServletRequest request) {
         
         FormFilter form_filter = new FormFilter();
-        Piano_Resource piano_resource = new Piano_Resource();
+        PianoResource piano_resource = new PianoResource();
         
         String quota_filtered = form_filter.filtraQuota(request.getParameter("quota"));
         /* Controllo se esiste un piano con lo stesso nome */
@@ -389,7 +389,7 @@ public class DBModify extends HttpServlet {
     public void modificaPiano(HttpServletRequest request) {
         
         FormFilter form_filter = new FormFilter();
-        Piano_Resource piano_resource = new Piano_Resource();
+        PianoResource piano_resource = new PianoResource();
         
         Integer id_piano = Integer.parseInt(request.getParameter("id_piano"));
         String quota_filtered = form_filter.filtraQuota(request.getParameter("quota"));
@@ -409,7 +409,7 @@ public class DBModify extends HttpServlet {
     
     public void eliminaPiano(HttpServletRequest request) {
         
-        Piano_Resource piano_resource = new Piano_Resource();
+        PianoResource piano_resource = new PianoResource();
         
         piano_resource.delete(Integer.parseInt(request.getParameter("id_piano")));
         
@@ -418,13 +418,14 @@ public class DBModify extends HttpServlet {
     public void aggiungiScala(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Tronco_Resource tronco_resource = new Tronco_Resource();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        FormFilter form_filter = new FormFilter();
+        TroncoResource tronco_resource = new TroncoResource();
         Scala scala = new Scala();
         
         String id_n1_str = request.getParameter("codice-1");
         String id_n2_str = request.getParameter("codice-2");
         String id_beac_str = request.getParameter("codice-beacon");
+        Double lunghezza = form_filter.filtraMisura(request.getParameter("lunghezza"));
 
         /* Se la validazione lato client non dovesse funzionare si
         viene reindirizzati alla pagina di gestione del grafo
@@ -447,10 +448,11 @@ public class DBModify extends HttpServlet {
             exists = tronco_resource.findByNodi(id_nodo_2, id_nodo_1).getID();
         }
         
-        if(exists == null){
+        if(exists == null && !Objects.equals(lunghezza, DEFAULT_DOUBLE)){
                 
             scala.setNodiInteger(id_nodo_1, id_nodo_2);
             scala.setID_beacon(id_beacon);
+            scala.setLunghezza(lunghezza);
 
             tronco_resource.insertScala(scala);
 
@@ -463,20 +465,21 @@ public class DBModify extends HttpServlet {
     public void modificaScala(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Tronco_Resource tronco_resource = new Tronco_Resource();
+        FormFilter form_filter = new FormFilter();
+        TroncoResource tronco_resource = new TroncoResource();
         Scala scala = new Scala();
-        Scala scala_old = new Scala();
         
         String id_n1_str = request.getParameter("codice-1");
         String id_n2_str = request.getParameter("codice-2");
         String id_beac_str = request.getParameter("codice-beacon");
+        Double lunghezza = form_filter.filtraMisura(request.getParameter("lunghezza"));
 
         Integer id_scala = Integer.parseInt(request.getParameter("id_scala"));
 
         /* Visto che i campi da controllare sono più di uno ho bisogno
         di un oggetto che contenga i vecchi valori
         */
-        scala_old = tronco_resource.findStairByID(id_scala);
+        Scala scala_old = tronco_resource.findStairByID(id_scala);
         Integer[] nodi_old = scala_old.getNodiInteger();
 
         /* Se la validazione lato client non dovesse funzionare si
@@ -509,6 +512,12 @@ public class DBModify extends HttpServlet {
         } else{
             scala.setNodiInteger(nodi_old[0], nodi_old[1]);
         }
+        
+        if(!Objects.equals(lunghezza, DEFAULT_DOUBLE)) {
+            scala.setLunghezza(lunghezza);
+        } else {
+            scala.setLunghezza(scala_old.getLunghezza());
+        }
 
         scala.setID_beacon(id_beacon);
 
@@ -520,7 +529,7 @@ public class DBModify extends HttpServlet {
     
     public void eliminaScala(HttpServletRequest request) {
         
-        Tronco_Resource tronco_resource = new Tronco_Resource();
+        TroncoResource tronco_resource = new TroncoResource();
         
         tronco_resource.delete(Integer.parseInt(request.getParameter("id_scala")));
         
@@ -529,8 +538,8 @@ public class DBModify extends HttpServlet {
     public void aggiungiMappa(HttpServletRequest request, String quota) {
         
         FormFilter form_filter = new FormFilter();
-        Piano_Resource piano_resource = new Piano_Resource();
-        Mappa_Resource mappa_resource = new Mappa_Resource();
+        PianoResource piano_resource = new PianoResource();
+        MappaResource mappa_resource = new MappaResource();
         Mappa mappa = new Mappa();
         
         String nome_mappa_filtered = form_filter.filtraNomeMappa(request.getParameter("nome-mappa"));
@@ -553,9 +562,8 @@ public class DBModify extends HttpServlet {
     public void modificaMappa(HttpServletRequest request) {
         
         FormFilter form_filter = new FormFilter();
-        Mappa_Resource mappa_resource = new Mappa_Resource();
-        Mappa mappa = new Mappa();
-        Mappa mappa_old = new Mappa();
+        MappaResource mappa_resource = new MappaResource();
+        Mappa mappa = new Mappa();        
         
         String nome_mappa_filtered = form_filter.filtraNomeMappa(request.getParameter("nome-mappa"));
         String url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
@@ -564,7 +572,7 @@ public class DBModify extends HttpServlet {
         /* Visto che i campi da controllare sono più di uno ho bisogno
         di un oggetto che contenga i vecchi valori
         */
-        mappa_old = mappa_resource.findByID(id_mappa_local);
+        Mappa mappa_old = mappa_resource.findByID(id_mappa_local);
         
         Integer exists = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
 
@@ -592,7 +600,7 @@ public class DBModify extends HttpServlet {
     
     public void eliminaMappa(HttpServletRequest request) {
         
-        Mappa_Resource mappa_resource = new Mappa_Resource();
+        MappaResource mappa_resource = new MappaResource();
         
         mappa_resource.delete(Integer.parseInt(request.getParameter("id_mappa")));
         
@@ -601,13 +609,15 @@ public class DBModify extends HttpServlet {
     public void aggiungiCollegamento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Tronco_Resource tronco_resource = new Tronco_Resource();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        FormFilter form_filter = new FormFilter();
+        TroncoResource tronco_resource = new TroncoResource();
+        NodoResource nodo_resource = new NodoResource();
         Collegamento collegamento = new Collegamento();
         
         String id_n1_str = request.getParameter("codice-1");
         String id_n2_str = request.getParameter("codice-2");
         String id_beac_str = request.getParameter("codice-beacon");
+        Double lunghezza = form_filter.filtraMisura(request.getParameter("lunghezza"));
 
         /* Se la validazione lato client non dovesse funzionare si
         viene reindirizzati alla pagina di gestione del grafo
@@ -631,9 +641,10 @@ public class DBModify extends HttpServlet {
             exists = tronco_resource.findByNodi(id_nodo_2, id_nodo_1).getID();
         }
         
-        if(exists == null){
+        if(exists == null && !Objects.equals(lunghezza, DEFAULT_DOUBLE)){
 
             collegamento.setNodiInteger(id_nodo_1, id_nodo_2);
+            collegamento.setLunghezza(lunghezza);
             collegamento.setID_beacon(id_beacon);
             collegamento.setID_piano(id_piano);
 
@@ -647,20 +658,21 @@ public class DBModify extends HttpServlet {
     public void modificaCollegamento(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Tronco_Resource tronco_resource = new Tronco_Resource();
+        FormFilter form_filter = new FormFilter();
+        TroncoResource tronco_resource = new TroncoResource();
         Collegamento collegamento = new Collegamento();
-        Collegamento collegamento_old = new Collegamento();
         
         String id_n1_str = request.getParameter("codice-1");
         String id_n2_str = request.getParameter("codice-2");
         String id_beac_str = request.getParameter("codice-beacon");
+        Double lunghezza = form_filter.filtraMisura(request.getParameter("lunghezza"));
 
         Integer id_collegamento = Integer.parseInt(request.getParameter("id_collegamento"));
 
         /* Visto che i campi da controllare sono più di uno ho bisogno
         di un oggetto che contenga i vecchi valori
         */
-        collegamento_old = tronco_resource.findLinkByID(id_collegamento);
+        Collegamento collegamento_old = tronco_resource.findLinkByID(id_collegamento);
         Integer[] nodi_old = collegamento_old.getNodiInteger();
 
         /* Se la validazione lato client non dovesse funzionare si
@@ -693,6 +705,12 @@ public class DBModify extends HttpServlet {
         } else{
             collegamento.setNodiInteger(nodi_old[0], nodi_old[1]);
         }
+        
+        if(!Objects.equals(lunghezza, DEFAULT_DOUBLE)) {
+            collegamento.setLunghezza(lunghezza);
+        } else {
+            collegamento.setLunghezza(collegamento_old.getLunghezza());
+        }
 
         collegamento.setID_beacon(id_beacon);
 
@@ -704,7 +722,7 @@ public class DBModify extends HttpServlet {
     
     public void eliminaCollegamento(HttpServletRequest request) {
         
-        Tronco_Resource tronco_resource = new Tronco_Resource();
+        TroncoResource tronco_resource = new TroncoResource();
         
         tronco_resource.delete(Integer.parseInt(request.getParameter("id_collegamento")));
         
@@ -712,7 +730,7 @@ public class DBModify extends HttpServlet {
     
     public void modificaUtente(HttpServletRequest request) {
         
-        Utente_Resource utente_resource = new Utente_Resource();
+        UtenteResource utente_resource = new UtenteResource();
         
         Integer id_utente = Integer.parseInt(request.getParameter("id_utente"));
         String psw = request.getParameter("psw");
@@ -726,7 +744,7 @@ public class DBModify extends HttpServlet {
     
     public void eliminaUtente(HttpServletRequest request) {
         
-        Utente_Resource utente_resource = new Utente_Resource();
+        UtenteResource utente_resource = new UtenteResource();
         
         utente_resource.delete(Integer.parseInt(request.getParameter("id_utente")));
         
@@ -735,8 +753,8 @@ public class DBModify extends HttpServlet {
     public void aggiungiNodo(HttpServletRequest request, String nome_mappa) {
         
         FormFilter form_filter = new FormFilter();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
-        Mappa_Resource mappa_resource = new Mappa_Resource();
+        NodoResource nodo_resource = new NodoResource();
+        MappaResource mappa_resource = new MappaResource();
         Nodo nodo = new Nodo();
         
         String codice_nodo_filtered = form_filter.filtraCodice(request.getParameter("codice"));
@@ -772,9 +790,8 @@ public class DBModify extends HttpServlet {
     public void modificaNodo(HttpServletRequest request) {
         
         FormFilter form_filter = new FormFilter();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        NodoResource nodo_resource = new NodoResource();
         Nodo nodo = new Nodo();
-        Nodo nodo_old = new Nodo();
         
         String codice_nodo_filtered = form_filter.filtraCodice(request.getParameter("codice"));
         Double coord_x_filtered = form_filter.filtraCoordinata(request.getParameter("coord-x"));
@@ -785,7 +802,7 @@ public class DBModify extends HttpServlet {
         /* Visto che i campi da controllare sono più di uno ho bisogno
         di un oggetto che contenga i vecchi valori
         */
-        nodo_old = nodo_resource.findByID(id_nodo);
+        Nodo nodo_old = nodo_resource.findByID(id_nodo);
 
         /* Controllo campi */
         Integer exists = nodo_resource.findByCodice(codice_nodo_filtered).getID();
@@ -821,7 +838,7 @@ public class DBModify extends HttpServlet {
     
     public void eliminaNodo(HttpServletRequest request) {
         
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        NodoResource nodo_resource = new NodoResource();
         
         nodo_resource.deleteNodo(Integer.parseInt(request.getParameter("id_nodo")));
         
@@ -831,8 +848,8 @@ public class DBModify extends HttpServlet {
             String nome_mappa) throws ServletException, IOException {
         
         FormFilter form_filter = new FormFilter();
-        Tronco_Resource tronco_resource = new Tronco_Resource();
-        Mappa_Resource mappa_resource = new Mappa_Resource();
+        TroncoResource tronco_resource = new TroncoResource();
+        MappaResource mappa_resource = new MappaResource();
         Tronco tronco = new Tronco();
         
         String id_n1_str = request.getParameter("codice-1");
@@ -882,7 +899,7 @@ public class DBModify extends HttpServlet {
             String nome_mappa) throws ServletException, IOException {
         
         FormFilter form_filter = new FormFilter();
-        Tronco_Resource tronco_resource = new Tronco_Resource();
+        TroncoResource tronco_resource = new TroncoResource();
         Tronco tronco = new Tronco();
         
         String id_n1_str = request.getParameter("codice-1");
@@ -943,7 +960,7 @@ public class DBModify extends HttpServlet {
     
     public void eliminaTronco(HttpServletRequest request) {
         
-        Tronco_Resource tronco_resource = new Tronco_Resource();
+        TroncoResource tronco_resource = new TroncoResource();
         
         tronco_resource.delete(Integer.parseInt(request.getParameter("id_tronco")));
         
@@ -952,8 +969,8 @@ public class DBModify extends HttpServlet {
     public void aggiungiPDI(HttpServletRequest request, String nome_mappa) {
         
         FormFilter form_filter = new FormFilter();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
-        Mappa_Resource mappa_resource = new Mappa_Resource();
+        NodoResource nodo_resource = new NodoResource();
+        MappaResource mappa_resource = new MappaResource();
         Pdi pdi = new Pdi();
 
         String codice_pdi_filtered = form_filter.filtraCodice(request.getParameter("codice"));
@@ -995,9 +1012,8 @@ public class DBModify extends HttpServlet {
     public void modificaPDI(HttpServletRequest request) {
         
         FormFilter form_filter = new FormFilter();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        NodoResource nodo_resource = new NodoResource();
         Pdi pdi = new Pdi();
-        Pdi pdi_old = new Pdi();
         
         String codice_pdi_filtered = form_filter.filtraCodice(request.getParameter("codice"));
         Double coord_x_filtered = form_filter.filtraCoordinata(request.getParameter("coord-x"));
@@ -1010,7 +1026,7 @@ public class DBModify extends HttpServlet {
         /* Visto che i campi da controllare sono più di uno ho bisogno
         di un oggetto che contenga i vecchi valori
         */
-        pdi_old = nodo_resource.findPoiByID(id_pdi);
+        Pdi pdi_old = nodo_resource.findPoiByID(id_pdi);
 
         /* Controllo campi */
         Integer exists = nodo_resource.findByCodice(codice_pdi_filtered).getID();
@@ -1058,7 +1074,7 @@ public class DBModify extends HttpServlet {
     
     public void eliminaPDI(HttpServletRequest request) {
         
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        NodoResource nodo_resource = new NodoResource();
         
         nodo_resource.deleteNodo(Integer.parseInt(request.getParameter("id_pdi")));
         
@@ -1067,8 +1083,8 @@ public class DBModify extends HttpServlet {
     public Integer aggiungiBeacon(HttpServletRequest request, String nome_mappa) {
         
         FormFilter form_filter = new FormFilter();
-        Mappa_Resource mappa_resource = new Mappa_Resource();
-        Beacon_Resource beacon_resource = new Beacon_Resource();
+        MappaResource mappa_resource = new MappaResource();
+        BeaconResource beacon_resource = new BeaconResource();
         Beacon beacon = new Beacon();
 
         String codice_beacon_filtered = form_filter.filtraCodice(request.getParameter("codice"));
@@ -1118,10 +1134,9 @@ public class DBModify extends HttpServlet {
     public Integer modificaBeacon(HttpServletRequest request, String nome_mappa) {
         
         FormFilter form_filter = new FormFilter();
-        Mappa_Resource mappa_resource = new Mappa_Resource();
-        Beacon_Resource beacon_resource = new Beacon_Resource();
+        MappaResource mappa_resource = new MappaResource();
+        BeaconResource beacon_resource = new BeaconResource();
         Beacon beacon = new Beacon();
-        Beacon beacon_old = new Beacon();
         
         String codice_beacon_filtered = form_filter.filtraCodice(request.getParameter("codice"));
         Double coord_x_filtered = form_filter.filtraCoordinata(request.getParameter("coord-x"));
@@ -1136,7 +1151,7 @@ public class DBModify extends HttpServlet {
         /* Visto che i campi da controllare sono più di uno ho bisogno
         di un oggetto che contenga i vecchi valori
         */
-        beacon_old = beacon_resource.findByID(id_beacon);
+        Beacon beacon_old = beacon_resource.findByID(id_beacon);
 
         Integer exists = beacon_resource.findByCodice(codice_beacon_filtered).getID_beacon();
 
@@ -1200,8 +1215,8 @@ public class DBModify extends HttpServlet {
     
     public Integer eliminaBeacon(HttpServletRequest request, String nome_mappa) {
         
-        Mappa_Resource mappa_resource = new Mappa_Resource();
-        Beacon_Resource beacon_resource = new Beacon_Resource();
+        MappaResource mappa_resource = new MappaResource();
+        BeaconResource beacon_resource = new BeaconResource();
         
         beacon_resource.delete(Integer.parseInt(request.getParameter("id_beacon")));
 

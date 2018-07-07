@@ -1,6 +1,6 @@
 /* 
  * Il codice impedisce che nell'inserimento di un nuovo collegamento tra mappe
- * o di una suova scala vengano selezionati due nodi appartenenti alla stessa mappa
+ * vengano selezionati due nodi appartenenti alla stessa mappa
  */
 
 $(document).ready(function(){

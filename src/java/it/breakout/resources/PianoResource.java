@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.sql.Connection;
 
 import it.breakout.models.Piano;
-import it.breakout.services.Piano_Service;
+import it.breakout.services.PianoService;
 
-public class Piano_Resource {
+public class PianoResource {
     
-    Piano_Service piano_service = new Piano_Service();
+    PianoService piano_service = new PianoService();
     Connection conn = null;
     
     /* Funzioni di ricerca */

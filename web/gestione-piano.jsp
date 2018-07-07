@@ -25,6 +25,7 @@
         <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
         <script src="static/js/select-old-value.js" type="text/javascript"></script>
         <script src="static/js/disable-same-map.js" type="text/javascript"></script>
+        <script src="static/js/clear-selected.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -128,7 +129,8 @@
                     
                     <div style="text-align: right; margin-top: 10px">
                         <button type="button" class="btn btn-outline-success"
-                            data-toggle="modal" data-target="#modal-agg-collegamento">
+                            data-toggle="modal" data-target="#modal-agg-collegamento"
+                            id="btn-agg-collegamento">
                         <b>Aggiungi collegamento</b>
                         </button>
                     </div> 

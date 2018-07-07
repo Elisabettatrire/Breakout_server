@@ -25,6 +25,7 @@
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
         <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
         <script src="static/js/select-old-pdi.js" type="text/javascript"></script>
+        <script src="static/js/clear-selected.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -97,8 +98,8 @@
                     <br>
                     <!--Bottoni per la gestione dei beacon-->
                     <div style="text-align: right; margin-top: 10px">
-                        <button type="button" class="btn btn-outline-success" data-toggle="modal"
-                                data-target="#modal-beacon">
+                        <button class="btn btn-outline-success" data-toggle="modal"
+                                data-target="#modal-beacon" id="btn-agg-beacon">
                             <b>Aggiungi beacon</b>
                         </button>
                     </div>

@@ -22,7 +22,7 @@ import static it.breakout.utility.EnvVariables.DB_USR;
  *
  * @author costantino
  */
-public class Piano_Service {
+public class PianoService {
 
     private PreparedStatement st = null;
     private Connection conn = null;

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.sql.Connection;
 
 import it.breakout.models.Mappa;
-import it.breakout.services.Mappa_Service;
+import it.breakout.services.MappaService;
 
-public class Mappa_Resource {
+public class MappaResource {
     
-    Mappa_Service mappa_service = new Mappa_Service();
+    MappaService mappa_service = new MappaService();
     Connection conn = null;
     
     public ArrayList<Mappa> findAll() {

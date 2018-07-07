@@ -5,7 +5,7 @@
  */
 package it.breakout.models;
 
-import it.breakout.resources.Nodo_Resource;
+import it.breakout.resources.NodoResource;
 
 /**
  *
@@ -118,7 +118,7 @@ public class Beacon {
     
     public String getCodicePdi() {
         
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        NodoResource nodo_resource = new NodoResource();
         
         return nodo_resource.findPoiByID(this.ID_pdi).getCodice();
     }

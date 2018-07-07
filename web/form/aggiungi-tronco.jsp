@@ -63,8 +63,8 @@
                                         <option value="${id_beacon}">${codice_beacon}</option>
                                     </c:forEach>
                                 </select></td></tr>
-                            <tr><td>Lunghezza:</td>
-                                <td><input type="text" name="lunghezza" placeholder="es. 50"
+                            <tr><td>Lunghezza (m):</td>
+                                <td><input type="text" name="lunghezza" placeholder=" es. 6.3"
                                             size="30" maxlength="15" required></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere il tronco -->

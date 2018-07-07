@@ -7,16 +7,16 @@ package it.breakout.resources;
 
 import java.util.ArrayList;
 
-import it.breakout.services.Utente_Service;
+import it.breakout.services.UtenteService;
 import it.breakout.models.Utente;
 
 /**
  *
  * @author Giovanni
  */
-public class Utente_Resource {
+public class UtenteResource {
  
-    Utente_Service utente_service = new Utente_Service();
+    UtenteService utente_service = new UtenteService();
     
     public ArrayList<Utente> findAll() {
         return utente_service.findAll();

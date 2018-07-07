@@ -7,8 +7,8 @@ package it.breakout.utility;
 
 import it.breakout.models.Nodo;
 import it.breakout.models.Scala;
-import it.breakout.services.Nodo_Service;
-import it.breakout.services.Tronco_Service;
+import it.breakout.services.NodoService;
+import it.breakout.services.TroncoService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -78,7 +78,7 @@ public class CamminoMinimo {
         dijkstraDef.put(destNodeId, cost_camm_dest);//Inserisco il nodo di destinazione nell'insieme definitivo
         dijkstraTemp = impostaCostoECammino(dijkstraTemp, dijkstraDef, destNodeId); //Inserisco nell'insieme temporaneo i nodi adiacenti alla destinazione 
         
-        Tronco_Service troncoSrv = new Tronco_Service();
+        TroncoService troncoSrv = new TroncoService();
         Scala startArc = troncoSrv.findByIDGeneric(startArcId);
         
         /*
@@ -110,8 +110,8 @@ public class CamminoMinimo {
     
     private static HashMap<Integer,Costo_e_Cammino> impostaCostoECammino(HashMap<Integer,Costo_e_Cammino> dijkstraTemp, HashMap<Integer,Costo_e_Cammino> dijkstraDef, Integer nodoId){
         
-        Nodo_Service nodoSrv = new Nodo_Service();
-        Tronco_Service troncoSrv = new Tronco_Service();
+        NodoService nodoSrv = new NodoService();
+        TroncoService troncoSrv = new TroncoService();
         
         Nodo nodo = nodoSrv.findByID(nodoId);
         ArrayList<Scala> stella = new ArrayList<>();

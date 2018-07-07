@@ -9,6 +9,6 @@ package it.breakout.services;
  *
  * @author costantino
  */
-public class Modifiche_Service {
+public class ModificheService {
     
 }

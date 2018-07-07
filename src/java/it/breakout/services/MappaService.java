@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  *
  * @author costantino
  */
-public class Mappa_Service {
+public class MappaService {
     
     private PreparedStatement st = null;
     private Connection conn = null;

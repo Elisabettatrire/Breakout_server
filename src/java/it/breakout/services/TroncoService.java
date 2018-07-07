@@ -25,7 +25,7 @@ import java.sql.Types;
  *
  * @author costantino
  */
-public class Tronco_Service {
+public class TroncoService {
     
     private PreparedStatement st = null;
     private Connection conn = null;

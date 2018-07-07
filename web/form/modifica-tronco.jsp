@@ -54,7 +54,7 @@
                                         <option value="${id_beacon}">${codice_beacon}</option>
                                     </c:forEach>
                                 </select></td></tr>
-                            <tr><td>Lunghezza:</td>
+                            <tr><td>Lunghezza (m):</td>
                                 <td><input type="text" name="lunghezza" placeholder=" (invariato)"
                                             size="30" maxlength="15"></td></tr>
                         </table>

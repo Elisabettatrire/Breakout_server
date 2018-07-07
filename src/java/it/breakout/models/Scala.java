@@ -7,8 +7,8 @@ package it.breakout.models;
 
 import java.util.ArrayList;
 
-import it.breakout.resources.Nodo_Resource;
-import it.breakout.resources.Beacon_Resource;
+import it.breakout.resources.NodoResource;
+import it.breakout.resources.BeaconResource;
 
 /**
  *
@@ -47,7 +47,7 @@ public class Scala {
     public String[] getCodiciNodi() {
         
         String[] codici = new String[2];
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        NodoResource nodo_resource = new NodoResource();
         
         codici[0] = nodo_resource.findByID(this.nodi_int[0]).getCodice();
         codici[1] = nodo_resource.findByID(this.nodi_int[1]).getCodice();
@@ -102,7 +102,7 @@ public class Scala {
 
     public String getCodiceBeacon() {
         
-        Beacon_Resource beacon_resource = new Beacon_Resource();
+        BeaconResource beacon_resource = new BeaconResource();
         
         return beacon_resource.findByID(this.ID_beacon).getCodice();
     }
@@ -138,7 +138,7 @@ public class Scala {
     }
 
     private void setNodi() {
-        Nodo_Resource nodoSrv = new Nodo_Resource();
+        NodoResource nodoSrv = new NodoResource();
         nodi.add(nodoSrv.findByID(nodi_int[0]));
         nodi.add(nodoSrv.findByID(nodi_int[1]));
     }

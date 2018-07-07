@@ -22,11 +22,11 @@ import it.breakout.models.Pdi;
 import it.breakout.models.Beacon;
 import it.breakout.models.Tronco;
 import it.breakout.models.Collegamento;
-import it.breakout.resources.Mappa_Resource;
-import it.breakout.resources.Piano_Resource;
-import it.breakout.resources.Nodo_Resource;
-import it.breakout.resources.Beacon_Resource;
-import it.breakout.resources.Tronco_Resource;
+import it.breakout.resources.MappaResource;
+import it.breakout.resources.PianoResource;
+import it.breakout.resources.NodoResource;
+import it.breakout.resources.BeaconResource;
+import it.breakout.resources.TroncoResource;
 
 /**
  *
@@ -113,11 +113,11 @@ public class ObjectAccess extends HttpServlet {
      */
     public void fillPianoData(HttpServletRequest request) {
         
-        Mappa_Resource mappa_resource = new Mappa_Resource();
-        Piano_Resource piano_resource = new Piano_Resource();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
-        Beacon_Resource beacon_resource = new Beacon_Resource();
-        Tronco_Resource tronco_resource = new Tronco_Resource();
+        MappaResource mappa_resource = new MappaResource();
+        PianoResource piano_resource = new PianoResource();
+        NodoResource nodo_resource = new NodoResource();
+        BeaconResource beacon_resource = new BeaconResource();
+        TroncoResource tronco_resource = new TroncoResource();
         
         Piano piano_search = piano_resource.findByQuota(identificatore);
         Integer id_piano = piano_search.getID_piano();
@@ -138,9 +138,9 @@ public class ObjectAccess extends HttpServlet {
     
     public void fillMappaData(HttpServletRequest request) {
         
-        //Beacon_Resource beacon_resource = new Beacon_Resource();
-        Mappa_Resource mappa_resource_2 = new Mappa_Resource();
-        Piano_Resource piano_resource2 = new Piano_Resource();
+        //Beacon_Resource beacon_resource = new BeaconResource();
+        MappaResource mappa_resource_2 = new MappaResource();
+        PianoResource piano_resource2 = new PianoResource();
 
         //ArrayList<Beacon> al_beacon = beacon_resource.findAll();
         Mappa mappa_search1 = mappa_resource_2.findByNome(identificatore);
@@ -159,11 +159,11 @@ public class ObjectAccess extends HttpServlet {
     
     public void fillGrafoData(HttpServletRequest request) {
         
-        Mappa_Resource mappa_resource = new Mappa_Resource();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
-        Piano_Resource piano_resource = new Piano_Resource();
-        Tronco_Resource tronco_resource = new Tronco_Resource();
-        Beacon_Resource beacon_resource = new Beacon_Resource();
+        MappaResource mappa_resource = new MappaResource();
+        NodoResource nodo_resource = new NodoResource();
+        PianoResource piano_resource = new PianoResource();
+        TroncoResource tronco_resource = new TroncoResource();
+        BeaconResource beacon_resource = new BeaconResource();
 
         Mappa mappa_search = mappa_resource.findByNome(identificatore);
         Integer id_mappa = mappa_search.getID_mappa();
@@ -187,10 +187,10 @@ public class ObjectAccess extends HttpServlet {
     
     public void fillBeaconData(HttpServletRequest request) {
         
-        Mappa_Resource mappa_resource = new Mappa_Resource();
-        Beacon_Resource beacon_resource = new Beacon_Resource();
-        Piano_Resource piano_resource = new Piano_Resource();
-        Nodo_Resource nodo_resource = new Nodo_Resource();
+        MappaResource mappa_resource = new MappaResource();
+        BeaconResource beacon_resource = new BeaconResource();
+        PianoResource piano_resource = new PianoResource();
+        NodoResource nodo_resource = new NodoResource();
 
         Integer id_mappa = Integer.parseInt(identificatore);
         Mappa mappa_search = mappa_resource.findByID(id_mappa);

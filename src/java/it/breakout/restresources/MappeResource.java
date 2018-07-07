@@ -6,7 +6,7 @@
 package it.breakout.restresources;
 
 import it.breakout.models.Mappa;
-import it.breakout.services.Mappa_Service;
+import it.breakout.services.MappaService;
 import java.util.Set;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
  * @author costantino
  */
 @Path("/maps")
-public class Mappe_resource {
+public class MappeResource {
     
     @GET
     @Path("/getmaps")

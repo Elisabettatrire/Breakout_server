@@ -23,7 +23,7 @@ import static it.breakout.utility.EnvVariables.DB_USR;
  *
  * @author costantino
  */
-public class Nodo_Service {
+public class NodoService {
     
     private PreparedStatement st = null;
     private Connection conn = null;
@@ -126,7 +126,7 @@ public class Nodo_Service {
     }
     
     private Integer[] getStar_Integer(Integer id_nodo) {
-        Tronco_Service troncoSrv = new Tronco_Service();
+        TroncoService troncoSrv = new TroncoService();
         return troncoSrv.getArcsByNode_Integer(id_nodo);
     }
 
@@ -280,8 +280,8 @@ public class Nodo_Service {
                 nodo.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 nodo.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 nodo.setLarghezza(rs.getDouble(FIELD_WIDTH));
-                nodo.setID_piano(rs.getInt(FIELD_ID_PIANO));
-                nodo.setID_mappa(search_id);
+                nodo.setID_piano(search_id);
+                nodo.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
                 nodi.add(nodo);
             }
         } 
