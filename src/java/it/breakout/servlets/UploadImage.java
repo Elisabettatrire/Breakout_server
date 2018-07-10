@@ -27,7 +27,7 @@ import javax.servlet.RequestDispatcher;
  *
  * @author Giovanni
  */
-@MultipartConfig(maxFileSize = 1024*1024*2)    // upload file's size up to 2MB
+@MultipartConfig
 public class UploadImage extends HttpServlet {
     
     /**
@@ -44,22 +44,22 @@ public class UploadImage extends HttpServlet {
         
         RequestDispatcher rd;
         String quota = request.getParameter("nm");
+        String old_img = request.getParameter("old-img");
         
         /* Per inserire le immagini nella cartella "images" del progetto bisogna
         prendere il percorso e manipolarlo (testato solo su Winodws)
         */
         String buildPath = request.getServletContext().getRealPath(""); // D:\Documents\NetBeansProjects\Breakout_server\build\web
         String[] splitted = buildPath.split("build"); // {D:\Documents\NetBeansProjects\Breakout_server\, \web}
-        String savePath = splitted[0] + "web\\images"; // D:\Documents\NetBeansProjects\Breakout_server\web\images
-         
+        String savePath = splitted[0] + "web" + File.separator + "images"; // D:\Documents\NetBeansProjects\Breakout_server\web\images
+        
         // obtains the upload file part in this multipart request
         Part filePart = request.getPart("immagine");
         String fileName = fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        if(!fileName.equals("")) {
+        if(!fileName.equals("") && filePart.getSize() <= (1024*1024*2) ) {
 
             OutputStream out = null;
             InputStream filecontent = null;
-
             try {
                 out = new FileOutputStream(new File(savePath + File.separator + fileName));
                 filecontent = filePart.getInputStream();
@@ -83,12 +83,18 @@ public class UploadImage extends HttpServlet {
                     filecontent.close();
                 }
             }
-        }        
-        
-        /* Inserimento del nome dell'immagine nel database */
-        Integer id_mappa = Integer.parseInt(request.getParameter("id_mappa"));
-        MappaResource mappa_resource = new MappaResource();
-        mappa_resource.insertImg(fileName, id_mappa);
+            
+            /* Inserimento del nome dell'immagine nel database */
+            Integer id_mappa = Integer.parseInt(request.getParameter("id_mappa"));
+            MappaResource mappa_resource = new MappaResource();
+            mappa_resource.insertImg(fileName, id_mappa);
+            
+            /* Se è già presente un'immagine, la cancello in modo da liberare lo spazio
+            sul server
+            */
+            new File((savePath + File.separator + old_img)).delete();
+
+        }
         
         /* Reindirizzamento */
         rd = request.getRequestDispatcher(URL_PIANO+quota);

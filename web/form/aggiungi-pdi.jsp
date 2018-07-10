@@ -22,22 +22,23 @@
                         Devono essere compilati tutti i campi, altrimenti l'inserimento
                         non verrà portato a termine.</p>
                 </div>
+                <hr>
                 <div  class="col-md-12">
                     <form action="DBModify" method="post">
                         <table class="table table-borderless">
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" placeholder=" es. 155DICEA"
                                            size="30" autofocus="true" required maxlength="15"></td></tr>
-                            <tr><td>Coord. X:</td>
+                            <tr><td>Coord. X (px):</td>
                                 <td><input type="text" name="coord-x" placeholder=" es."
                                            size="30" required></td></tr>
-                            <tr><td>Coord. Y:</td><td>
+                            <tr><td>Coord. Y (px):</td><td>
                                     <input type="text" name="coord-y" placeholder=" es."
                                            size="30" maxlength="15" required></td></tr>
-                            <tr><td>Lunghezza:</td><td>
+                            <tr><td>Lunghezza (m):</td><td>
                                     <input type="text" name="lunghezza" placeholder=" es."
                                            size="30" maxlength="15" required></td></tr>
-                            <tr><td>Larghezza:</td><td>
+                            <tr><td>Larghezza (m):</td><td>
                                     <input type="text" name="larghezza" placeholder=" es."
                                            size="30" maxlength="15" required></td></tr>
                             <tr><td>Tipo:</td><td>

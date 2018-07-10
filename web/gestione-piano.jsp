@@ -22,6 +22,7 @@
         <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
+        <script src="static/js/modal-img-form.js" type="text/javascript"></script>
         <script src="static/js/scroll-order-table.js" type="text/javascript"></script>
         <script src="static/js/select-old-value.js" type="text/javascript"></script>
         <script src="static/js/disable-same-map.js" type="text/javascript"></script>
@@ -68,19 +69,19 @@
                                        title="Clicca sul nome della mappa per aprire la pagina di gestione"
                                        class="fas fa-info-circle" style="color: #007bff;"></i>
                                 <th class="no-sort">Nome immagine</th>
-                                <th class="no-sort">Carica Immagine</th>
+                                <th class="no-sort">Aggiungi/modifica immagine</th>
                                 <th class="no-sort">Modifica</th><th class="no-sort">Elimina</th>
                             </tr>
                         </thead>
                         <c:forEach items="${requestScope.mappe}" var="mappa">
                             <c:set var="nome" value="${mappa.getNome()}"/>
-                            <c:set var="percorso" value="${mappa.getUrlImmagine()}"/>
+                            <c:set var="nome_immagine" value="${mappa.getUrlImmagine()}"/>
                             <c:set var="id_mappa" value="${mappa.getID_mappa()}"/>
                             <tr><td><a href="ObjectAccess?obj=mappa&nm=${nome}">${nome}</a></td>
-                                <td>${percorso}</td>
-                                <td><button id="mod-${id_mappa}-img" class="btn btn-outline-dark btn-sm"
+                                <td>${nome_immagine}</td>
+                                <td><button id="img-${id_mappa}-${nome_immagine}" class="btn btn-outline-dark btn-sm"
                                         data-toggle="modal" data-target="#modal-aggiungi-immagine">
-                                        <span class="fas fa-plus"></span></button></td>
+                                        <span class="fas fa-image"></span></button></td>
                                 <td><button id="mod-${id_mappa}" class="btn btn-outline-dark btn-sm"
                                         data-toggle="modal" data-target="#modal-modifica-mappa">
                                         <span class="fas fa-cog"></span></button></td>
@@ -103,7 +104,7 @@
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
-                               <th>Codice</th><th>Lunghezza</th><th>Cod. Nodo 1</th>
+                               <th>Codice</th><th>Lunghezza (m)</th><th>Cod. Nodo 1</th>
                                 <th>Cod. Nodo 2</th><th>Cod. Beacon</th>
                                 <th class="no-sort">Modifica</th><th class="no-sort">Elimina</th>
                             </tr>

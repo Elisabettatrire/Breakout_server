@@ -5,19 +5,18 @@
  */
 package it.breakout.servlets;
 
+import static it.breakout.utility.EnvVariables.URL_HOME;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -27,19 +26,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
  * @author Giovanni
  */
 @WebServlet(
-        name = "UploadCSV",
-        urlPatterns = { "/UploadCSV"},
-        loadOnStartup = 1
+    name = "UploadCSV",
+    urlPatterns = { "/UploadCSV"},
+    loadOnStartup = 1
 )
 @MultipartConfig
 public class UploadCSV extends HttpServlet {
@@ -57,76 +52,80 @@ public class UploadCSV extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        RequestDispatcher rd;
+        
+        ServletContext servletContext = this.getServletConfig().getServletContext();
+        String buildPath = request.getServletContext().getRealPath(""); // D:\Documents\NetBeansProjects\Breakout_server\build\web
+        String[] splitted = buildPath.split("build"); // {D:\Documents\NetBeansProjects\Breakout_server\, \web}
+        String savePath = splitted[0] + "web" + File.separator + "csv"; // D:\Documents\NetBeansProjects\Breakout_server\web\csv
+        
+        
         Part filePart = request.getPart("file");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        
-        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-        DiskFileItemFactory factory = new DiskFileItemFactory();
+        if(!fileName.equals("") && fileName.endsWith(".csv")) {
 
-        ServletContext servletContext = this.getServletConfig().getServletContext();
-        File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-        factory.setRepository(repository);
+            OutputStream os = null;
+            InputStream filecontent = null;
+            String filePath = savePath + File.separator + fileName;
 
-        // Create a new file upload handler
-        ServletFileUpload upload = new ServletFileUpload(factory);
+            try {
+                os = new FileOutputStream(new File(filePath));
+                filecontent = filePart.getInputStream();
 
-        try {
-            List<FileItem> items = upload.parseRequest(request);
-            Iterator<FileItem> iter = items.iterator();
-            while (iter.hasNext()) {
-                FileItem item = iter.next();
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+
+                while ((read = filecontent.read(bytes)) != -1) {
+                    os.write(bytes, 0, read);
+                } // Caricamento nel server completato
                 
-                if (item.isFormField()) {
-                    String name = item.getFieldName();
-                    String value = item.getString();
-                } else {
-                    
-                    //String fileName = item.getName();
-                    String csvFile = "C:\\Users\\Giovanni\\Desktop\\prove.csv";
+                /* Lettura del file */
+                BufferedReader br = null;
+                String line = "";
+                String cvsSplitBy = ",";
+                PrintWriter out = response.getWriter();
+                br = new BufferedReader(new FileReader(filePath));
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Servlet UploadCSV</title>");            
+                out.println("</head>");
+                out.println("<body>");
+                out.println("<h1>Servlet UploadCSV at " + request.getContextPath() + "</h1>");
+                while ((line = br.readLine()) != null) {
 
-                    BufferedReader br = null;
-                    String line = "";
-                    String cvsSplitBy = ",";
+                    // use comma as separator
+                    String[] country = line.split(cvsSplitBy);
 
+                    out.println("Country [code= " + country[4] + " , name=" + country[5] + "]");
+
+                }
+                out.println("</body>");
+                out.println("</html>");
+                if (br != null) {
                     try {
-                        PrintWriter out = response.getWriter();
-                        br = new BufferedReader(new FileReader(fileName));
-                        out.println("<!DOCTYPE html>");
-                        out.println("<html>");
-                        out.println("<head>");
-                        out.println("<title>Servlet UploadCSV</title>");            
-                        out.println("</head>");
-                        out.println("<body>");
-                        out.println("<h1>Servlet UploadCSV at " + request.getContextPath() + "</h1>");
-                        while ((line = br.readLine()) != null) {
-
-                            // use comma as separator
-                            String[] country = line.split(cvsSplitBy);
-
-                            out.println("Country [code= " + country[4] + " , name=" + country[5] + "]");
-
-                        }
-                        out.println("</body>");
-                        out.println("</html>");
-                    } catch (FileNotFoundException e) {
-                        System.out.println(e);
+                        br.close();
                     } catch (IOException e) {
                         System.out.println(e);
-                    } finally {
-                        if (br != null) {
-                            try {
-                                br.close();
-                            } catch (IOException e) {
-                                System.out.println(e);
-                            }
-                        }
                     }
                 }
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+                response.sendRedirect("500.jsp");
+            } catch (IOException e) {
+                System.out.println(e);
+            } finally {
+                if (os != null) {
+                    os.close();
+                }
+                if (filecontent != null) {
+                    filecontent.close();
+                }
             }
-        } catch (FileUploadException ex) {
-            Logger.getLogger(UploadCSV.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        rd = request.getRequestDispatcher(URL_HOME);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

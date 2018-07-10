@@ -63,7 +63,7 @@
                     <!--Tabella dei beacon della mappa-->
                     <table class="table-striped display" style="text-align: center; width:100%;">
                         <thead>
-                            <tr><th>Nome</th><th>Coord. X</th><th>Coord. Y</th>
+                            <tr><th>Nome</th><th>Coord. X (px)</th><th>Coord. Y (px)</th>
                                 <th>Ind. fuoco</th><th>Ind. fumi</th><th>NDC</th>
                                 <th>Ind. rischio</th><th>PDI</th>
                                 <th class="no-sort">Modifica</th>

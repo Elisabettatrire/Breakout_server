@@ -23,6 +23,7 @@
                         Devono essere compilati tutti i campi, altrimenti l'inserimento
                         non verrà portato a termine.</p>
                 </div>
+                <hr>
                 <div  class="col-md-12">
                     <!-- Le opzioni delle select contengono dei metadati per poterle
                     disabilitare tramite JS -->

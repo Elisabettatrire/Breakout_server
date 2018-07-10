@@ -35,7 +35,7 @@
     <body>
         <div  class="col-md-4" >
             <div class="container" style="position:relative">
-             <canvas id="myCanvas" width="450" height="700"  style="border:1px solid #d3d3d3;" >                    
+             <canvas id="myCanvas" width="1000" height="1600"  style="border:1px solid #d3d3d3;" >                    
                     </canvas>
                     
         <img id="imag" src="images/150-1.jpg" hidden="true" >
@@ -159,121 +159,9 @@
             </div>
             </div>
         </div>
-        <div  class="col-md-2" >
-            
-        </div>
-        <div  class="col-md-4" >
-            <div class="container" style="position:relative">
-             <canvas id="myCanvas1" width="450" height="700"
-                            style="border:1px solid #d3d3d3;" >                    
-                    </canvas>
-         <div class="btn-group btn-group-toggle " data-toggle="buttons" style="color:red; position:absolute; left: 10px;
-            top: -5px; right: 0px">
-            <label class="btn " style="position:absolute; left: 245px; top:5px">
-              <input type="radio" name="options" id="option2" autocomplete="off"> 
-              <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 285px; top: 5px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 245px; top: 27px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 265px; top: 52px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 285px; top: 27px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-             <label class="btn " style="position:absolute; left: 262px; top: 78px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 285px; top: 70px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label><!--
-            <label class="btn " style="position:absolute; left: 255px; top: 87px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>-->
-            <label class="btn " style="position:absolute; left: 285px; top: 112px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 251px; top: 132px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 220px; top: 72px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 200px; top: 110px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 178px; top: 78px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 126px; top: 78px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 180px; top: 132px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            <label class="btn " style="position:absolute; left: 78px; top: 132px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-             <label class="btn " style="position:absolute; left: 100px; top: 105px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-             <label class="btn " style="position:absolute; left: 320px; top: 135px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-             <label class="btn " style="position:absolute; left: 290px; top: 155px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-             <label class="btn " style="position:absolute; left: 305px; top: 205px">
-              <input type="radio" name="options" id="option3" autocomplete="off"> 
-            <span  class="glyphicon glyphicon-map-marker" >
-                    </span>B
-            </label>
-            </div>
-            </div>
-        </div>
           
         <script>
+            /* Carica il canvas e ci mette sopra l'immagine*/
         window.onload = function(){
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");

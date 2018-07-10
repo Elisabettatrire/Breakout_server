@@ -85,7 +85,7 @@
                     <h4>Lista Scale</h4>
                     <table class="table-striped display" style="text-align: center; width:100%;">
                         <thead>
-                        <th>Codice</th><th>Lunghezza</th><th>Cod. Nodo 1</th>
+                        <th>Codice</th><th>Lunghezza (m)</th><th>Cod. Nodo 1</th>
                             <th>Cod. Nodo 2</th><th>Cod. Beacon</th>
                             <th class="no-sort">Modifica</th><th class="no-sort">Elimina</th>
                         </thead>

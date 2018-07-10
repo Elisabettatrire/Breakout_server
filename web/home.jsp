@@ -29,7 +29,7 @@
 
         <!-- Page Content -->
         <div class="container">
-            <div class="row" style="margin-top: 60px; margin-bottom: 30px">
+            <div class="row" style="margin-top: 100px; margin-bottom: 30px">
                 <div class="col-md-6" style="text-align: right">
                     <form action="DBAccess" method="POST">
                         <input type="submit" value="Gestione Mappe" class="btn btn-lg btn-success" name="mappe"
@@ -45,51 +45,7 @@
                     </form>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <form action="UploadCSV" method="post" enctype="multipart/form-data">
-                        <table>
-                            <tr style="text-align: left"><td><p style="font-size: x-large">
-                                Importa dati da file <a data-toggle="modal" data-target="#modal-info">.csv
-                                </a></p></td>
-                            </tr>                           
-                            <tr style="text-align: center">
-                                <td><input type="file" accept=".csv" name="file" id="file">
-                                </td>
-                            </tr>
-                            <tr style="text-align: center">
-                                <td><input class="btn btn-outline-success" type='submit' 
-                                style="font-weight: bold; margin-top: 10px" value='Carica dati'></td></tr>
-                        </table>
-                    </form>
-                </div>
-            </div>
         </div>
-        
-        <!-- Modal informazioni riguardo il file csv -->
-        <div id="modal-info" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Importazione dati da CSV</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-md-12">
-                            <p>Qui andiamo scrivere come deve essere fatto il file per
-                                caricare correttamente i dati.</p>             
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
         
         <!-- Footer -->
         <%@include file="footer.html" %>

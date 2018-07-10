@@ -71,9 +71,9 @@
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr><th>Codice</th>
-                                <th>Coord. X</th>
-                                <th>Coord. Y</th>
-                                <th>Larghezza</th>
+                                <th>Coord. X (px)</th>
+                                <th>Coord. Y (px)</th>
+                                <th>Larghezza (m)</th>
                                 <th class="no-sort">Modifica</th>
                                 <th class="no-sort">Elimina</th>
                         </thead>
@@ -110,7 +110,7 @@
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
-                                <th>Codice</th><th>Lunghezza</th><th>Cod. Nodo 1</th>
+                                <th>Codice</th><th>Lunghezza (m)</th><th>Cod. Nodo 1</th>
                                 <th>Cod. Nodo 2</th><th>Cod. Beacon</th>
                                 <th class="no-sort">Modifica</th><th class="no-sort">Elimina</th>
                             </tr>
@@ -156,8 +156,8 @@
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
-                                <th>Codice</th><th>Coord. X</th><th>Coord. Y</th><th>Larghezza</th>
-                                <th>Lunghezza</th><th class="no-sort">Tipo</th>
+                                <th>Codice</th><th>Coord. X (px)</th><th>Coord. Y (px)</th><th>Larghezza (m)</th>
+                                <th>Lunghezza (m)</th><th class="no-sort">Tipo</th>
                                 <th class="no-sort">Modifica</th>
                                 <th class="no-sort">Elimina</th>
                             </tr>

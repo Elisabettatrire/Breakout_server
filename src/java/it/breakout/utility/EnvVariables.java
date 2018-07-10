@@ -17,6 +17,7 @@ public class EnvVariables {
     public static final String DB_PSW = "app";
     
     /* URL predefiniti */
+    public static final String URL_HOME = "/welcome.jsp";
     public static final String URL_MAPPE = "/DBAccess";
     public static final String URL_PIANO = "ObjectAccess?obj=piano&nm=";
     public static final String URL_GRAFO = "ObjectAccess?obj=grafo&nm=";

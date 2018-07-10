@@ -23,6 +23,7 @@
                         Devono essere compilati tutti i campi, altrimenti l'inserimento
                         non verrà portato a termine.</p>
                 </div>
+                <hr>
                 <div  class="col-md-12">
                     <form action="DBModify" method="post">
                         <table class="table table-borderless">
