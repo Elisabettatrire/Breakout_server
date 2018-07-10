@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Types;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -179,18 +180,39 @@ public class MappaService {
         
         try {
             
-            url_immagine = mappa.getUrlImmagine();
-            
             open();
             
             String query = "insert into " + TBL_NAME
-                    + " (" + FIELD_IMG + ","
-                    + FIELD_NOME + ","
-                    + FIELD_ID_PIANO + ") values(?,?,?)";
+                    + " (" + FIELD_NOME + ","
+                    + FIELD_ID_PIANO + ") values(?,?)";
             st = conn.prepareStatement(query);
-            st.setString(1, url_immagine);
-            st.setString(2, mappa.getNome());
-            st.setInt(3, mappa.getID_piano());
+            st.setString(1, mappa.getNome());
+            st.setInt(2, mappa.getID_piano());
+
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
+    public void insertImg(String nome_file, Integer id_mappa) {
+        try {
+            
+            open();
+            
+            String query = "update " + TBL_NAME + " set "
+                    + FIELD_IMG + "=? "
+                    + "where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            if(!nome_file.equals("")) {
+                st.setString(1, nome_file);
+            } else {
+                st.setNull(1, Types.VARCHAR);
+            }            
+            st.setInt(2, id_mappa);
 
             st.executeUpdate();
             
@@ -207,13 +229,11 @@ public class MappaService {
             open();
             
             String query = "update " + TBL_NAME + " set "
-                    + FIELD_NOME + "=?, "
-                    + FIELD_IMG + "=? "
+                    + FIELD_NOME + "=? "
                     + "where " + FIELD_ID + "=?";
             st = conn.prepareStatement(query);
             st.setString(1, mappa.getNome());
-            st.setString(2, mappa.getUrlImmagine());
-            st.setInt(3, id_mappa);
+            st.setInt(2, id_mappa);
             st.executeUpdate();
             
         } catch (SQLException e) {

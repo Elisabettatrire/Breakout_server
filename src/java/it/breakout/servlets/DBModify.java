@@ -543,7 +543,7 @@ public class DBModify extends HttpServlet {
         Mappa mappa = new Mappa();
         
         String nome_mappa_filtered = form_filter.filtraNomeMappa(request.getParameter("nome-mappa"));
-        String url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
+        //String url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
 
         /* Controllo se esiste una mappa con lo stesso nome */
         Integer exists = mappa_resource.findByNome(nome_mappa_filtered).getID_mappa();
@@ -552,13 +552,14 @@ public class DBModify extends HttpServlet {
 
             mappa.setNome(nome_mappa_filtered);
             mappa.setID_piano(piano_resource.findByQuota(quota).getID_piano()); // veloce
-            mappa.setUrlImmagine(url_immagine);
+            //mappa.setUrlImmagine(url_immagine);
             mappa_resource.insert(mappa);
         }
 
         exists = null;
         
     }
+    
     public void modificaMappa(HttpServletRequest request) {
         
         FormFilter form_filter = new FormFilter();
@@ -566,7 +567,6 @@ public class DBModify extends HttpServlet {
         Mappa mappa = new Mappa();        
         
         String nome_mappa_filtered = form_filter.filtraNomeMappa(request.getParameter("nome-mappa"));
-        String url_immagine = request.getParameter("url-immagine"); // non c'è bisogno di filtrarlo
         Integer id_mappa_local = Integer.parseInt(request.getParameter("id_mappa"));
 
         /* Visto che i campi da controllare sono più di uno ho bisogno
@@ -581,14 +581,6 @@ public class DBModify extends HttpServlet {
             mappa.setNome(nome_mappa_filtered);
         } else { // Se il campo è vuoto bisogna mantenere il valore precedente
             mappa.setNome(mappa_old.getNome());
-        }
-
-        /* Aggiornamento url */
-        // Se il campo è vuoto bisogna mantenere il valore precedente
-        if(!url_immagine.isEmpty()) {
-            mappa.setUrlImmagine(url_immagine);
-        } else {
-            mappa.setUrlImmagine(mappa_old.getUrlImmagine());
         }
 
         /* Invio query */

@@ -34,9 +34,6 @@
                                     title="Sono ammessi solamente caratteri alfanumerici, l'underscore, il trattino  e lo slash."
                                     class="fas fa-question-circle" style="color: #007bff;"></i>
                             </td></tr>
-                            <tr><td>Immagine:</td>
-                                <td><input class="btn" type="file" name="url-immagine"
-                                           accept="image/*"></td></tr>
                         </table>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>

@@ -34,10 +34,12 @@
                     <p style='color: #FF0000'>Nome utente o password non corretti</p>
                     <form method="POST" action="j_security_check">
                         <p style="font-size: xx-large">Username</p>
-                        <input type="text" name="j_username"  autofocus="true" size="45" style=" height:40px">
+                        <input type="text" name="j_username"  autofocus="true" size="45"
+                               style=" height:40px" required>
                         <br><br>
                         <p style="font-size: xx-large">Password</p> 
-                        <input type="password" name="j_password" size="45" style=" height:40px">
+                        <input type="password" name="j_password" size="45" style=" height:40px"
+                               required>
                         <br><br>
                         <input type="submit" value="Accedi" class="btn btn-lg btn-outline-success"
                                style="font-weight: bold" name="accedi">

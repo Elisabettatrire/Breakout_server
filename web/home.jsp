@@ -47,24 +47,21 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <center>
+                    <form action="UploadCSV" method="post" enctype="multipart/form-data">
                         <table>
-                            <form action="FileUploader" method="post" enctype="multipart/form-data">
-                                <tr style="text-align: left"><td><p style="font-size: x-large">
-                                    Importa dati da file <a data-toggle="modal" data-target="#modal-info">.csv
-                                    </a></p></td>
-                                </tr>                           
-                                <tr style="text-align: center">
-                                    <td><input type="file" accept=".csv" name="file" id="input-csv">
-                                    </td>
-                                </tr>
-                                <tr style="text-align: center">
-                                    <td><input class="btn btn-outline-success" type='submit' 
-                                    style="font-weight: bold; margin-top: 10px" value='Carica dati'></td></tr>
-                            </form>
+                            <tr style="text-align: left"><td><p style="font-size: x-large">
+                                Importa dati da file <a data-toggle="modal" data-target="#modal-info">.csv
+                                </a></p></td>
+                            </tr>                           
+                            <tr style="text-align: center">
+                                <td><input type="file" accept=".csv" name="file" id="file">
+                                </td>
+                            </tr>
+                            <tr style="text-align: center">
+                                <td><input class="btn btn-outline-success" type='submit' 
+                                style="font-weight: bold; margin-top: 10px" value='Carica dati'></td></tr>
                         </table>
-                        <%@include file="form/aggiungi-immagine.jsp" %>
-                    </center>
+                    </form>
                 </div>
             </div>
         </div>

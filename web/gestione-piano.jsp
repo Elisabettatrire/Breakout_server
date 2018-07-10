@@ -68,7 +68,8 @@
                                        title="Clicca sul nome della mappa per aprire la pagina di gestione"
                                        class="fas fa-info-circle" style="color: #007bff;"></i>
                                 <th class="no-sort">Nome immagine</th>
-                                </th><th class="no-sort">Modifica</th><th class="no-sort">Elimina</th>
+                                <th class="no-sort">Carica Immagine</th>
+                                <th class="no-sort">Modifica</th><th class="no-sort">Elimina</th>
                             </tr>
                         </thead>
                         <c:forEach items="${requestScope.mappe}" var="mappa">
@@ -77,6 +78,9 @@
                             <c:set var="id_mappa" value="${mappa.getID_mappa()}"/>
                             <tr><td><a href="ObjectAccess?obj=mappa&nm=${nome}">${nome}</a></td>
                                 <td>${percorso}</td>
+                                <td><button id="mod-${id_mappa}-img" class="btn btn-outline-dark btn-sm"
+                                        data-toggle="modal" data-target="#modal-aggiungi-immagine">
+                                        <span class="fas fa-plus"></span></button></td>
                                 <td><button id="mod-${id_mappa}" class="btn btn-outline-dark btn-sm"
                                         data-toggle="modal" data-target="#modal-modifica-mappa">
                                         <span class="fas fa-cog"></span></button></td>
@@ -173,6 +177,9 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Modal Form Aggiungi Immagine Mappa -->
+        <%@include file="form/aggiungi-immagine.jsp" %>
                             
         <!-- Modal Form Aggiungi Collegamento -->
         <%@include file="form/aggiungi-collegamento.jsp"%>

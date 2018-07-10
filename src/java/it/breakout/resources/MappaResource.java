@@ -31,6 +31,10 @@ public class MappaResource {
         mappa_service.insert(mappa);
     }
     
+    public void insertImg(String nome_file, Integer id_mappa) {
+        mappa_service.insertImg(nome_file, id_mappa);
+    }
+    
     public void update(Mappa mappa, int id_mappa) {
         mappa_service.update(mappa, id_mappa);
     }
