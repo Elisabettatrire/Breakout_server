@@ -138,19 +138,19 @@ public class ObjectAccess extends HttpServlet {
     
     public void fillMappaData(HttpServletRequest request) {
         
-        //Beacon_Resource beacon_resource = new BeaconResource();
-        MappaResource mappa_resource_2 = new MappaResource();
-        PianoResource piano_resource2 = new PianoResource();
+        BeaconResource beacon_resource = new BeaconResource();
+        MappaResource mappa_resource = new MappaResource();
+        PianoResource piano_resource = new PianoResource();
 
-        //ArrayList<Beacon> al_beacon = beacon_resource.findAll();
-        Mappa mappa_search1 = mappa_resource_2.findByNome(identificatore);
-        Integer id_mappa = mappa_search1.getID_mappa();
-        String url_immagine = mappa_search1.getUrlImmagine();
-        String quota = piano_resource2.findById(mappa_search1.getID_piano()).getQuota();
+        Mappa mappa_search = mappa_resource.findByNome(identificatore);
+        Integer id_mappa = mappa_search.getID_mappa();
+        ArrayList<Beacon> al_beacon = beacon_resource.findByIDMappa(id_mappa);
+        String url_immagine = mappa_search.getUrlImmagine();
+        String quota = piano_resource.findById(mappa_search.getID_piano()).getQuota();
 
         /* Invio alla view i dati da visualizzare */
         request.setAttribute("nome", identificatore);
-        //request.setAttribute("beacons", al_beacon);
+        request.setAttribute("al_beacon", al_beacon);
         request.setAttribute("quota", quota);
         request.setAttribute("id_mappa", id_mappa);
         request.setAttribute("url_immagine", url_immagine);

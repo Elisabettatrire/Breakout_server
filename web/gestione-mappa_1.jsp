@@ -23,7 +23,6 @@
         <script src="static/js/bootstrap.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
         <script src="static/js/modal-forms.js" type="text/javascript"></script>
-        <script src="static/js/maps.js" type="text/javascript"></script>
     </head>
     <body>
         <!-- Header -->
@@ -71,34 +70,11 @@
             <div class="row">
                 <c:set var = "url_img" value = "${requestScope.url_immagine}" />
                 <div class="col-md-12" style="text-align: center; margin-bottom: 20px">
-                    <div class="container" style="position:relative">
-                        <canvas id="myCanvas" width="1000" height="1700"  style="border:1px solid #d3d3d3;" >                    
-                        </canvas>
-                        <img src="images/${url_img}" id="imag" hidden="true">
-                        <div class="btn-group btn-group-toggle " data-toggle="buttons"
-                             style="color:red; position:absolute; left: 0px; top: -13px; right: 20px">
-                            <!--
-                            <label class="btn " style="position:absolute; left: 0px;  top: 0px" >
-                                <span  class="glyphicon glyphicon-map-marker" >
-                                </span>punto d'inizio
-                            </label>
-                            -->
-                            <c:forEach items="${requestScope.al_beacon}" var="beacon">
-                                <c:set var="x" value="${beacon.getCoord_X()}"/>
-                                <c:set var="y" value="${beacon.getCoord_Y()}"/>
-                                <c:set var="codice" value="${beacon.getCodice()}"/>
-                                <label class="btn" name="marker" id="${codice}"
-                                       style="position:absolute; left:${x}px; top:${y}px;">
-                                    <i data-toggle="tooltip" data-placement="top"
-                                    title="${codice}" class="fas fa-map-marker-alt"></i>
-                                </label>
-                            </c:forEach>
-                        </div>
-                    </div>
+                    <img src="images/${url_img}" width="990" height="1572">
                 </div>
             </div>
         </div>
-                    
+        
         <!-- Footer -->
         <%@include file="footer.html" %>
     </body>

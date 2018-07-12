@@ -5,8 +5,6 @@
  */
 package it.breakout.servlets;
 
-import it.breakout.resources.MappaResource;
-import static it.breakout.utility.EnvVariables.URL_PIANO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.File;
@@ -22,6 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.servlet.RequestDispatcher;
+
+import it.breakout.resources.MappaResource;
+
+import static it.breakout.utility.EnvVariables.URL_PIANO;
 
 /**
  *
@@ -47,7 +49,7 @@ public class UploadImage extends HttpServlet {
         String old_img = request.getParameter("old-img");
         
         /* Per inserire le immagini nella cartella "images" del progetto bisogna
-        prendere il percorso e manipolarlo (testato solo su Winodws)
+        prendere il percorso e manipolarlo (testato su Windows e su MacOS)
         */
         String buildPath = request.getServletContext().getRealPath(""); // D:\Documents\NetBeansProjects\Breakout_server\build\web
         String[] splitted = buildPath.split("build"); // {D:\Documents\NetBeansProjects\Breakout_server\, \web}
@@ -55,8 +57,10 @@ public class UploadImage extends HttpServlet {
         
         // obtains the upload file part in this multipart request
         Part filePart = request.getPart("immagine");
-        String fileName = fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        if(!fileName.equals("") && filePart.getSize() <= (1024*1024*2) ) {
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        if((filePart.getSize() <= (1024*1024*2))    // Dimensione massima 2MB
+                && !fileName.equals("")             // Nome file non vuoto...
+                && fileName.length() < 50 ) {       // ...e lungo massimo 50 caratteri
 
             OutputStream out = null;
             InputStream filecontent = null;
@@ -92,7 +96,7 @@ public class UploadImage extends HttpServlet {
             /* Se è già presente un'immagine, la cancello in modo da liberare lo spazio
             sul server
             */
-            new File((savePath + File.separator + old_img)).delete();
+            new File(savePath + File.separator + old_img).delete();
 
         }
         
