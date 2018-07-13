@@ -71,8 +71,8 @@
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr><th>Codice</th>
-                                <th>Coord. X (px)</th>
-                                <th>Coord. Y (px)</th>
+                                <th>Coord. X (m)</th>
+                                <th>Coord. Y (m)</th>
                                 <th>Larghezza (m)</th>
                                 <th class="no-sort">Modifica</th>
                                 <th class="no-sort">Elimina</th>
@@ -156,7 +156,7 @@
                     <table class="display" style="width:100%; text-align: center">
                         <thead>
                             <tr>
-                                <th>Codice</th><th>Coord. X (px)</th><th>Coord. Y (px)</th><th>Larghezza (m)</th>
+                                <th>Codice</th><th>Coord. X (m)</th><th>Coord. Y (m)</th><th>Larghezza (m)</th>
                                 <th>Lunghezza (m)</th><th class="no-sort">Tipo</th>
                                 <th class="no-sort">Modifica</th>
                                 <th class="no-sort">Elimina</th>

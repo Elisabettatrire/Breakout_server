@@ -13,6 +13,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="MSSmartTagsPreventParsing" content="true" /> 
+        <meta http-equiv="pragma" content="no-cache" /> 
+        <meta http-equiv="expires" content="0" /> 
+        <meta http-equiv="Cache-Control" content="no-cache" /> 
+        <meta http-equiv="pragma-directive" content="no-cache" /> 
+        <meta http-equiv="cache-directive" content="no-cache" /> 
+        <meta name="robots" content="all,follow" /> 
+
         <title>Breakout - Gestione Mappa</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -42,7 +50,7 @@
             <div class="row">
                 <c:set var="quota" value="${requestScope.quota}" />
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-secondary" style="margin-bottom: 20px">
+                    <button type="button" class="btn btn-secondary" style="margin-bottom: 20px;">
                         <a href="ObjectAccess?obj=piano&nm=${quota}"
                            style="color: inherit; text-decoration: none">
                             < Gestione Piano</a>
@@ -71,21 +79,23 @@
             <div class="row">
                 <c:set var = "url_img" value = "${requestScope.url_immagine}" />
                 <div class="col-md-12" style="text-align: center; margin-bottom: 20px">
+                    <p style="text-align: left">L'immagine sottostante riporta le posizioni dei beacon,
+                        passa con il mouse sopra il segnalino per mostrare il codice.</p>
                     <div class="container" style="position:relative">
-                        <canvas id="myCanvas" width="1000" height="1700"  style="border:1px solid #d3d3d3;" >                    
+                        <canvas id="map-canvas" width="1000" height="1700"  style="border:1px solid #d3d3d3;" >                    
                         </canvas>
                         <img src="images/${url_img}" id="imag" hidden="true">
                         <div class="btn-group btn-group-toggle " data-toggle="buttons"
-                             style="color:red; position:absolute; left: 0px; top: -13px; right: 20px">
-                            <!--
-                            <label class="btn " style="position:absolute; left: 0px;  top: 0px" >
-                                <span  class="glyphicon glyphicon-map-marker" >
-                                </span>punto d'inizio
+                             style="color:red; position:absolute; left: 0px; top: -13px; right: 0px">
+                            
+                            <label style="position: absolute; left: 0px;  top: 0px" >
+                                <span  class="fas fa-crosshairs" >
+                                </span><br>origine
                             </label>
-                            -->
+                            
                             <c:forEach items="${requestScope.al_beacon}" var="beacon">
-                                <c:set var="x" value="${beacon.getCoord_X()}"/>
-                                <c:set var="y" value="${beacon.getCoord_Y()}"/>
+                                <c:set var="x" value="${beacon.getCoord_X_px()}"/>
+                                <c:set var="y" value="${beacon.getCoord_Y_px()}"/>
                                 <c:set var="codice" value="${beacon.getCodice()}"/>
                                 <label class="btn" name="marker" id="${codice}"
                                        style="position:absolute; left:${x}px; top:${y}px;">

@@ -29,10 +29,10 @@
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" placeholder=" es. 155DICEA"
                                            size="30" autofocus="true" required maxlength="15"></td></tr>
-                            <tr><td>Coord. X (px):</td>
+                            <tr><td>Coord. X (m):</td>
                                 <td><input type="text" name="coord-x" placeholder=" es."
                                            size="30" required></td></tr>
-                            <tr><td>Coord. Y (px):</td><td>
+                            <tr><td>Coord. Y (m):</td><td>
                                     <input type="text" name="coord-y" placeholder=" es."
                                            size="30" maxlength="15" required></td></tr>
                             <tr><td>Lunghezza (m):</td><td>

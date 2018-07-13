@@ -59,6 +59,12 @@ public class Beacon {
     public void setCoord_X(Double coord_X) {
         this.coord_X = coord_X;
     }
+    
+    /* Conversione da metri a pixel e viceversa sulla mappa 345px = 54m */
+    public Double getCoord_X_px() {
+        Double x_px = this.coord_X * (345.0 / 54.0);
+        return x_px;
+    }
 
     public Double getCoord_Y() {
         return coord_Y;
@@ -68,6 +74,12 @@ public class Beacon {
         this.coord_Y = coord_Y;
     }
 
+    /* Conversione da metri a pixel e viceversa sulla mappa 345px = 54m */
+    public Double getCoord_Y_px() {
+        Double y_px = this.coord_Y * (345.0 / 54.0);
+        return y_px;
+    }
+    
     public Double getInd_fuoco() {
         return ind_fuoco;
     }

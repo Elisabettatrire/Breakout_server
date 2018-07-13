@@ -29,10 +29,10 @@
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" placeholder=" es. 150G2"
                                            size="30" autofocus="true" maxlength="15" required></td></tr>
-                            <tr><td>Coord. X (px):</td><td>
+                            <tr><td>Coord. X (m):</td><td>
                                     <input type="text" name="coord-x" required
                                             placeholder=" es. 129" size="30" maxlength="15"></td></tr>
-                            <tr><td>Coord. Y (px):</td><td>
+                            <tr><td>Coord. Y (m):</td><td>
                                     <input type="text" name="coord-y" required
                                             placeholder=" es. 465" size="30" maxlength="15"></td></tr>
                             <tr><td>Fuoco?:</td><td>

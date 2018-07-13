@@ -96,7 +96,9 @@ public class UploadImage extends HttpServlet {
             /* Se è già presente un'immagine, la cancello in modo da liberare lo spazio
             sul server
             */
-            new File(savePath + File.separator + old_img).delete();
+            if(!fileName.equals(old_img)) {
+                new File(savePath + File.separator + old_img).delete();
+            }
 
         }
         

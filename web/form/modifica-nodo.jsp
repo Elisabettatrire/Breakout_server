@@ -23,10 +23,10 @@
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" maxlength="15" size="30"
                                            placeholder="&nbsp;(invariato)" autofocus="true"></td></tr>
-                            <tr><td>Coord. X (px):</td><td>
+                            <tr><td>Coord. X (m):</td><td>
                                     <input type="text" name="coord-x" maxlength="15" size="30"
                                             autofocus="true" placeholder="&nbsp;(invariato)"></td></tr>
-                            <tr><td>Coord. Y (px):</td><td>
+                            <tr><td>Coord. Y (m):</td><td>
                                     <input type="text" name="coord-y" maxlength="15" size="30"
                                                 placeholder="&nbsp;(invariato)"></td></tr>
                             <tr><td>Larghezza (m):</td>

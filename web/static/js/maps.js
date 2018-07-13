@@ -5,7 +5,7 @@
  */
 
 $(document).ready(function(){
-    var c = document.getElementById("myCanvas");
+    var c = document.getElementById("map-canvas");
     var ctx = c.getContext("2d");
     var img = document.getElementById("imag");
     ctx.scale(1,1);
