@@ -14,7 +14,7 @@
                 <div class="col-md-8">
                     <h1 style="color: #FFFFFF; font-size: 3em">
                         <a href="home.jsp" style="color: inherit; text-decoration: none">
-                        Gestore Breakout Server
+                        Breakout Server Admin Panel
                         </a>
                     </h1>
                 </div>

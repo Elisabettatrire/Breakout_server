@@ -33,7 +33,19 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2>Gestione Utenti App</h2>
-                    <br><br>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="margin-top: 20px">
+                    <button type="button" class="btn btn-secondary">
+                        <a href="home.jsp" style="color: inherit; text-decoration: none">
+                        < Home
+                        </a>
+                    </button>
+                </div>
+            </div><br>
+            <div class="row">
+                <div class="col-md-12">
                     <!-- Tabella dei Nodi della mappa -->
                     <h4>Lista Utenti</h4>
                     <table class="display" style="width:100%; text-align: center">
@@ -41,7 +53,7 @@
                             <tr><th>Username</th><th class="no-sort">Password</th>
                                 <th>Nome</th><th>Cognome</th>
                                 <th class="no-sort">e-mail</th>
-                                <th class="no-sort">Modifica</th>
+                                <th class="no-sort">Modifica Password</th>
                                 <th class="no-sort">Elimina</th>
                         </thead>
                         <tbody>
@@ -65,17 +77,6 @@
                     </table>
                 </div>
             </div>
-            
-            <div class="row">
-                <div class="col-md-6" style="margin-top: 20px">
-                    <button type="button" class="btn btn-secondary">
-                        <a href="home.jsp" style="color: inherit; text-decoration: none">
-                        < Home
-                        </a>
-                    </button>
-                </div>
-            </div>
-            
         </div>
         
         <!-- Modal Form Modifica Utente -->

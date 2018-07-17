@@ -149,7 +149,7 @@
                 </div>
                 <!-- Tabella dei Punti di Interesse-->
                 <div class="col-md-12">
-                    <h4>Lista punti di interesse&nbsp;&nbsp;
+                    <h4>Lista Punti di Interesse&nbsp;&nbsp;
                         <i data-toggle="tooltip" data-placement="top" style="color: #007bff; font-size: medium"
                             title="I punti di interesse (PDI) sono dei nodi che hanno un'importanza particolare; per questo sono corredati di una breve descrizione"
                             class="fas fa-info-circle" ></i></h4>
