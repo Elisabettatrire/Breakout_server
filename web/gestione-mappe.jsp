@@ -41,6 +41,14 @@
                         </a>
                     </button>
                 </div>
+                <div class="col-md-6" style="text-align: right">
+                    <button id="elimina-dati" data-toggle="modal" data-target="#modal-elimina-dati"
+                            class="btn btn-outline-danger" id="btn-agg-csv" style="margin-right: 20px">
+                        <b>Elimina Tutti i Beacon</b></button>
+                    <button id="caricaCSV" data-toggle="modal" data-target="#modal-csv"
+                            class="btn btn-outline-success" id="btn-agg-csv">
+                        <b>Aggiungi Beacon da CSV</b></button>
+                </div>
             </div>
             <br>
             <div class="row">
@@ -127,7 +135,37 @@
             <!-- End Row -->
             
         </div>
-        <!-- End Page Content -->        
+        <!-- End Page Content -->
+        
+        <!-- Modal Form Aggiungi Beacon da CSV -->
+        <%@include file="form/beacon-csv.jsp"%>
+        
+        <!-- Modal Conferma Eliminazione Lista Beacon -->
+        <div id="modal-elimina-dati" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Conferma eliminazione beacon</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action='DBModify' method="post" id="form-del-dati">
+                            <p>Sicuro di voler rimuovere tutti beacon dal database?
+                                Questa azione non può essere annullata.</p>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
+                                <input class="btn btn-danger" type='submit' value='Elimina tutti i beacon'>
+                                <input type="hidden" name="azione" value="elimina-beacon-all">
+                                <input type="hidden" name="modalita" value="mappe">
+                            </div>
+                        </form>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Conferma Eliminazione Lista Beacon -->
         
         <!-- Modal Form Aggiungi Piano -->
         <%@include file="form/aggiungi-piano.jsp"%>

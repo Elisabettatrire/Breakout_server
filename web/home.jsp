@@ -45,6 +45,10 @@
                     </form>
                 </div>
             </div>
+            
+            <div class="row">
+                <%@include file="form/beacon-csv.jsp" %>
+            </div>
         </div>
         
         <!-- Footer -->

@@ -132,6 +132,6 @@ public class Beacon {
         
         NodoResource nodo_resource = new NodoResource();
         
-        return nodo_resource.findPoiByID(this.ID_pdi).getCodice();
+        return nodo_resource.findPdiByID(this.ID_pdi).getCodice();
     }
 }

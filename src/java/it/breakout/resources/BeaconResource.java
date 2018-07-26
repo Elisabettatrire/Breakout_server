@@ -50,5 +50,8 @@ public class BeaconResource {
     public void delete(Integer id_beacon) {
         beacon_service.delete(id_beacon);
     }
+    public void deleteAll() {
+        beacon_service.deleteAll();
+    }
     
 }

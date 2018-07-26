@@ -171,7 +171,7 @@ public class ObjectAccess extends HttpServlet {
 
         ArrayList<Tronco> al_tronchi = tronco_resource.findAllArcs(id_mappa);
         ArrayList<Nodo> al_nodi = nodo_resource.findByIDMappa(id_mappa);
-        ArrayList<Pdi> al_pdis = nodo_resource.findPoisByIDMappa(id_mappa);
+        ArrayList<Pdi> al_pdis = nodo_resource.findPdiByIDMappa(id_mappa);
         ArrayList<Beacon> al_beacon = beacon_resource.findByIDMappa(id_mappa);
                
         /* Invio alla view i dati da visualizzare */
@@ -196,7 +196,7 @@ public class ObjectAccess extends HttpServlet {
         Mappa mappa_search = mappa_resource.findByID(id_mappa);
         String quota = piano_resource.findById(mappa_search.getID_piano()).getQuota();
         ArrayList<Beacon> al_beacon = beacon_resource.findByIDMappa(id_mappa);
-        ArrayList<Pdi> al_pdi = nodo_resource.findPoisByIDMappa(id_mappa);
+        ArrayList<Pdi> al_pdi = nodo_resource.findPdiByIDMappa(id_mappa);
 
         /* Invio alla view i dati da visualizzare */
         request.setAttribute("id_mappa", id_mappa);

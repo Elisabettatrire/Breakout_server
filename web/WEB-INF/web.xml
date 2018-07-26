@@ -14,6 +14,10 @@
         <url-pattern>/UploadImage</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>UploadCSV</servlet-name>
+        <servlet-class>it.breakout.servlets.UploadCSV</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DBAccess</servlet-name>
         <servlet-class>it.breakout.servlets.DBAccess</servlet-class>
     </servlet>

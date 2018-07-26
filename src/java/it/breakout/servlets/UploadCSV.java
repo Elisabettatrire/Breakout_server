@@ -5,7 +5,6 @@
  */
 package it.breakout.servlets;
 
-import static it.breakout.utility.EnvVariables.URL_HOME;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,6 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -26,6 +26,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import it.breakout.resources.BeaconResource;
+import it.breakout.resources.MappaResource;
+import it.breakout.resources.NodoResource;
+import it.breakout.models.Beacon;
+import it.breakout.models.Mappa;
+import it.breakout.models.Pdi;
+import it.breakout.utility.FormFilter;
+
+import static it.breakout.utility.EnvVariables.URL_HOME;
+import static it.breakout.utility.EnvVariables.DEFAULT_DOUBLE;
+import static it.breakout.utility.EnvVariables.DEFAULT_STRING;
+
 
 /**
  *
@@ -60,7 +73,7 @@ public class UploadCSV extends HttpServlet {
         String savePath = splitted[0] + "web" + File.separator + "csv"; // D:\Documents\NetBeansProjects\Breakout_server\web\csv
         
         
-        Part filePart = request.getPart("file");
+        Part filePart = request.getPart("csv");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         if(!fileName.equals("") && fileName.endsWith(".csv")) {
 
@@ -83,30 +96,104 @@ public class UploadCSV extends HttpServlet {
                 BufferedReader br = null;
                 String line = "";
                 String cvsSplitBy = ",";
-                PrintWriter out = response.getWriter();
+                
                 br = new BufferedReader(new FileReader(filePath));
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet UploadCSV</title>");            
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Servlet UploadCSV at " + request.getContextPath() + "</h1>");
+                br.readLine(); // Salto la riga dell'header
+                
+                BeaconResource beacon_resource = new BeaconResource();
+                MappaResource mappa_resource = new MappaResource();
+                NodoResource nodo_resource = new NodoResource();
+                FormFilter form_filter = new FormFilter();
+                
+                // Lettura del csv riga per riga
                 while ((line = br.readLine()) != null) {
+                    
+                    /* I dati vengono splittati in base alla virgola e inseriti in un array
+                        beaconData[0] : address
+                        beaconData[1] : coord_x
+                        beaconData[2] : coord_y
+                        beaconData[3] : fuoco
+                        beaconData[4] : fumi
+                        beaconData[5] : ncd
+                        beaconData[6] : rischio
+                        beaconData[7] : codice_pdi (null)
+                        beaconData[8] : nome_mappa
+                    */
+                    String[] beaconData = line.split(cvsSplitBy);
+                    
+                    Beacon beacon = new Beacon();
+                    
+                    String codice_beacon_filtered = form_filter.filtraCodice(beaconData[0]);
+                    Double coord_x_filtered = form_filter.filtraCoordinata(beaconData[1]);
+                    Double coord_y_filtered = form_filter.filtraCoordinata(beaconData[2]);
+                    Double fuoco_filtered = form_filter.filtraMisura(beaconData[3]);
+                    Double fumi_filtered = form_filter.filtraMisura(beaconData[4]);
+                    Double ndc_filtered = form_filter.filtraMisura(beaconData[5]);
+                    Double rischio_filtered = form_filter.filtraMisura(beaconData[6]);
+                    String codice_pdi_filtered = form_filter.filtraCodice(beaconData[7]);
+                    String nome_mappa_filtered = form_filter.filtraNomeMappa(beaconData[8]);
+                    
+                    if(!codice_beacon_filtered.equals(DEFAULT_STRING)
+                        && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
+                        && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
+                        && !Objects.equals(fuoco_filtered, DEFAULT_DOUBLE)
+                        && !Objects.equals(fumi_filtered, DEFAULT_DOUBLE)
+                        && !Objects.equals(ndc_filtered, DEFAULT_DOUBLE)
+                        && !Objects.equals(rischio_filtered, DEFAULT_DOUBLE)
+                        && !Objects.equals(nome_mappa_filtered, DEFAULT_STRING)) {
+                        
+                        beacon.setCodice(codice_beacon_filtered);
+                        beacon.setCoord_X(coord_x_filtered);
+                        beacon.setCoord_Y(coord_y_filtered);
+                        beacon.setInd_fuoco(fuoco_filtered);
+                        beacon.setInd_fumi(fumi_filtered);
+                        beacon.setInd_NDC(ndc_filtered);
+                        beacon.setInd_rischio(rischio_filtered);
+                        Mappa mappa = mappa_resource.findByNome(nome_mappa_filtered);
+                        beacon.setID_mappa(mappa.getID_mappa());
+                        beacon.setID_piano(mappa.getID_piano());
+                        if(!Objects.equals(codice_pdi_filtered, DEFAULT_STRING)) {
+                            beacon.setID_pdi(nodo_resource.findByCodice(codice_pdi_filtered).getID());
+                        }
 
-                    // use comma as separator
-                    String[] country = line.split(cvsSplitBy);
-
-                    out.println("Country [code= " + country[4] + " , name=" + country[5] + "]");
-
+                        beacon_resource.insert(beacon);
+                        
+                    }                      
                 }
-                out.println("</body>");
-                out.println("</html>");
+                
+                /* Test */
+//                PrintWriter out = response.getWriter();
+//                out.println("<!DOCTYPE html>");
+//                out.println("<html>");
+//                out.println("<head>");
+//                out.println("<title>Servlet UploadCSV</title>");            
+//                out.println("</head>");
+//                out.println("<body>");
+//                out.println("<h1>Servlet UploadCSV at " + request.getContextPath() + "</h1>");
+//                while ((line = br.readLine()) != null) {
+//                    
+//                    String[] beacon = line.split(cvsSplitBy);
+//                    
+//                    // I valori nulli ("") vengono settati a DEFAULT_STRING
+//                    for(int i=0; i<beacon.length; i++) {
+//                        if(beacon[i].equals("\"\"")) beacon[i] = DEFAULT_STRING;
+//                        System.out.println(beacon[i]);
+//                    }
+//                    
+//                    out.println(beacon[0] + "\t" + beacon[1] + "\t" + beacon[2] + "\t" + beacon[3]
+//                            + "\t" + beacon[4]  + "\t" + beacon[5] + "\t" + beacon[6] 
+//                            + "\t" + beacon[7]  + "\t" + beacon[8] + "<br>");
+//
+//                }
+//                out.println("</body>");
+//                out.println("</html>");
+                /* */
+                
                 if (br != null) {
                     try {
                         br.close();
                     } catch (IOException e) {
-                        System.out.println(e);
+                        System.out.println(e.getMessage());
                     }
                 }
             } catch (FileNotFoundException e) {
@@ -114,6 +201,7 @@ public class UploadCSV extends HttpServlet {
                 response.sendRedirect("500.jsp");
             } catch (IOException e) {
                 System.out.println(e);
+                response.sendRedirect("500.jsp");
             } finally {
                 if (os != null) {
                     os.close();
@@ -122,8 +210,12 @@ public class UploadCSV extends HttpServlet {
                     filecontent.close();
                 }
             }
+            
+            // Terminato il caricamento, il file viene eliminato dal server
+            new File(savePath + File.separator + fileName).delete();
         }
         
+        // Torno alla home page
         rd = request.getRequestDispatcher(URL_HOME);
         rd.forward(request, response);
     }

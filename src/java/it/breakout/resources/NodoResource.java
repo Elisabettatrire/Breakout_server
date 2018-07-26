@@ -18,20 +18,20 @@ public class NodoResource {
         return nodo_service.findByID(search_id);
     }
     
-    public Pdi findPoiByID(Integer search_id) {
-        return nodo_service.findPoiByID(search_id);
+    public Pdi findPdiByID(Integer search_id) {
+        return nodo_service.findPdiByID(search_id);
     }
     
     public Nodo findByCodice(String search_code) {
         return nodo_service.findByCodice(search_code);
     }
     
-    public ArrayList<Pdi> findAllPois() {
-	return nodo_service.findAllPois();
+    public ArrayList<Pdi> findAllPdi() {
+	return nodo_service.findAllPdi();
     }
     
-    public ArrayList<Pdi> findPoisByIDMappa(Integer search_id) {
-	return nodo_service.findPoisByIDMappa(search_id);
+    public ArrayList<Pdi> findPdiByIDMappa(Integer search_id) {
+	return nodo_service.findPdiByIDMappa(search_id);
     }
     
     public ArrayList<Nodo> findByIDPiano(Integer search_id) {
@@ -58,8 +58,8 @@ public class NodoResource {
         nodo_service.insertPdi(pdi);
     }
     
-    public void updatePoi(Pdi pdi, Integer id_pdi) {
-        nodo_service.updatePoi(pdi, id_pdi);
+    public void updatePdi(Pdi pdi, Integer id_pdi) {
+        nodo_service.updatePdi(pdi, id_pdi);
     }
        
 }

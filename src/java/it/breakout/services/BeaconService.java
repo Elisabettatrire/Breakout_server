@@ -344,4 +344,20 @@ public class BeaconService {
         }
     }
     
+    public void deleteAll() {
+        
+        try {
+            open();
+            
+            String query = "truncate table " + TBL_NAME;
+            st = conn.prepareStatement(query);
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
 }

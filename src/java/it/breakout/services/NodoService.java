@@ -91,7 +91,7 @@ public class NodoService {
         return nodi;
     }
 
-    public ArrayList<Pdi> findAllPois() {
+    public ArrayList<Pdi> findAllPdi() {
         ResultSet rs = null;
         ArrayList<Pdi> pdis = new ArrayList<>();
         try {
@@ -162,7 +162,7 @@ public class NodoService {
         return nodo;
     }
     
-    public Pdi findPoiByID(Integer search_id){
+    public Pdi findPdiByID(Integer search_id){
 
         ResultSet rs = null;
         Pdi pdi = new Pdi();
@@ -295,7 +295,7 @@ public class NodoService {
         return nodi;
     }
     
-    public ArrayList<Pdi> findPoisByIDMappa(Integer search_id) {
+    public ArrayList<Pdi> findPdiByIDMappa(Integer search_id) {
         ResultSet rs = null;
         ArrayList<Pdi> pdis = new ArrayList<>();
         try {
@@ -433,7 +433,7 @@ public class NodoService {
         }
     }
     
-    public void updatePoi(Pdi pdi, Integer id_pdi) {
+    public void updatePdi(Pdi pdi, Integer id_pdi) {
         try {
             open();
             

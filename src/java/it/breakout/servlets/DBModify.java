@@ -64,7 +64,18 @@ public class DBModify extends HttpServlet {
         
         try {
             switch(azione) {
-
+                
+                /* Svuotamento tabella dei beacon */
+                case "elimina-beacon-all":
+                    
+                    eliminaBeaconAll();
+                    
+                    /* Ritorno alla pagina corrente */
+                    rd = request.getRequestDispatcher(URL_MAPPE);
+                    rd.forward(request, response);
+                    
+                    break;
+                    
                 /* Azioni relative alla tabella dei piani */
                 case "aggiungi-piano":
 
@@ -367,6 +378,14 @@ public class DBModify extends HttpServlet {
      * @param request servlet request
      *
      */
+    
+    public void eliminaBeaconAll() {
+        
+        BeaconResource beacon_resource = new BeaconResource();
+        
+        beacon_resource.deleteAll();
+        
+    }
     
     public void aggiungiPiano(HttpServletRequest request) {
         
@@ -1018,7 +1037,7 @@ public class DBModify extends HttpServlet {
         /* Visto che i campi da controllare sono più di uno ho bisogno
         di un oggetto che contenga i vecchi valori
         */
-        Pdi pdi_old = nodo_resource.findPoiByID(id_pdi);
+        Pdi pdi_old = nodo_resource.findPdiByID(id_pdi);
 
         /* Controllo campi */
         Integer exists = nodo_resource.findByCodice(codice_pdi_filtered).getID();
@@ -1058,7 +1077,7 @@ public class DBModify extends HttpServlet {
             pdi.setTipo(pdi_old.getTipo());
         }
 
-        nodo_resource.updatePoi(pdi, id_pdi);
+        nodo_resource.updatePdi(pdi, id_pdi);
 
         exists = null;
         
