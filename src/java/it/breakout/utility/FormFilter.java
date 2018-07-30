@@ -75,7 +75,7 @@ public class FormFilter {
     public String filtraCodice(String input_code) {
         
         /* Rimozione caratteri speciali */
-        String filtered = input_code.replaceAll("[^A-Za-z0-9-]","");
+        String filtered = input_code.replaceAll("[^A-Za-z0-9-:]","");
         
         if(filtered != null && !filtered.isEmpty()) {
             return filtered.toUpperCase(); // Lettere maiuscole

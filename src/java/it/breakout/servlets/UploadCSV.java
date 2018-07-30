@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.Objects;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -32,12 +33,12 @@ import it.breakout.resources.MappaResource;
 import it.breakout.resources.NodoResource;
 import it.breakout.models.Beacon;
 import it.breakout.models.Mappa;
-import it.breakout.models.Pdi;
 import it.breakout.utility.FormFilter;
 
-import static it.breakout.utility.EnvVariables.URL_HOME;
+import static it.breakout.utility.EnvVariables.URL_MAPPE;
 import static it.breakout.utility.EnvVariables.DEFAULT_DOUBLE;
 import static it.breakout.utility.EnvVariables.DEFAULT_STRING;
+
 
 
 /**
@@ -72,7 +73,8 @@ public class UploadCSV extends HttpServlet {
         String[] splitted = buildPath.split("build"); // {D:\Documents\NetBeansProjects\Breakout_server\, \web}
         String savePath = splitted[0] + "web" + File.separator + "csv"; // D:\Documents\NetBeansProjects\Breakout_server\web\csv
         
-        
+        String flag = "false";
+        String success = "false";
         Part filePart = request.getPart("csv");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         if(!fileName.equals("") && fileName.endsWith(".csv")) {
@@ -99,15 +101,15 @@ public class UploadCSV extends HttpServlet {
                 
                 br = new BufferedReader(new FileReader(filePath));
                 br.readLine(); // Salto la riga dell'header
-                
+                    
                 BeaconResource beacon_resource = new BeaconResource();
                 MappaResource mappa_resource = new MappaResource();
                 NodoResource nodo_resource = new NodoResource();
                 FormFilter form_filter = new FormFilter();
-                
+
                 // Lettura del csv riga per riga
                 while ((line = br.readLine()) != null) {
-                    
+
                     /* I dati vengono splittati in base alla virgola e inseriti in un array
                         beaconData[0] : address
                         beaconData[1] : coord_x
@@ -120,9 +122,9 @@ public class UploadCSV extends HttpServlet {
                         beaconData[8] : nome_mappa
                     */
                     String[] beaconData = line.split(cvsSplitBy);
-                    
+
                     Beacon beacon = new Beacon();
-                    
+
                     String codice_beacon_filtered = form_filter.filtraCodice(beaconData[0]);
                     Double coord_x_filtered = form_filter.filtraCoordinata(beaconData[1]);
                     Double coord_y_filtered = form_filter.filtraCoordinata(beaconData[2]);
@@ -132,7 +134,7 @@ public class UploadCSV extends HttpServlet {
                     Double rischio_filtered = form_filter.filtraMisura(beaconData[6]);
                     String codice_pdi_filtered = form_filter.filtraCodice(beaconData[7]);
                     String nome_mappa_filtered = form_filter.filtraNomeMappa(beaconData[8]);
-                    
+
                     if(!codice_beacon_filtered.equals(DEFAULT_STRING)
                         && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
                         && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
@@ -141,7 +143,7 @@ public class UploadCSV extends HttpServlet {
                         && !Objects.equals(ndc_filtered, DEFAULT_DOUBLE)
                         && !Objects.equals(rischio_filtered, DEFAULT_DOUBLE)
                         && !Objects.equals(nome_mappa_filtered, DEFAULT_STRING)) {
-                        
+
                         beacon.setCodice(codice_beacon_filtered);
                         beacon.setCoord_X(coord_x_filtered);
                         beacon.setCoord_Y(coord_y_filtered);
@@ -158,37 +160,14 @@ public class UploadCSV extends HttpServlet {
 
                         beacon_resource.insert(beacon);
                         
-                    }                      
+                        success = "true";
+                        
+                    } else {
+                        success = "false";
+                        break;
+                    }
                 }
-                
-                /* Test */
-//                PrintWriter out = response.getWriter();
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Servlet UploadCSV</title>");            
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>Servlet UploadCSV at " + request.getContextPath() + "</h1>");
-//                while ((line = br.readLine()) != null) {
-//                    
-//                    String[] beacon = line.split(cvsSplitBy);
-//                    
-//                    // I valori nulli ("") vengono settati a DEFAULT_STRING
-//                    for(int i=0; i<beacon.length; i++) {
-//                        if(beacon[i].equals("\"\"")) beacon[i] = DEFAULT_STRING;
-//                        System.out.println(beacon[i]);
-//                    }
-//                    
-//                    out.println(beacon[0] + "\t" + beacon[1] + "\t" + beacon[2] + "\t" + beacon[3]
-//                            + "\t" + beacon[4]  + "\t" + beacon[5] + "\t" + beacon[6] 
-//                            + "\t" + beacon[7]  + "\t" + beacon[8] + "<br>");
-//
-//                }
-//                out.println("</body>");
-//                out.println("</html>");
-                /* */
-                
+
                 if (br != null) {
                     try {
                         br.close();
@@ -215,8 +194,12 @@ public class UploadCSV extends HttpServlet {
             new File(savePath + File.separator + fileName).delete();
         }
         
-        // Torno alla home page
-        rd = request.getRequestDispatcher(URL_HOME);
+        flag = "true";
+        request.setAttribute("success", success);
+        request.setAttribute("flag", flag);
+        
+        // Torno alla pagina delle mappe
+        rd = request.getRequestDispatcher(URL_MAPPE);
         rd.forward(request, response);
     }
 

@@ -235,9 +235,8 @@ public class BeaconService {
                 beacon.setID_piano(search_id);
                 beacons.add(beacon);
             }
-        } 
-        catch (SQLException e) {
-        	System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         finally {
             close();
@@ -247,8 +246,8 @@ public class BeaconService {
     }
     
     public void insert(Beacon beacon) {
-        
-        try {
+            
+        try{
             
             open();
             
@@ -281,7 +280,6 @@ public class BeaconService {
             st.setInt(10, beacon.getID_mappa());
 
             st.executeUpdate();
-            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {

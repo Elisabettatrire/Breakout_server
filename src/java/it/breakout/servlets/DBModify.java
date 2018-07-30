@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
+import java.sql.SQLException;
 
 import it.breakout.resources.PianoResource;
 import it.breakout.resources.MappaResource;
@@ -360,6 +361,7 @@ public class DBModify extends HttpServlet {
                 default:
                     
                     response.sendRedirect("500.jsp");
+                    System.out.println("default case");
                     
                     break;
                 
@@ -1091,7 +1093,7 @@ public class DBModify extends HttpServlet {
         
     }
     
-    public Integer aggiungiBeacon(HttpServletRequest request, String nome_mappa) {
+    public Integer aggiungiBeacon (HttpServletRequest request, String nome_mappa) {
         
         FormFilter form_filter = new FormFilter();
         MappaResource mappa_resource = new MappaResource();
@@ -1131,9 +1133,9 @@ public class DBModify extends HttpServlet {
             if(!id_pdi.equals("nessuno")) {
                 beacon.setID_pdi(Integer.parseInt(id_pdi));
             }
-
+            
             beacon_resource.insert(beacon);
-
+            
         }
 
         exists = null;

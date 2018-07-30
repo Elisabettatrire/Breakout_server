@@ -12,7 +12,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Aggiungi Beacon da file CSV</h5>
+                <h5 class="modal-title">Aggiungi i beacon da file CSV</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -20,7 +20,21 @@
             <div class="modal-body">
                 <div class="col-md-12">
                     <p class="warning">
-                        Specifiche file csv</p>
+                        Il file contenente i dati dei beacon deve essere in formato
+                        <i>comma separated values</i> (.csv) e su ogni riga, dopo
+                        quella di intestazione, deve riportare i seguenti valori separati
+                        da virgola:
+                    <ul>
+                        <li>indirizzo univoco del beacon;</li>
+                        <li>coordinata x;</li>
+                        <li>coordinata y;</li>
+                        <li>indice fuoco;</li>
+                        <li>indice fumi;</li>
+                        <li>NCD;</li>
+                        <li>indice di rischio;</li>
+                        <li>codice del PDI associato (può essere nullo);</li>
+                        <li>nome della mappa di appartenenza.</li>
+                    </ul></p>
                 </div>
                 <hr>
                 <div class="col-md-12" style="text-align: center">

@@ -6,6 +6,8 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8" session="true"%>
+<c:set var="flag" value="${requestScope.flag}"/>
+<c:set var="success" value="${requestScope.success}"/>
 
 <!DOCTYPE html>
 <html lang="it-IT">
@@ -26,6 +28,21 @@
         <script src="static/js/select-old-value.js" type="text/javascript"></script>
         <script src="static/js/disable-same-floor.js" type="text/javascript"></script>
         <script src="static/js/clear-selected.js" type="text/javascript"></script>
+        <!-- Il codice js sottostante fa apparire i popup al termine del caricamento
+        dei dati da csv, se lo metto in un file esterno non funziona -->
+        <script type="text/javascript">
+            // La variabile flag serve ad indicare che è stato chiamato il servlet,
+            // è un controllo in più oltre alla variabile success
+            $(document).ready(function(){
+                // Se success è true il caricamento è avvenuto correttamente
+                if('${success}'==="true" && '${flag}'==="true") {
+                    $('#success-upload').modal('show');
+                } else if('${success}'==="false" && '${flag}'==="true") {
+                    // altrimenti è fallito
+                    $('#failed-upload').modal('show');
+                }
+            });
+        </script>
     </head>
     <body>
         <!-- Header -->
@@ -47,7 +64,7 @@
                         <b>Elimina Tutti i Beacon</b></button>
                     <button id="caricaCSV" data-toggle="modal" data-target="#modal-csv"
                             class="btn btn-outline-success" id="btn-agg-csv">
-                        <b>Aggiungi Beacon da CSV</b></button>
+                        <b>Aggiungi i Beacon da CSV</b></button>
                 </div>
             </div>
             <br>
@@ -139,6 +156,12 @@
         
         <!-- Modal Form Aggiungi Beacon da CSV -->
         <%@include file="form/beacon-csv.jsp"%>
+        
+        <!-- Modal Form Caricamento Avvenuto con Successo -->
+        <%@include file="success-upload.jsp"%>
+        
+        <!-- Modal Form Caricamento Fallito -->
+        <%@include file="failed-upload.jsp"%>
         
         <!-- Modal Conferma Eliminazione Lista Beacon -->
         <div id="modal-elimina-dati" class="modal fade">
