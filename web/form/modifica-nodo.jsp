@@ -22,16 +22,16 @@
                         <table class="table table-borderless" style="margin-left: auto; margin-right: auto">
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" maxlength="15" size="30"
-                                           placeholder="&nbsp;(invariato)" autofocus="true"></td></tr>
-                            <tr><td>Coord. X (m):</td><td>
+                                           placeholder=" (invariato)" autofocus="true"></td></tr>
+                            <tr><td>Coord. X (cm):</td><td>
                                     <input type="text" name="coord-x" maxlength="15" size="30"
-                                            autofocus="true" placeholder="&nbsp;(invariato)"></td></tr>
-                            <tr><td>Coord. Y (m):</td><td>
+                                            autofocus="true" placeholder=" (invariato)"></td></tr>
+                            <tr><td>Coord. Y (cm):</td><td>
                                     <input type="text" name="coord-y" maxlength="15" size="30"
-                                                placeholder="&nbsp;(invariato)"></td></tr>
+                                                placeholder=" (invariato)"></td></tr>
                             <tr><td>Larghezza (m):</td>
                                 <td><input type="text" name="larghezza" maxlength="15" size="30"
-                                                placeholder="&nbsp;(invariato)"></td></tr>
+                                                placeholder=" (invariato)"></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiornare le modifiche-->
                         <div class="modal-footer">

@@ -78,9 +78,8 @@
             <!--Immagine della mappa fs:990x1572-->
             <div class="row">
                 <c:set var = "url_img" value = "${requestScope.url_immagine}" />
-                <div class="col-md-12" style="text-align: center; margin-bottom: 20px">
-                    <p style="text-align: left">L'immagine sottostante riporta le posizioni dei beacon,
-                        passa con il mouse sopra il segnalino per mostrare il codice.</p>
+                <div class="col-md-12" style="margin-bottom: 20px">
+                    <p style="text-align: left">L'immagine sottostante riporta le posizioni dei beacon.</p>
                     <div class="container" style="position:relative">
                         <canvas id="map-canvas" width="1000" height="1700"  style="border:1px solid #d3d3d3;" >                    
                         </canvas>
@@ -88,7 +87,7 @@
                         <div class="btn-group btn-group-toggle " data-toggle="buttons"
                              style="color:red; position:absolute; left: 0px; top: -13px; right: 0px">
                             
-                            <label style="position: absolute; left: 0px;  top: 0px" >
+                            <label style="position: absolute; left: 8px;  top: 1px" >
                                 <span  class="fas fa-crosshairs" >
                                 </span><br>origine
                             </label>

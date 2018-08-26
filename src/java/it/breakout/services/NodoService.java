@@ -5,8 +5,10 @@
  */
 package it.breakout.services;
 
+import it.breakout.models.Modifica;
 import it.breakout.models.Nodo;
 import it.breakout.models.Pdi;
+import it.breakout.resources.ModificaResource;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -350,6 +352,13 @@ public class NodoService {
             st.setInt(6, nodo.getID_piano());
             st.executeUpdate();
             
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Inserimento nodo");
+            modifica_resource.insert(modifica);
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -375,6 +384,13 @@ public class NodoService {
             st.setInt(5, id_nodo);
             st.executeUpdate();
             
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Modifica nodo");
+            modifica_resource.insert(modifica);
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -391,6 +407,13 @@ public class NodoService {
             st = conn.prepareStatement(query);
             st.setInt(1, id_nodo);
             st.executeUpdate();
+            
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Eliminazione nodo");
+            modifica_resource.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -426,6 +449,13 @@ public class NodoService {
             st.setInt(9, pdi.getID_piano());
             st.executeUpdate();
             
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Inserimento PDI");
+            modifica_resource.insert(modifica);
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -454,6 +484,13 @@ public class NodoService {
             st.setDouble(6, pdi.getLunghezza());
             st.setInt(7, id_pdi);
             st.executeUpdate();
+            
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Modifica PDI");
+            modifica_resource.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -29,7 +29,7 @@
                         <table class="table table-borderless">
                             <tr><td>Codice Nodo 1:</td><td>
                                 <select name="codice-1" required>
-                                    <option selected hidden disabled value="">Seleziona</option>
+                                    <option selected hidden value="">Seleziona</option>
                                     <c:forEach items="${requestScope.nodi}" var="nodo">
                                         <c:set var="codice_nodo" value="${nodo.getCodice()}" />
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
@@ -45,7 +45,7 @@
                                 </select></td></tr>
                             <tr><td>Codice Nodo 2:</td><td>
                                 <select name="codice-2" required>
-                                    <option selected disabled hidden value="">Seleziona</option>
+                                    <option selected hidden value="">Seleziona</option>
                                     <c:forEach items="${requestScope.nodi}" var="nodo">
                                         <c:set var="codice_nodo" value="${nodo.getCodice()}" />
                                         <c:set var="id_nodo" value="${nodo.getID()}" />
@@ -59,9 +59,9 @@
                                             ${codice_pdi}</option>
                                     </c:forEach>
                                 </select></td></tr>
-                            <tr><td>Codice Beacon:</td><td>
+                            <tr><td>Indirizzo Beacon:</td><td>
                                 <select name="codice-beacon" required>
-                                    <option selected disabled hidden value="">Seleziona</option>
+                                    <option selected hidden value="">Seleziona</option>
                                     <c:forEach items="${requestScope.al_beacon}" var="beacon">
                                         <c:set var="codice_beacon" value="${beacon.getCodice()}" />
                                         <c:set var="id_beacon" value="${beacon.getID_beacon()}" />

@@ -51,7 +51,7 @@
                                             ${codice_pdi}</option>
                                     </c:forEach>
                                 </select></td></tr>
-                            <tr><td>Codice Beacon:</td><td>
+                            <tr><td>Indirizzo Beacon:</td><td>
                                 <select name="codice-beacon">
                                     <c:forEach items="${requestScope.al_beacon}" var="beacon">
                                         <c:set var="codice_beacon" value="${beacon.getCodice()}" />

@@ -28,6 +28,7 @@ create table "APP"."NODO"
 create table "APP"."BEACON"
 (
 	ID_beacon int primary key not null generated always as identity (start with 1, increment by 1),
+        address varchar(30) not null,
 	coordinata_x float not null,
 	coordinata_y float not null,
         fuoco float not null,
@@ -72,7 +73,7 @@ create table "APP"."MODIFICHE"
 (
 	ID_modifica int primary key not null generated always as identity (start with 1, increment by 1),
 	data_modifica timestamp not null default current_timestamp,
-        tipo_modifica varchar(10) not null,
-        tabella varchar(10) not null,
-        ID_oggetto_mod int not null
+        tipo_modifica varchar(30) not null,
+        tabella varchar(20) not null,
+        ID_oggetto_mod int
 );

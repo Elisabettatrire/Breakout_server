@@ -26,27 +26,15 @@
                 <div class="col-md-12">
                     <form action="DBModify" method="post">
                         <table class="table table-borderless">
-                            <tr><td>Codice:</td><td>
-                                    <input type="text" name="codice" placeholder=" es. 150G2"
-                                           size="30" autofocus="true" maxlength="15" required></td></tr>
-                            <tr><td>Coord. X (m):</td><td>
+                            <tr><td>Indirizzo:</td><td>
+                                    <input type="text" name="codice" placeholder=" es. 39:B4:50:C1:F6:49"
+                                           size="30" autofocus="true" maxlength="30" required></td></tr>
+                            <tr><td>Coord. X (cm):</td><td>
                                     <input type="text" name="coord-x" required
-                                            placeholder=" es. 129" size="30" maxlength="15"></td></tr>
-                            <tr><td>Coord. Y (m):</td><td>
+                                            placeholder=" es. 12.3" size="30" maxlength="15"></td></tr>
+                            <tr><td>Coord. Y (cm):</td><td>
                                     <input type="text" name="coord-y" required
-                                            placeholder=" es. 465" size="30" maxlength="15"></td></tr>
-                            <tr><td>Fuoco?:</td><td>
-                                    <input type="text" name="fuoco" placeholder=""
-                                            size="30" maxlength="15" required></td></tr>
-                            <tr><td>Fumi?:</td><td>
-                                    <input type="text" name="fumi" placeholder=""
-                                            size="30" maxlength="15" required></td></tr>
-                            <tr><td>NDC?:</td><td>
-                                    <input type="text" name="ndc" placeholder=""
-                                            size="30" maxlength="15" required></td></tr>
-                            <tr><td>Rischio?:</td><td>
-                                    <input type="text" name="rischio" placeholder=""
-                                            size="30" maxlength="15" required></td></tr>
+                                            placeholder=" es. 4.6" size="30" maxlength="15"></td></tr>
                             <tr><td>PDI associato</td><td>
                                     <select name="codice-pdi">
                                         <option value="nessuno" selected>Nessuno</option>

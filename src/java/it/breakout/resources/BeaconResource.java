@@ -7,7 +7,6 @@ package it.breakout.resources;
 
 import java.util.ArrayList;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import it.breakout.models.Beacon;
 import it.breakout.services.BeaconService;

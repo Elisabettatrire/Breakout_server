@@ -29,17 +29,17 @@
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" placeholder=" es. 155DICEA"
                                            size="30" autofocus="true" required maxlength="15"></td></tr>
-                            <tr><td>Coord. X (m):</td>
-                                <td><input type="text" name="coord-x" placeholder=" es."
+                            <tr><td>Coord. X (cm):</td>
+                                <td><input type="text" name="coord-x" placeholder=" es. 12.3"
                                            size="30" required></td></tr>
-                            <tr><td>Coord. Y (m):</td><td>
-                                    <input type="text" name="coord-y" placeholder=" es."
+                            <tr><td>Coord. Y (cm):</td><td>
+                                    <input type="text" name="coord-y" placeholder=" es. 4.6"
                                            size="30" maxlength="15" required></td></tr>
                             <tr><td>Lunghezza (m):</td><td>
-                                    <input type="text" name="lunghezza" placeholder=" es."
+                                    <input type="text" name="lunghezza" placeholder=" es. 2.5"
                                            size="30" maxlength="15" required></td></tr>
                             <tr><td>Larghezza (m):</td><td>
-                                    <input type="text" name="larghezza" placeholder=" es."
+                                    <input type="text" name="larghezza" placeholder=" es. 3"
                                            size="30" maxlength="15" required></td></tr>
                             <tr><td>Tipo:</td><td>
                                     <textarea rows="2" cols="32" name="tipo"

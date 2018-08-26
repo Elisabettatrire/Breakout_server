@@ -14,7 +14,7 @@ import it.breakout.resources.NodoResource;
 public class Beacon {
     
     private Integer ID_beacon;
-    private String codice;
+    private String codice; // Indirizzo del Beacon
     private Double coord_X;
     private Double coord_Y;
     private Double ind_fuoco;

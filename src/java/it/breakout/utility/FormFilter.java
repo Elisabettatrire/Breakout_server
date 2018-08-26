@@ -49,7 +49,7 @@ public class FormFilter {
     public Double filtraCoordinata(String input_number) {
         
         /* Rimozione caratteri speciali e lettere*/
-        String filtered = input_number.replaceAll("[^0-9.,-]",""); // Solo decimali ammessi
+        String filtered = input_number.replaceAll("[^0-9.,]",""); // Solo decimali positivi ammessi
         String dotted = filtered.replaceAll(",","."); // Solo punti ammessi
         String pattern = "^-?\\d+(,\\d+)*(\\.\\d+(e\\d+)?)?$";
         boolean check = dotted.matches(pattern); // Forma corretta del decimale

@@ -22,16 +22,12 @@
                     <p class="warning">
                         Il file contenente i dati dei beacon deve essere in formato
                         <i>comma separated values</i> (.csv) e su ogni riga, dopo
-                        quella di intestazione, deve riportare i seguenti valori separati
-                        da virgola:
+                        quella di intestazione, deve riportare i seguenti valori
+                        ("" per il valore nullo) separati da virgola:
                     <ul>
                         <li>indirizzo univoco del beacon;</li>
                         <li>coordinata x;</li>
                         <li>coordinata y;</li>
-                        <li>indice fuoco;</li>
-                        <li>indice fumi;</li>
-                        <li>NCD;</li>
-                        <li>indice di rischio;</li>
                         <li>codice del PDI associato (può essere nullo);</li>
                         <li>nome della mappa di appartenenza.</li>
                     </ul></p>

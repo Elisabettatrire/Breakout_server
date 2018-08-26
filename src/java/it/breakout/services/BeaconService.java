@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import it.breakout.models.Beacon;
+import it.breakout.models.Modifica;
+import it.breakout.resources.ModificaResource;
 
 import static it.breakout.utility.EnvVariables.DB_PSW;
 import static it.breakout.utility.EnvVariables.DB_URL;
@@ -267,10 +269,10 @@ public class BeaconService {
             st.setString(1, beacon.getCodice());
             st.setDouble(2, beacon.getCoord_X());
             st.setDouble(3, beacon.getCoord_Y());
-            st.setDouble(4, beacon.getInd_fuoco());
-            st.setDouble(5, beacon.getInd_fumi());
-            st.setDouble(6, beacon.getInd_NDC());
-            st.setDouble(7, beacon.getInd_rischio());
+            st.setDouble(4, 0.0);
+            st.setDouble(5, 0.0);
+            st.setDouble(6, 0.0);
+            st.setDouble(7, 0.0);
             if(beacon.getID_pdi() != null) {
                 st.setInt(8, beacon.getID_pdi());
             } else {
@@ -280,6 +282,14 @@ public class BeaconService {
             st.setInt(10, beacon.getID_mappa());
 
             st.executeUpdate();
+            
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Inserimento beacon");
+            modifica_resource.insert(modifica);
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -295,28 +305,28 @@ public class BeaconService {
                     + FIELD_ADDR + "=?, "
                     + FIELD_COORD_X + "=?, "
                     + FIELD_COORD_Y + "=?, "
-                    + FIELD_FUOCO + "=?, "
-                    + FIELD_FUMI + "=?, "
-                    + FIELD_NDC + "=?, "
-                    + FIELD_RISCHIO + "=?, "
                     + FIELD_ID_PDI + "=? "
                     + "where " + FIELD_ID + "=?";
             st = conn.prepareStatement(query);
             st.setString(1, beacon.getCodice());
             st.setDouble(2, beacon.getCoord_X());
             st.setDouble(3, beacon.getCoord_Y());
-            st.setDouble(4, beacon.getInd_fuoco());
-            st.setDouble(5, beacon.getInd_fumi());
-            st.setDouble(6, beacon.getInd_NDC());
-            st.setDouble(7, beacon.getInd_rischio());
             if(beacon.getID_pdi() != null) {
-                st.setInt(8, beacon.getID_pdi());
+                st.setInt(4, beacon.getID_pdi());
             } else {
-                st.setNull(8, Types.INTEGER);
+                st.setNull(4, Types.INTEGER);
             }
-            st.setInt(9, id_beacon);
+            st.setInt(5, id_beacon);
             
             st.executeUpdate();
+            
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Modifica beacon");
+            modifica_resource.insert(modifica);
+            
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -335,6 +345,13 @@ public class BeaconService {
             st.setInt(1, id_beacon);
             st.executeUpdate();
             
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Eliminazione beacon");
+            modifica_resource.insert(modifica);
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -350,6 +367,14 @@ public class BeaconService {
             String query = "truncate table " + TBL_NAME;
             st = conn.prepareStatement(query);
             st.executeUpdate();
+            
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Svuotamento tabella beacon");
+            modifica_resource.insert(modifica);
+            
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());

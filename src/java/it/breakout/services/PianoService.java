@@ -5,6 +5,7 @@
  */
 package it.breakout.services;
 
+import it.breakout.models.Modifica;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import it.breakout.models.Piano;
+import it.breakout.resources.ModificaResource;
 
 import static it.breakout.utility.EnvVariables.DB_PSW;
 import static it.breakout.utility.EnvVariables.DB_URL;
@@ -139,6 +141,13 @@ public class PianoService {
             st.setString(1, quota);
             st.executeUpdate();
             
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Inserimento piano");
+            modifica_resource.insert(modifica);
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -159,6 +168,13 @@ public class PianoService {
             st.setInt(2, id_piano);
             st.executeUpdate();
             
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Modifica piano");
+            modifica_resource.insert(modifica);
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -176,6 +192,13 @@ public class PianoService {
             st = conn.prepareStatement(query);
             st.setInt(1, id_piano);
             st.executeUpdate();
+            
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaResource modifica_resource = new ModificaResource();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Eliminazione piano");
+            modifica_resource.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -13,10 +13,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.Objects;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -114,12 +112,8 @@ public class UploadCSV extends HttpServlet {
                         beaconData[0] : address
                         beaconData[1] : coord_x
                         beaconData[2] : coord_y
-                        beaconData[3] : fuoco
-                        beaconData[4] : fumi
-                        beaconData[5] : ncd
-                        beaconData[6] : rischio
-                        beaconData[7] : codice_pdi (null)
-                        beaconData[8] : nome_mappa
+                        beaconData[3] : codice_pdi (null)
+                        beaconData[4] : nome_mappa
                     */
                     String[] beaconData = line.split(cvsSplitBy);
 
@@ -128,29 +122,17 @@ public class UploadCSV extends HttpServlet {
                     String codice_beacon_filtered = form_filter.filtraCodice(beaconData[0]);
                     Double coord_x_filtered = form_filter.filtraCoordinata(beaconData[1]);
                     Double coord_y_filtered = form_filter.filtraCoordinata(beaconData[2]);
-                    Double fuoco_filtered = form_filter.filtraMisura(beaconData[3]);
-                    Double fumi_filtered = form_filter.filtraMisura(beaconData[4]);
-                    Double ndc_filtered = form_filter.filtraMisura(beaconData[5]);
-                    Double rischio_filtered = form_filter.filtraMisura(beaconData[6]);
-                    String codice_pdi_filtered = form_filter.filtraCodice(beaconData[7]);
-                    String nome_mappa_filtered = form_filter.filtraNomeMappa(beaconData[8]);
+                    String codice_pdi_filtered = form_filter.filtraCodice(beaconData[3]);
+                    String nome_mappa_filtered = form_filter.filtraNomeMappa(beaconData[4]);
 
                     if(!codice_beacon_filtered.equals(DEFAULT_STRING)
                         && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
                         && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
-                        && !Objects.equals(fuoco_filtered, DEFAULT_DOUBLE)
-                        && !Objects.equals(fumi_filtered, DEFAULT_DOUBLE)
-                        && !Objects.equals(ndc_filtered, DEFAULT_DOUBLE)
-                        && !Objects.equals(rischio_filtered, DEFAULT_DOUBLE)
                         && !Objects.equals(nome_mappa_filtered, DEFAULT_STRING)) {
 
                         beacon.setCodice(codice_beacon_filtered);
                         beacon.setCoord_X(coord_x_filtered);
                         beacon.setCoord_Y(coord_y_filtered);
-                        beacon.setInd_fuoco(fuoco_filtered);
-                        beacon.setInd_fumi(fumi_filtered);
-                        beacon.setInd_NDC(ndc_filtered);
-                        beacon.setInd_rischio(rischio_filtered);
                         Mappa mappa = mappa_resource.findByNome(nome_mappa_filtered);
                         beacon.setID_mappa(mappa.getID_mappa());
                         beacon.setID_piano(mappa.getID_piano());

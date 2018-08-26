@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
-import java.sql.SQLException;
 
 import it.breakout.resources.PianoResource;
 import it.breakout.resources.MappaResource;
@@ -1103,10 +1102,6 @@ public class DBModify extends HttpServlet {
         String codice_beacon_filtered = form_filter.filtraCodice(request.getParameter("codice"));
         Double coord_x_filtered = form_filter.filtraCoordinata(request.getParameter("coord-x"));
         Double coord_y_filtered = form_filter.filtraCoordinata(request.getParameter("coord-y"));
-        Double fuoco_filtered = form_filter.filtraMisura(request.getParameter("fuoco"));
-        Double fumi_filtered = form_filter.filtraMisura(request.getParameter("fumi"));
-        Double ndc_filtered = form_filter.filtraMisura(request.getParameter("ndc"));
-        Double rischio_filtered = form_filter.filtraMisura(request.getParameter("rischio"));
         String id_pdi = request.getParameter("codice-pdi");
 
         Integer exists = beacon_resource.findByCodice(codice_beacon_filtered).getID_beacon();
@@ -1115,19 +1110,11 @@ public class DBModify extends HttpServlet {
         if(!codice_beacon_filtered.equals(DEFAULT_STRING)
                 && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
                 && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
-                && !Objects.equals(fuoco_filtered, DEFAULT_DOUBLE)
-                && !Objects.equals(fumi_filtered, DEFAULT_DOUBLE)
-                && !Objects.equals(ndc_filtered, DEFAULT_DOUBLE)
-                && !Objects.equals(rischio_filtered, DEFAULT_DOUBLE)
                 && exists == null){
 
             beacon.setCodice(codice_beacon_filtered);
             beacon.setCoord_X(coord_x_filtered);
-            beacon.setCoord_Y(coord_y_filtered);
-            beacon.setInd_fuoco(fuoco_filtered);
-            beacon.setInd_fumi(fumi_filtered);
-            beacon.setInd_NDC(ndc_filtered);
-            beacon.setInd_rischio(rischio_filtered);                        
+            beacon.setCoord_Y(coord_y_filtered);                        
             beacon.setID_mappa(mappa_local.getID_mappa());
             beacon.setID_piano(mappa_local.getID_piano());
             if(!id_pdi.equals("nessuno")) {
@@ -1154,10 +1141,6 @@ public class DBModify extends HttpServlet {
         String codice_beacon_filtered = form_filter.filtraCodice(request.getParameter("codice"));
         Double coord_x_filtered = form_filter.filtraCoordinata(request.getParameter("coord-x"));
         Double coord_y_filtered = form_filter.filtraCoordinata(request.getParameter("coord-y"));
-        Double fuoco_filtered = form_filter.filtraMisura(request.getParameter("fuoco"));
-        Double fumi_filtered = form_filter.filtraMisura(request.getParameter("fumi"));
-        Double ndc_filtered = form_filter.filtraMisura(request.getParameter("ndc"));
-        Double rischio_filtered = form_filter.filtraMisura(request.getParameter("rischio"));
         String id_pdi = request.getParameter("codice-pdi");
         Integer id_beacon = Integer.parseInt(request.getParameter("id_beacon"));
 
@@ -1185,30 +1168,6 @@ public class DBModify extends HttpServlet {
         } else {
             beacon.setCoord_Y(beacon_old.getCoord_Y());
         }
-
-        if(!Objects.equals(fuoco_filtered, DEFAULT_DOUBLE)) {
-            beacon.setInd_fuoco(fuoco_filtered);
-        } else {
-            beacon.setInd_fuoco(beacon_old.getInd_fuoco());
-        }
-
-        if(!Objects.equals(fumi_filtered, DEFAULT_DOUBLE)) {
-            beacon.setInd_fumi(fumi_filtered);
-        } else {
-            beacon.setInd_fumi(beacon_old.getInd_fumi());
-        }
-
-        if(!Objects.equals(ndc_filtered, DEFAULT_DOUBLE)) {
-            beacon.setInd_NDC(ndc_filtered);
-        } else {
-            beacon.setInd_NDC(beacon_old.getInd_NDC());
-        }
-
-        if(!Objects.equals(rischio_filtered, DEFAULT_DOUBLE)) {
-            beacon.setInd_rischio(rischio_filtered);
-        } else {
-            beacon.setInd_rischio(beacon_old.getInd_rischio());
-        }   
 
         if(!id_pdi.equals("nessuno")) {
             beacon.setID_pdi(Integer.parseInt(id_pdi));

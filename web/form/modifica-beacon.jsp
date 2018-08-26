@@ -21,26 +21,14 @@
                     <form action="DBModify" method="post" id="form-mod-beacon">
                         <table class="table table-borderless">
                             <tr><td>Codice:</td><td>
-                                    <input type="text" name="codice" placeholder=" es. 150G2"
-                                           size="30" maxlength="15" autofocus="true"></td></tr>
-                            <tr><td>Coord. X (m):</td><td>
+                                    <input type="text" name="codice" placeholder=" (invariato)"
+                                           size="30" maxlength="30" autofocus="true"></td></tr>
+                            <tr><td>Coord. X (cm):</td><td>
                                     <input type="text" name="coord-x" maxlength="15" 
                                             placeholder=" (invariato)" size="30"></td></tr>
-                            <tr><td>Coord. Y (m):</td><td>
+                            <tr><td>Coord. Y (cm):</td><td>
                                     <input type="text" name="coord-y" maxlength="15" 
                                             placeholder=" (invariato)" size="30"></td></tr>
-                            <tr><td>Fuoco?:</td><td>
-                                    <input type="text" name="fuoco" placeholder=" (invariato)"
-                                            maxlength="15" size="30"></td></tr>
-                            <tr><td>Fumi?:</td><td>
-                                    <input type="text" name="fumi" placeholder=" (invariato)"
-                                            maxlength="15" size="30"></td></tr>
-                            <tr><td>NDC?:</td><td>
-                                    <input type="text" name="ndc" placeholder=" (invariato)"
-                                            maxlength="15" size="30"></td></tr>
-                            <tr><td>Rischio?:</td><td>
-                                    <input type="text" name="rischio" placeholder=" (invariato)"
-                                            maxlength="15" size="30"></td></tr>
                             <tr><td>PDI associato</td><td>
                                     <select name="codice-pdi">
                                         <option value="nessuno" selected>Nessuno</option>

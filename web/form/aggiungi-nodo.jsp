@@ -29,12 +29,12 @@
                             <tr><td>Codice:</td><td>
                                     <input type="text" name="codice" placeholder=" es. 150G2"
                                            size="30" autofocus="true" maxlength="15" required></td></tr>
-                            <tr><td>Coord. X (m):</td><td>
+                            <tr><td>Coord. X (cm):</td><td>
                                     <input type="text" name="coord-x" required
-                                            placeholder=" es. 129" size="30" maxlength="15"></td></tr>
-                            <tr><td>Coord. Y (m):</td><td>
+                                            placeholder=" es. 12.3" size="30" maxlength="15"></td></tr>
+                            <tr><td>Coord. Y (cm):</td><td>
                                     <input type="text" name="coord-y" required
-                                            placeholder=" es. 465" size="30" maxlength="15"></td></tr>
+                                            placeholder=" es. 4.6" size="30" maxlength="15"></td></tr>
                             <tr><td>Larghezza (m):</td><td>
                                     <input type="text" name="larghezza" placeholder=" es. 1.8"
                                             size="30" maxlength="15" required></td></tr>
