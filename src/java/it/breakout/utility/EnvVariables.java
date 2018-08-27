@@ -26,4 +26,6 @@ public class EnvVariables {
     public static final String DEFAULT_STRING = "%empty%";
     public static final Double DEFAULT_DOUBLE = -1e-10;
     
+    /* Conversione da metri a pixel sulla mappa: 115px = 18m */
+    public static final Double M2PX = (115.0/18.0); // da metri a pixel
 }

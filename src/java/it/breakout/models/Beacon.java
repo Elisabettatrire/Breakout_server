@@ -7,6 +7,8 @@ package it.breakout.models;
 
 import it.breakout.resources.NodoResource;
 
+import static it.breakout.utility.EnvVariables.M2PX;
+
 /**
  *
  * @author costantino
@@ -62,7 +64,7 @@ public class Beacon {
     
     /* Conversione da metri a pixel e viceversa sulla mappa 345px = 54m */
     public Double getCoord_X_px() {
-        Double x_px = this.coord_X * (345.0 / 54.0);
+        Double x_px = this.coord_X * M2PX;
         return x_px;
     }
 
@@ -74,9 +76,8 @@ public class Beacon {
         this.coord_Y = coord_Y;
     }
 
-    /* Conversione da metri a pixel e viceversa sulla mappa 345px = 54m */
     public Double getCoord_Y_px() {
-        Double y_px = this.coord_Y * (345.0 / 54.0);
+        Double y_px = this.coord_Y * M2PX;
         return y_px;
     }
     

@@ -96,8 +96,11 @@
                                 <c:set var="x" value="${beacon.getCoord_X_px()}"/>
                                 <c:set var="y" value="${beacon.getCoord_Y_px()}"/>
                                 <c:set var="codice" value="${beacon.getCodice()}"/>
+                                <!--
+                                Sulle y va compensato l'offset inserito con il css (13+1)px
+                                -->
                                 <label class="btn" name="marker" id="${codice}"
-                                       style="position:absolute; left:${x}px; top:${y}px;">
+                                       style="position:absolute; left:${x}px; top:${y-14}px;">
                                     <i data-toggle="tooltip" data-placement="top"
                                     title="${codice}" class="fas fa-map-marker-alt"></i>
                                 </label>

@@ -1,6 +1,4 @@
-
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+package it.breakout;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

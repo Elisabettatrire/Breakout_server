@@ -19,6 +19,7 @@ public class Mappa {
     private String nome;
     private String urlImmagine;
     private Timestamp ultima_modifica;
+    private Double scala_img;
     
     public Mappa() {
     }
@@ -53,6 +54,14 @@ public class Mappa {
 
     public void setUltima_modifica(Timestamp ultima_modifica) {
         this.ultima_modifica = ultima_modifica;
+    }
+    
+    public Double getScala_img() {
+        return scala_img;
+    }
+
+    public void setScala_img(Double scala_img) {
+        this.scala_img = scala_img;
     }
 
     public Integer getID_mappa() {

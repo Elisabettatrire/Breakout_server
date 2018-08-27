@@ -29,10 +29,10 @@
                             <tr><td>Indirizzo:</td><td>
                                     <input type="text" name="codice" placeholder=" es. 39:B4:50:C1:F6:49"
                                            size="30" autofocus="true" maxlength="30" required></td></tr>
-                            <tr><td>Coord. X (cm):</td><td>
+                            <tr><td>Coord. X (m):</td><td>
                                     <input type="text" name="coord-x" required
                                             placeholder=" es. 12.3" size="30" maxlength="15"></td></tr>
-                            <tr><td>Coord. Y (cm):</td><td>
+                            <tr><td>Coord. Y (m):</td><td>
                                     <input type="text" name="coord-y" required
                                             placeholder=" es. 4.6" size="30" maxlength="15"></td></tr>
                             <tr><td>PDI associato</td><td>
