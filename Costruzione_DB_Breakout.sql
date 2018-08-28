@@ -7,7 +7,7 @@ create table "APP"."PIANO"
 create table "APP"."MAPPA"
 (
     ID_mappa int primary key not null generated always as identity (start with 1, increment by 1),
-    IMG varchar(50) not null,
+    IMG varchar(50),
     nome varchar(20) not null,
     ID_piano int references "APP"."PIANO"(ID_piano) on delete cascade
 );
@@ -22,7 +22,8 @@ create table "APP"."NODO"
     coordinata_y float not null,
     larghezza float not null,
     lunghezza float,
-    ID_mappa int references "APP"."MAPPA"(ID_mappa) on delete cascade
+    ID_mappa int references "APP"."MAPPA"(ID_mappa) on delete cascade,
+    ID_piano int references "APP"."PIANO"(ID_piano) on delete cascade
 );
 
 create table "APP"."BEACON"
@@ -33,9 +34,9 @@ create table "APP"."BEACON"
     coordinata_y float not null,
     fuoco float not null,
     fumi float not null,
-    LOS float not null,
+    ncd float not null,
     rischio float not null,
-    ID_pdi int references "APP"."NODO"(ID_nodo) on delete set null,
+    ID_pdi int references "APP"."NODO"(ID_nodo) on delete cascade,
     ID_mappa int references "APP"."MAPPA"(ID_mappa) on delete cascade,
     ID_piano int references "APP"."PIANO"(ID_piano) on delete cascade
 );
@@ -76,5 +77,12 @@ create table "APP"."MODIFICHE"
     data_modifica timestamp not null default current_timestamp,
     tipo_modifica varchar(30) not null,
     tabella varchar(20) not null,
-    ID_oggetto_mod int
+    ID_oggetto_mod int 
+);
+create table "APP"."NOTIFICHE"
+(
+    ID_notifica int primary key not null generated always as identity (start with 1, increment by 1),
+    is_emergenza boolean not null,
+    data_emergenza timestamp not null default current_timestamp,
+    address varchar(30) references "APP"."BEACON"(address)
 );
