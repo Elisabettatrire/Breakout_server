@@ -74,12 +74,23 @@
                 </div>
             </div>
             <br>
+            <div class="row">
+                <div class="col-md-2" style="margin-left: 30px">
+                        <i class="fas fa-map-marker-alt"></i> = Beacon&nbsp;&nbsp;
+                </div>
+                <div class="col-md-2">
+                    <i class="fas fa-circle"></i> = Nodo&nbsp;&nbsp;
+                </div>
+                <div class="col-md-6">
+                    <i class="fas fa-asterisk"></i> = Punto di interesse
+                </div>
+            </div>
+            <br>
             
             <!--Immagine della mappa fs:990x1572-->
             <div class="row">
                 <c:set var = "url_img" value = "${requestScope.url_immagine}" />
                 <div class="col-md-12" style="margin-bottom: 20px">
-                    <p style="text-align: left">L'immagine sottostante riporta le posizioni dei beacon.</p>
                     <div class="container" style="position:relative">
                         <canvas id="map-canvas" width="1000" height="1700"  style="border:1px solid #d3d3d3;" >                    
                         </canvas>
@@ -91,6 +102,28 @@
                                 <span  class="fas fa-crosshairs" >
                                 </span><br>origine
                             </label>
+                            
+                            <c:forEach items="${requestScope.nodi}" var="nodo">
+                                <c:set var="x" value="${nodo.getCoord_X_px()}"/>
+                                <c:set var="y" value="${nodo.getCoord_Y_px()}"/>
+                                <!--
+                                Non so perché ma sulle ascisse vanno sommati 12px
+                                -->
+                                <label style="position:absolute; left:${x+12}px; top:${y}px;">
+                                    <i class="fas fa-circle"></i>
+                                </label>
+                            </c:forEach>
+                                
+                            <c:forEach items="${requestScope.al_pdi}" var="pdi">
+                                <c:set var="x" value="${pdi.getCoord_X_px()}"/>
+                                <c:set var="y" value="${pdi.getCoord_Y_px()}"/>
+                                <!--
+                                Non so perché ma sulle ascisse vanno sommati 12px
+                                -->
+                                <label style="position:absolute; left:${x+11}px; top:${y}px;">
+                                    <i class="fas fa-asterisk"></i>
+                                </label>
+                            </c:forEach>
                             
                             <c:forEach items="${requestScope.al_beacon}" var="beacon">
                                 <c:set var="x" value="${beacon.getCoord_X_px()}"/>

@@ -43,8 +43,8 @@
                                            size="30" maxlength="15" required></td></tr>
                             <tr><td>Descrizione:</td><td>
                                     <textarea rows="2" cols="32" name="tipo"
-                                              required placeholder=" Breve descrizione"
-                                              style="resize: none" maxlength="70">
+                                        required placeholder=" Breve descrizione"
+                                        style="resize: none" maxlength="70">
                                     </textarea></td></tr>
                         </table>
                         <!-- Bottoni per tornare alla schermata precedente o per aggiungere il PDI-->

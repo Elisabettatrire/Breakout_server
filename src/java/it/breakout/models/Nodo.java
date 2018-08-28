@@ -5,6 +5,7 @@
  */
 package it.breakout.models;
 
+import static it.breakout.utility.EnvVariables.M2PX;
 import java.util.ArrayList;
 
 /**
@@ -72,22 +73,33 @@ public class Nodo {
 
     public void setID(Integer ID) {
         this.ID = ID;
-    }
-
-    public Double getCoord_X() {
-        return coord_X;
-    }
+    }    
 
     public void setCoord_X(Double coord_X) {
         this.coord_X = coord_X;
     }
-
+    
+    public void setCoord_Y(Double coord_Y) {
+        this.coord_Y = coord_Y;
+    }
+    
+    public Double getCoord_X() {
+        return coord_X;
+    }
+    
     public Double getCoord_Y() {
         return coord_Y;
     }
-
-    public void setCoord_Y(Double coord_Y) {
-        this.coord_Y = coord_Y;
+    
+    /* Conversione da metri a pixel e viceversa sulla mappa 345px = 54m */
+    public Double getCoord_X_px() {
+        Double x_px = this.coord_X * M2PX;
+        return x_px;
+    }
+    
+    public Double getCoord_Y_px() {
+        Double y_px = this.coord_Y * M2PX;
+        return y_px;
     }
     
     public Integer getID_piano() {
