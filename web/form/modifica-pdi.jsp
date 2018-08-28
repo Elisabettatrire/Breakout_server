@@ -34,7 +34,7 @@
                             <tr><td>Larghezza (m):</td><td>
                                     <input type="text" name="larghezza" size="30"
                                            maxlength="15" placeholder=" (invariato)"></td></tr>
-                            <tr><td>Tipo:</td><td>
+                            <tr><td>Descrizione:</td><td>
                                 <textarea rows="2" cols="32" name="tipo"
                                           placeholder=" (invariato)" maxlength="70"
                                           style="resize: none"></textarea></td></tr>
