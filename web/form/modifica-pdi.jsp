@@ -16,6 +16,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button> 
             </div>
             <div class="modal-body">
+                <div class="col-md-12">
+                    <p class="warning">
+                        <i>Se si vuole inserire un'uscita di emergenza
+                            occorre che il campo "Descrizione" contenga la parola "emergenza".</i></p>
+                </div>
+                <hr>
                 <div  class="col-md-12">
                     <form action="DBModify" method="post" id="form-mod-pdi">
                         <table class="table table-borderless">

@@ -73,7 +73,7 @@ public class UtenteService {
                 utenti.add(utente);
             }
         } catch (SQLException e) {
-        	System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         } finally {
             close();
         }

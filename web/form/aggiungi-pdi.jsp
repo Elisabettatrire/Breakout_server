@@ -20,7 +20,8 @@
                 <div class="col-md-12">
                     <p class="warning">
                         Devono essere compilati tutti i campi, altrimenti l'inserimento
-                        non verrà portato a termine.</p>
+                        non verrà portato a termine.<br><i>Se si vuole inserire un'uscita di emergenza
+                        occorre che il campo "Descrizione" contenga la parola "emergenza".</i></p>
                 </div>
                 <hr>
                 <div  class="col-md-12">
