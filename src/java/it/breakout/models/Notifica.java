@@ -7,7 +7,7 @@ package it.breakout.models;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import it.breakout.resources.NotificaResource;
+import it.breakout.services.NotificaService;
 
 /**
  *
@@ -37,8 +37,8 @@ public class Notifica {
     
     public String retrieveLastState() {
         
-        NotificaResource notifica_resource = new NotificaResource();
-        this.setIs_emergenza(notifica_resource.retrieveLastState());
+        NotificaService notificaService = new NotificaService();
+        this.setIs_emergenza(notificaService.retrieveLastState());
         return this.getIs_emergenza();
     }
     

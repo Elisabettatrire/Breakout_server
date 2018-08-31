@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.servlet.RequestDispatcher;
 
-import it.breakout.resources.MappaResource;
+import it.breakout.services.MappaService;
 
 import static it.breakout.utility.EnvVariables.URL_PIANO;
 
@@ -90,8 +90,8 @@ public class UploadImage extends HttpServlet {
             
             /* Inserimento del nome dell'immagine nel database */
             Integer id_mappa = Integer.parseInt(request.getParameter("id_mappa"));
-            MappaResource mappa_resource = new MappaResource();
-            mappa_resource.insertImg(fileName, id_mappa);
+            MappaService mappaService = new MappaService();
+            mappaService.insertImg(fileName, id_mappa);
             
             /* Se è già presente un'immagine, la cancello in modo da liberare lo spazio
             sul server

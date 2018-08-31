@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import it.breakout.models.Piano;
-import it.breakout.resources.ModificaResource;
+import it.breakout.services.ModificaService;
 
 import static it.breakout.utility.EnvVariables.DB_PSW;
 import static it.breakout.utility.EnvVariables.DB_URL;
@@ -143,10 +143,10 @@ public class PianoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Inserimento piano");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -170,10 +170,10 @@ public class PianoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Modifica piano");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -195,10 +195,10 @@ public class PianoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Eliminazione piano");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());

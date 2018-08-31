@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.breakout.resources.NotificaResource;
+import it.breakout.services.NotificaService;
 
 /**
  *
@@ -37,20 +37,20 @@ public class Emergency extends HttpServlet {
         trigger = request.getParameter("trigger");
         RequestDispatcher rd;
         
-        NotificaResource notifica_resource = new NotificaResource();
+        NotificaService notificaService = new NotificaService();
         
         switch(trigger) {
             /*  Click su "Avvio Emergenza" */
             case "start":
 
-                notifica_resource.startEmergency();
+                notificaService.startEmergency();
                 getServletContext().setAttribute("stato", "true");
                 
                 break;
 
             case "abort":
 
-                notifica_resource.abortEmergency();
+                notificaService.abortEmergency();
                 getServletContext().setAttribute("stato", "false");
                 
                 break;

@@ -6,16 +6,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest; 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.ServletSecurity;
-import javax.servlet.annotation.HttpConstraint;;
-import it.breakout.resources.BeaconResource;
-import it.breakout.resources.NodoResource;
-
-import it.breakout.resources.TroncoResource;
-import it.breakout.resources.PianoResource;
+import javax.servlet.annotation.HttpConstraint;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import it.breakout.resources.UtenteResource;
+import it.breakout.services.BeaconService;
+import it.breakout.services.NodoService;
+import it.breakout.services.TroncoService;
+import it.breakout.services.PianoService;
+import it.breakout.services.UtenteService;
 import it.breakout.models.Scala;
 import it.breakout.models.Nodo;
 import it.breakout.models.Piano;
@@ -82,20 +81,20 @@ public class DBAccess extends HttpServlet{
     public void fillMappeData(HttpServletRequest request) {
         
         /* Riempimento tabella piani */
-        PianoResource piano_resource = new PianoResource();
-        ArrayList<Piano>  al_piani = piano_resource.findAll();
+        PianoService pianoService = new PianoService();
+        ArrayList<Piano> al_piani = pianoService.findAll();
         request.setAttribute("piani", al_piani);
 
         /* Riempimento tabella scale */
-        TroncoResource tronco_resource = new TroncoResource();
-        ArrayList<Scala> al_scale = tronco_resource.findAllStairs();
+        TroncoService troncoService = new TroncoService();
+        ArrayList<Scala> al_scale = troncoService.findAllStairs();
         request.setAttribute("scale", al_scale);
 
         /* Rimepimento select delle form */
-        BeaconResource beacon_resource = new BeaconResource();
-        NodoResource nodo_resource = new NodoResource();
-        ArrayList<Beacon> al_beacon = beacon_resource.findAll();
-        ArrayList<Nodo> al_nodi = nodo_resource.findAll();
+        BeaconService beaconService = new BeaconService();
+        NodoService nodoService = new NodoService();
+        ArrayList<Beacon> al_beacon = beaconService.findAll();
+        ArrayList<Nodo> al_nodi = nodoService.findAll();
         request.setAttribute("al_beacon", al_beacon);
         request.setAttribute("nodi", al_nodi);
         
@@ -103,8 +102,8 @@ public class DBAccess extends HttpServlet{
     
     public void fillUtentiData(HttpServletRequest request) {
         
-        UtenteResource utente_resource = new UtenteResource();
-        ArrayList<Utente> al_utenti = utente_resource.findAll();
+        UtenteService utenteService = new UtenteService();
+        ArrayList<Utente> al_utenti = utenteService.findAll();
         request.setAttribute("utenti", al_utenti);
         
     }

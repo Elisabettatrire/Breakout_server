@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 
 import it.breakout.models.Beacon;
 import it.breakout.models.Modifica;
-import it.breakout.resources.ModificaResource;
+import it.breakout.services.ModificaService;
 
 import static it.breakout.utility.EnvVariables.DB_PSW;
 import static it.breakout.utility.EnvVariables.DB_URL;
@@ -285,10 +285,10 @@ public class BeaconService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Inserimento beacon");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -322,10 +322,10 @@ public class BeaconService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Modifica beacon");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
             
         } catch (SQLException e) {
@@ -347,10 +347,10 @@ public class BeaconService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Eliminazione beacon");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -370,10 +370,10 @@ public class BeaconService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Svuotamento tabella beacon");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
             
         } catch (SQLException e) {

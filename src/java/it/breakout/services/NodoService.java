@@ -8,7 +8,7 @@ package it.breakout.services;
 import it.breakout.models.Modifica;
 import it.breakout.models.Nodo;
 import it.breakout.models.Pdi;
-import it.breakout.resources.ModificaResource;
+import it.breakout.services.ModificaService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -354,10 +354,10 @@ public class NodoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Inserimento nodo");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -386,10 +386,10 @@ public class NodoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Modifica nodo");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -410,10 +410,10 @@ public class NodoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Eliminazione nodo");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -451,10 +451,10 @@ public class NodoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Inserimento PDI");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -487,10 +487,10 @@ public class NodoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Modifica PDI");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());

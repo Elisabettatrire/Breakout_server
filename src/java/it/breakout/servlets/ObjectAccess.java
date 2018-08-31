@@ -22,11 +22,11 @@ import it.breakout.models.Pdi;
 import it.breakout.models.Beacon;
 import it.breakout.models.Tronco;
 import it.breakout.models.Collegamento;
-import it.breakout.resources.MappaResource;
-import it.breakout.resources.PianoResource;
-import it.breakout.resources.NodoResource;
-import it.breakout.resources.BeaconResource;
-import it.breakout.resources.TroncoResource;
+import it.breakout.services.MappaService;
+import it.breakout.services.PianoService;
+import it.breakout.services.NodoService;
+import it.breakout.services.BeaconService;
+import it.breakout.services.TroncoService;
 
 /**
  *
@@ -113,19 +113,19 @@ public class ObjectAccess extends HttpServlet {
      */
     public void fillPianoData(HttpServletRequest request) {
         
-        MappaResource mappa_resource = new MappaResource();
-        PianoResource piano_resource = new PianoResource();
-        NodoResource nodo_resource = new NodoResource();
-        BeaconResource beacon_resource = new BeaconResource();
-        TroncoResource tronco_resource = new TroncoResource();
+        MappaService mappaService = new MappaService();
+        PianoService pianoService = new PianoService();
+        NodoService nodoService = new NodoService();
+        BeaconService beaconService = new BeaconService();
+        TroncoService troncoService = new TroncoService();
         
-        Piano piano_search = piano_resource.findByQuota(identificatore);
+        Piano piano_search = pianoService.findByQuota(identificatore);
         Integer id_piano = piano_search.getID_piano();
         
-        ArrayList<Collegamento> al_collegamenti = tronco_resource.findAllLinks();
-        ArrayList<Nodo> al_nodi = nodo_resource.findByIDPiano(id_piano);
-        ArrayList<Mappa> al_mappe = mappa_resource.findByIDPiano(id_piano);
-        ArrayList<Beacon> al_beacon = beacon_resource.findByIDPiano(id_piano);
+        ArrayList<Collegamento> al_collegamenti = troncoService.findAllLinks();
+        ArrayList<Nodo> al_nodi = nodoService.findByIDPiano(id_piano);
+        ArrayList<Mappa> al_mappe = mappaService.findByIDPiano(id_piano);
+        ArrayList<Beacon> al_beacon = beaconService.findByIDPiano(id_piano);
         
         /* Invio alla view i dati da visualizzare */
         request.setAttribute("quota", identificatore);
@@ -138,18 +138,18 @@ public class ObjectAccess extends HttpServlet {
     
     public void fillMappaData(HttpServletRequest request) {
         
-        BeaconResource beacon_resource = new BeaconResource();
-        MappaResource mappa_resource = new MappaResource();
-        PianoResource piano_resource = new PianoResource();
-        NodoResource nodo_resource = new NodoResource();
+        BeaconService beaconService = new BeaconService();
+        MappaService mappaService = new MappaService();
+        PianoService pianoService = new PianoService();
+        NodoService nodoService = new NodoService();
 
-        Mappa mappa_search = mappa_resource.findByNome(identificatore);
+        Mappa mappa_search = mappaService.findByNome(identificatore);
         Integer id_mappa = mappa_search.getID_mappa();
-        ArrayList<Beacon> al_beacon = beacon_resource.findByIDMappa(id_mappa);
-        ArrayList<Nodo> al_nodi = nodo_resource.findByIDMappa(id_mappa);
-        ArrayList<Pdi> al_pdi = nodo_resource.findPdiByIDMappa(id_mappa);
+        ArrayList<Beacon> al_beacon = beaconService.findByIDMappa(id_mappa);
+        ArrayList<Nodo> al_nodi = nodoService.findByIDMappa(id_mappa);
+        ArrayList<Pdi> al_pdi = nodoService.findPdiByIDMappa(id_mappa);
         String url_immagine = mappa_search.getUrlImmagine();
-        String quota = piano_resource.findById(mappa_search.getID_piano()).getQuota();
+        String quota = pianoService.findById(mappa_search.getID_piano()).getQuota();
 
         /* Invio alla view i dati da visualizzare */
         request.setAttribute("nome", identificatore);
@@ -164,20 +164,20 @@ public class ObjectAccess extends HttpServlet {
     
     public void fillGrafoData(HttpServletRequest request) {
         
-        MappaResource mappa_resource = new MappaResource();
-        NodoResource nodo_resource = new NodoResource();
-        PianoResource piano_resource = new PianoResource();
-        TroncoResource tronco_resource = new TroncoResource();
-        BeaconResource beacon_resource = new BeaconResource();
+        MappaService mappaService = new MappaService();
+        NodoService nodoService = new NodoService();
+        PianoService pianoService = new PianoService();
+        TroncoService troncoService = new TroncoService();
+        BeaconService beaconService = new BeaconService();
 
-        Mappa mappa_search = mappa_resource.findByNome(identificatore);
+        Mappa mappa_search = mappaService.findByNome(identificatore);
         Integer id_mappa = mappa_search.getID_mappa();
-        String quota = piano_resource.findById(mappa_search.getID_piano()).getQuota();
+        String quota = pianoService.findById(mappa_search.getID_piano()).getQuota();
 
-        ArrayList<Tronco> al_tronchi = tronco_resource.findAllArcs(id_mappa);
-        ArrayList<Nodo> al_nodi = nodo_resource.findByIDMappa(id_mappa);
-        ArrayList<Pdi> al_pdis = nodo_resource.findPdiByIDMappa(id_mappa);
-        ArrayList<Beacon> al_beacon = beacon_resource.findByIDMappa(id_mappa);
+        ArrayList<Tronco> al_tronchi = troncoService.findAllArcs(id_mappa);
+        ArrayList<Nodo> al_nodi = nodoService.findByIDMappa(id_mappa);
+        ArrayList<Pdi> al_pdis = nodoService.findPdiByIDMappa(id_mappa);
+        ArrayList<Beacon> al_beacon = beaconService.findByIDMappa(id_mappa);
                
         /* Invio alla view i dati da visualizzare */
         request.setAttribute("nome", identificatore);
@@ -186,22 +186,22 @@ public class ObjectAccess extends HttpServlet {
         request.setAttribute("pdis", al_pdis);
         request.setAttribute("quota", quota);
         request.setAttribute("al_beacon", al_beacon);
-        request.setAttribute("nodo_resource", nodo_resource);
+        request.setAttribute("nodoService", nodoService);
         
     }
     
     public void fillBeaconData(HttpServletRequest request) {
         
-        MappaResource mappa_resource = new MappaResource();
-        BeaconResource beacon_resource = new BeaconResource();
-        PianoResource piano_resource = new PianoResource();
-        NodoResource nodo_resource = new NodoResource();
+        MappaService mappaService = new MappaService();
+        BeaconService beaconService = new BeaconService();
+        PianoService pianoService = new PianoService();
+        NodoService nodoService = new NodoService();
 
         Integer id_mappa = Integer.parseInt(identificatore);
-        Mappa mappa_search = mappa_resource.findByID(id_mappa);
-        String quota = piano_resource.findById(mappa_search.getID_piano()).getQuota();
-        ArrayList<Beacon> al_beacon = beacon_resource.findByIDMappa(id_mappa);
-        ArrayList<Pdi> al_pdi = nodo_resource.findPdiByIDMappa(id_mappa);
+        Mappa mappa_search = mappaService.findByID(id_mappa);
+        String quota = pianoService.findById(mappa_search.getID_piano()).getQuota();
+        ArrayList<Beacon> al_beacon = beaconService.findByIDMappa(id_mappa);
+        ArrayList<Pdi> al_pdi = nodoService.findPdiByIDMappa(id_mappa);
 
         /* Invio alla view i dati da visualizzare */
         request.setAttribute("id_mappa", id_mappa);

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import it.breakout.models.Mappa;
 import it.breakout.models.Modifica;
-import it.breakout.resources.ModificaResource;
+import it.breakout.services.ModificaService;
 
 import static it.breakout.utility.EnvVariables.DB_PSW;
 import static it.breakout.utility.EnvVariables.DB_URL;
@@ -189,10 +189,10 @@ public class MappaService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Inserimento mappa");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -221,10 +221,10 @@ public class MappaService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Inserimento immagine mappa");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -248,10 +248,10 @@ public class MappaService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Modifica mappa");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -273,10 +273,10 @@ public class MappaService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Eliminazione mappa");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());

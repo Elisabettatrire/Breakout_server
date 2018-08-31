@@ -10,7 +10,7 @@ import it.breakout.models.Scala;
 import it.breakout.models.Tronco;
 import it.breakout.models.Beacon;
 import it.breakout.models.Modifica;
-import it.breakout.resources.ModificaResource;
+import it.breakout.services.ModificaService;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -399,10 +399,10 @@ public class TroncoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Inserimento tronco");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -439,10 +439,10 @@ public class TroncoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Inserimento scala");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -479,10 +479,10 @@ public class TroncoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Inserimento collegamento");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -517,10 +517,10 @@ public class TroncoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Modifica tronco");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -555,10 +555,10 @@ public class TroncoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Modifica scala");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -593,10 +593,10 @@ public class TroncoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Modifica collegamento");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -620,10 +620,10 @@ public class TroncoService {
             
             // Log della modifica nel DB
             Modifica modifica = new Modifica();
-            ModificaResource modifica_resource = new ModificaResource();
+            ModificaService modificaService = new ModificaService();
             modifica.setTabella(TBL_NAME);
             modifica.setTipo("Eliminazione collegamento");
-            modifica_resource.insert(modifica);
+            modificaService.insert(modifica);
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());

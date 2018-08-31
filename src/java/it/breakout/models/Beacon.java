@@ -5,7 +5,7 @@
  */
 package it.breakout.models;
 
-import it.breakout.resources.NodoResource;
+import it.breakout.services.NodoService;
 
 import static it.breakout.utility.EnvVariables.M2PX;
 
@@ -131,8 +131,8 @@ public class Beacon {
     
     public String getCodicePdi() {
         
-        NodoResource nodo_resource = new NodoResource();
+        NodoService nodoService = new NodoService();
         
-        return nodo_resource.findPdiByID(this.ID_pdi).getCodice();
+        return nodoService.findPdiByID(this.ID_pdi).getCodice();
     }
 }

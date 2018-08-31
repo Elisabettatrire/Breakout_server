@@ -26,9 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import it.breakout.resources.BeaconResource;
-import it.breakout.resources.MappaResource;
-import it.breakout.resources.NodoResource;
+import it.breakout.services.BeaconService;
+import it.breakout.services.MappaService;
+import it.breakout.services.NodoService;
 import it.breakout.models.Beacon;
 import it.breakout.models.Mappa;
 import it.breakout.utility.FormFilter;
@@ -66,7 +66,6 @@ public class UploadCSV extends HttpServlet {
         
         RequestDispatcher rd;
         
-        ServletContext servletContext = this.getServletConfig().getServletContext();
         String buildPath = request.getServletContext().getRealPath(""); // D:\Documents\NetBeansProjects\Breakout_server\build\web
         String[] splitted = buildPath.split("build"); // {D:\Documents\NetBeansProjects\Breakout_server\, \web}
         String savePath = splitted[0] + "web" + File.separator + "csv"; // D:\Documents\NetBeansProjects\Breakout_server\web\csv
@@ -100,10 +99,10 @@ public class UploadCSV extends HttpServlet {
                 br = new BufferedReader(new FileReader(filePath));
                 br.readLine(); // Salto la riga dell'header
                     
-                BeaconResource beacon_resource = new BeaconResource();
-                MappaResource mappa_resource = new MappaResource();
-                NodoResource nodo_resource = new NodoResource();
-                FormFilter form_filter = new FormFilter();
+                BeaconService beaconService = new BeaconService();
+                MappaService mappaService = new MappaService();
+                NodoService nodoService = new NodoService();
+                FormFilter formFilter = new FormFilter();
 
                 // Lettura del csv riga per riga
                 while ((line = br.readLine()) != null) {
@@ -119,11 +118,11 @@ public class UploadCSV extends HttpServlet {
 
                     Beacon beacon = new Beacon();
 
-                    String codice_beacon_filtered = form_filter.filtraCodice(beaconData[0]);
-                    Double coord_x_filtered = form_filter.filtraCoordinata(beaconData[1]);
-                    Double coord_y_filtered = form_filter.filtraCoordinata(beaconData[2]);
-                    String codice_pdi_filtered = form_filter.filtraCodice(beaconData[3]);
-                    String nome_mappa_filtered = form_filter.filtraNomeMappa(beaconData[4]);
+                    String codice_beacon_filtered = formFilter.filtraCodice(beaconData[0]);
+                    Double coord_x_filtered = formFilter.filtraCoordinata(beaconData[1]);
+                    Double coord_y_filtered = formFilter.filtraCoordinata(beaconData[2]);
+                    String codice_pdi_filtered = formFilter.filtraCodice(beaconData[3]);
+                    String nome_mappa_filtered = formFilter.filtraNomeMappa(beaconData[4]);
 
                     if(!codice_beacon_filtered.equals(DEFAULT_STRING)
                         && !Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)
@@ -133,14 +132,14 @@ public class UploadCSV extends HttpServlet {
                         beacon.setCodice(codice_beacon_filtered);
                         beacon.setCoord_X(coord_x_filtered);
                         beacon.setCoord_Y(coord_y_filtered);
-                        Mappa mappa = mappa_resource.findByNome(nome_mappa_filtered);
+                        Mappa mappa = mappaService.findByNome(nome_mappa_filtered);
                         beacon.setID_mappa(mappa.getID_mappa());
                         beacon.setID_piano(mappa.getID_piano());
                         if(!Objects.equals(codice_pdi_filtered, DEFAULT_STRING)) {
-                            beacon.setID_pdi(nodo_resource.findByCodice(codice_pdi_filtered).getID());
+                            beacon.setID_pdi(nodoService.findByCodice(codice_pdi_filtered).getID());
                         }
 
-                        beacon_resource.insert(beacon);
+                        beaconService.insert(beacon);
                         
                         success = "true";
                         
