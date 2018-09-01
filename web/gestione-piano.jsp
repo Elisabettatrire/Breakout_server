@@ -75,7 +75,7 @@
                         </thead>
                         <c:forEach items="${requestScope.mappe}" var="mappa">
                             <c:set var="nome" value="${mappa.getNome()}"/>
-                            <c:set var="nome_immagine" value="${mappa.getUrlImmagine()}"/>
+                            <c:set var="nome_immagine" value="${mappa.getImmagine()}"/>
                             <c:set var="id_mappa" value="${mappa.getID_mappa()}"/>
                             <tr><td><a href="ObjectAccess?obj=mappa&nm=${nome}">${nome}</a></td>
                                 <td>${nome_immagine}</td>

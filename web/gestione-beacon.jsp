@@ -72,12 +72,12 @@
                         <tbody>
                             <c:forEach items="${requestScope.al_beacon}" var="beacon">
                                 <c:set var="id_beacon" value="${beacon.getID_beacon()}"/>
-                                <c:set var="codice" value="${beacon.getCodice()}"/>
+                                <c:set var="codice" value="${beacon.getAddress()}"/>
                                 <c:set var="x" value="${beacon.getCoord_X()}"/>
                                 <c:set var="y" value="${beacon.getCoord_Y()}"/>
                                 <c:set var="fuoco" value="${beacon.getInd_fuoco()}"/>
                                 <c:set var="fumi" value="${beacon.getInd_fumi()}"/>
-                                <c:set var="ndc" value="${beacon.getInd_NDC()}"/>
+                                <c:set var="ndc" value="${beacon.getInd_NCD()}"/>
                                 <c:set var="rischio" value="${beacon.getInd_rischio()}"/>
                                 <c:set var="codice_pdi" value="${beacon.getCodicePdi()}"/>
                                 <tr><td>${codice}</td><td>${x}</td><td>${y}</td>

@@ -54,7 +54,7 @@
                             <tr><td>Indirizzo Beacon:</td><td>
                                 <select name="codice-beacon">
                                     <c:forEach items="${requestScope.al_beacon}" var="beacon">
-                                        <c:set var="codice_beacon" value="${beacon.getCodice()}" />
+                                        <c:set var="codice_beacon" value="${beacon.getAddress()}" />
                                         <c:set var="id_beacon" value="${beacon.getID_beacon()}" />
                                         <option value="${id_beacon}">${codice_beacon}</option>
                                     </c:forEach>

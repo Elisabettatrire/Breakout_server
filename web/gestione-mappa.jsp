@@ -128,7 +128,7 @@
                             <c:forEach items="${requestScope.al_beacon}" var="beacon">
                                 <c:set var="x" value="${beacon.getCoord_X_px()}"/>
                                 <c:set var="y" value="${beacon.getCoord_Y_px()}"/>
-                                <c:set var="codice" value="${beacon.getCodice()}"/>
+                                <c:set var="codice" value="${beacon.getAddress()}"/>
                                 <!--
                                 Sulle y va compensato l'offset inserito con il css (13+1)px
                                 -->
