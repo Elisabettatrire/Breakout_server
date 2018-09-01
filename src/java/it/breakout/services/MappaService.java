@@ -65,7 +65,7 @@ public class MappaService {
             	Mappa mappa;
                 mappa = new Mappa();
                 mappa.setNome(rs.getString(FIELD_NOME));
-                mappa.setUrlImmagine(rs.getString(FIELD_IMG));
+                mappa.setImmagine(rs.getString(FIELD_IMG));
                 mappa.setID_mappa(rs.getInt(FIELD_ID));
                 mappa.setID_piano(rs.getInt(FIELD_ID_PIANO));
                 mappe.add(mappa);
@@ -98,7 +98,7 @@ public class MappaService {
             	Mappa mappa;
                 mappa = new Mappa();
                 mappa.setNome(rs.getString(FIELD_NOME));
-                mappa.setUrlImmagine(rs.getString(FIELD_IMG));
+                mappa.setImmagine(rs.getString(FIELD_IMG));
                 mappa.setID_mappa(rs.getInt(FIELD_ID));
                 mappa.setID_piano(rs.getInt(FIELD_ID_PIANO));
                 mappe.add(mappa);
@@ -128,7 +128,7 @@ public class MappaService {
             rs = st.executeQuery();
             while(rs.next()) {
             	mappa.setNome(rs.getString(FIELD_NOME));
-                mappa.setUrlImmagine(rs.getString(FIELD_IMG));
+                mappa.setImmagine(rs.getString(FIELD_IMG));
                 mappa.setID_mappa(rs.getInt(FIELD_ID));
                 mappa.setID_piano(rs.getInt(FIELD_ID_PIANO));
             }
@@ -157,7 +157,7 @@ public class MappaService {
             rs = st.executeQuery();
             while(rs.next()) {
             	mappa.setNome(rs.getString(FIELD_NOME));
-                mappa.setUrlImmagine(rs.getString(FIELD_IMG));
+                mappa.setImmagine(rs.getString(FIELD_IMG));
                 mappa.setID_mappa(rs.getInt(FIELD_ID));
                 mappa.setID_piano(rs.getInt(FIELD_ID_PIANO));
             }

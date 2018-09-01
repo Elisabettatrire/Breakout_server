@@ -6,6 +6,7 @@
 package it.breakout.models;
 
 
+
 /**
  *
  * @author costantino
@@ -17,7 +18,7 @@ public class Utente {
     private String email;
     private String nome;
     private String cognome;
-    private String ultima_posizione;
+    private Integer ID_beacon;
     private boolean is_online;
 
     public Utente() {
@@ -71,12 +72,12 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public String getUltima_posizione() {
-        return ultima_posizione;
+    public Integer getID_beacon() {
+        return ID_beacon;
     }
 
-    public void setUltima_posizione(String ultima_posizione) {
-        this.ultima_posizione = ultima_posizione;
+    public void setID_beacon(Integer ID_beacon) {
+        this.ID_beacon = ID_beacon;
     }
 
     public boolean isIs_online() {

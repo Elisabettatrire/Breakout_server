@@ -11,7 +11,8 @@ package it.breakout.utility;
 public class EnvVariables {
     
     /* Parametri del database */
-    public static final String DB_URL = "jdbc:derby://localhost:1527/breakout4";
+    
+    public static final String DB_URL = "jdbc:derby://localhost:1527/Breakout";
     public static final String DB_USR = "app";
     public static final String DB_PSW = "app";
     

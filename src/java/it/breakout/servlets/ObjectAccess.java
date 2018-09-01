@@ -148,7 +148,7 @@ public class ObjectAccess extends HttpServlet {
         ArrayList<Beacon> al_beacon = beaconService.findByIDMappa(id_mappa);
         ArrayList<Nodo> al_nodi = nodoService.findByIDMappa(id_mappa);
         ArrayList<Pdi> al_pdi = nodoService.findPdiByIDMappa(id_mappa);
-        String url_immagine = mappa_search.getUrlImmagine();
+        String url_immagine = mappa_search.getImmagine();
         String quota = pianoService.findById(mappa_search.getID_piano()).getQuota();
 
         /* Invio alla view i dati da visualizzare */

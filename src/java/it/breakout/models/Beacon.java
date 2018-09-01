@@ -16,12 +16,12 @@ import static it.breakout.utility.EnvVariables.M2PX;
 public class Beacon {
     
     private Integer ID_beacon;
-    private String codice; // Indirizzo del Beacon
+    private String address; // Indirizzo del Beacon
     private Double coord_X;
     private Double coord_Y;
     private Double ind_fuoco;
     private Double ind_fumi;
-    private Double ind_NDC;
+    private Double ind_NCD;
     private Double ind_rischio;
     private Integer ID_pdi;
     private Integer ID_mappa;
@@ -30,12 +30,12 @@ public class Beacon {
     public Beacon() {
     }
     
-    public String getCodice() {
-        return codice;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCodice(String codice) {
-        this.codice = codice;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Integer getID_pdi() {
@@ -97,12 +97,12 @@ public class Beacon {
         this.ind_fumi = ind_fumi;
     }
 
-    public Double getInd_NDC() {
-        return ind_NDC;
+    public Double getInd_NCD() {
+        return ind_NCD;
     }
 
-    public void setInd_NDC(Double ind_NDC) {
-        this.ind_NDC = ind_NDC;
+    public void setInd_NCD(Double ind_NCD) {
+        this.ind_NCD = ind_NCD;
     }
 
     public Double getInd_rischio() {

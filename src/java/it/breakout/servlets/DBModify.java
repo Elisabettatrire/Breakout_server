@@ -749,7 +749,7 @@ public class DBModify extends HttpServlet {
         String psw_confirm = request.getParameter("psw-confirm");
 
         if(psw.equals(psw_confirm)) {
-            utenteService.update(psw, id_utente);
+            utenteService.updatePassword(psw, id_utente);
         }
         
     }
@@ -1112,7 +1112,7 @@ public class DBModify extends HttpServlet {
                 && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
                 && exists == null){
 
-            beacon.setCodice(codice_beacon_filtered);
+            beacon.setAddress(codice_beacon_filtered);
             beacon.setCoord_X(coord_x_filtered);
             beacon.setCoord_Y(coord_y_filtered);                        
             beacon.setID_mappa(mappa_local.getID_mappa());
@@ -1152,9 +1152,9 @@ public class DBModify extends HttpServlet {
         Integer exists = beaconService.findByCodice(codice_beacon_filtered).getID_beacon();
 
         if(!codice_beacon_filtered.equals(DEFAULT_STRING) && exists == null) {
-            beacon.setCodice(codice_beacon_filtered);
+            beacon.setAddress(codice_beacon_filtered);
         } else{
-            beacon.setCodice(beacon_old.getCodice());
+            beacon.setAddress(beacon_old.getAddress());
         }
 
         if(!Objects.equals(coord_x_filtered, DEFAULT_DOUBLE)) {

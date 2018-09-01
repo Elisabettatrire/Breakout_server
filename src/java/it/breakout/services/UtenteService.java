@@ -34,6 +34,8 @@ public class UtenteService {
     public static final String FIELD_EMAIL = "email";
     public static final String FIELD_NOME = "nome";
     public static final String FIELD_COGNOME = "cognome";
+    public static final String FIELD_ID_BEACON = "ID_beacon";
+    public static final String FIELD_IS_ONLINE = "is_online";
     
     private void open() throws SQLException {
         conn = DriverManager.getConnection(DB_URL, DB_USR, DB_PSW);
@@ -70,6 +72,8 @@ public class UtenteService {
                 utente.setEmail(rs.getString(FIELD_EMAIL));
                 utente.setNome(rs.getString(FIELD_NOME));
                 utente.setCognome(rs.getString(FIELD_COGNOME));
+                utente.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                utente.setIs_online(rs.getBoolean(FIELD_IS_ONLINE));
                 utenti.add(utente);
             }
         } catch (SQLException e) {
@@ -81,7 +85,7 @@ public class UtenteService {
         return utenti;
     }
     
-    public void update(String psw, Integer id_utente) {
+    public void updatePassword(String psw, Integer id_utente) {
         try {
             open();
             
@@ -113,5 +117,136 @@ public class UtenteService {
         } finally {
             close();
         }
+    }
+    
+    public Boolean insertUtente(Utente utente) {
+        Boolean flag;
+        
+        try {
+            
+            open();
+            
+            String query = "insert into " + TBL_NAME
+                    + "(" + FIELD_USR + ","
+                    + FIELD_PSW + ","
+                    + FIELD_EMAIL + ","
+                    + FIELD_NOME + ","
+                    + FIELD_COGNOME + ") values (?,?,?,?,?)";
+                        
+            st = conn.prepareStatement(query);
+            st.setString(1, utente.getUsername());
+            st.setString(2, utente.getPassword());
+            st.setString(3, utente.getEmail());
+            st.setString(4, utente.getNome());
+            st.setString(5, utente.getCognome());
+
+            st.executeUpdate();
+            
+            flag=true;            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            flag=false;
+        } finally {
+            close();
+        }
+        return flag;
+    }
+    
+    public Utente findByUserAndPass(String username, String password){
+
+        ResultSet rs = null;
+        Utente utente = new Utente();
+
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_USR + "= ? and " + FIELD_PSW + " = ?";
+            st = conn.prepareStatement(query);
+            st.setString(1, username);
+            st.setString(2, password);
+            rs = st.executeQuery();
+
+            while(rs.next()) {
+                utente.setID_utente(rs.getInt(FIELD_ID));
+                utente.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                utente.setUsername(rs.getString(FIELD_USR));
+                utente.setPassword(rs.getString(FIELD_PSW));
+                utente.setEmail(rs.getString(FIELD_EMAIL));
+                utente.setNome(rs.getString(FIELD_NOME));
+                utente.setCognome(rs.getString(FIELD_COGNOME));
+                utente.setIs_online(rs.getBoolean(FIELD_IS_ONLINE));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+        
+        return utente;
+    }
+    
+    public void updateIsOnline(Utente utente) {
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set " + FIELD_IS_ONLINE + "= ? where " + FIELD_ID + "= ?";
+            st = conn.prepareStatement(query);
+            st.setBoolean(1, true);
+            st.setInt(2, utente.getID_utente());
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
+    public void updateIsNotOnline(Utente utente) {
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set " + FIELD_IS_ONLINE + "= ? where " + FIELD_ID + "= ?";
+            st = conn.prepareStatement(query);
+            st.setBoolean(1, false);
+            st.setInt(2, utente.getID_utente());
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
+    public Utente findByUser(String username){
+        ResultSet rs = null;
+        Utente utente = new Utente();
+
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_USR + "= ? ";
+            st = conn.prepareStatement(query);
+            st.setString(1, username);
+            rs = st.executeQuery();
+
+            while(rs.next()) {
+                utente.setID_utente(rs.getInt(FIELD_ID));
+                utente.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                utente.setUsername(rs.getString(FIELD_USR));
+                utente.setPassword(rs.getString(FIELD_PSW));
+                utente.setEmail(rs.getString(FIELD_EMAIL));
+                utente.setNome(rs.getString(FIELD_NOME));
+                utente.setCognome(rs.getString(FIELD_COGNOME));
+                utente.setIs_online(rs.getBoolean(FIELD_IS_ONLINE));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+        
+        return utente;
     }
 }

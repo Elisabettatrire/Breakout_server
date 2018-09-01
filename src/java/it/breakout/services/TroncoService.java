@@ -631,4 +631,38 @@ public class TroncoService {
             close();
         }
     }
+    
+    public ArrayList<Tronco> findAll() {
+        
+        ResultSet rs = null;
+        ArrayList<Tronco> tronchi = new ArrayList<>();
+        
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " order by " + FIELD_ID;
+            st = conn.prepareStatement(query);
+            rs = st.executeQuery();
+            while(rs.next()) {
+            	Tronco tronco;
+                tronco = new Tronco();
+                tronco.setID(rs.getInt(FIELD_ID));
+                tronco.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
+                tronco.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
+                tronco.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                tronco.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
+                tronco.setID_piano(rs.getInt(FIELD_ID_PIANO));
+                tronco.setCodice();
+                tronchi.add(tronco);
+            }
+        } 
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        finally {
+            close();
+        }
+        
+        return tronchi;
+    }
 }

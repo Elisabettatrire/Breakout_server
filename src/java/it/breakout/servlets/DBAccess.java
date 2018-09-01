@@ -94,7 +94,7 @@ public class DBAccess extends HttpServlet{
         BeaconService beaconService = new BeaconService();
         NodoService nodoService = new NodoService();
         ArrayList<Beacon> al_beacon = beaconService.findAll();
-        ArrayList<Nodo> al_nodi = nodoService.findAll();
+        ArrayList<Nodo> al_nodi = nodoService.findAllNormalNodes();
         request.setAttribute("al_beacon", al_beacon);
         request.setAttribute("nodi", al_nodi);
         

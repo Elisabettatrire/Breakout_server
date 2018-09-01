@@ -60,7 +60,7 @@ create table "APP"."UTENTE"
     email varchar(50) not null,
     nome varchar(35) not null,
     cognome varchar(35) not null,
-    is_online boolean not null,
+    is_online boolean not null default false,
     ID_beacon int references "APP"."BEACON"(ID_beacon) on delete set null
 );
 

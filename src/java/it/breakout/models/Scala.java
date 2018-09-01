@@ -104,7 +104,7 @@ public class Scala {
         
         BeaconService beaconService = new BeaconService();
         
-        return beaconService.findByID(this.ID_beacon).getCodice();
+        return beaconService.findByID(this.ID_beacon).getAddress();
     }
     
     public Beacon getBeacon() {
@@ -128,7 +128,7 @@ public class Scala {
     }
     
     public void setCosto_totale() {
-        double LOS = larghezza_media * lunghezza / beacon.getInd_NDC();
+        double LOS = larghezza_media * lunghezza / beacon.getInd_NCD();
         costo_totale = (float) (LOS + beacon.getInd_rischio() + beacon.getInd_fumi() + beacon.getInd_fuoco());
     }
 

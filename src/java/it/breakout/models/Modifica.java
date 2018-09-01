@@ -5,6 +5,9 @@
  */
 package it.breakout.models;
 
+;
+import java.sql.Timestamp;
+
 /**
  *
  * @author Giovanni
@@ -15,9 +18,18 @@ public class Modifica {
     private String tipo;
     private String tabella;
     private Integer ID_oggetto;
+    private Long data;
 
     public Integer getID_modifica() {
         return ID_modifica;
+    }
+
+    public Long getData() {
+        return data;
+    }
+
+    public void setData(Long data) {
+        this.data = data;
     }
 
     public void setID_modifica(Integer ID_modifica) {

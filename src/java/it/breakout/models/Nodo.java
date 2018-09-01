@@ -23,8 +23,17 @@ public class Nodo {
     private ArrayList<Scala> tronchi_stella; // tra i tronchi vanno messe anche le scale e i collegamenti
     private Integer ID_mappa;
     private Integer ID_piano;
+    private boolean isPdi;
 
     public Nodo() {
+    }
+
+    public boolean isIsPdi() {
+        return isPdi;
+    }
+
+    public void setIsPdi(boolean isPdi) {
+        this.isPdi = isPdi;
     }
 
     public Integer[] getTronchi_stella_int() {

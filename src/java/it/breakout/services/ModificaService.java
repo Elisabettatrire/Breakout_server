@@ -16,6 +16,8 @@ import it.breakout.models.Modifica;
 import static it.breakout.utility.EnvVariables.DB_PSW;
 import static it.breakout.utility.EnvVariables.DB_URL;
 import static it.breakout.utility.EnvVariables.DB_USR;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -75,5 +77,67 @@ public class ModificaService {
         }
         
     }
+    
+    public Modifica findLast() {
+        
+        ResultSet rs = null;
+        Modifica modifica = new Modifica();
+
+        try {
+
+            open();
+            
+            String query = "select * from " + TBL_NAME;
+            st = conn.prepareStatement(query);
+            
+            rs = st.executeQuery();
+            
+            while(rs.next()){
+            
+                modifica.setID_modifica(rs.getInt(FIELD_ID));
+                modifica.setID_oggetto(rs.getInt(FIELD_OBJ));
+                modifica.setTabella(rs.getString(FIELD_TBL));
+                modifica.setTipo(rs.getString(FIELD_TIPO));
+                modifica.setData(rs.getTimestamp(FIELD_DATA).getTime());
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+        
+        return modifica;
+
+    }
+
+    public ArrayList<Modifica> findAllAfterDate(Timestamp data) {
+        ResultSet rs = null;
+        ArrayList<Modifica> modifiche = new ArrayList<>();
+        
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_DATA + " >= ? ";
+            st = conn.prepareStatement(query);
+            st.setTimestamp(1, data);
+            rs = st.executeQuery();
+            while(rs.next()) {
+                Modifica modifica = new Modifica();
+                modifica.setID_modifica(rs.getInt(FIELD_ID));
+                modifica.setID_oggetto(rs.getInt(FIELD_OBJ));
+                modifica.setTabella(rs.getString(FIELD_TBL));
+                modifica.setTipo(rs.getString(FIELD_TIPO));
+                modifica.setData(rs.getTimestamp(FIELD_DATA).getTime());
+                modifiche.add(modifica);
+            }
+        } 
+        catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }
+        finally {
+            close();
+        }
+        
+        return modifiche;    }
     
 }

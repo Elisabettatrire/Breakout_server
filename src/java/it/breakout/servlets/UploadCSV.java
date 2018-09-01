@@ -129,7 +129,7 @@ public class UploadCSV extends HttpServlet {
                         && !Objects.equals(coord_y_filtered, DEFAULT_DOUBLE)
                         && !Objects.equals(nome_mappa_filtered, DEFAULT_STRING)) {
 
-                        beacon.setCodice(codice_beacon_filtered);
+                        beacon.setAddress(codice_beacon_filtered);
                         beacon.setCoord_X(coord_x_filtered);
                         beacon.setCoord_Y(coord_y_filtered);
                         Mappa mappa = mappaService.findByNome(nome_mappa_filtered);

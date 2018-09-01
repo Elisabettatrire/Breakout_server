@@ -37,7 +37,7 @@ public class BeaconService {
     public static final String FIELD_COORD_Y = "coordinata_y";
     public static final String FIELD_FUOCO = "fuoco";
     public static final String FIELD_FUMI = "fumi";
-    public static final String FIELD_NDC = "ncd";
+    public static final String FIELD_NCD = "ncd";
     public static final String FIELD_RISCHIO = "rischio";
     public static final String FIELD_ID_PDI = "id_pdi";
     public static final String FIELD_ID_MAPPA = "id_mappa";
@@ -76,11 +76,11 @@ public class BeaconService {
             	Beacon beacon;
                 beacon = new Beacon();
                 beacon.setID_beacon(rs.getInt(FIELD_ID));
-                beacon.setCodice(rs.getString(FIELD_ADDR));
+                beacon.setAddress(rs.getString(FIELD_ADDR));
                 beacon.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 beacon.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 beacon.setID_pdi(rs.getInt(FIELD_ID_PDI));
-                beacon.setInd_NDC(rs.getDouble(FIELD_NDC));
+                beacon.setInd_NCD(rs.getDouble(FIELD_NCD));
                 beacon.setInd_fumi(rs.getDouble(FIELD_FUMI));
                 beacon.setInd_fuoco(rs.getDouble(FIELD_FUOCO));
                 beacon.setInd_rischio(rs.getDouble(FIELD_RISCHIO));
@@ -113,11 +113,11 @@ public class BeaconService {
 
             while(rs.next()) {
                 beacon.setID_beacon(search_id);
-                beacon.setCodice(rs.getString(FIELD_ADDR));
+                beacon.setAddress(rs.getString(FIELD_ADDR));
                 beacon.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 beacon.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 beacon.setID_pdi(rs.getInt(FIELD_ID_PDI));
-                beacon.setInd_NDC(rs.getDouble(FIELD_NDC));
+                beacon.setInd_NCD(rs.getDouble(FIELD_NCD));
                 beacon.setInd_fumi(rs.getDouble(FIELD_FUMI));
                 beacon.setInd_fuoco(rs.getDouble(FIELD_FUOCO));
                 beacon.setInd_rischio(rs.getDouble(FIELD_RISCHIO));
@@ -148,11 +148,11 @@ public class BeaconService {
 
             while(rs.next()) {
                 beacon.setID_beacon(rs.getInt(FIELD_ID));
-                beacon.setCodice(search_code);
+                beacon.setAddress(search_code);
                 beacon.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 beacon.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 beacon.setID_pdi(rs.getInt(FIELD_ID_PDI));
-                beacon.setInd_NDC(rs.getDouble(FIELD_NDC));
+                beacon.setInd_NCD(rs.getDouble(FIELD_NCD));
                 beacon.setInd_fumi(rs.getDouble(FIELD_FUMI));
                 beacon.setInd_fuoco(rs.getDouble(FIELD_FUOCO));
                 beacon.setInd_rischio(rs.getDouble(FIELD_RISCHIO));
@@ -185,11 +185,11 @@ public class BeaconService {
             	Beacon beacon;
                 beacon = new Beacon();
                 beacon.setID_beacon(rs.getInt(FIELD_ID));
-                beacon.setCodice(rs.getString(FIELD_ADDR));
+                beacon.setAddress(rs.getString(FIELD_ADDR));
                 beacon.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 beacon.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 beacon.setID_pdi(rs.getInt(FIELD_ID_PDI));
-                beacon.setInd_NDC(rs.getDouble(FIELD_NDC));
+                beacon.setInd_NCD(rs.getDouble(FIELD_NCD));
                 beacon.setInd_fumi(rs.getDouble(FIELD_FUMI));
                 beacon.setInd_fuoco(rs.getDouble(FIELD_FUOCO));
                 beacon.setInd_rischio(rs.getDouble(FIELD_RISCHIO));
@@ -225,11 +225,11 @@ public class BeaconService {
             	Beacon beacon;
                 beacon = new Beacon();
                 beacon.setID_beacon(rs.getInt(FIELD_ID));
-                beacon.setCodice(rs.getString(FIELD_ADDR));
+                beacon.setAddress(rs.getString(FIELD_ADDR));
                 beacon.setCoord_X(rs.getDouble(FIELD_COORD_X));
                 beacon.setCoord_Y(rs.getDouble(FIELD_COORD_Y));
                 beacon.setID_pdi(rs.getInt(FIELD_ID_PDI));
-                beacon.setInd_NDC(rs.getDouble(FIELD_NDC));
+                beacon.setInd_NCD(rs.getDouble(FIELD_NCD));
                 beacon.setInd_fumi(rs.getDouble(FIELD_FUMI));
                 beacon.setInd_fuoco(rs.getDouble(FIELD_FUOCO));
                 beacon.setInd_rischio(rs.getDouble(FIELD_RISCHIO));
@@ -259,14 +259,14 @@ public class BeaconService {
                     + FIELD_COORD_Y + ","
                     + FIELD_FUOCO + ","
                     + FIELD_FUMI + ","
-                    + FIELD_NDC + ","
+                    + FIELD_NCD + ","
                     + FIELD_RISCHIO + ","
                     + FIELD_ID_PDI + ","
                     + FIELD_ID_PIANO + ","
                     + FIELD_ID_MAPPA + ") values(?,?,?,?,?,?,?,?,?,?)";
 
             st = conn.prepareStatement(query);
-            st.setString(1, beacon.getCodice());
+            st.setString(1, beacon.getAddress());
             st.setDouble(2, beacon.getCoord_X());
             st.setDouble(3, beacon.getCoord_Y());
             st.setDouble(4, 0.0);
@@ -308,7 +308,7 @@ public class BeaconService {
                     + FIELD_ID_PDI + "=? "
                     + "where " + FIELD_ID + "=?";
             st = conn.prepareStatement(query);
-            st.setString(1, beacon.getCodice());
+            st.setString(1, beacon.getAddress());
             st.setDouble(2, beacon.getCoord_X());
             st.setDouble(3, beacon.getCoord_Y());
             if(beacon.getID_pdi() != null) {
