@@ -383,4 +383,31 @@ public class BeaconService {
         }
     }
     
+    public void updateNCD(Beacon beacon) {
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set "
+                    + FIELD_NCD + " = ? "
+                    + "where " + FIELD_ID + "=?";
+            st = conn.prepareStatement(query);
+            st.setDouble(1, beacon.getInd_NCD());
+            
+            st.executeUpdate();
+            
+            // Log della modifica nel DB
+            Modifica modifica = new Modifica();
+            ModificaService modificaService = new ModificaService();
+            modifica.setTabella(TBL_NAME);
+            modifica.setTipo("Modifica beacon");
+            modificaService.insert(modifica);
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+    }
+    
 }

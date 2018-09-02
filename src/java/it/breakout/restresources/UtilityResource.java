@@ -5,9 +5,12 @@
  */
 package it.breakout.restresources;
 
+import it.breakout.models.Beacon;
 import it.breakout.models.Modifica;
 import it.breakout.models.Utente;
+import it.breakout.services.BeaconService;
 import it.breakout.services.ModificaService;
+import it.breakout.services.NotificaService;
 import it.breakout.services.UtenteService;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ import java.util.Date;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -75,38 +79,60 @@ public class UtilityResource {
         return listaModifiche;
     }
     
+    @PUT
+    @Path("setposition")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void setPosition(Utente utente){
+        UtenteService utenteService = new UtenteService();
+        BeaconService beaconSrv = new BeaconService();
+
+        Utente utenteLocal = utenteService.findById(utente.getID_utente());
+        
+        if(utenteLocal.getID_beacon() != null){
+            Beacon oldPosition = beaconSrv.findByID(utenteLocal.getID_beacon());
+            oldPosition.setInd_NCD(oldPosition.getInd_NCD() - 1);
+            beaconSrv.updateNCD(oldPosition);
+        }
+        utenteService.updatePosition(utente);
+        
+        Beacon newPosition = beaconSrv.findByID(utente.getID_beacon());
+        newPosition.setInd_NCD(newPosition.getInd_NCD() + 1);
+        beaconSrv.updateNCD(newPosition);
+
+    }
+    
+    @PUT
+    @Path("beaconvalues")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void setBeaconValues(){
+    }
+    
+    @POST
+    @Path("checkusername")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String checkUsername(Utente utente){
+        UtenteService utenteService = new UtenteService();
+        Utente utenteTrovato = utenteService.findByUser(utente.getUsername());
+        
+        String flag;
+        
+        if(utenteTrovato.getID_utente()!=null){
+            flag = "true";
+        }else{
+            flag="false";
+        }
+        
+        return flag;
+    }
+    
     @GET
-	@Path("test")
-	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<Utente> test(){
-            ArrayList<Utente> gegia = new ArrayList<>();
-		Utente value = new Utente();
-		value.setID_utente(5);
-		value.setID_beacon(9);
-		value.setNome("Mario");
-		value.setCognome("Rossi");
-                value.setEmail("fifo@vavva.con");
-                value.setUsername("nonno");
-                value.setPassword("nanni");
-                value.setIs_online(true);
-		
-                gegia.add(value);
-                
-                Utente value1 = new Utente();
-		value1.setID_utente(4);
-		value1.setID_beacon(6);
-		value1.setNome("Marino");
-		value1.setCognome("Rotti");
-                value1.setEmail("vavva@fifo.con");
-                value1.setUsername("ninna");
-                value1.setPassword("nanna");
-                value1.setIs_online(false);
-                
-                gegia.add(value1);
-                
-		return gegia;
-	}
-    
-    
+    @Path("emergency")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String checkEmergency(){
+        NotificaService notificaSrv = new NotificaService();
+        
+        return notificaSrv.retrieveLastState();
+    }
     
 }

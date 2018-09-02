@@ -249,4 +249,52 @@ public class UtenteService {
         
         return utente;
     }
+
+    public void updatePosition(Utente utente) {
+        try {
+            open();
+            
+            String query = "update " + TBL_NAME + " set " + FIELD_ID_BEACON + " = ? where " + FIELD_ID + " = ?";
+            st = conn.prepareStatement(query);
+            st.setInt(1, utente.getID_beacon());
+            st.setInt(2, utente.getID_utente());
+            st.executeUpdate();
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }    
+    }
+
+    public Utente findById(Integer id_utente) {
+        ResultSet rs = null;
+        Utente utente = new Utente();
+
+        try {
+            open();
+            
+            String query = "select * from " + TBL_NAME + " where " + FIELD_ID + "= ? ";
+            st = conn.prepareStatement(query);
+            st.setInt(1, id_utente);
+            rs = st.executeQuery();
+
+            while(rs.next()) {
+                utente.setID_utente(rs.getInt(FIELD_ID));
+                utente.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                utente.setUsername(rs.getString(FIELD_USR));
+                utente.setPassword(rs.getString(FIELD_PSW));
+                utente.setEmail(rs.getString(FIELD_EMAIL));
+                utente.setNome(rs.getString(FIELD_NOME));
+                utente.setCognome(rs.getString(FIELD_COGNOME));
+                utente.setIs_online(rs.getBoolean(FIELD_IS_ONLINE));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            close();
+        }
+        
+        return utente;
+    }
 }
