@@ -86,19 +86,20 @@ public class UtilityResource {
         UtenteService utenteService = new UtenteService();
         BeaconService beaconSrv = new BeaconService();
 
-        Utente utenteLocal = utenteService.findById(utente.getID_utente());
+        Utente utenteLocal = utenteService.findByUser(utente.getUsername());
         
         if(utenteLocal.getID_beacon() != null){
             Beacon oldPosition = beaconSrv.findByID(utenteLocal.getID_beacon());
             oldPosition.setInd_NCD(oldPosition.getInd_NCD() - 1);
             beaconSrv.updateNCD(oldPosition);
         }
-        utenteService.updatePosition(utente);
         
-        Beacon newPosition = beaconSrv.findByID(utente.getID_beacon());
-        newPosition.setInd_NCD(newPosition.getInd_NCD() + 1);
-        beaconSrv.updateNCD(newPosition);
-
+        utenteService.updatePosition(utente);
+        if(utente.getID_beacon() != null){
+            Beacon newPosition = beaconSrv.findByID(utente.getID_beacon());
+            newPosition.setInd_NCD(newPosition.getInd_NCD() + 1);
+            beaconSrv.updateNCD(newPosition);
+        }
     }
     
     @PUT

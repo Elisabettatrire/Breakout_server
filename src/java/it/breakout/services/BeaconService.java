@@ -389,9 +389,10 @@ public class BeaconService {
             
             String query = "update " + TBL_NAME + " set "
                     + FIELD_NCD + " = ? "
-                    + "where " + FIELD_ID + "=?";
+                    + " where " + FIELD_ID + " = ? ";
             st = conn.prepareStatement(query);
             st.setDouble(1, beacon.getInd_NCD());
+            st.setInt(2, beacon.getID_beacon());
             
             st.executeUpdate();
             

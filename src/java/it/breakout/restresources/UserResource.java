@@ -5,7 +5,9 @@
  */
 package it.breakout.restresources;
 
+import it.breakout.models.Beacon;
 import it.breakout.models.Utente;
+import it.breakout.services.BeaconService;
 import it.breakout.services.UtenteService;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -35,7 +37,7 @@ public class UserResource {
             utenteService.updateIsOnline(utenteTrovato);
             flag = "true";
         }else{
-            flag = "false";
+            flag = "Dati errati";
         }
         
         return flag;
@@ -53,10 +55,24 @@ public class UserResource {
         
         if(utenteTrovato.getID_utente() != null){
             utenteService.updateIsNotOnline(utenteTrovato);
+            
+            BeaconService beaconSrv = new BeaconService();
+        
+            if(utenteTrovato.getID_beacon() != null){
+//                Beacon oldPosition = beaconSrv.findByID(utenteTrovato.getID_beacon());
+//                oldPosition.setInd_NCD(oldPosition.getInd_NCD() - 1);
+//                beaconSrv.updateNCD(oldPosition);
+            }
+            
+            utente.setID_beacon(null);
+            utenteService.updatePosition(utente);
+            
             flag = "true";
         }else{
             flag = "false";
         }
+        
+        
         
         return flag;
     }

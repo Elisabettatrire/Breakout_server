@@ -73,6 +73,9 @@ public class UtenteService {
                 utente.setNome(rs.getString(FIELD_NOME));
                 utente.setCognome(rs.getString(FIELD_COGNOME));
                 utente.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                if(rs.wasNull()){
+                    utente.setID_beacon(null);
+                }
                 utente.setIs_online(rs.getBoolean(FIELD_IS_ONLINE));
                 utenti.add(utente);
             }
@@ -171,6 +174,9 @@ public class UtenteService {
             while(rs.next()) {
                 utente.setID_utente(rs.getInt(FIELD_ID));
                 utente.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                if(rs.wasNull()){
+                    utente.setID_beacon(null);
+                }
                 utente.setUsername(rs.getString(FIELD_USR));
                 utente.setPassword(rs.getString(FIELD_PSW));
                 utente.setEmail(rs.getString(FIELD_EMAIL));
@@ -236,6 +242,9 @@ public class UtenteService {
             while(rs.next()) {
                 utente.setID_utente(rs.getInt(FIELD_ID));
                 utente.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                if(rs.wasNull()){
+                    utente.setID_beacon(null);
+                }
                 utente.setUsername(rs.getString(FIELD_USR));
                 utente.setPassword(rs.getString(FIELD_PSW));
                 utente.setEmail(rs.getString(FIELD_EMAIL));
@@ -256,10 +265,14 @@ public class UtenteService {
         try {
             open();
             
-            String query = "update " + TBL_NAME + " set " + FIELD_ID_BEACON + " = ? where " + FIELD_ID + " = ?";
+            String query = "update " + TBL_NAME + " set " + FIELD_ID_BEACON + " = ? where " + FIELD_USR + " = ?";
             st = conn.prepareStatement(query);
-            st.setInt(1, utente.getID_beacon());
-            st.setInt(2, utente.getID_utente());
+            if(utente.getID_beacon() != null){
+                st.setInt(1, utente.getID_beacon());
+            } else {
+                st.setNull(1, java.sql.Types.INTEGER);
+            }
+            st.setString(2, utente.getUsername());
             st.executeUpdate();
             
         } catch (SQLException e) {
@@ -284,6 +297,9 @@ public class UtenteService {
             while(rs.next()) {
                 utente.setID_utente(rs.getInt(FIELD_ID));
                 utente.setID_beacon(rs.getInt(FIELD_ID_BEACON));
+                if(rs.wasNull()){
+                    utente.setID_beacon(null);
+                }
                 utente.setUsername(rs.getString(FIELD_USR));
                 utente.setPassword(rs.getString(FIELD_PSW));
                 utente.setEmail(rs.getString(FIELD_EMAIL));
