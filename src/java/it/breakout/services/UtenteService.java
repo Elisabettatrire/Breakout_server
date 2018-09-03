@@ -131,7 +131,8 @@ public class UtenteService {
                     + FIELD_PSW + ","
                     + FIELD_EMAIL + ","
                     + FIELD_NOME + ","
-                    + FIELD_COGNOME + ") values (?,?,?,?,?)";
+                    + FIELD_COGNOME + "," 
+                    + FIELD_IS_ONLINE + ") values (?,?,?,?,?,?)";
                         
             st = conn.prepareStatement(query);
             st.setString(1, utente.getUsername());
@@ -139,6 +140,7 @@ public class UtenteService {
             st.setString(3, utente.getEmail());
             st.setString(4, utente.getNome());
             st.setString(5, utente.getCognome());
+            st.setBoolean(6, false);
 
             st.executeUpdate();
             

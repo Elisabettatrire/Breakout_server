@@ -19,6 +19,8 @@ public class Scala {
     private double larghezza_media;
     private double lunghezza;
     private Integer[] nodi_int;
+    private Integer ID_nodo1;
+    private Integer ID_nodo2;
     private ArrayList<Nodo> nodi;
     private Beacon beacon;
     private Integer ID_beacon;
@@ -40,6 +42,24 @@ public class Scala {
         return other;
     }
 
+    public Integer getID_nodo1() {
+        return ID_nodo1;
+    }
+
+    public void setID_nodo1(Integer ID_nodo1) {
+        this.ID_nodo1 = ID_nodo1;
+    }
+
+    public Integer getID_nodo2() {
+        return ID_nodo2;
+    }
+
+    public void setID_nodo2(Integer ID_nodo2) {
+        this.ID_nodo2 = ID_nodo2;
+    }
+
+    
+    
     public Integer[] getNodiInteger() {
         return nodi_int;
     }

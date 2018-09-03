@@ -648,6 +648,8 @@ public class TroncoService {
                 tronco = new Tronco();
                 tronco.setID(rs.getInt(FIELD_ID));
                 tronco.setLunghezza(rs.getDouble(FIELD_LUNGHEZZA));
+                tronco.setID_nodo1(rs.getInt(FIELD_ID_N1));
+                tronco.setID_nodo2(rs.getInt(FIELD_ID_N2));
                 tronco.setNodiInteger(rs.getInt(FIELD_ID_N1), rs.getInt(FIELD_ID_N2));
                 tronco.setID_beacon(rs.getInt(FIELD_ID_BEACON));
                 tronco.setID_mappa(rs.getInt(FIELD_ID_MAPPA));
