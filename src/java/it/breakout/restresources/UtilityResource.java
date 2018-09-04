@@ -79,7 +79,7 @@ public class UtilityResource {
         return listaModifiche;
     }
     
-    @PUT
+    @POST
     @Path("setposition")
     @Consumes(MediaType.APPLICATION_JSON)
     public void setPosition(Utente utente){
